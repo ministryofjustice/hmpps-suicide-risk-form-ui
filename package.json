@@ -1,8 +1,8 @@
 {
-  "name": "hmpps-template-typescript",
+  "name": "hmpps-suicide-risk-form-ui",
   "version": "0.0.1",
-  "description": "HMPPS Typescript Template",
-  "repository": "git@github.com:ministryofjustice/hmpps-template-typescript.git",
+  "description": "HMPPS Suicide Risk Form Ui",
+  "repository": "git@github.com:ministryofjustice/hmpps-suicide-risk-form-ui.git",
   "license": "MIT",
   "scripts": {
     "prepare": "husky",
