@@ -2,6 +2,8 @@ services:
 
   wiremock:
     image: wiremock/wiremock
+    volumes:
+      - ./wiremock:/home/wiremock
     networks:
     - hmpps_int
     container_name: wiremock

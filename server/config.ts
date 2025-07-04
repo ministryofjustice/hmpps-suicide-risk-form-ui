@@ -72,6 +72,24 @@ export default {
       agent: new AgentConfig(Number(get('TOKEN_VERIFICATION_API_TIMEOUT_RESPONSE', 5000))),
       enabled: get('TOKEN_VERIFICATION_ENABLED', 'false') === 'true',
     },
+    suicideRisk: {
+      url: get('SUICIDE_RISK_API_URL', 'http://localhost:9091/suicide-risk-api', requiredInProduction),
+      healthPath: '/health/ping',
+      timeout: {
+        response: Number(get('SUICIDE_RISK_API_TIMEOUT_RESPONSE', 5000)),
+        deadline: Number(get('SUICIDE_RISK_API_TIMEOUT_DEADLINE', 5000)),
+      },
+      agent: new AgentConfig(Number(get('SUICIDE_RISK_API_TIMEOUT_RESPONSE', 5000))),
+    },
+    ndeliusIntegration: {
+      url: get('NDELIUS_INTEGRATION_URL', 'http://localhost:9091', requiredInProduction),
+      healthPath: '/health/ping',
+      timeout: {
+        response: Number(get('NDELIUS_INTEGRATION_TIMEOUT_RESPONSE', 10000)),
+        deadline: Number(get('NDELIUS_INTEGRATION_TIMEOUT_DEADLINE', 10000)),
+      },
+      agent: new AgentConfig(Number(get('NDELIUS_INTEGRATION_TIMEOUT_RESPONSE', 10000))),
+    },
     exampleApi: {
       url: get('EXAMPLE_API_URL', 'http://localhost:8080', requiredInProduction),
       healthPath: '/health/ping',
