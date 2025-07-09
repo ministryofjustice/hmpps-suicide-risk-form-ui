@@ -5,177 +5,150 @@
 
 Template github repo used for new Typescript based projects.
 
-# Instructions
+## Get started
 
-If this is a HMPPS project then the project will be created as part of bootstrapping -
-see https://github.com/ministryofjustice/hmpps-project-bootstrap. You are able to specify a template application using
-the `github_template_repo` attribute to clone without the need to manually do this yourself within GitHub.
+Dev: https://github.com/ministryofjustice/hmpps-suicide-risk-form-ui
 
-This project is community managed by the mojdt `#typescript` slack channel.
-Please raise any questions or queries there. Contributions welcome!
+### Pre-requisites
 
-Our security policy is located [here](https://github.com/ministryofjustice/hmpps-suicide-risk-form-ui/security/policy).
+You'll need to install:
 
-More information about the template project including features can be
-found [here](https://dsdmoj.atlassian.net/wiki/spaces/NDSS/pages/3488677932/Typescript+template+project).
+* [Node 22.x](https://nodejs.org/download/release/latest-v22.x)*
+* [Docker](https://www.docker.com/)
 
-Documentation to create new service is located [here](https://tech-docs.hmpps.service.justice.gov.uk/applicationplatform/newservice-GHA/).
+*If you're already using [nvm](https://github.com/nvm-sh/nvm) or [fnm](https://github.com/Schniz/fnm), run:
+`nvm install --latest-npm` at the project root to install the correct Node version automatically.
 
-## Creating a Cloud Platform namespace
-
-When deploying to a new namespace, you may wish to use the
-[templates project namespace](https://github.com/ministryofjustice/cloud-platform-environments/tree/main/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-templates-dev)
-as the basis for your new namespace. This namespace contains both the kotlin and typescript template projects, which
-is the usual way that projects are setup. This namespace includes an AWS elasticache setup - which is required by this
-template project.
-
-Copy this folder and update all the existing namespace references. If you only need the typescript configuration then
-remove all kotlin references. Submit a PR to the Cloud Platform team in #ask-cloud-platform. Further instructions from
-the Cloud Platform team can be found in
-the [Cloud Platform User Guide](https://user-guide.cloud-platform.service.justice.gov.uk/#cloud-platform-user-guide)
-
-## Renaming from HMPPS Template Typescript - github Actions
-
-Once the new repository is deployed. Navigate to the repository in github, and select the `Actions` tab.
-Click the link to `Enable Actions on this repository`.
-
-Find the Action workflow named: `rename-project-create-pr` and click `Run workflow`. This workflow will
-execute the `rename-project.bash` and create Pull Request for you to review. Review the PR and merge.
-
-Note: ideally this workflow would run automatically however due to a recent change github Actions are not
-enabled by default on newly created repos. There is no way to enable Actions other then to click the button in the UI.
-If this situation changes we will update this project so that the workflow is triggered during the bootstrap project.
-Further reading: <https://github.community/t/workflow-isnt-enabled-in-repos-generated-from-template/136421>
-
-The script takes six arguments:
-
-### New project name
-
-This should start with `hmpps-` e.g. `hmpps-prison-visits` so that it can be easily distinguished in github from
-other departments projects. Try to avoid using abbreviations so that others can understand easily what your project is.
-
-### Slack channel for release notifications
-
-By default, release notifications are only enabled for production. The github pipeline configuration can be amended to send
-release notifications for deployments to other environments if required. Note that if the configuration is amended,
-the slack channel should then be amended to your own team's channel as `hmpps-releases` (previously called `dps-releases`) is strictly for production release
-notifications. If the slack channel is set to something other than `hmpps-releases`, production release notifications
-will still automatically go to `hmpps-releases` as well. This is configured by by setting a github actions environment variable called `RELEASE_NOTIFICATIONS_SLACK_CHANNEL_ID`.
-
-### Slack channel for pipeline security notifications
-
-Ths channel should be specific to your team and is for daily / weekly security scanning job results. It is your team's
-responsibility to keep up-to-date with security issues and update your application so that these jobs pass. You will
-only be notified if the jobs fail. The scan results can always be found in github actions and results are sent to the github security tab. This is
-configured by setting github actions environment variable called `SECURITY_ALERTS_SLACK_CHANNEL_ID`.
-
-### Non production kubernetes alerts
-
-By default Prometheus alerts are created in the application namespaces to monitor your application e.g. if your
-application is crash looping, there are a significant number of errors from the ingress. Since Prometheus runs in
-cloud platform AlertManager needs to be setup first with your channel. Please see
-[Create your own custom alerts](https://user-guide.cloud-platform.service.justice.gov.uk/documentation/monitoring-an-app/how-to-create-alarms.html)
-in the Cloud Platform user guide. Once that is setup then the `custom severity label` can be used for
-`alertSeverity` in the `helm_deploy/values-*.yaml` configuration.
-
-Normally it is worth setting up two separate labels and therefore two separate slack channels - one for your production
-alerts and one for your non-production alerts. Using the same channel can mean that production alerts are sometimes
-lost within non-production issues.
-
-### Production kubernetes alerts
-
-This is the severity label for production, determined by the `custom severity label`. See the above
-#non-production-kubernetes-alerts for more information. This is configured in `helm_deploy/values-prod.yaml`.
-
-### Product ID
-
-This is so that we can link a component to a product and thus provide team and product information in the Developer
-Portal. Refer to the developer portal at https://developer-portal.hmpps.service.justice.gov.uk/products to find your
-product id. This is configured in `helm_deploy/<project_name>/values.yaml`.
-
-## Manually branding from template app
-
-Run the `rename-project.bash` without any arguments. This will prompt for the six required parameters and create a PR.
-The script requires a recent version of `bash` to be installed, as well as GNU `sed` in the path.
-
-## Oauth2 Credentials
-
-The template project is set up to run with two sets of credentials, each one support a different oauth2 flows.
-These need to be requested from the auth team by filling in
-this [template](https://dsdmoj.atlassian.net/browse/HAAR-140) and raising on their slack channel.
-
-### Auth Code flow
-
-These are used to allow authenticated users to access the application. After the user is redirected from auth back to
-the application, the typescript app will use the returned auth code to request a JWT token for that user containing the
-user's roles. The JWT token will be verified and then stored in the user's session.
-
-These credentials are configured using the following env variables:
-
-- AUTH_CODE_CLIENT_ID
-- AUTH_CODE_CLIENT_SECRET
-
-### Client Credentials flow
-
-These are used by the application to request tokens to make calls to APIs. These are system accounts that will have
-their own sets of roles.
-
-Most API calls that occur as part of the request/response cycle will be on behalf of a user.
-To make a call on behalf of a user, a username should be passed when requesting a system token. The username will then
-become part of the JWT and can be used downstream for auditing purposes.
-
-These tokens are cached until expiration.
-
-These credentials are configured using the following env variables:
-
-- CLIENT_CREDS_CLIENT_ID
-- CLIENT_CREDS_CLIENT_SECRET
+**To simplify switching between Java versions it is advisable to use [sdkman](https://sdkman.io/install)
 
 ### Dependencies
 
-### HMPPS Auth
+Install NPM package dependencies (from the root of the project):
 
-To allow authenticated users to access your application you need to point it to a running instance of `hmpps-auth`.
-By default the application is configured to run against an instance running in docker that can be started
-via `docker-compose`.
+First - Create a .env file in the root of the project (only on first run copy the example env file by running the following command)
 
-**NB:** It's common for developers to run against the instance of auth running in the development/T3 environment for
-local development.
-Most APIs don't have images with cached data that you can run with docker: setting up realistic stubbed data in sync
-across a variety of services is very difficult.
+```shell
+cp .env.example .env
+```
 
-### REDIS
+Then, to run the service locally with dependencies in WireMock:
 
-When deployed to an environment with multiple pods we run applications with an instance of REDIS/Elasticache to provide
-a distributed cache of sessions.
-The template app is, by default, configured not to use REDIS when running locally.
+If you are using sdkman and your default installation is not java 21, use sdkman to change the java version
 
-## Running the app via docker-compose
+on first run, you will need to install the required version of java via sdkman
 
-The easiest way to run the app is to use docker compose to create the service and all dependencies.
+```shell
+sdk install java 21.0.7-tem
+```
 
-`docker compose pull`
+once installed, you can switch to it at any time using the following command:
 
-`docker compose up`
+```shell
+sdk use java 21.0.7-tem
+```
 
-### Running the app for development
+to start the application run:
 
-To start the main services excluding the example typescript template app:
+```shell
+npm run start:dev
+```
 
-`docker compose up --scale=app=0`
+Open http://localhost:3000 in your browser.
 
-Create an environment file by copying `.env.example` -> `.env`
-Environment variables set in here will be available when running `start:dev`
+### Running the API locally
 
-Install dependencies using `npm install`, ensuring you are using `node v20`
+To start the service with a locally running instance of [hmpps-suicide-risk-api](https://github.com/ministryofjustice/hmpps-breach-notice-api) on port 8080,
+add the following to your `.env` file:
 
-Note: Using `nvm` (or [fnm](https://github.com/Schniz/fnm)), run `nvm install --latest-npm` within the repository folder
-to use the correct version of node, and the latest version of npm. This matches the `engines` config in `package.json`
-and the github pipeline build config.
+```properties
+HMPPS_AUTH_URL=http://localhost:9090/auth
+SUICIDE_RISK_API_URL=http://localhost:8080
+```
 
-And then, to build the assets and start the app with esbuild:
+### Integrate with dev services running on MOJ Cloud Platform
 
-`npm run start:dev`
+Alternatively, you can integrate your local UI with the dev/test services deployed on MOJ Cloud Platform.
+This removes the need for using Docker.
+
+Create a `.env` file at the root of the project:
+
+```properties
+NODE_ENV=development
+ENVIRONMENT=dev
+REDIS_ENABLED=false
+HMPPS_AUTH_URL=https://sign-in-dev.hmpps.service.justice.gov.uk/auth
+MANAGE_USERS_API_URL=https://manage-users-api-dev.hmpps.service.justice.gov.uk
+SUICIDE_RISK_API_URL=https://suicide-risk-api-dev.hmpps.service.justice.gov.uk
+NDELIUS_INTEGRATION_URL=https://suicide-risk-and-delius-dev.hmpps.service.justice.gov.uk
+
+```
+
+Run the following to grab client credentials from the dev namespace:
+
+```shell
+kubectl -n hmpps-suicide-risk-form-dev get secret hmpps-suicide-risk-form-ui -o json \
+| jq -r '.data | map_values(@base64d) | to_entries[] | "\(.key)=\(.value)"' \
+| grep CLIENT >> .env
+```
+
+Then, start the UI service:
+
+```shell
+npm run start:dev
+```
+
+## Formatting
+
+### Check formatting
+
+`npm run lint`
+
+### Fix formatting
+
+`npm run lint:fix`
+
+### Intellij Config
+
+For formatting nunjucks files it is recommended to install the [Twig Plugin for IntelliJ](https://plugins.jetbrains.com/plugin/7303-twig) and [configure a filetype association](https://www.jetbrains.com/help/idea/creating-and-registering-file-types.html) for *.njk files
+
+To automatically format TypeScript files go to settings, enable the ESLint "fix on save" setting in IntelliJ.
+See [Fix problems automatically on save](https://www.jetbrains.com/help/idea/eslint.html#ws_eslint_configure_run_eslint_on_save)
+
+
+## Testing
+
+### Run unit tests
+
+`npm run test`
+
+### Running integration tests
+
+To run the Cypress integration tests locally:
+
+You DO NOT have the Oauth docker container running
+you WILL need wiremock docker container running
+
+```shell
+# start the wiremock docker container either from docker-compose.yml from within intellij or by running:
+docker compose up -d wiremock
+
+# if there are any changes made to the wiremock mappings you will need to restart the wiremock container
+# to pick up the changes
+
+# Start the UI in test mode
+npm run start-feature:dev
+
+# Run the tests in headless mode:
+npm run int-test
+
+# Or, run the tests with the Cypress UI:
+npm run int-test-ui
+```
+
+### Dependency Checks
+
+The template project has implemented some scheduled checks to ensure that key dependencies are kept up to date.
+If these are not desired in the cloned project, remove references to `check_outdated` job from `.circleci/config.yml`
 
 ### Logging in with a test user
 
@@ -214,7 +187,3 @@ And then either, run tests in headless mode with:
 Or run tests with the cypress UI:
 
 `npm run int-test-ui`
-
-## Change log
-
-A changelog for the service is available [here](./CHANGELOG.md)

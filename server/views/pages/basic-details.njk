@@ -1,0 +1,14 @@
+{% extends "../partials/layout.njk" %}
+
+{% set pageTitle = applicationName + " - Home" %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block content %}
+  <form method="post">
+      <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+      <div class="govuk-grid-row">
+        <h2 class="govuk-heading-m">CRN</h2>
+        <p id="crn">{{ suicideRisk.crn }}</p>
+      </div>
+  </form>
+{% endblock %}
