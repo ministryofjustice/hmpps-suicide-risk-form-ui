@@ -125,9 +125,16 @@ See [Fix problems automatically on save](https://www.jetbrains.com/help/idea/esl
 
 To run the Cypress integration tests locally:
 
-You will need an instance of the oauth docker image running. This can be started by running the docker-compose.yml
+You DO NOT have the Oauth docker container running
+you WILL need wiremock docker container running
 
 ```shell
+# start the wiremock docker container either from docker-compose.yml from within intellij or by running:
+docker compose up -d wiremock
+
+# if there are any changes made to the wiremock mappings you will need to restart the wiremock container
+# to pick up the changes
+
 # Start the UI in test mode
 npm run start-feature:dev
 
