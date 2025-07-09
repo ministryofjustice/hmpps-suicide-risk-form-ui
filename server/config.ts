@@ -82,7 +82,7 @@ export default {
       agent: new AgentConfig(Number(get('SUICIDE_RISK_API_TIMEOUT_RESPONSE', 5000))),
     },
     ndeliusIntegration: {
-      url: get('NDELIUS_INTEGRATION_URL', 'http://localhost:9091', requiredInProduction),
+      url: get('NDELIUS_INTEGRATION_URL', 'http://localhost:9091/ndelius', requiredInProduction),
       healthPath: '/health/ping',
       timeout: {
         response: Number(get('NDELIUS_INTEGRATION_TIMEOUT_RESPONSE', 10000)),
