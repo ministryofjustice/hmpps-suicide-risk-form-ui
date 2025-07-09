@@ -15,7 +15,6 @@ You'll need to install:
 
 * [Node 22.x](https://nodejs.org/download/release/latest-v22.x)*
 * [Docker](https://www.docker.com/)
-* [Java 21](https://www.oracle.com/uk/java/technologies/downloads/)**
 
 *If you're already using [nvm](https://github.com/nvm-sh/nvm) or [fnm](https://github.com/Schniz/fnm), run:
 `nvm install --latest-npm` at the project root to install the correct Node version automatically.
@@ -63,7 +62,7 @@ add the following to your `.env` file:
 
 ```properties
 HMPPS_AUTH_URL=http://localhost:9090/auth
-BREACH_NOTICE_API_URL=http://localhost:8080
+SUICIDE_RISK_API_URL=http://localhost:8080
 ```
 
 ### Integrate with dev services running on MOJ Cloud Platform
@@ -79,7 +78,7 @@ ENVIRONMENT=dev
 REDIS_ENABLED=false
 HMPPS_AUTH_URL=https://sign-in-dev.hmpps.service.justice.gov.uk/auth
 MANAGE_USERS_API_URL=https://manage-users-api-dev.hmpps.service.justice.gov.uk
-BREACH_NOTICE_API_URL=https://suicide-risk-api-dev.hmpps.service.justice.gov.uk
+SUICIDE_RISK_API_URL=https://suicide-risk-api-dev.hmpps.service.justice.gov.uk
 NDELIUS_INTEGRATION_URL=https://suicide-risk-and-delius-dev.hmpps.service.justice.gov.uk
 
 ```
@@ -87,7 +86,7 @@ NDELIUS_INTEGRATION_URL=https://suicide-risk-and-delius-dev.hmpps.service.justic
 Run the following to grab client credentials from the dev namespace:
 
 ```shell
-kubectl -n hmpps-breach-notice-dev get secret hmpps-breach-notice-ui -o json \
+kubectl -n hmpps-suicide-risk-form-dev get secret hmpps-suicide-risk-form-ui -o json \
 | jq -r '.data | map_values(@base64d) | to_entries[] | "\(.key)=\(.value)"' \
 | grep CLIENT >> .env
 ```
