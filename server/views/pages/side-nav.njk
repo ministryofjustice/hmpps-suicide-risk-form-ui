@@ -1,0 +1,48 @@
+<nav class="moj-side-navigation" aria-label="Side navigation">
+    <ul class="moj-side-navigation__list">
+
+        <li class="moj-side-navigation__item {{ "moj-side-navigation__item--active" if currentPage == "basic-details" }}">
+            <a id="nav-basic-details" href="/basic-details/{{ suicideRisk.id }}" aria-current="location">Basic details</a>
+        </li>
+
+        <li class="moj-side-navigation__item {{ "moj-side-navigation__item--active" if currentPage == "information" }}">
+            {% if suicideRisk.basicDetailsSaved %}
+                <a id="nav-information" href="/information/{{ suicideRisk.id }}" aria-current="location">Information</a>
+            {% else %}
+                <a id="nav-information-disabled" href="#" aria-current="location" class=disabled-nav>Information</a>
+            {% endif %}
+        </li>
+
+        <li class="moj-side-navigation__item {{ "moj-side-navigation__item--active" if currentPage == "treatment" }}">
+            {% if suicideRisk.treatmentSaved %}
+                <a id="nav-treatment" href="/treatment/{{ suicideRisk.id }}" aria-current="location">Treatment</a>
+            {% else %}
+                <a id="nav-treatment-disabled" href="#" aria-current="location" class=disabled-nav>Treatment</a>
+            {% endif %}
+        </li>
+
+        <li class="moj-side-navigation__item {{ "moj-side-navigation__item--active" if currentPage == "recipients" }}">
+            {% if suicideRisk.contactSaved %}
+                <a id="nav-recipients" href="/recipients/{{ suicideRisk.id }}" aria-current="location">Recipients</a>
+            {% else %}
+                <a id="nav-recipients-disabled" href="#" aria-current="location" class=disabled-nav>Recipients</a>
+            {% endif %}
+        </li>
+
+        <li class="moj-side-navigation__item {{ "moj-side-navigation__item--active" if currentPage == "sign-and-send" }}">
+            {% if suicideRisk.signAndSendSaved %}
+                <a id="nav-sign-and-send" href="/sign-and-send/{{ suicideRisk.id }}" aria-current="location">Sign and Send</a>
+            {% else %}
+                <a id="nav-sign-and-send-disabled" href="#" class="disabled-nav" aria-current="location">Sign and Send</a>
+            {% endif %}
+        </li>
+
+      <li class="moj-side-navigation__item {{ "moj-side-navigation__item--active" if currentPage == "check-your-answers" }}">
+        {% if suicideRisk.basicDetailsSaved %}
+          <a id="nav-check-your-answers" href="/check-your-answers/{{ suicideRisk.id }}" aria-current="location">Check your answers</a>
+        {% else %}
+          <a id="nav-check-your-answers-disabled" href="#" class="disabled-nav" aria-current="location">Check your answers</a>
+        {% endif %}
+      </li>
+    </ul>
+</nav>

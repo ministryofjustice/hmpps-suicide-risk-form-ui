@@ -1,0 +1,23 @@
+{% extends "../partials/layout.njk" %}
+
+{% set pageTitle = applicationName + " - Home" %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block content %}
+    {% from "moj/components/side-navigation/macro.njk" import mojSideNavigation %}
+    {% from "govuk/components/panel/macro.njk" import govukPanel %}
+    {% from "govuk/components/panel/macro.njk" import govukPanel %}
+
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            {% set mainClasses = "govuk-main-wrapper--l" %}
+
+            {{ govukPanel({
+                titleText: "Letter Published",
+                html: "Your Breach Report has been completed and uploaded."
+            }) }}
+        </div>
+    </div>
+
+{% endblock %}

@@ -2,6 +2,11 @@ import HmppsAuditClient, { AuditEvent } from '../data/hmppsAuditClient'
 
 export enum Page {
   BASIC_DETAILS = 'BASIC_DETAILS',
+  INFORMATION = 'INFORMATION',
+  TREATMENT = 'TREATMENT',
+  SIGN_AND_SEND = 'SIGN_AND_SEND',
+  CHECK_YOUR_ANSWERS = 'CHECK_YOUR_ANSWERS',
+  REPORT_COMPLETED = 'REPORT_COMPLETED',
 }
 
 export interface PageViewEventDetails {
