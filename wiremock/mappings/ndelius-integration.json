@@ -19,6 +19,46 @@
           "Content-Type": "application/json;charset=UTF-8"
         }
       }
+    },
+    {
+      "request": {
+        "urlPattern": "/ndelius/basic-details/X000002/(.*?)",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "title": "Mr",
+          "name": {
+            "forename": "Brian",
+            "middleName": "Geoff",
+            "surname": "Smith"
+          }
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPattern": "/ndelius/basic-details/X000003/(.*?)",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "title": "Mr",
+          "name": {
+            "forename": "George",
+            "middleName": "The",
+            "surname": "Squid"
+          }
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
     }
   ]
 }
