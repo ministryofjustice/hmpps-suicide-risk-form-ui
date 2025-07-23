@@ -2,8 +2,14 @@ import { Router } from 'express'
 
 import type { Services } from '../services'
 import basicDetailsRoutes from './basicDetails'
+import informationRoutes from './information'
+import treatmentRoutes from './treatment'
+import recipientsRoutes from './recipients'
+import signAndSendRoutes from './signAndSend'
+import checkYourAnswersRoutes from './checkYourAnswers'
+import reportCompletedRoutes from './reportCompleted'
 
-export default function routes({ auditService, hmppsAuthClient }: Services): Router {
+export default function routes({ auditService, hmppsAuthClient, commonUtils }: Services): Router {
   const router = Router()
 
   router.get('/', async (req, res, next) => {
@@ -20,6 +26,12 @@ export default function routes({ auditService, hmppsAuthClient }: Services): Rou
     )
   })
 
-  basicDetailsRoutes(router, auditService, hmppsAuthClient)
+  basicDetailsRoutes(router, auditService, hmppsAuthClient, commonUtils)
+  informationRoutes(router, auditService, hmppsAuthClient, commonUtils)
+  treatmentRoutes(router, auditService, hmppsAuthClient, commonUtils)
+  recipientsRoutes(router, auditService, hmppsAuthClient, commonUtils)
+  signAndSendRoutes(router, auditService, hmppsAuthClient, commonUtils)
+  checkYourAnswersRoutes(router, auditService, hmppsAuthClient, commonUtils)
+  reportCompletedRoutes(router, auditService, hmppsAuthClient)
   return router
 }
