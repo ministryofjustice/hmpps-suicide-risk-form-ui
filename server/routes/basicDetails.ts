@@ -146,6 +146,8 @@ export default function basicDetailsRoutes(
 
     await suicideRiskApiClient.updateSuicideRisk(req.params.id, suicideRisk, res.locals.user.username)
 
+    if (await commonUtils.redirectRequired(suicideRisk, res)) return
+
     if (req.body.action === 'saveProgressAndClose') {
       res.send(
         `<p>You can now safely close this window</p><script nonce="${res.locals.cspNonce}">window.close()</script>`,
@@ -155,7 +157,6 @@ export default function basicDetailsRoutes(
     } else {
       res.redirect(`/information/${req.params.id}`)
     }
-    if (await commonUtils.redirectRequired(suicideRisk, res)) return
   })
   return router
 }
