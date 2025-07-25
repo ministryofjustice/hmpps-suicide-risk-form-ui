@@ -5,18 +5,19 @@ import AuditService, { Page } from '../services/auditService'
 import SuicideRiskApiClient, { SuicideRisk, SuicideRiskAddress } from '../data/suicideRiskApiClient'
 import NDeliusIntegrationApiClient, { BasicDetails, DeliusAddress, Name } from '../data/ndeliusIntegrationApiClient'
 import { handleIntegrationErrors } from '../utils/utils'
+import CommonUtils from '../services/commonUtils'
 import { ErrorMessages } from '../data/uiModels'
 
 export default function basicDetailsRoutes(
   router: Router,
   auditService: AuditService,
   authenticationClient: AuthenticationClient,
+  commonUtils: CommonUtils,
 ): Router {
   const currentPage = 'basic-details'
 
   router.get('/basic-details/:id', async (req, res) => {
     await auditService.logPageView(Page.BASIC_DETAILS, { who: res.locals.user.username, correlationId: req.id })
-
     const suicideRiskApiClient = new SuicideRiskApiClient(authenticationClient)
     const ndeliusIntegrationApiClient = new NDeliusIntegrationApiClient(authenticationClient)
 
@@ -154,6 +155,7 @@ export default function basicDetailsRoutes(
     } else {
       res.redirect(`/information/${req.params.id}`)
     }
+    if (await commonUtils.redirectRequired(suicideRisk, res)) return
   })
   return router
 }
