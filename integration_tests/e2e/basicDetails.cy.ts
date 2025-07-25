@@ -1,14 +1,4 @@
 context('Basic Details page', () => {
-  beforeEach(() => {
-    cy.session('AUTH_USER', () => {
-      cy.visit('/basic-details/00000000-0000-0000-0000-000000000001')
-      cy.get('#username').type('AUTH_USER')
-      cy.get('#password').type('password123456')
-      cy.get('#submit').click()
-      cy.visit('/basic-details/00000000-0000-0000-0000-000000000001')
-      cy.url().should('not.include', 'auth/sign-in')
-    })
-  })
 
   it('can see readonly fields', () => {
     cy.visit('/basic-details/00000000-0000-0000-0000-000000000001')
