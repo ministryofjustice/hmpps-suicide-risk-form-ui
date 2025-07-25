@@ -17,6 +17,16 @@ export default class SuicideRiskApiClient extends RestClient {
       asSystem(username),
     )
   }
+
+  async updateSuicideRisk(id: string, suicideRisk: SuicideRisk, username: string): Promise<SuicideRisk> {
+    return this.put(
+      {
+        path: `/suicide-risk/${id}`,
+        data: suicideRisk as unknown as Record<string, unknown>,
+      },
+      asSystem(username),
+    )
+  }
 }
 
 export interface SuicideRisk {

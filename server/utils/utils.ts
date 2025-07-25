@@ -1,3 +1,5 @@
+import { ErrorMessages } from '../data/uiModels'
+
 const properCase = (word: string): string =>
   word.length >= 1 ? word[0].toUpperCase() + word.toLowerCase().slice(1) : word
 
@@ -20,4 +22,37 @@ export const initialiseName = (fullName?: string): string | null => {
 
   const array = fullName.split(' ')
   return `${array[0][0]}. ${array.reverse()[0]}`
+}
+
+export function handleIntegrationErrors(status: number, message: string, integrationService: string): ErrorMessages {
+  const errorMessages: ErrorMessages = {}
+  if (status === 400) {
+    if (message?.includes('No home area found')) {
+      errorMessages.genericErrorMessage = {
+        text: 'Your Delius account is missing a home area, please contact the service desk to update your account before using this service.',
+      }
+    } else {
+      errorMessages.genericErrorMessage = {
+        text: 'An unexpected 400 type error has occurred. Please contact the service desk and report this error.',
+      }
+    }
+    return errorMessages
+  }
+  if (status === 404) {
+    errorMessages.genericErrorMessage = {
+      text: 'The document has not been found or has been deleted. An error has been logged. 404',
+    }
+    return errorMessages
+  }
+  if (integrationService === 'NDelius Integration') {
+    errorMessages.genericErrorMessage = {
+      text: 'There has been a problem fetching information from NDelius. Please try again later.',
+    }
+  } else {
+    errorMessages.genericErrorMessage = {
+      text: 'There has been a problem fetching information from the Suicide Risk Service. Please try again later.',
+    }
+  }
+
+  return errorMessages
 }
