@@ -3,8 +3,15 @@ import { AuthenticationClient } from '@ministryofjustice/hmpps-auth-clients'
 import AuditService, { Page } from '../services/auditService'
 
 import SuicideRiskApiClient, { SuicideRisk, SuicideRiskAddress } from '../data/suicideRiskApiClient'
-import NDeliusIntegrationApiClient, { BasicDetails, DeliusAddress, Name } from '../data/ndeliusIntegrationApiClient'
-import { handleIntegrationErrors } from '../utils/utils'
+import NDeliusIntegrationApiClient, { BasicDetails, DeliusAddress } from '../data/ndeliusIntegrationApiClient'
+import {
+  calculateAge,
+  findDefaultAddressInAddressList,
+  formatTitleAndFullName,
+  handleIntegrationErrors,
+  toIsoDateFormat,
+  toSuicideRiskAddress,
+} from '../utils/utils'
 import CommonUtils from '../services/commonUtils'
 import { ErrorMessages } from '../data/uiModels'
 
@@ -74,6 +81,8 @@ export default function basicDetailsRoutes(
       res.render(`pages/detailed-error`, { errorMessages })
       return
     }
+
+    if (await commonUtils.redirectRequired(suicideRisk, res)) return
 
     const age = calculateAge(basicDetails.dateOfBirth)
     const defaultAddress: DeliusAddress = findDefaultAddressInAddressList(basicDetails.addresses)
@@ -146,8 +155,6 @@ export default function basicDetailsRoutes(
 
     await suicideRiskApiClient.updateSuicideRisk(req.params.id, suicideRisk, res.locals.user.username)
 
-    if (await commonUtils.redirectRequired(suicideRisk, res)) return
-
     if (req.body.action === 'saveProgressAndClose') {
       res.send(
         `<p>You can now safely close this window</p><script nonce="${res.locals.cspNonce}">window.close()</script>`,
@@ -159,68 +166,4 @@ export default function basicDetailsRoutes(
     }
   })
   return router
-}
-
-function findDefaultAddressInAddressList(addressList: Array<DeliusAddress>): DeliusAddress {
-  if (!Array.isArray(addressList) || addressList.length === 0) {
-    return null
-  }
-
-  return (
-    addressList.find(a => a.status === 'Default') ??
-    addressList.find(a => a.status === 'Postal') ??
-    addressList.find(a => a.status === 'Main') ??
-    null
-  )
-}
-
-function toIsoDateFormat(dateStr: string): string {
-  if (dateStr && dateStr.trim().length > 0) {
-    const [day, month, year] = dateStr.split('/').map(Number)
-    return `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`
-  }
-  return ''
-}
-
-function formatTitleAndFullName(title: string, name: Name): string {
-  return `${title} ${name.forename ?? ''} ${name.middleName ?? ''} ${name.surname ?? ''}`
-}
-
-export function calculateAge(dobString: string): string {
-  if (dobString && dobString.trim().length > 0) {
-    const [day, month, year] = dobString.split('/').map(Number)
-
-    const dob = new Date(year, month - 1, day)
-    const today = new Date()
-
-    let age = today.getFullYear() - dob.getFullYear()
-
-    const hasHadBirthday =
-      today.getMonth() > dob.getMonth() || (today.getMonth() === dob.getMonth() && today.getDate() >= dob.getDate())
-
-    if (!hasHadBirthday) {
-      age -= 1
-    }
-
-    return age.toString()
-  }
-  return ''
-}
-
-function toSuicideRiskAddress(deliusAddress: DeliusAddress): SuicideRiskAddress {
-  if (!deliusAddress) {
-    return null
-  }
-  return {
-    addressId: deliusAddress.id,
-    status: deliusAddress.status,
-    officeDescription: deliusAddress.officeDescription,
-    buildingName: deliusAddress.buildingName,
-    buildingNumber: deliusAddress.buildingNumber,
-    streetName: deliusAddress.streetName,
-    townCity: deliusAddress.townCity,
-    district: deliusAddress.district,
-    county: deliusAddress.county,
-    postcode: deliusAddress.postcode,
-  }
 }

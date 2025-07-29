@@ -1,4 +1,6 @@
 import { ErrorMessages } from '../data/uiModels'
+import { DeliusAddress, Name } from '../data/ndeliusIntegrationApiClient'
+import { SuicideRiskAddress } from '../data/suicideRiskApiClient'
 
 const properCase = (word: string): string =>
   word.length >= 1 ? word[0].toUpperCase() + word.toLowerCase().slice(1) : word
@@ -55,4 +57,71 @@ export function handleIntegrationErrors(status: number, message: string, integra
   }
 
   return errorMessages
+}
+
+export function findDefaultAddressInAddressList(addressList: Array<DeliusAddress>): DeliusAddress {
+  if (!Array.isArray(addressList) || addressList.length === 0) {
+    return null
+  }
+
+  return (
+    addressList.find(a => a.status === 'Default') ??
+    addressList.find(a => a.status === 'Postal') ??
+    addressList.find(a => a.status === 'Main') ??
+    null
+  )
+}
+
+export function toIsoDateFormat(dateStr: string): string {
+  if (dateStr && dateStr.trim().length > 0) {
+    const [day, month, year] = dateStr.split('/').map(Number)
+    if (Number.isNaN(day) || Number.isNaN(month) || Number.isNaN(year)) {
+      return ''
+    }
+    return `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`
+  }
+  return ''
+}
+
+export function formatTitleAndFullName(title: string, name: Name): string {
+  return [title, name.forename, name.middleName, name.surname].filter(Boolean).join(' ')
+}
+
+export function calculateAge(dobString: string): string {
+  if (dobString && dobString.trim().length > 0) {
+    const [day, month, year] = dobString.split('/').map(Number)
+
+    const dob = new Date(year, month - 1, day)
+    const today = new Date()
+
+    let age = today.getFullYear() - dob.getFullYear()
+
+    const hasHadBirthday =
+      today.getMonth() > dob.getMonth() || (today.getMonth() === dob.getMonth() && today.getDate() >= dob.getDate())
+
+    if (!hasHadBirthday) {
+      age -= 1
+    }
+
+    return age.toString()
+  }
+  return ''
+}
+
+export function toSuicideRiskAddress(deliusAddress: DeliusAddress): SuicideRiskAddress {
+  if (!deliusAddress) {
+    return null
+  }
+  return {
+    addressId: deliusAddress.id,
+    status: deliusAddress.status,
+    officeDescription: deliusAddress.officeDescription,
+    buildingName: deliusAddress.buildingName,
+    buildingNumber: deliusAddress.buildingNumber,
+    streetName: deliusAddress.streetName,
+    townCity: deliusAddress.townCity,
+    district: deliusAddress.district,
+    county: deliusAddress.county,
+    postcode: deliusAddress.postcode,
+  }
 }
