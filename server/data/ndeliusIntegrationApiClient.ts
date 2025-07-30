@@ -27,4 +27,20 @@ export interface Name {
 export interface BasicDetails {
   title: string
   name: Name
+  addresses: DeliusAddress[]
+  dateOfBirth: string
+  prisonNumber: string
+}
+
+export interface DeliusAddress {
+  id: number
+  status: string
+  officeDescription?: string
+  buildingName: string
+  buildingNumber: string
+  streetName: string
+  townCity: string
+  district: string
+  county: string
+  postcode: string
 }
