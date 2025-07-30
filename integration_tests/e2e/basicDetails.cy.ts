@@ -99,4 +99,9 @@ context('Basic Details page', () => {
     cy.url().should('include', '/check-your-answers/00000000-0000-0000-0000-200000000002')
     cy.contains('Suicide Risk - Check Your Answers').should('exist')
   })
+
+  it('navigates to report completed page if completed date set', () => {
+    cy.visit('/basic-details/30000000-0000-0000-0000-33333333333')
+    cy.url().should('include', '/report-completed/30000000-0000-0000-0000-3333333333')
+  })
 })
