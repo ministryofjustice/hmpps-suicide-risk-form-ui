@@ -7,21 +7,105 @@
 
   {% from "moj/components/side-navigation/macro.njk" import mojSideNavigation %}
   {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+  {% from "govuk/components/input/macro.njk" import govukInput %}
+  {% from "govuk/components/select/macro.njk" import govukSelect %}
+  {% from "govuk/components/button/macro.njk" import govukButton %}
+  {% from "moj/components/date-picker/macro.njk" import mojDatePicker %}
+  {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
   <form method="post">
+
+    {% set errorList =[
+      { text: errorMessages.genericErrorMessage.text, href: "#" } if errorMessages.genericErrorMessage else None
+    ] | reject("undefined") %}
+
+    {% if errorMessages | length > 0 %}
+      {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+      {{ govukErrorSummary({ titleText: "There is a problem", errorList: errorList }) }}
+    {% endif %}
+
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-one-third">
         {% include "pages/side-nav.njk" %}
       </div>
-
       <div class="govuk-grid-column-two-thirds">
-          <h1 class="govuk-heading-l">Suicide Risk - Basic Details</h1>
-          <br>
-          <h2 class="govuk-heading-m">CRN</h2>
-          <p id="crn">{{ suicideRisk.crn }}</p>
+
+        {% if not showEmbeddedError %}
+
+        <h1 id="page-title" class="govuk-heading-l">Suicide Risk - Basic Details</h1>
+
+        <h2 class="govuk-heading-m">Title and Full Name</h2>
+        <p id="name">{{ titleAndFullName }}</p>
+
+        <h2 class="govuk-heading-m">CRN</h2>
+        <p id="crn">{{ suicideRisk.crn }}</p>
+
+        <h2 class="govuk-heading-m">Main Address</h2>
+        {% if defaultAddress %}
+          <p id="address">
+            {% if defaultAddress.buildingName %} {{ defaultAddress.buildingName }}
+              <br />{% endif %}
+            {% if defaultAddress.buildingName or defaultAddress.streetName %} {{ defaultAddress.buildingNumber }} {{ defaultAddress.streetName }}
+              <br />{% endif %}
+            {% if defaultAddress.district %} {{ defaultAddress.district }}
+              <br />{% endif %}
+            {% if defaultAddress.townCity %} {{ defaultAddress.townCity }}
+              <br />{% endif %}
+            {% if defaultAddress.county %} {{ defaultAddress.county }}
+              <br />{% endif %}
+            {% if defaultAddress.postcode %} {{ defaultAddress.postcode }}
+              <br />{% endif %}
+          </p>
+        {% else %}
+          <p id="no-fixed-abode"> No Fixed Abode </p>
+        {% endif %}
+
+        <h2 class="govuk-heading-m">Date of Birth</h2>
+        <p id="date-of-birth">{{ basicDetails.dateOfBirth }}</p>
+
+        <h2 class="govuk-heading-m">Calculated Age</h2>
+        <p id="calculated-age">{{ age }}</p>
+
+        <h2 class="govuk-heading-m">Prison Number</h2>
+        <p id="prison-number">{{ prisonNumber }}</p>
+
+        <div class="moj-button-group">
+          {{ govukButton({
+            text: "Continue",
+            preventDoubleClick: "true",
+            type: "submit",
+            attributes: {
+              id: "continue-button"
+            }
+          }) }}
+          {{ govukButton({
+            text: "Save Progress and Close",
+            type: "submit",
+            name: "action",
+            value: "saveProgressAndClose",
+            classes: "govuk-button--secondary",
+            attributes: {
+              id: "close-button"
+            }
+          }) }}
+
+          {{ govukButton({
+            text: "Refresh from Delius",
+            preventDoubleClick: "true",
+            type: "submit",
+            name: "action",
+            value: "refreshFromNdelius",
+            classes: "govuk-button--secondary",
+            attributes: {
+              id: "refresh-from-ndelius--button"
+            }
+          }) }}
+        </div>
+        {% endif %}
       </div>
     </div>
-  </form>
 
+  </form>
 {% endblock %}
