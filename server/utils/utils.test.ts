@@ -1,4 +1,16 @@
-import { convertToTitleCase, initialiseName } from './utils'
+import {
+  calculateAge,
+  convertToTitleCase,
+  findDefaultAddressInAddressList,
+  formatTitleAndFullName,
+  handleIntegrationErrors,
+  initialiseName,
+  toIsoDateFormat,
+  toSuicideRiskAddress,
+} from './utils'
+import { ErrorMessages } from '../data/uiModels'
+import { DeliusAddress, Name } from '../data/ndeliusIntegrationApiClient'
+import { SuicideRiskAddress } from '../data/suicideRiskApiClient'
 
 describe('convert to title case', () => {
   it.each([
@@ -26,5 +38,187 @@ describe('initialise name', () => {
     ['Double barrelled', 'Robert-John Smith-Jones-Wilson', 'R. Smith-Jones-Wilson'],
   ])('%s initialiseName(%s, %s)', (_: string, a: string, expected: string) => {
     expect(initialiseName(a)).toEqual(expected)
+  })
+})
+
+describe('initialise error messages', () => {
+  it.each([
+    [
+      'No Home Area Case',
+      400,
+      'No home area found',
+      'Suicide risk',
+      'Your Delius account is missing a home area, please contact the service desk to update your account before using this service.',
+    ],
+    [
+      '400 Error Case',
+      400,
+      'Generic 400 error',
+      'Suicide risk',
+      'An unexpected 400 type error has occurred. Please contact the service desk and report this error.',
+    ],
+    [
+      '404 Not Found Case',
+      404,
+      'Not found',
+      'Suicide risk',
+      'The document has not been found or has been deleted. An error has been logged. 404',
+    ],
+    [
+      '404 Not Found Case',
+      500,
+      'Not found',
+      'NDelius Integration',
+      'There has been a problem fetching information from NDelius. Please try again later.',
+    ],
+    [
+      'Unknown Error case',
+      999,
+      'Error',
+      'Suicide risk',
+      'There has been a problem fetching information from the Suicide Risk Service. Please try again later.',
+    ],
+  ])(
+    '%s handleIntegrationErrors(%s, %s, %s)',
+    (_: string, status: number, message: string, service: string, expected: string) => {
+      const result: ErrorMessages = handleIntegrationErrors(status, message, service)
+      expect(result.genericErrorMessage.text).toEqual(expected)
+    },
+  )
+})
+
+describe('findDefaultAddressInAddressList', () => {
+  const baseAddress = {
+    id: 1,
+    buildingName: 'Test Building',
+    buildingNumber: '1',
+    streetName: 'Test Street',
+    townCity: 'Test Town',
+    district: 'Test District',
+    county: 'Test County',
+    postcode: 'TE5 2ST',
+  }
+
+  it.each([
+    ['null input', null, null],
+    ['empty array', [], null],
+    [
+      'Default takes priority',
+      [
+        { ...baseAddress, id: 1, status: 'Default' },
+        { ...baseAddress, id: 2, status: 'Postal' },
+        { ...baseAddress, id: 3, status: 'Main' },
+      ],
+      { ...baseAddress, id: 1, status: 'Default' },
+    ],
+    [
+      'No default then postal takes priority',
+      [
+        { ...baseAddress, id: 1, status: 'Postal' },
+        { ...baseAddress, id: 2, status: 'Main' },
+      ],
+      { ...baseAddress, id: 1, status: 'Postal' },
+    ],
+    [
+      'No default or postal then main takes priority ',
+      [
+        { ...baseAddress, id: 1, status: 'Main' },
+        { ...baseAddress, id: 2, status: 'Other' },
+      ],
+      { ...baseAddress, id: 1, status: 'Main' },
+    ],
+    [
+      'No Default, Postal, or Main then expect null',
+      [
+        { ...baseAddress, id: 1, status: 'Other' },
+        { ...baseAddress, id: 2, status: 'Test' },
+      ],
+      null,
+    ],
+  ])('%s', (_: string, input: DeliusAddress[], expected: DeliusAddress) => {
+    expect(findDefaultAddressInAddressList(input)).toEqual(expected)
+  })
+})
+
+describe('toIsoDateFormat', () => {
+  it.each([
+    ['Valid date', '01/01/2025', '2025-01-01'],
+    ['Valid date no leading zero', '9/2/2024', '2024-02-09'],
+    ['Valid input with leading/trailing spaces', ' 01/02/2025 ', '2025-02-01'],
+    ['Empty string', '', ''],
+    ['Whitespace only', '   ', ''],
+    ['Null string', null, ''],
+    ['Non-numeric values', 'dd/mm/yyyy', ''],
+  ])('%s', (_: string, input: string, expected: string) => {
+    expect(toIsoDateFormat(input)).toEqual(expected)
+  })
+})
+
+describe('formatTitleAndFullName', () => {
+  it.each([
+    ['All parts present', 'Mr', { forename: 'John', middleName: 'Middle', surname: 'Doe' }, 'Mr John Middle Doe'],
+    ['Missing middle name', 'Mrs', { forename: 'Jane', surname: 'Doe' }, 'Mrs Jane Doe'],
+    ['Missing forename and middle name', 'Mr', { surname: 'Doe' }, 'Mr Doe'],
+    ['Missing surname', 'Mrs', { forename: 'Jane', middleName: 'Middle' }, 'Mrs Jane Middle'],
+    ['All name fields missing', 'Mr', {}, 'Mr'],
+    ['Empty title', '', { forename: 'Jane', middleName: 'Middle', surname: 'Doe' }, 'Jane Middle Doe'],
+    ['Title and forename only', 'Dr', { forename: 'John' }, 'Dr John'],
+  ])('%s', (_: string, title: string, name: Name, expected: string) => {
+    expect(formatTitleAndFullName(title, name)).toEqual(expected)
+  })
+})
+
+describe('calculateAge', () => {
+  const currentYear = new Date().getFullYear()
+  const currentMonth = new Date().getMonth() + 1
+  const currentDay = new Date().getDate()
+
+  it.each([
+    [
+      '30 Years old',
+      `${String(currentDay).padStart(2, '0')}/${String(currentMonth).padStart(2, '0')}/${currentYear - 30}`,
+      '30',
+    ],
+    ['Empty string', '', ''],
+    ['Whitespace', '   ', ''],
+  ])('%s', (_: string, dobString: string, expected: string) => {
+    expect(calculateAge(dobString)).toEqual(expected)
+  })
+})
+
+describe('toSuicideRiskAddress', () => {
+  const input: DeliusAddress = {
+    id: 42,
+    status: 'Postal',
+    officeDescription: 'Test Office',
+    buildingName: 'Test Building',
+    buildingNumber: '1',
+    streetName: 'Test Street',
+    townCity: 'Test City',
+    district: 'Test District',
+    county: 'Test County',
+    postcode: 'TE5 2ST',
+  }
+
+  it.each([
+    [
+      'Maps valid Delius Address correctly',
+      input,
+      {
+        addressId: 42,
+        status: 'Postal',
+        officeDescription: 'Test Office',
+        buildingName: 'Test Building',
+        buildingNumber: '1',
+        streetName: 'Test Street',
+        townCity: 'Test City',
+        district: 'Test District',
+        county: 'Test County',
+        postcode: 'TE5 2ST',
+      },
+    ],
+    ['Returns null if input is null', null, null],
+  ])('%s', (_: string, deliusAddress: DeliusAddress, expected: SuicideRiskAddress) => {
+    expect(toSuicideRiskAddress(deliusAddress)).toEqual(expected)
   })
 })

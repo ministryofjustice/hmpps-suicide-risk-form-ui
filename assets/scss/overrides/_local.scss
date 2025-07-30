@@ -1,3 +1,8 @@
 .govuk-main-wrapper {
   min-height: 600px;
 }
+
+.govuk-heading-m{
+  margin-bottom: govuk-spacing(1);
+  padding-top: govuk-spacing(0) !important;
+}
