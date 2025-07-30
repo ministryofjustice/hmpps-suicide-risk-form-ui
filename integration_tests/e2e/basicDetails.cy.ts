@@ -1,7 +1,7 @@
 context('Basic Details page', () => {
   it('can see readonly fields', () => {
     cy.visit('/basic-details/00000000-0000-0000-0000-000000000001')
-    cy.get('#page-title').should('contain.text', 'Suicide Risk Form - Basic Details')
+    cy.get('#page-title').should('contain.text', 'Suicide Risk - Basic Details')
     cy.get('#name').should('contain.text', 'Mr Billy The Kid')
     cy.get('#crn').should('contain.text', 'X000001')
     cy.get('#no-fixed-abode').should('contain.text', 'No Fixed Abode')
@@ -57,7 +57,7 @@ context('Basic Details page', () => {
     cy.get('#nav-basic-details').should('exist')
     cy.get('#nav-basic-details').click()
     cy.url().should('include', '/basic-details/00000000-0000-0000-0000-200000000002')
-    cy.contains('Suicide Risk Form - Basic Details').should('exist')
+    cy.contains('Suicide Risk - Basic Details').should('exist')
   })
 
   it('displays a working information nav menu option', () => {

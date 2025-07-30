@@ -47,21 +47,21 @@ describe('initialise error messages', () => {
       'No Home Area Case',
       400,
       'No home area found',
-      'Suicide risk form',
+      'Suicide risk',
       'Your Delius account is missing a home area, please contact the service desk to update your account before using this service.',
     ],
     [
       '400 Error Case',
       400,
       'Generic 400 error',
-      'Suicide risk form',
+      'Suicide risk',
       'An unexpected 400 type error has occurred. Please contact the service desk and report this error.',
     ],
     [
       '404 Not Found Case',
       404,
       'Not found',
-      'Suicide risk form',
+      'Suicide risk',
       'The document has not been found or has been deleted. An error has been logged. 404',
     ],
     [
@@ -75,7 +75,7 @@ describe('initialise error messages', () => {
       'Unknown Error case',
       999,
       'Error',
-      'Suicide risk form',
+      'Suicide risk',
       'There has been a problem fetching information from the Suicide Risk Service. Please try again later.',
     ],
   ])(
