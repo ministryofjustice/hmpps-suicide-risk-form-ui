@@ -16,6 +16,8 @@ export default function informationRoutes(
   router.get('/information/:id', async (req, res, next) => {
     await auditService.logPageView(Page.INFORMATION, { who: res.locals.user.username, correlationId: req.id })
 
+    const suicideRiskId: string = req.params.id
+
     const suicideRiskApiClient = new SuicideRiskApiClient(authenticationClient)
     const suicideRisk = await suicideRiskApiClient.getSuicideRiskById(req.params.id as string, res.locals.user.username)
 
@@ -24,6 +26,7 @@ export default function informationRoutes(
     res.render('pages/information', {
       suicideRisk,
       currentPage,
+      suicideRiskId,
     })
   })
 

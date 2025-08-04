@@ -16,6 +16,55 @@
       </div>
       <div class="govuk-grid-column-two-thirds">
         <h1 class="govuk-heading-l">Suicide Risk - Check Your Answers</h1>
+
+        <div class="govuk-summary-card">
+          <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">
+              Basic Details
+            </h2>
+            <ul class="govuk-summary-card__actions">
+              <li class="govuk-summary-card__action">
+                <a id="change-basic-details" class="govuk-link"
+                   href="/basic-details/{{ suicideRiskId }}?returnTo=check-your-report">Change<span
+                    class="govuk-visually-hidden"> Basic Details</span></a>
+              </li>
+            </ul>
+          </div>
+          <div class="govuk-summary-card__content">
+            <dl class="govuk-summary-list">
+              <div class="govuk-summary-list__row">
+
+                <dt class="govuk-summary-list__key">
+                  Title and Full Name
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {% if suicideRisk.titleAndFullName == null %}
+                    <a href="/basic-details/{{ suicideRisk.id }}?returnTo=check-your-report" class="govuk-link">enter required
+                      information<span class="govuk-visually-hidden"> for Title and Full name</span></a>
+                  {% else %}
+                    {{ suicideRisk.titleAndFullName }}
+                  {% endif %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  {% if suicideRisk.titleAndFullName == null %}
+                    <span class="govuk-tag--light-blue">Required</span>
+                  {% endif %}
+                </dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  CRN
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ suicideRisk.crn }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </div>
       </div>
     </div>
   </form>
