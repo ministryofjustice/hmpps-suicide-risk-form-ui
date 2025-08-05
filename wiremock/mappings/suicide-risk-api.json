@@ -38,6 +38,82 @@
 
     {
       "request": {
+        "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-100000000005",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "00000000-0000-0000-0000-100000000005",
+          "crn": "X100501",
+          "completedDate": null
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        "transformers": ["response-template"]
+      }
+    },
+
+    {
+      "request": {
+        "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-100000000006",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "00000000-0000-0000-0000-100000000006",
+          "crn": "X100502",
+          "completedDate": null
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        "transformers": ["response-template"]
+      }
+    },
+
+    {
+      "request": {
+        "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-100000000007",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "00000000-0000-0000-0000-100000000007",
+          "crn": "X100503",
+          "completedDate": null
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        "transformers": ["response-template"]
+      }
+    },
+
+    {
+      "request": {
+        "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-100000000008",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "00000000-0000-0000-0000-100000000008",
+          "crn": "X100504",
+          "completedDate": null
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        "transformers": ["response-template"]
+      }
+    },
+
+    {
+      "request": {
         "url": "/suicide-risk-api/suicide-risk/30000000-0000-0000-0000-33333333333",
         "method": "GET"
       },

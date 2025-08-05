@@ -16,6 +16,20 @@ export default class NDeliusIntegrationApiClient extends RestClient {
       asSystem(username),
     )
   }
+
+  async getLimitedAccessCheck(crn: string, username: string): Promise<LimitedAccessCheck> {
+    return this.get({
+      path: `/users/${username}/access/${crn}`,
+    })
+  }
+}
+
+export interface LimitedAccessCheck {
+  crn: string
+  userExcluded: boolean
+  exclusionMessage?: string
+  userRestricted: boolean
+  restrictionMessage?: string
 }
 
 export interface Name {
