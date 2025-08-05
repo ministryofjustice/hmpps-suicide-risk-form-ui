@@ -4,7 +4,7 @@ import AuditService, { Page } from '../services/auditService'
 
 import SuicideRiskApiClient, { SuicideRisk } from '../data/suicideRiskApiClient'
 import CommonUtils from '../services/commonUtils'
-import { toUserDate, toUserDateFromDateTime, toUserTimeFromDateTime } from '../utils/dateUtils'
+import { toUserDate } from '../utils/dateUtils'
 
 export default function checkYourAnswersRoutes(
   router: Router,
