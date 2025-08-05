@@ -4,6 +4,7 @@ import AuditService, { Page } from '../services/auditService'
 
 import SuicideRiskApiClient, { SuicideRisk } from '../data/suicideRiskApiClient'
 import CommonUtils from '../services/commonUtils'
+import { toUserDate, toUserDateFromDateTime, toUserTimeFromDateTime } from '../utils/dateUtils'
 
 export default function checkYourAnswersRoutes(
   router: Router,
@@ -24,10 +25,15 @@ export default function checkYourAnswersRoutes(
 
     if (await commonUtils.redirectRequired(suicideRisk, res)) return
 
+    const dateOfLetter: string = toUserDate(suicideRisk.dateOfLetter)
+    const dateOfBirth: string = toUserDate(suicideRisk.dateOfBirth)
+
     res.render('pages/check-your-answers', {
       suicideRisk,
       currentPage,
       suicideRiskId,
+      dateOfLetter,
+      dateOfBirth,
     })
   })
 
