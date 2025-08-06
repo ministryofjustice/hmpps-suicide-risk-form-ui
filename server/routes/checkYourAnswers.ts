@@ -18,18 +18,15 @@ export default function checkYourAnswersRoutes(
 
   router.get('/check-your-answers/:id', async (req, res, next) => {
     await auditService.logPageView(Page.CHECK_YOUR_ANSWERS, { who: res.locals.user.username, correlationId: req.id })
-
     const suicideRiskId: string = req.params.id
-    let suicideRisk: SuicideRisk = null
-
     const suicideRiskApiClient = new SuicideRiskApiClient(authenticationClient)
-    suicideRisk = await suicideRiskApiClient.getSuicideRiskById(suicideRiskId, res.locals.user.username)
-
-    if (await commonUtils.redirectRequired(suicideRisk, res)) return
-
+    const suicideRisk: SuicideRisk = await suicideRiskApiClient.getSuicideRiskById(
+      suicideRiskId,
+      res.locals.user.username,
+    )
+    if (await commonUtils.redirectRequired(suicideRisk, suicideRiskId, res, authenticationClient)) return
     const dateOfLetter: string = toUserDate(suicideRisk.dateOfLetter)
     const dateOfBirth: string = toUserDate(suicideRisk.dateOfBirth)
-
     const reportValidated = validateReport(suicideRisk)
 
     res.render('pages/check-your-answers', {
@@ -44,15 +41,13 @@ export default function checkYourAnswersRoutes(
 
   router.post('/check-your-answers/:id', async (req, res, next) => {
     await auditService.logPageView(Page.CHECK_YOUR_ANSWERS, { who: res.locals.user.username, correlationId: req.id })
-
     const suicideRiskId: string = req.params.id
-    let suicideRisk: SuicideRisk = null
-
     const suicideRiskApiClient = new SuicideRiskApiClient(authenticationClient)
-    suicideRisk = await suicideRiskApiClient.getSuicideRiskById(suicideRiskId, res.locals.user.username)
-
-    if (await commonUtils.redirectRequired(suicideRisk, res)) return
-
+    const suicideRisk: SuicideRisk = await suicideRiskApiClient.getSuicideRiskById(
+      suicideRiskId,
+      res.locals.user.username,
+    )
+    if (await commonUtils.redirectRequired(suicideRisk, suicideRiskId, res, authenticationClient)) return
     suicideRisk.completedDate = ZonedDateTime.now(ZoneId.of('Europe/London'))
     await suicideRiskApiClient.updateSuicideRisk(suicideRiskId, suicideRisk, res.locals.user.username)
     res.redirect(`/report-completed/${req.params.id}`)
