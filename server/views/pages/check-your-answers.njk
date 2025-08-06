@@ -7,6 +7,7 @@
 
   {% from "moj/components/side-navigation/macro.njk" import mojSideNavigation %}
   {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+  {% from "govuk/components/button/macro.njk" import govukButton %}
 
   <form method="post">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
@@ -233,9 +234,9 @@
                       {{ rec.contactTypeDescription }}
                     </dt>
                     <dd class="govuk-summary-list__value">
+                      {% if rec.contactPerson != null %} {{ rec.contactPerson }}
+                        <br> {% endif %}
                       {% if rec.contactLocation != null %}
-                        {% if rec.contactPerson != null %} {{ rec.contactPerson }}
-                          <br> {% endif %}
                         {% if rec.contactLocation.officeDescription != null %} {{ rec.contactLocation.officeDescription }}
                           <br> {% endif %}
                         {% if rec.contactLocation.buildingName != null %} {{ rec.contactLocation.buildingName }}
@@ -249,8 +250,8 @@
                         {% if rec.contactLocation.county != null %} {{ rec.contactLocation.county }}
                           <br> {% endif %}
                         {% if rec.contactLocation.postcode != null %} {{ rec.contactLocation.postcode }} <br> {% endif %}
-                        {% if rec.contactDate != null %} {{ rec.contactDate }} {% endif %}
                       {% endif %}
+                      {% if rec.contactDate != null %} {{ rec.contactDate }} {% endif %}
                     </dd>
                     <dd class="govuk-summary-list__actions">
                     </dd>
@@ -319,6 +320,50 @@
 
             </dl>
           </div>
+        </div>
+
+        <div class="moj-button-group">
+          {% if reportValidated %}
+            {{ govukButton({
+              text: "Publish",
+              preventDoubleClick: "true",
+              type: "submit",
+              attributes: {
+                id: "publish"
+              }
+            }) }}
+            {{ govukButton({
+              text: "View Draft Form",
+              classes: "govuk-button--secondary",
+              preventDoubleClick: "true",
+              href: '/pdf/'+suicideRiskId,
+              attributes: {
+                target: "_blank"
+              }
+            }) }}
+            {{ govukButton({
+              text: "Delete Draft Form",
+              href: '/confirm-delete/'+suicideRiskId,
+              classes: "govuk-button--secondary",
+              preventDoubleClick: "true"
+            }) }}
+          {% else %}
+            {{ govukButton({
+              text: "View Draft Form",
+              classes: "govuk-button--secondary",
+              preventDoubleClick: "true",
+              href: '/pdf/'+suicideRiskId,
+              attributes: {
+                target: "_blank"
+              }
+            }) }}
+            {{ govukButton({
+              text: "Delete Draft Form",
+              href: '/confirm-delete/'+suicideRiskId,
+              classes: "govuk-button--secondary",
+              preventDoubleClick: "true"
+            }) }}
+          {% endif %}
         </div>
 
       </div>
