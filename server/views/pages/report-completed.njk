@@ -14,9 +14,17 @@
             {% set mainClasses = "govuk-main-wrapper--l" %}
 
             {{ govukPanel({
-                titleText: "Letter Published",
-                html: "Your Breach Report has been completed and uploaded."
+                titleText: "Suicide Risk Form - Form Completed",
+                html: "Your Suicide Risk Form has been completed."
             }) }}
+
+          <h1 class="govuk-heading-l">What to do next</h1>
+
+          <h2 class="govuk-heading-m">Review and print your Suicide Risk Form</h2>
+          <p id="reviewReport"><a href="{{ '/pdf/' + suicideRiskId }}" class="govuk-link" target="_blank">View your completed PDF letter</a></p>
+
+          <h2 class="govuk-heading-m">Close this window</h2>
+          <p id="close-window"><a href="/close" class="govuk-link">Close the Suicide Risk Form Service</a></p>
         </div>
     </div>
 

@@ -1,4 +1,4 @@
-context('Navigation Menu data checks', () => {
+context('Check your answers data checks', () => {
   it('Basic Details not populated', () => {
     cy.visit('/check-your-answers/00000000-0000-0000-0000-600000000001')
     cy.get('#change-basic-details').should('exist')
