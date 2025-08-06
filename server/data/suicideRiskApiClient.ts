@@ -27,6 +27,26 @@ export default class SuicideRiskApiClient extends RestClient {
       asSystem(username),
     )
   }
+
+  async getPdfById(uuid: string, username: string): Promise<ArrayBuffer> {
+    return this.get(
+      {
+        path: `/suicide-risk/${uuid}/pdf`,
+        responseType: 'arraybuffer',
+      },
+      asSystem(username),
+    )
+  }
+
+  async getDraftPdfById(uuid: string, username: string): Promise<ArrayBuffer> {
+    return this.get(
+      {
+        path: `/suicide-risk/${uuid}/pdf`,
+        responseType: 'arraybuffer',
+      },
+      asSystem(username),
+    )
+  }
 }
 
 export interface SuicideRisk {

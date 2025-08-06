@@ -7,6 +7,7 @@ export enum Page {
   SIGN_AND_SEND = 'SIGN_AND_SEND',
   CHECK_YOUR_ANSWERS = 'CHECK_YOUR_ANSWERS',
   REPORT_COMPLETED = 'REPORT_COMPLETED',
+  VIEW_PDF = 'VIEW_PDF',
 }
 
 export interface PageViewEventDetails {
