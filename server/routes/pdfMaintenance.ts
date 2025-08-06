@@ -23,7 +23,7 @@ export default function pdfMaintenanceRoutes(
     if (await commonUtils.redirectRequired(suicideRisk, suicideRiskId, res, authenticationClient)) return
 
     try {
-      const stream: ArrayBuffer = await suicideRiskApiClient.getDraftPdfById(suicideRiskId, res.locals.user.username)
+      const stream: ArrayBuffer = await suicideRiskApiClient.getPdfById(suicideRiskId, res.locals.user.username)
 
       res.setHeader('Content-Type', 'application/pdf')
       res.setHeader('Content-Disposition', `filename="suicide_risk_form_${suicideRisk.crn}_draft.pdf"`)
