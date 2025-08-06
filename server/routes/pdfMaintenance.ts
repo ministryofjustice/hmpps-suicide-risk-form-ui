@@ -3,6 +3,8 @@ import { AuthenticationClient } from '@ministryofjustice/hmpps-auth-clients'
 import AuditService, { Page } from '../services/auditService'
 import CommonUtils from '../services/commonUtils'
 import SuicideRiskApiClient from '../data/suicideRiskApiClient'
+import { ErrorMessages } from '../data/uiModels'
+import { handleIntegrationErrors } from '../utils/utils'
 
 export default function pdfMaintenanceRoutes(
   router: Router,
@@ -27,7 +29,13 @@ export default function pdfMaintenanceRoutes(
       res.setHeader('Content-Disposition', `filename="suicide_risk_form_${suicideRisk.crn}_draft.pdf"`)
       res.send(stream)
     } catch (error) {
-      res.render(`pages/pdf-generation-failed`)
+      const errorMessages: ErrorMessages = handleIntegrationErrors(
+        error.status,
+        error.data?.message,
+        'NDelius Integration',
+      )
+
+      res.render(`pages/pdf-generation-failed`, { errorMessages })
     }
   })
 
