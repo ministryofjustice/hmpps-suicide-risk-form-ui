@@ -1,0 +1,25 @@
+{% extends "../partials/layout.njk" %}
+
+{% set pageTitle = applicationName + " - Home" %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block content %}
+    {% from "moj/components/side-navigation/macro.njk" import mojSideNavigation %}
+    {% from "govuk/components/panel/macro.njk" import govukPanel %}
+    {% from "govuk/components/panel/macro.njk" import govukPanel %}
+
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          {% set mainClasses = "govuk-main-wrapper--l" %}
+
+          <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+              <h1 class="govuk-heading-l">There was an issue generating the draft form</h1>
+              <p class="govuk-body">Please try again or contact support.</p>
+            </div>
+          </div>
+        </div>
+    </div>
+
+{% endblock %}
