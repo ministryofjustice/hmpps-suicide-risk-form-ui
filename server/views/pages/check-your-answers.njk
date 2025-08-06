@@ -7,6 +7,7 @@
 
   {% from "moj/components/side-navigation/macro.njk" import mojSideNavigation %}
   {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+  {% from "govuk/components/button/macro.njk" import govukButton %}
 
   <form method="post">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
@@ -16,6 +17,355 @@
       </div>
       <div class="govuk-grid-column-two-thirds">
         <h1 class="govuk-heading-l">Suicide Risk - Check Your Answers</h1>
+
+        <div class="govuk-summary-card">
+          <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">
+              Basic Details
+            </h2>
+            <ul class="govuk-summary-card__actions">
+              <li class="govuk-summary-card__action">
+                <a id="change-basic-details" class="govuk-link"
+                   href="/basic-details/{{ suicideRiskId }}?returnTo=check-your-report">Change<span
+                    class="govuk-visually-hidden"> Basic Details</span></a>
+              </li>
+            </ul>
+          </div>
+          <div class="govuk-summary-card__content">
+            <dl class="govuk-summary-list">
+              <div class="govuk-summary-list__row">
+
+                <dt class="govuk-summary-list__key">
+                  Title and Full Name
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {% if suicideRisk.titleAndFullName == null %}
+                    <a id="cya-link-title-and-name" href="/basic-details/{{ suicideRisk.id }}?returnTo=check-your-report" class="govuk-link">enter required
+                      information<span class="govuk-visually-hidden"> for Title and Full name</span></a>
+                  {% else %}
+                    {{ suicideRisk.titleAndFullName }}
+                  {% endif %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  {% if suicideRisk.titleAndFullName == null %}
+                    <span class="govuk-tag--light-blue">Required</span>
+                  {% endif %}
+                </dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  CRN
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ suicideRisk.crn }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                </dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Postal Address
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {% if suicideRisk.postalAddress == null %}
+                    <a id="cya-link-postal-address" href="/basic-details/{{ suicideRisk.id }}?returnTo=check-your-report" class="govuk-link">enter required
+                      information<span class="govuk-visually-hidden"> for Postal Address</span></a>
+                  {% else %}
+                    {% if suicideRisk.postalAddress.officeDescription != null %} {{ suicideRisk.postalAddress.officeDescription }}
+                      <br> {% endif %}
+                    {% if suicideRisk.postalAddress.buildingName != null %} {{ suicideRisk.postalAddress.buildingName }}
+                      <br> {% endif %}
+                    {% if suicideRisk.postalAddress.buildingNumber != null or suicideRisk.postalAddress.streetName != null %} {{ suicideRisk.postalAddress.buildingNumber }} {{ suicideRisk.postalAddress.streetName }}
+                      <br> {% endif %}
+                    {% if suicideRisk.postalAddress.district != null %} {{ suicideRisk.postalAddress.district }}
+                      <br> {% endif %}
+                    {% if suicideRisk.postalAddress.townCity != null %} {{ suicideRisk.postalAddress.townCity }}
+                      <br> {% endif %}
+                    {% if suicideRisk.postalAddress.county != null %} {{ suicideRisk.postalAddress.county }}
+                      <br> {% endif %}
+                    {% if suicideRisk.postalAddress.postcode != null %} {{ suicideRisk.postalAddress.postcode }} {% endif %}
+                  {% endif %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  {% if suicideRisk.postalAddress == null %}
+                    <span class="govuk-tag--light-blue">Required</span>
+                  {% endif %}
+                </dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Date of Birth
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {% if suicideRisk.dateOfBirth == null %}
+                    <a id="cya-link-date-of-birth" href="/basic-details/{{ suicideRisk.id }}?returnTo=check-your-report" class="govuk-link">enter required
+                      information<span class="govuk-visually-hidden"> for Date of Birth</span></a>
+                  {% else %}
+                    {{ dateOfBirth }}
+                  {% endif %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  {% if suicideRisk.dateOfBirth == null %}
+                    <span class="govuk-tag--light-blue">
+                            Required
+                </span>
+                  {% endif %}
+                </dd>
+              </div>
+
+            </dl>
+          </div>
+        </div>
+
+        <div class="govuk-summary-card">
+          <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">
+              Additional Information
+            </h2>
+            <ul class="govuk-summary-card__actions">
+              <li class="govuk-summary-card__action">
+                <a id="change-information" class="govuk-link"
+                   href="/information/{{ suicideRiskId }}?returnTo=check-your-report">Change<span
+                    class="govuk-visually-hidden"> Additional Information</span></a>
+              </li>
+            </ul>
+          </div>
+          <div class="govuk-summary-card__content">
+            <dl class="govuk-summary-list">
+              <div class="govuk-summary-list__row">
+
+                <dt class="govuk-summary-list__key">
+                  Additional Information
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {% if suicideRisk.additionalInfo == null %}
+                    <a id="cya-link-additional-info" href="/information/{{ suicideRisk.id }}?returnTo=check-your-report" class="govuk-link">enter required
+                      information<span class="govuk-visually-hidden"> for Additional Information</span></a>
+                  {% else %}
+                    {{ suicideRisk.additionalInfo }}
+                  {% endif %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  {% if suicideRisk.additionalInfo == null %}
+                    <span class="govuk-tag--light-blue">Required</span>
+                  {% endif %}
+                </dd>
+              </div>
+
+            </dl>
+          </div>
+        </div>
+
+        <div class="govuk-summary-card">
+          <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">
+              Treatment
+            </h2>
+            <ul class="govuk-summary-card__actions">
+              <li class="govuk-summary-card__action">
+                <a id="change-treatment" class="govuk-link"
+                   href="/treatment/{{ suicideRiskId }}?returnTo=check-your-report">Change<span
+                    class="govuk-visually-hidden"> Treatment</span></a>
+              </li>
+            </ul>
+          </div>
+          <div class="govuk-summary-card__content">
+            <dl class="govuk-summary-list">
+              <div class="govuk-summary-list__row">
+
+                <dt class="govuk-summary-list__key">
+                  Current Psychiatric Treatment
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {% if suicideRisk.currentPsychTreatment == null %}
+                    <a id="cya-link-treatment" href="/treatment/{{ suicideRisk.id }}?returnTo=check-your-report" class="govuk-link">enter required
+                      information<span class="govuk-visually-hidden"> for Treatment</span></a>
+                  {% else %}
+                    {{ suicideRisk.currentPsychTreatment }}
+                  {% endif %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  {% if suicideRisk.currentPsychTreatment == null %}
+                    <span class="govuk-tag--light-blue">Required</span>
+                  {% endif %}
+                </dd>
+              </div>
+
+            </dl>
+          </div>
+        </div>
+
+        <div class="govuk-summary-card">
+          <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">
+              Recipients
+            </h2>
+            <ul class="govuk-summary-card__actions">
+              <li class="govuk-summary-card__action">
+                <a id="change-recipients" class="govuk-link"
+                   href="/recipients/{{ suicideRiskId }}?returnTo=check-your-report">Change<span
+                    class="govuk-visually-hidden"> Recipients</span></a>
+              </li>
+            </ul>
+          </div>
+          <div class="govuk-summary-card__content">
+            <dl class="govuk-summary-list">
+
+              {% if suicideRisk.suicideRiskContactList == null or suicideRisk.suicideRiskContactList.length == 0 %}
+                <div class="govuk-summary-list__row">
+                  <dt class="govuk-summary-list__key">
+                    Recipients
+                  </dt>
+                  <dd class="govuk-summary-list__value">
+                    <a id="cya-link-recipients" href="/recipients/{{ suicideRisk.id }}?returnTo=check-your-report" class="govuk-link">enter required
+                      information<span class="govuk-visually-hidden"> for Recipients</span></a>
+                  </dd>
+                  <dd class="govuk-summary-list__actions">
+                    <span class="govuk-tag--light-blue">Required</span>
+                  </dd>
+                </div>
+              {% else %}
+                {% for rec in suicideRisk.suicideRiskContactList %}
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                      {{ rec.contactTypeDescription }}
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                      {% if rec.contactPerson != null %} {{ rec.contactPerson }}
+                        <br> {% endif %}
+                      {% if rec.contactLocation != null %}
+                        {% if rec.contactLocation.officeDescription != null %} {{ rec.contactLocation.officeDescription }}
+                          <br> {% endif %}
+                        {% if rec.contactLocation.buildingName != null %} {{ rec.contactLocation.buildingName }}
+                          <br> {% endif %}
+                        {% if rec.contactLocation.buildingNumber != null or rec.contactLocation.streetName != null %} {{ rec.contactLocation.buildingNumber }} {{ rec.contactLocation.streetName }}
+                          <br> {% endif %}
+                        {% if rec.contactLocation.district != null %} {{ rec.contactLocation.district }}
+                          <br> {% endif %}
+                        {% if rec.contactLocation.townCity != null %} {{ rec.contactLocation.townCity }}
+                          <br> {% endif %}
+                        {% if rec.contactLocation.county != null %} {{ rec.contactLocation.county }}
+                          <br> {% endif %}
+                        {% if rec.contactLocation.postcode != null %} {{ rec.contactLocation.postcode }} <br> {% endif %}
+                      {% endif %}
+                      {% if rec.contactDate != null %} {{ rec.contactDate }} {% endif %}
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                    </dd>
+                  </div>
+                {% endfor %}
+              {% endif %}
+
+            </dl>
+          </div>
+        </div>
+
+        <div class="govuk-summary-card">
+          <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">
+              Sign and Send
+            </h2>
+            <ul class="govuk-summary-card__actions">
+              <li class="govuk-summary-card__action">
+                <a id="change-sign-and-send" class="govuk-link"
+                   href="/sign-and-send/{{ suicideRiskId }}?returnTo=check-your-report">Change<span
+                    class="govuk-visually-hidden"> Sign and Send</span></a>
+              </li>
+            </ul>
+          </div>
+          <div class="govuk-summary-card__content">
+            <dl class="govuk-summary-list">
+              <div class="govuk-summary-list__row">
+
+                <dt class="govuk-summary-list__key">
+                  Signature
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {% if suicideRisk.signature == null %}
+                    <a id="cya-link-signature" href="/sign-and-send/{{ suicideRisk.id }}?returnTo=check-your-report" class="govuk-link">enter required
+                      information<span class="govuk-visually-hidden"> for Signature</span></a>
+                  {% else %}
+                    {{ suicideRisk.signature }}
+                  {% endif %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  {% if suicideRisk.signature == null %}
+                    <span class="govuk-tag--light-blue">Required</span>
+                  {% endif %}
+                </dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+
+                <dt class="govuk-summary-list__key">
+                  Date of Letter
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {% if suicideRisk.dateOfLetter == null %}
+                    <a id="cya-link-signature-timestamp" href="/sign-and-send/{{ suicideRisk.id }}?returnTo=check-your-report" class="govuk-link">enter required
+                      information<span class="govuk-visually-hidden"> for Date of Letter</span></a>
+                  {% else %}
+                    {{ dateOfLetter }}
+                  {% endif %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  {% if suicideRisk.dateOfLetter == null %}
+                    <span class="govuk-tag--light-blue">Required</span>
+                  {% endif %}
+                </dd>
+              </div>
+
+            </dl>
+          </div>
+        </div>
+
+        <div class="moj-button-group">
+          {% if reportValidated %}
+            {{ govukButton({
+              text: "Publish",
+              preventDoubleClick: "true",
+              type: "submit",
+              attributes: {
+                id: "publish"
+              }
+            }) }}
+            {{ govukButton({
+              text: "View Draft Form",
+              classes: "govuk-button--secondary",
+              preventDoubleClick: "true",
+              href: '/pdf/'+suicideRiskId,
+              attributes: {
+                target: "_blank"
+              }
+            }) }}
+            {{ govukButton({
+              text: "Delete Draft Form",
+              href: '/confirm-delete/'+suicideRiskId,
+              classes: "govuk-button--secondary",
+              preventDoubleClick: "true"
+            }) }}
+          {% else %}
+            {{ govukButton({
+              text: "View Draft Form",
+              classes: "govuk-button--secondary",
+              preventDoubleClick: "true",
+              href: '/pdf/'+suicideRiskId,
+              attributes: {
+                target: "_blank"
+              }
+            }) }}
+            {{ govukButton({
+              text: "Delete Draft Form",
+              href: '/confirm-delete/'+suicideRiskId,
+              classes: "govuk-button--secondary",
+              preventDoubleClick: "true"
+            }) }}
+          {% endif %}
+        </div>
+
       </div>
     </div>
   </form>

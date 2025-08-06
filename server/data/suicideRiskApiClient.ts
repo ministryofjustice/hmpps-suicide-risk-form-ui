@@ -30,7 +30,6 @@ export default class SuicideRiskApiClient extends RestClient {
 }
 
 export interface SuicideRisk {
-  id: string
   crn: string
   titleAndFullName: string
   dateOfLetter: string
