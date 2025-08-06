@@ -376,6 +376,98 @@
           "Content-Type": "application/json;charset=UTF-8"
         }
       }
+    },
+
+    {
+      "request": {
+        "urlPattern": "/ndelius/users/(.*?)/access/(.*?)",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "userExcluded": false,
+          "userRestricted": false
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+
+    {
+      "request": {
+        "urlPattern": "/ndelius/users/(.*?)/access/X000002",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "userExcluded": false,
+          "userRestricted": false
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+
+    {
+      "request": {
+        "urlPattern": "/ndelius/users/(.*?)/access/X100501",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "crn": "X100501",
+          "userExcluded": true,
+          "exclusionMessage": "If you believe you should be able to access this record please contact [whoever]",
+          "userRestricted": false
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+
+    {
+      "request": {
+        "urlPattern": "/ndelius/users/(.*?)/access/X100502",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "crn": "X100502",
+          "userExcluded": false,
+          "userRestricted": true,
+          "restrictionMessage": "If you believe you should be able to access this record please contact [whoever]"
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+
+    {
+      "request": {
+        "urlPattern": "/ndelius/users/(.*?)/access/X100503",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "crn": "X100503",
+          "userExcluded": true,
+          "exclusionMessage": "If you believe you should be able to access this record please contact [whoever]",
+          "userRestricted": true,
+          "restrictionMessage": "If you believe you should be able to access this record please contact [whoever]"
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
     }
   ]
 }
