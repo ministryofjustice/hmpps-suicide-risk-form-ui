@@ -129,4 +129,9 @@ context('Check your answers data checks', () => {
     cy.visit('/check-your-answers/00000000-0000-0000-0000-600000000006')
     cy.get('#publish').should('exist')
   })
+
+  it('navigates to report completed page if completed date set', () => {
+    cy.visit('/check-your-answers/30000000-0000-0000-0000-33333333333')
+    cy.url().should('include', '/report-completed/30000000-0000-0000-0000-3333333333')
+  })
 })
