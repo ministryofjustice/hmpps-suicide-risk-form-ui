@@ -16,6 +16,15 @@ export default class NDeliusIntegrationApiClient extends RestClient {
       asSystem(username),
     )
   }
+
+  async getSuicideRiskInformation(crn: string, username: string): Promise<Registration> {
+    return this.get(
+      {
+        path: `/suicide-risk-information/crn/${crn}`,
+      },
+      asSystem(username),
+    )
+  }
 }
 
 export interface Name {
@@ -43,4 +52,19 @@ export interface DeliusAddress {
   district: string
   county: string
   postcode: string
+}
+
+export interface Registration {
+  id?: string
+  type: Type
+  startDate: string
+  endDate: string
+  notes: string
+  documentsLinked: boolean
+  deregistered: false
+}
+
+export interface Type {
+  code: string
+  description: string
 }

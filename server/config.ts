@@ -81,6 +81,15 @@ export default {
       },
       agent: new AgentConfig(Number(get('SUICIDE_RISK_API_TIMEOUT_RESPONSE', 5000))),
     },
+    assessRisksAndNeeds: {
+      url: get('ASSESS_RISKS_AND_NEEDS_API_URL', 'http://localhost:9091/assess-risks-and-needs', requiredInProduction),
+      healthPath: '/health/ping',
+      timeout: {
+        response: Number(get('ASSESS_RISKS_AND_NEEDS_API_TIMEOUT_RESPONSE', 5000)),
+        deadline: Number(get('ASSESS_RISKS_AND_NEEDS_API_TIMEOUT_DEADLINE', 5000)),
+      },
+      agent: new AgentConfig(Number(get('ASSESS_RISKS_AND_NEEDS_API_TIMEOUT_RESPONSE', 5000))),
+    },
     ndeliusIntegration: {
       url: get('NDELIUS_INTEGRATION_URL', 'http://localhost:9091/ndelius', requiredInProduction),
       healthPath: '/health/ping',
@@ -96,4 +105,11 @@ export default {
   },
   ingressUrl: get('INGRESS_URL', 'http://localhost:3000', requiredInProduction),
   environmentName: get('ENVIRONMENT_NAME', ''),
+  ndeliusDeeplink: {
+    url: get(
+      'NDELIUS_DEEPLINK_URL',
+      'http://localhost:7001/NDelius-war/delius/JSP/deeplink.xhtml',
+      requiredInProduction,
+    ),
+  },
 }

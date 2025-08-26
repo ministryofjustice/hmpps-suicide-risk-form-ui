@@ -1,0 +1,67 @@
+{
+  "mappings": [
+    {
+      "request": {
+        "method": "GET",
+        "url": "/assess-risks-and-needs/risks/crn/X000001/summary"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "whoIsAtRisk": "X, Y and Z are at risk",
+          "natureOfRisk": "The nature of the risk is X",
+          "riskImminence": "the risk is imminent and more probably in X situation",
+          "riskIncreaseFactors": "If offender in situation X the risk can be higher",
+          "riskMitigationFactors": "Giving offender therapy in X will reduce the risk",
+          "riskInCommunity": {
+            "HIGH": ["Children", "Public", "Know adult"],
+            "MEDIUM": ["Staff"],
+            "LOW": ["Prisoners"]
+          },
+          "riskInCustody": {
+            "HIGH ": ["Know adult"],
+            "VERY_HIGH": ["Staff", "Prisoners"],
+            "LOW": ["Children", "Public"]
+          },
+          "assessedOn": "2025-07-31T12:18:58",
+          "overallRiskLevel": "HIGH"
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+
+    {
+      "request": {
+        "method": "GET",
+        "url": "/assess-risks-and-needs/risks/crn/X000002/summary"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "whoIsAtRisk": "X, Y and Z are at risk",
+          "natureOfRisk": "The nature of the risk is X",
+          "riskImminence": "the risk is imminent and more probably in X situation",
+          "riskIncreaseFactors": "If offender in situation X the risk can be higher",
+          "riskMitigationFactors": "Giving offender therapy in X will reduce the risk",
+          "riskInCommunity": {
+            "HIGH": [],
+            "MEDIUM": [],
+            "LOW": []
+          },
+          "riskInCustody": {
+            "HIGH ": [],
+            "VERY_HIGH": [],
+            "LOW": []
+          },
+          "assessedOn": "2025-07-31T12:18:58",
+          "overallRiskLevel": "LOW"
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    }
+  ]
+}
