@@ -1,5 +1,3 @@
-import cypress from 'cypress'
-
 context('information', () => {
   it('can see buttons', () => {
     cy.visit('/information/00000000-0000-0000-0000-000000000001')
