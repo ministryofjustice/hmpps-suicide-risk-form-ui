@@ -36,8 +36,8 @@ context('Sign and Send Page', () => {
   })
 
   it('Sign and Send saved Address', () => {
-    cy.visit('/sign-and-send/00000000-0000-0000-0000-600000000006')
-    cy.get('#workAddress').should('contain.text', 'The Birdseye Factory')
+    cy.visit('/sign-and-send/00000000-0000-0000-0000-600000000009')
+    cy.get('#workAddress').should('contain.text', 'The Bessies Factory')
   })
 
   it('Sign and Send with manual address', () => {
