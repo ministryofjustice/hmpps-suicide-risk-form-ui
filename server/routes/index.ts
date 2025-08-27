@@ -8,6 +8,7 @@ import recipientsRoutes from './recipients'
 import signAndSendRoutes from './signAndSend'
 import checkYourAnswersRoutes from './checkYourAnswers'
 import reportCompletedRoutes from './reportCompleted'
+import pdfMaintenanceRoutes from './pdfMaintenance'
 
 export default function routes({ auditService, hmppsAuthClient, commonUtils }: Services): Router {
   const router = Router()
@@ -37,5 +38,6 @@ export default function routes({ auditService, hmppsAuthClient, commonUtils }: S
   signAndSendRoutes(router, auditService, hmppsAuthClient, commonUtils)
   checkYourAnswersRoutes(router, auditService, hmppsAuthClient, commonUtils)
   reportCompletedRoutes(router, auditService, hmppsAuthClient)
+  pdfMaintenanceRoutes(router, auditService, hmppsAuthClient, commonUtils)
   return router
 }

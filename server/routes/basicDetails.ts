@@ -58,6 +58,8 @@ export default function basicDetailsRoutes(
       return
     }
 
+    if (await commonUtils.redirectRequired(suicideRisk, suicideRiskId, res, authenticationClient)) return
+
     try {
       basicDetails = await ndeliusIntegrationApiClient.getBasicDetails(suicideRisk.crn, res.locals.user.username)
     } catch (error) {
@@ -81,8 +83,6 @@ export default function basicDetailsRoutes(
       res.render(`pages/detailed-error`, { errorMessages })
       return
     }
-
-    if (await commonUtils.redirectRequired(suicideRisk, res)) return
 
     const age = calculateAge(basicDetails.dateOfBirth)
     const defaultAddress: DeliusAddress = findDefaultAddressInAddressList(basicDetails.addresses)
