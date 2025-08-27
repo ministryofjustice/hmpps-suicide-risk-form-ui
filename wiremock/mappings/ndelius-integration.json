@@ -75,6 +75,28 @@
         }
       }
     },
+
+    {
+      "request": {
+        "urlPattern": "/ndelius/basic-details/X300003/(.*?)",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "title": "Dr",
+          "name": {
+            "forename": "Iris",
+            "middleName": "Quinn",
+            "surname": "Pembroke"
+          }
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+
     {
       "request": {
         "urlPattern": "/ndelius/basic-details/X012345/(.*?)",
@@ -458,7 +480,7 @@
 
     {
       "request": {
-        "url": "/ndelius/suicide-risk-information/crn/X000001",
+        "url": "/ndelius/suicide-risk-information/crn/X300003",
         "method": "GET"
       },
       "response": {
@@ -483,7 +505,7 @@
 
     {
       "request": {
-        "url": "/ndelius/suicide-risk-information/crn/X000002",
+        "url": "/ndelius/suicide-risk-information/crn/X000001",
         "method": "GET"
       },
       "response": {

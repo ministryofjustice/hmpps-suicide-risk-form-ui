@@ -3,7 +3,7 @@
     {
       "request": {
         "method": "GET",
-        "url": "/assess-risks-and-needs/risks/crn/X000001/summary"
+        "url": "/assess-risks-and-needs/risks/crn/X300003/summary"
       },
       "response": {
         "status": 200,
@@ -35,7 +35,7 @@
     {
       "request": {
         "method": "GET",
-        "url": "/assess-risks-and-needs/risks/crn/X000002/summary"
+        "url": "/assess-risks-and-needs/risks/crn/X000001/summary"
       },
       "response": {
         "status": 200,

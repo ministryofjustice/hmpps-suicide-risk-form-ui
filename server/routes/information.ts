@@ -101,6 +101,7 @@ export default function informationRoutes(
     let suicideRisk: SuicideRisk = null
     let riskAssessment: RiskAssessment = null
     const { additionalInfo } = req.body
+    const callingScreen: string = req.query.returnTo as string
     let errorMessages: ErrorMessages = {}
 
     try {
@@ -158,6 +159,8 @@ export default function informationRoutes(
       )
     } else if (req.body.action === 'refreshFromNdelius') {
       res.redirect(`/information/${req.params.id}`)
+    } else if (callingScreen && callingScreen === 'check-your-report') {
+      res.redirect(`/check-your-answers/${req.params.id}`)
     } else {
       res.redirect(`/treatment/${req.params.id}`)
     }
