@@ -505,6 +505,31 @@
 
     {
       "request": {
+        "url": "/ndelius/suicide-risk-information/crn/X000002",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "654321",
+          "startDate": "2025-02-02",
+          "endDate": "2025-02-02",
+          "notes": "some notes in here",
+          "documentsLinked": true,
+          "deregistered": false,
+          "type": {
+            "code": "REG2",
+            "description": "registration type 2"
+          }
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+
+    {
+      "request": {
         "url": "/ndelius/suicide-risk-information/crn/X000001",
         "method": "GET"
       },
