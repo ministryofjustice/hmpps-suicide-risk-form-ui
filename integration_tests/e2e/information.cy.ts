@@ -8,13 +8,13 @@ context('information', () => {
 
   it('can see readonly fields', () => {
     cy.visit('/information/00000000-0000-0000-0000-300000000003')
-    // cy.get('#page-title').should('contain.text', 'Suicide Risk - Information')
+    cy.get('#page-title').should('contain.text', 'Suicide Risk - Information')
     cy.get('#nature-of-risk').should('contain.text', 'The nature of the risk is X')
     cy.get('#risk-imminence').should('contain.text', 'the risk is imminent and more probably in X situation')
     cy.get('#risk-increase-factors').should('contain.text', 'If offender in situation X the risk can be higher')
     cy.get('#risk-decrease-factors').should('contain.text', 'Giving offender therapy in X will reduce the risk')
-    cy.get('#registration-start-date').should('contain.text', '2025-01-01')
-    cy.get('#registration-end-date').should('contain.text', '2025-01-01')
+    cy.get('#registration-start-date').should('contain.text', '01/01/2025')
+    cy.get('#registration-end-date').should('contain.text', '01/01/2025')
     cy.get('#registration-notes').should('contain.text', 'some notes in here')
   })
 
@@ -29,8 +29,8 @@ context('information', () => {
     cy.get('#risk-imminence').should('contain.text', 'the risk is imminent and more probably in X situation')
     cy.get('#risk-increase-factors').should('contain.text', 'If offender in situation X the risk can be higher')
     cy.get('#risk-decrease-factors').should('contain.text', 'Giving offender therapy in X will reduce the risk')
-    cy.get('#registration-start-date').should('contain.text', '2025-01-01')
-    cy.get('#registration-end-date').should('contain.text', '2025-01-01')
+    cy.get('#registration-start-date').should('contain.text', '01/01/2025')
+    cy.get('#registration-end-date').should('contain.text', '01/01/2025')
     cy.get('#registration-notes').should('contain.text', 'some notes in here')
   })
 

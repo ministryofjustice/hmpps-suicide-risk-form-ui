@@ -5,14 +5,16 @@ import AuditService, { Page } from '../services/auditService'
 import SuicideRiskApiClient, { SuicideRisk } from '../data/suicideRiskApiClient'
 import AssessRiskAndNeedsApiClient, { RiskAssessment } from '../data/assessRiskAndNeedsApiClient'
 import { ErrorMessages } from '../data/uiModels'
-import { handleIntegrationErrors } from '../utils/utils'
+import { handleIntegrationErrors, toDayMonthYearDateFormat } from '../utils/utils'
 import config from '../config'
 import NDeliusIntegrationApiClient, { Registration } from '../data/ndeliusIntegrationApiClient'
+import CommonUtils from '../services/commonUtils'
 
 export default function informationRoutes(
   router: Router,
   auditService: AuditService,
   authenticationClient: AuthenticationClient,
+  commonUtils: CommonUtils,
 ): Router {
   const currentPage = 'information'
 
@@ -41,6 +43,8 @@ export default function informationRoutes(
       return
     }
 
+    if (await commonUtils.redirectRequired(suicideRisk, suicideRiskId, res, authenticationClient)) return
+
     try {
       // get risk assessment from assess risk and needs service
       riskAssessment = await assessRiskAndNeedsApiClient.getRisksSummary(crn, res.locals.user.username)
@@ -64,6 +68,8 @@ export default function informationRoutes(
     try {
       // get registration details from integration service
       registration = await integrationApiClient.getSuicideRiskInformation(crn, res.locals.user.username)
+      registration.startDate = toDayMonthYearDateFormat(registration.startDate)
+      registration.endDate = toDayMonthYearDateFormat(registration.endDate)
     } catch (error) {
       // get risk assessment from assess risk and needs service
       errorMessages = handleIntegrationErrors(error.status, error.data?.message, 'NDelius Integration')
@@ -93,7 +99,6 @@ export default function informationRoutes(
   })
 
   router.post('/information/:id', async (req, res) => {
-    // const body = req.body as { additionalInfo?: string };
     const suicideRiskId: string = req.params.id
     let crn = null
     const suicideRiskApiClient = new SuicideRiskApiClient(authenticationClient)

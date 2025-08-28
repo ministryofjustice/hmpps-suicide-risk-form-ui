@@ -32,7 +32,7 @@ export default function routes({ auditService, hmppsAuthClient, commonUtils }: S
   })
 
   basicDetailsRoutes(router, auditService, hmppsAuthClient, commonUtils)
-  informationRoutes(router, auditService, hmppsAuthClient)
+  informationRoutes(router, auditService, hmppsAuthClient, commonUtils)
   treatmentRoutes(router, auditService, hmppsAuthClient, commonUtils)
   recipientsRoutes(router, auditService, hmppsAuthClient, commonUtils)
   signAndSendRoutes(router, auditService, hmppsAuthClient, commonUtils)
