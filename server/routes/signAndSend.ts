@@ -163,11 +163,13 @@ export default function signAndSendRoutes(
     } else if (req.body.action === 'clear-signature') {
       suicideRisk.signAndSendSaved = true
       suicideRisk.signature = null
+      suicideRisk.sheetSentBy = null
       await suicideRiskApiClient.updateSuicideRisk(req.params.id, suicideRisk, res.locals.user.username)
       res.redirect(`/sign-and-send/${req.params.id}`)
     } else if (req.body.action === 'sign') {
       suicideRisk.signAndSendSaved = true
       suicideRisk.signature = createSignatureString(userDetails)
+      suicideRisk.sheetSentBy = getOfficerString(userDetails)
       await suicideRiskApiClient.updateSuicideRisk(req.params.id, suicideRisk, res.locals.user.username)
       res.redirect(`/sign-and-send/${req.params.id}`)
     } else if (req.body.action === 'refreshFromNdelius') {
@@ -198,6 +200,18 @@ export default function signAndSendRoutes(
         signature += ` ${userDetails.name.middleName}`
       }
       signature += ` ${userDetails.name.surname} ${toUserDateTime(ZonedDateTime.now(ZoneId.of('Europe/London')))}`
+    }
+    return signature
+  }
+
+  function getOfficerString(userDetails: SignAndSendDetails): string {
+    let signature: string = ''
+    if (userDetails != null && userDetails.name != null) {
+      signature += userDetails.name.forename
+      if (userDetails.name.middleName != null) {
+        signature += ` ${userDetails.name.middleName}`
+      }
+      signature += ` ${userDetails.name.surname}`
     }
     return signature
   }
