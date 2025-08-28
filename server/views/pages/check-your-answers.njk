@@ -290,6 +290,7 @@
           </div>
           <div class="govuk-summary-card__content">
             <dl class="govuk-summary-list">
+
               <div class="govuk-summary-list__row">
 
                 <dt class="govuk-summary-list__key">
@@ -311,22 +312,38 @@
               </div>
 
               <div class="govuk-summary-list__row">
-
                 <dt class="govuk-summary-list__key">
-                  Date of Letter
+                  Work Location
                 </dt>
                 <dd class="govuk-summary-list__value">
-                  {% if suicideRisk.dateOfLetter == null and suicideRisk.contactSaved %}
-                    <a id="cya-link-signature-timestamp" href="/sign-and-send/{{ suicideRisk.id }}?returnTo=check-your-report" class="govuk-link">enter required
-                      information<span class="govuk-visually-hidden"> for Date of Letter</span></a>
-                  {% else %}
-                    {{ dateOfLetter }}
+                  {% if suicideRisk.workAddress != null %}
+                    {% if suicideRisk.workAddress.officeDescription != null %} {{ suicideRisk.workAddress.officeDescription }}
+                      <br> {% endif %}
+                    {% if suicideRisk.workAddress.buildingName != null %} {{ suicideRisk.workAddress.buildingName }}
+                      <br> {% endif %}
+                    {% if suicideRisk.workAddress.buildingNumber != null or suicideRisk.workAddress.streetName != null %} {{ suicideRisk.workAddress.buildingNumber }} {{ suicideRisk.workAddress.streetName }}
+                      <br> {% endif %}
+                    {% if suicideRisk.workAddress.district != null %} {{ suicideRisk.workAddress.district }}
+                      <br> {% endif %}
+                    {% if suicideRisk.workAddress.townCity != null %} {{ suicideRisk.workAddress.townCity }}
+                      <br> {% endif %}
+                    {% if suicideRisk.workAddress.county != null %} {{ suicideRisk.workAddress.county }}
+                      <br> {% endif %}
+                    {% if suicideRisk.workAddress.postcode != null %} {{ suicideRisk.workAddress.postcode }} <br> {% endif %}
                   {% endif %}
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                  {% if suicideRisk.dateOfLetter == null %}
-                    <span class="govuk-tag--light-blue">Required</span>
-                  {% endif %}
+                </dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Telephone Number
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ suicideRisk.telephoneNumber }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
                 </dd>
               </div>
 

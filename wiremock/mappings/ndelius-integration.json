@@ -643,6 +643,53 @@
           "Content-Type": "application/json;charset=UTF-8"
         }
       }
+    },
+
+    {
+      "request": {
+        "urlPattern": "/ndelius/sign-and-send/(.*?)",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "name": {
+            "forename": "Billy",
+            "middleName": "The",
+            "surname": "Kid"
+          },
+          "telephoneNumber": "01234567891",
+          "emailAddress": "example@justice.gov.uk",
+          "addresses": [
+            {
+              "id": 3,
+              "status": "Default",
+              "officeDescription": "The Findus Factory",
+              "buildingName": "Pancake Building",
+              "buildingNumber": "1",
+              "streetName": "Crispy Street",
+              "townCity": "Fry Town",
+              "district": "Previous District",
+              "county": "Prev County",
+              "postcode": "PR1 3EV"
+            },
+            {
+              "id": 4,
+              "officeDescription": "The Birdseye Factory",
+              "buildingName": "Fish Building",
+              "buildingNumber": "1",
+              "streetName": "Fishy Street",
+              "townCity": "Fry Town",
+              "district": "Previous District",
+              "county": "Prev County",
+              "postcode": "FS1 3SH"
+            }
+          ]
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
     }
   ]
 }
