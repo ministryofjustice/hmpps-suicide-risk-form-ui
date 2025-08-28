@@ -185,6 +185,30 @@
 
     {
       "request": {
+        "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-6000000000a1",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "00000000-0000-0000-0000-6000000000a1",
+          "crn": "X600001",
+          "basicDetailsSaved": true,
+          "informationSaved": false,
+          "treatmentSaved": false,
+          "signAndSendSaved": false,
+          "contactSaved": false,
+          "completedDate": null
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        "transformers": ["response-template"]
+      }
+    },
+
+    {
+      "request": {
         "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-600000000002",
         "method": "GET"
       },
