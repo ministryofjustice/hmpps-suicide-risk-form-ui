@@ -1,4 +1,4 @@
-import { ErrorMessages } from '../data/uiModels'
+import { ErrorMessages, SelectItem } from '../data/uiModels'
 import { DeliusAddress, Name } from '../data/ndeliusIntegrationApiClient'
 import { SuicideRiskAddress } from '../data/suicideRiskApiClient'
 
@@ -124,4 +124,41 @@ export function toSuicideRiskAddress(deliusAddress: DeliusAddress): SuicideRiskA
     county: deliusAddress.county,
     postcode: deliusAddress.postcode,
   }
+}
+
+export function formatAddressForSelectMenuDisplay(deliusAddress: DeliusAddress): string {
+  if (deliusAddress) {
+    return [
+      deliusAddress.officeDescription,
+      deliusAddress.buildingName,
+      [deliusAddress.buildingNumber, deliusAddress.streetName]
+        .filter(item => item)
+        .join(' ')
+        .trim(),
+      deliusAddress.district,
+      deliusAddress.townCity,
+      deliusAddress.county,
+      deliusAddress.postcode,
+    ]
+      .filter(item => item)
+      .join(', ')
+  }
+  return null
+}
+
+export function arrangeSelectItemListAlphabetically(selectItemsToSort: SelectItem[]): SelectItem[] {
+  if (selectItemsToSort) {
+    return selectItemsToSort.sort((a, b) => a?.text.localeCompare(b?.text, 'en', { numeric: true }))
+  }
+  return selectItemsToSort
+}
+
+export function removeDeliusAddressFromDeliusAddressList(
+  deliusAddressList: DeliusAddress[],
+  defaultAddress: DeliusAddress,
+): DeliusAddress[] {
+  if (defaultAddress && deliusAddressList) {
+    return deliusAddressList.filter(obj => obj.id !== defaultAddress.id)
+  }
+  return deliusAddressList
 }

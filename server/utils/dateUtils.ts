@@ -1,4 +1,4 @@
-import { DateTimeFormatter } from '@js-joda/core'
+import { DateTimeFormatter, ZonedDateTime } from '@js-joda/core'
 
 export function fromUserDate(str: string): string {
   if (str) {
@@ -11,6 +11,13 @@ export function toUserDate(str: string): string {
   if (str) {
     const timeStrippedString = str.includes('T') ? str.split('T')[0] : str
     return DateTimeFormatter.ofPattern('d/M/yyyy').format(DateTimeFormatter.ISO_LOCAL_DATE.parse(timeStrippedString))
+  }
+  return ''
+}
+
+export function toUserDateTime(timestamp: ZonedDateTime): string {
+  if (timestamp) {
+    return DateTimeFormatter.ofPattern('d/M/yyyy HH:mm').format(timestamp.toLocalDateTime())
   }
   return ''
 }
