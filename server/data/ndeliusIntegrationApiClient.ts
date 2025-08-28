@@ -86,7 +86,7 @@ export interface SignAndSendDetails {
 
 export interface Registration {
   id?: string
-  type: Type
+  type: ReferenceData
   startDate: string
   endDate: string
   notes: string
@@ -94,7 +94,7 @@ export interface Registration {
   deregistered: false
 }
 
-export interface Type {
+export interface ReferenceData {
   code: string
   description: string
 }
