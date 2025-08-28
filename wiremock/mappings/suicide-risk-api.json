@@ -38,6 +38,24 @@
 
     {
       "request": {
+        "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-300000000003",
+        "method": "PUT"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "00000000-0000-0000-0000-300000000003",
+          "crn": "X300003"
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        "transformers": ["response-template"]
+      }
+    },
+
+    {
+      "request": {
         "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-100000000005",
         "method": "GET"
       },
@@ -151,6 +169,29 @@
           "treatmentSaved": true,
           "signAndSendSaved": true,
           "contactSaved": true
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        "transformers": ["response-template"]
+      }
+    },
+
+    {
+      "request": {
+        "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-300000000003",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "00000000-0000-0000-0000-300000000003",
+          "crn": "X300003",
+          "basicDetailsSaved": true,
+          "informationSaved": true,
+          "treatmentSaved": false,
+          "signAndSendSaved": false,
+          "contactSaved": false
         },
         "headers": {
           "Content-Type": "application/json;charset=UTF-8"

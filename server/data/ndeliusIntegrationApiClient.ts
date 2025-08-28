@@ -17,6 +17,15 @@ export default class NDeliusIntegrationApiClient extends RestClient {
     )
   }
 
+  async getSuicideRiskInformation(crn: string, username: string): Promise<Registration> {
+    return this.get(
+      {
+        path: `/suicide-risk-information/crn/${crn}`,
+      },
+      asSystem(username),
+    )
+  }
+
   async getLimitedAccessCheck(crn: string, username: string): Promise<LimitedAccessCheck> {
     return this.get({
       path: `/users/${username}/access/${crn}`,
@@ -73,4 +82,19 @@ export interface SignAndSendDetails {
   telephoneNumber?: string
   emailAddress?: string
   addresses: DeliusAddress[]
+}
+
+export interface Registration {
+  id?: string
+  type: ReferenceData
+  startDate: string
+  endDate: string
+  notes: string
+  documentsLinked: boolean
+  deregistered: false
+}
+
+export interface ReferenceData {
+  code: string
+  description: string
 }
