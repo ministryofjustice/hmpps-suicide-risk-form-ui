@@ -28,7 +28,17 @@ export default function signAndSendRoutes(
     const suicideRiskId: string = req.params.id
     const suicideRiskApiClient = new SuicideRiskApiClient(authenticationClient)
     const ndeliusIntegrationApiClient = new NDeliusIntegrationApiClient(authenticationClient)
-    const suicideRisk = await suicideRiskApiClient.getSuicideRiskById(suicideRiskId, res.locals.user.username)
+
+    let suicideRisk: SuicideRisk = null
+    try {
+      suicideRisk = await suicideRiskApiClient.getSuicideRiskById(suicideRiskId, res.locals.user.username)
+    } catch (error) {
+      const errorMessages: ErrorMessages = handleIntegrationErrors(error.status, error.data?.message, 'Suicide Risk')
+      const showEmbeddedError = true
+      res.render(`pages/basic-details`, { errorMessages, showEmbeddedError })
+      return
+    }
+
     if (await commonUtils.redirectRequired(suicideRisk, suicideRiskId, res, authenticationClient)) return
 
     let userDetails: SignAndSendDetails = null
