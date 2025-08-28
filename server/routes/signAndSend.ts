@@ -158,6 +158,7 @@ export default function signAndSendRoutes(
     } else if (req.body.action === 'sign') {
       suicideRisk.signAndSendSaved = true
       suicideRisk.signature = createSignatureString(userDetails)
+      await suicideRiskApiClient.updateSuicideRisk(req.params.id, suicideRisk, res.locals.user.username)
       res.redirect(`/sign-and-send/${req.params.id}`)
     } else if (req.body.action === 'refreshFromNdelius') {
       res.redirect(`/sign-and-send/${req.params.id}`)
