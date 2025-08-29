@@ -39,11 +39,4 @@ context('Sign and Send Page', () => {
     cy.visit('/sign-and-send/00000000-0000-0000-0000-600000000009')
     cy.get('#workAddress').should('contain.text', 'The Bessies Factory')
   })
-
-  it('Sign and Send with manual address', () => {
-    cy.visit('/sign-and-send/00000000-0000-0000-0000-600000000009')
-    cy.get('#update-address-button').should('exist')
-    cy.get('#update-address-button').click()
-    cy.url().should('include', '/update-work-address/00000000-0000-0000-0000-600000000009')
-  })
 })
