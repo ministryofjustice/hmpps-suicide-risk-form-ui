@@ -27,7 +27,7 @@ context('Update Work Address page', () => {
     cy.url().should('include', '/sign-and-send')
   })
 
-  it('will return to basic details screen when cancel is clicked', () => {
+  it('will return to sign and send screen when cancel is clicked', () => {
     cy.visit('/update-work-address/00000000-0000-0000-0000-600000000009')
     cy.url().should('include', '/update-work-address')
     cy.get('#cancel-button').should('exist').should('be.visible').click()
