@@ -1,0 +1,184 @@
+{% extends "../partials/layout.njk" %}
+
+{% set pageTitle = applicationName + " - Home" %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block content %}
+
+  {% from "moj/components/side-navigation/macro.njk" import mojSideNavigation %}
+  {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+  {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+  {% from "govuk/components/button/macro.njk" import govukButton %}
+  {% from "govuk/components/select/macro.njk" import govukSelect %}
+  {% from "govuk/components/radios/macro.njk" import govukRadios %}
+  {% from "govuk/components/input/macro.njk" import govukInput %}
+
+  <form method="post">
+    {% set errorList =[
+      { text: errorMessages.identifier.text, href: "#description" } if errorMessages.identifier else None,
+      { text: errorMessages.streetName.text, href: "#streetName" } if errorMessages.streetName else None,
+      { text: errorMessages.townCity.text, href: "#townCity" } if errorMessages.townCity else None,
+      { text: errorMessages.postcode.text, href: "#postcode" } if errorMessages.postcode else None,
+      { text: errorMessages.genericErrorMessage.text, href: "#" } if errorMessages.genericErrorMessage else None
+    ] | reject("undefined") %}
+
+    {% if errorMessages | length > 0 %}
+      {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+      {{ govukErrorSummary({ titleText: "There is a problem", errorList: errorList }) }}
+    {% endif %}
+
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third">
+        {% include "pages/side-nav.njk" %}
+      </div>
+      <div class="govuk-grid-column-two-thirds">
+
+        {% if not showEmbeddedError %}
+
+          <h1 class="govuk-heading-l">Please enter an Address</h1>
+
+          {{ govukInput({
+            label: {
+              text: "Office Description (if applicable)",
+              classes: "govuk-label--m",
+              isPageHeading: false
+            },
+            id: "description",
+            value: suicideRisk.workAddress.officeDescription,
+            classes: "govuk-input--width-30",
+            name: "officeDescription",
+            errorMessage: {
+              text: errorMessages.identifier.text
+            } if errorMessages.identifier.text
+          }) }}
+
+          {{ govukInput({
+            label: {
+              text: "Building Name (if applicable)",
+              classes: "govuk-label--m",
+              isPageHeading: false
+            },
+            id: "buildingName",
+            value: suicideRisk.workAddress.buildingName,
+            classes: "govuk-input--width-30",
+            name: "buildingName",
+            errorMessage: {
+              text: errorMessages.identifier.text
+            } if errorMessages.identifier.text
+          }) }}
+
+          {{ govukInput({
+            label: {
+              text: "Address Number (if applicable)",
+              classes: "govuk-label--m",
+              isPageHeading: false
+            },
+            id: "houseNumber",
+            value: suicideRisk.workAddress.buildingNumber,
+            classes: "govuk-input--width-30",
+            name: "buildingNumber",
+            errorMessage: {
+              text: errorMessages.identifier.text
+            } if errorMessages.identifier.text
+          }) }}
+
+          {{ govukInput({
+            label: {
+              text: "Street Name",
+              classes: "govuk-label--m",
+              isPageHeading: false
+            },
+            id: "streetName",
+            value: suicideRisk.workAddress.streetName,
+            classes: "govuk-input--width-30",
+            name: "streetName",
+            errorMessage: {
+              text: errorMessages.streetName.text
+            } if errorMessages.streetName.text
+          }) }}
+
+          {{ govukInput({
+            label: {
+              text: "District (if applicable)",
+              classes: "govuk-label--m",
+              isPageHeading: false
+            },
+            id: "district",
+            value: suicideRisk.workAddress.district,
+            classes: "govuk-input--width-30",
+            name: "district"
+          }) }}
+
+          {{ govukInput({
+            label: {
+              text: "Town or City",
+              classes: "govuk-label--m",
+              isPageHeading: false
+            },
+            id: "townCity",
+            value: suicideRisk.workAddress.townCity,
+            classes: "govuk-input--width-20",
+            name: "townCity",
+            errorMessage: {
+              text: errorMessages.townCity.text
+            } if errorMessages.townCity.text
+          }) }}
+
+          {{ govukInput({
+            label: {
+              text: "County (if applicable)",
+              classes: "govuk-label--m",
+              isPageHeading: false
+            },
+            id: "county",
+            value: suicideRisk.workAddress.county,
+            classes: "govuk-input--width-20",
+            name: "county",
+            errorMessage: {
+              text: errorMessages.county.text
+            } if errorMessages.county.text
+          }) }}
+
+          {{ govukInput({
+            label: {
+              text: "Postcode",
+              classes: "govuk-label--m",
+              isPageHeading: false
+            },
+            id: "postcode",
+            value: suicideRisk.workAddress.postcode,
+            classes: "govuk-input--width-10",
+            name: "postcode",
+            errorMessage: {
+              text: errorMessages.postcode.text
+            } if errorMessages.postcode.text
+          }) }}
+
+          <div class="moj-button-group">
+            {{ govukButton({
+              text: "Save",
+              preventDoubleClick: "true",
+              type: "submit",
+              attributes: {
+                id: "save-button"
+              }
+            }) }}
+            {{ govukButton({
+              text: "Cancel",
+              type: "submit",
+              href: '/sign-and-send/'+suicideRiskId,
+              classes: "govuk-button--secondary",
+              attributes: {
+                id: "cancel-button"
+              }
+            }) }}
+        </div>
+
+        {% endif %}
+
+      </div>
+    </div>
+  </form>
+
+{% endblock %}
