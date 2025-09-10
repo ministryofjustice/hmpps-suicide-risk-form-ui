@@ -29,11 +29,13 @@ export default function signAndSendRoutes(
     const suicideRiskApiClient = new SuicideRiskApiClient(authenticationClient)
     const ndeliusIntegrationApiClient = new NDeliusIntegrationApiClient(authenticationClient)
 
+    let errorMessages: ErrorMessages = {}
+
     let suicideRisk: SuicideRisk = null
     try {
       suicideRisk = await suicideRiskApiClient.getSuicideRiskById(suicideRiskId, res.locals.user.username)
     } catch (error) {
-      const errorMessages: ErrorMessages = handleIntegrationErrors(error.status, error.data?.message, 'Suicide Risk')
+      errorMessages = handleIntegrationErrors(error.status, error.data?.message, 'Suicide Risk')
       const showEmbeddedError = true
       res.render(`pages/basic-details`, { errorMessages, showEmbeddedError })
       return
@@ -45,11 +47,7 @@ export default function signAndSendRoutes(
     try {
       userDetails = await ndeliusIntegrationApiClient.getSignAndSendDetails(res.locals.user.username)
     } catch (error) {
-      const errorMessages: ErrorMessages = handleIntegrationErrors(
-        error.status,
-        error.data?.message,
-        'NDelius Integration',
-      )
+      errorMessages = handleIntegrationErrors(error.status, error.data?.message, 'NDelius Integration')
       // take the user to detailed error page for 400 type errors
       if (error.status === 400) {
         res.render(`pages/detailed-error`, { errorMessages })
@@ -83,6 +81,10 @@ export default function signAndSendRoutes(
       if (addressPresent == null) {
         suicideRisk.workAddress = null
         addressNotAvailable = true
+
+        errorMessages.genericErrorMessage = {
+          text: 'Work Location and Address: The previously selected address is no longer available. Please select an alternative.',
+        }
       }
     }
 
@@ -108,6 +110,7 @@ export default function signAndSendRoutes(
       alternateAddressOptions,
       addressNotAvailable,
       manualAddressAllowed,
+      errorMessages,
     })
   })
 
