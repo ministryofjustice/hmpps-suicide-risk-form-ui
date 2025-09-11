@@ -40,7 +40,6 @@
           value: suicideRisk.currentPsychTreatment
         }) }}
 
-        <h2 class="govuk-heading-m">Contacts relating to Treatment</h2>
         {{ govukButton({
           text: "Search Contacts",
           preventDoubleClick: "true",
@@ -54,14 +53,15 @@
 
         {% if not searchResults %}
           <p id="search-contacts-text">
-            Please press the Search Contact button to view contacts containing "Psychiatric Treatment"
+            To search for Contacts relating to "Psychiatric Treatment" press here
           </p>
         {% else %}
+          <h2 class="govuk-heading-m">Contacts relating to Treatment</h2>
           <h2 class="govuk-heading-m">{{ searchResults.results.length }} Contacts found</h2>
           <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 
           {% if searchResults.results.length == 0 %}
-            <p class="govuk-body">No contacts matched your search.</p>
+            <p class="govuk-body">No contacts relating to Psychiatric Treatment have been found.</p>
 
           {% else %}
             {% for entry in contactsWithDocs %}
@@ -79,7 +79,7 @@
                   </p>
 
                   {{ govukDetails({
-                    summaryText: "view contact notes",
+                    summaryText: "View Contact notes",
                     text: result.notes or "No notes found for this contact"
                   }) }}
 
@@ -95,13 +95,13 @@
                     {% endset %}
 
                     {{ govukDetails({
-                      summaryText: "show document details",
+                      summaryText: "Show associated documents",
                       html: docHtml
                     }) }}
 
                     <p>
                       <a href="{{ contactDeeplink }}{{ result.id }}" target="_blank" class="govuk-link">
-                        click here to open full contact details in a new tab
+                        select this hyperlink to open the ndelius contact page in a new tab
                       </a>
                     </p>
                   {% else %}

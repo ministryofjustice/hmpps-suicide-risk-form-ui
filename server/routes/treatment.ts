@@ -83,7 +83,7 @@ export default function treatmentRoutes(
     if (req.body.action === 'searchContacts') {
       let contactDeeplink: string = null
       let documentsResponse: ContactDocSearchResponse = null
-      let searchContactsResponse: SearchContactsResponse = null
+      let searchResults: SearchContactsResponse = null
 
       const probationOffenderSearchApiClient = new ProbationOffenderSearchApiClient(authenticationClient)
       const request: SearchContactsRequest = {
@@ -92,7 +92,7 @@ export default function treatmentRoutes(
       }
       // Post request to Probation offender search for 'Psychiatric Treatment' related contacts
       try {
-        searchContactsResponse = await probationOffenderSearchApiClient.searchContacts(
+        searchResults = await probationOffenderSearchApiClient.searchContacts(
           request,
           res.locals.user.username,
         )
@@ -115,20 +115,20 @@ export default function treatmentRoutes(
       }
 
       // If no contacts found, skip searching for the documents section and render the page
-      if (!searchContactsResponse || !searchContactsResponse.results || searchContactsResponse.results.length === 0) {
+      if (!searchResults || !searchResults.results || searchResults.results.length === 0) {
         res.render('pages/treatment', {
           suicideRiskId,
           currentPage,
           contactDeeplink,
-          errorMessages,
-          contactsWithDocs: [],
+          searchResults,
+          errorMessages
         })
         return
       }
 
       const ndeliusIntegrationApiClient = new NDeliusIntegrationApiClient(authenticationClient)
       const docRequest: ContactDocSearchRequest = {
-        contactIds: searchContactsResponse.results.map(r => r.id),
+        contactIds: searchResults.results.map(r => r.id),
       }
       // Post request to probation integration to find any documents linked to our contacts
       try {
@@ -154,7 +154,7 @@ export default function treatmentRoutes(
       }
 
       // map contact ids to their associated documents
-      const contactsWithDocs: ContactWithDocuments[] = searchContactsResponse.results.map(contact => {
+      const contactsWithDocs: ContactWithDocuments[] = searchResults.results.map(contact => {
         const match = documentsResponse.content.find(d => d.id === contact.id)
         return {
           contact,
@@ -166,6 +166,7 @@ export default function treatmentRoutes(
         suicideRiskId,
         currentPage,
         contactDeeplink,
+        searchResults,
         contactsWithDocs,
         errorMessages,
       })
