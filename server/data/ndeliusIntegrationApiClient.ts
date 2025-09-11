@@ -53,22 +53,22 @@ export default class NDeliusIntegrationApiClient extends RestClient {
 }
 
 export interface ContactDocSearchRequest {
-  contactIds: number[];
+  contactIds: number[]
 }
 
 export interface DocumentDetails {
-  id: number;
-  name: string;
-  lastUpdated: string;
+  id: number
+  name: string
+  lastUpdated: string
 }
 
 export interface ContactDocSearchResponseItem {
-  id: number;
-  documents: DocumentDetails[];
+  id: number
+  documents: DocumentDetails[]
 }
 
 export interface ContactDocSearchResponse {
-  content: ContactDocSearchResponseItem[];
+  content: ContactDocSearchResponseItem[]
 }
 
 export interface LimitedAccessCheck {

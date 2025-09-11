@@ -81,7 +81,7 @@ export default function treatmentRoutes(
 
     // When using the 'Search Contacts' button
     if (req.body.action === 'searchContacts') {
-      let contactDeeplink: String = null
+      let contactDeeplink: string = null
       let documentsResponse: ContactDocSearchResponse = null
       let searchContactsResponse: SearchContactsResponse = null
 
@@ -111,17 +111,19 @@ export default function treatmentRoutes(
           return
         }
         res.render(`pages/detailed-error`, { errorMessages })
-        return      }
+        return
+      }
 
       // If no contacts found, skip searching for the documents section and render the page
       if (!searchContactsResponse || !searchContactsResponse.results || searchContactsResponse.results.length === 0) {
-        return res.render('pages/treatment', {
+        res.render('pages/treatment', {
           suicideRiskId,
           currentPage,
           contactDeeplink,
           errorMessages,
           contactsWithDocs: [],
         })
+        return
       }
 
       const ndeliusIntegrationApiClient = new NDeliusIntegrationApiClient(authenticationClient)
@@ -160,12 +162,12 @@ export default function treatmentRoutes(
         }
       })
 
-      return res.render('pages/treatment', {
+      res.render('pages/treatment', {
         suicideRiskId,
         currentPage,
         contactDeeplink,
         contactsWithDocs,
-        errorMessages
+        errorMessages,
       })
     } else {
       await suicideRiskApiClient.updateSuicideRisk(req.params.id, suicideRisk, res.locals.user.username)
