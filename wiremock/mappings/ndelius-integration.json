@@ -380,6 +380,114 @@
 
     {
       "request": {
+        "urlPattern": "/ndelius/basic-details/X600010/(.*?)",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "title": "Mr",
+          "name": {
+            "forename": "Billy",
+            "middleName": "The",
+            "surname": "Kid"
+          },
+          "prisonNumber": "1234567",
+          "dateOfBirth": "17/03/1980",
+          "addresses": [
+            {
+              "id": 1,
+              "status": "Previous",
+              "buildingName": null,
+              "buildingNumber": "6543",
+              "streetName": "Previous Street",
+              "townCity": "Prevtown",
+              "district": "PrevDistrict",
+              "county": "Prevcounty",
+              "postcode": "PR11 1EV"
+            }
+          ]
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+
+    {
+      "request": {
+        "urlPattern": "/ndelius/basic-details/X600011/(.*?)",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "title": "Mr",
+          "name": {
+            "forename": "Billy",
+            "middleName": "The",
+            "surname": "Kid"
+          },
+          "prisonNumber": "1234567",
+          "dateOfBirth": "17/03/1980",
+          "addresses": [
+            {
+              "id": 1,
+              "status": "Previous",
+              "buildingName": null,
+              "buildingNumber": "6543",
+              "streetName": "Previous Street",
+              "townCity": "Prevtown",
+              "district": "PrevDistrict",
+              "county": "Prevcounty",
+              "postcode": "PR11 1EV"
+            }
+          ]
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+
+    {
+      "request": {
+        "urlPattern": "/ndelius/basic-details/X600012/(.*?)",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "title": "Mr",
+          "name": {
+            "forename": "Billy",
+            "middleName": "The",
+            "surname": "Kid"
+          },
+          "prisonNumber": "1234567",
+          "dateOfBirth": "17/03/1980",
+          "addresses": [
+            {
+              "id": 1,
+              "status": "Previous",
+              "buildingName": null,
+              "buildingNumber": "6543",
+              "streetName": "Previous Street",
+              "townCity": "Prevtown",
+              "district": "PrevDistrict",
+              "county": "Prevcounty",
+              "postcode": "PR11 1EV"
+            }
+          ]
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+
+    {
+      "request": {
         "urlPattern": "/ndelius/users/(.*?)/access/(.*?)",
         "method": "GET"
       },
