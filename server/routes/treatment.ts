@@ -118,6 +118,7 @@ export default function treatmentRoutes(
       if (!searchResults || !searchResults.results || searchResults.results.length === 0) {
         res.render('pages/treatment', {
           suicideRiskId,
+          suicideRisk,
           currentPage,
           contactDeeplink,
           searchResults,
@@ -164,6 +165,7 @@ export default function treatmentRoutes(
 
       res.render('pages/treatment', {
         suicideRiskId,
+        suicideRisk,
         currentPage,
         contactDeeplink,
         searchResults,
