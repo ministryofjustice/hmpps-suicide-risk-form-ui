@@ -90,6 +90,15 @@ export default {
       },
       agent: new AgentConfig(Number(get('ASSESS_RISKS_AND_NEEDS_API_TIMEOUT_RESPONSE', 5000))),
     },
+    probationOffenderSearch: {
+      url: get('PROBATION_OFFENDER_SEARCH_API_URL', 'http://localhost:9091/probation-offender-search', requiredInProduction),
+      healthPath: '/health/ping',
+      timeout: {
+        response: Number(get('PROBATION_OFFENDER_SEARCH_API_TIMEOUT_RESPONSE', 5000)),
+        deadline: Number(get('PROBATION_OFFENDER_SEARCH_API_TIMEOUT_DEADLINE', 5000)),
+      },
+      agent: new AgentConfig(Number(get('PROBATION_OFFENDER_SEARCH_API_TIMEOUT_RESPONSE', 5000))),
+    },
     ndeliusIntegration: {
       url: get('NDELIUS_INTEGRATION_URL', 'http://localhost:9091/ndelius', requiredInProduction),
       healthPath: '/health/ping',

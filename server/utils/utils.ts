@@ -50,6 +50,11 @@ export function handleIntegrationErrors(status: number, message: string, integra
     errorMessages.genericErrorMessage = {
       text: 'There has been a problem fetching information from NDelius. Please try again later.',
     }
+  } else if (integrationService === 'Probation offender search') {
+    errorMessages.genericErrorMessage = {
+      text: 'There has been a problem fetching information from Probation offender search. Please try again later.',
+    }
+
   } else {
     errorMessages.genericErrorMessage = {
       text: 'There has been a problem fetching information from the Suicide Risk Service. Please try again later.',
