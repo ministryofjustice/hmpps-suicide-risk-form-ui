@@ -92,10 +92,7 @@ export default function treatmentRoutes(
       }
       // Post request to Probation offender search for 'Psychiatric Treatment' related contacts
       try {
-        searchResults = await probationOffenderSearchApiClient.searchContacts(
-          request,
-          res.locals.user.username,
-        )
+        searchResults = await probationOffenderSearchApiClient.searchContacts(request, res.locals.user.username)
         contactDeeplink = `${config.ndeliusDeeplink.url}?component=Contact&CRN=${suicideRisk.crn}&componentId=`
       } catch (error) {
         errorMessages = handleIntegrationErrors(error.status, error.data?.message, 'Probation offender search')
@@ -122,7 +119,7 @@ export default function treatmentRoutes(
           currentPage,
           contactDeeplink,
           searchResults,
-          errorMessages
+          errorMessages,
         })
         return
       }
