@@ -15,7 +15,10 @@ context('Treatment Page', () => {
     cy.visit('/treatment/00000000-0000-0000-0000-000000000001')
     cy.get('#current-psych-treatment').should('exist')
     cy.get('#current-psych-treatment-hint').should('contain.text', 'Any Current Psychiatric Treatment')
-    cy.get('#search-contacts-text').should('contain.text', 'To search for Contacts relating to "Psychiatric Treatment" press here')
+    cy.get('#search-contacts-text').should(
+      'contain.text',
+      'To search for Contacts relating to "Psychiatric Treatment" press here',
+    )
   })
 
   it('close button performs a post request and displays message', () => {
@@ -62,11 +65,14 @@ context('Treatment Page', () => {
     cy.get('#show-documents-found--govuk-details-1').should('contain.text', 'Show associated documents')
     cy.contains('Document name: my document.pdf').should('exist')
 
-    cy.get('#contact--deeplink-1').should('contain.text', 'select this hyperlink to open the ndelius contact page in a new tab')
+    cy.get('#contact--deeplink-1').should(
+      'contain.text',
+      'select this hyperlink to open the ndelius contact page in a new tab',
+    )
     cy.get('#contact--deeplink-1')
       .should('have.attr', 'target', '_blank')
       .and('have.attr', 'href')
-      .and('match', /deeplink\.xhtml\?component=Contact&CRN=X000001&componentId=2500310461$/);
+      .and('match', /deeplink\.xhtml\?component=Contact&CRN=X000001&componentId=2500310461$/)
   })
 
   it('search contacts button displays content without results', () => {
@@ -79,7 +85,10 @@ context('Treatment Page', () => {
     })
     cy.get('#treatment-heading').should('contain.text', 'Contacts relating to Treatment')
     cy.get('#contacts-found').should('contain.text', '0 Contacts found')
-    cy.get('#no-contacts-found').should('contain.text', 'No contacts relating to Psychiatric Treatment have been found.')
+    cy.get('#no-contacts-found').should(
+      'contain.text',
+      'No contacts relating to Psychiatric Treatment have been found.',
+    )
 
     cy.get('#contact-notes-details-1').should('not.exist')
     cy.get('#view-contact-notes--govuk-details-1').should('not.exist')
@@ -135,7 +144,6 @@ context('Treatment Page', () => {
     cy.get('#nav-sign-and-send-disabled').should('exist')
     cy.get('#nav-sign-and-send-disabled').should('have.class', 'disabled-nav')
   })
-
 
   it('displays a working check your answers nav menu option', () => {
     cy.visit('/treatment/00000000-0000-0000-0000-300000000003')
