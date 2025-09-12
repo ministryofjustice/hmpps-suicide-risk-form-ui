@@ -32,12 +32,14 @@
       <div class="govuk-grid-column-two-thirds">
         <h1 class="govuk-heading-l">Suicide Risk - Treatment</h1>
 
-        <h2 class="govuk-heading-m">Any Current Psychiatric Treatment</h2>
         {{ govukCharacterCount({
           name: "currentPsychTreatment",
-          id: "currentPsychTreatment",
+          id: "current-psych-treatment",
           maxlength: 4000,
-          value: suicideRisk.currentPsychTreatment
+          value: suicideRisk.currentPsychTreatment,
+          hint: {
+            text: "Any Current Psychiatric Treatment"
+          }
         }) }}
 
         {{ govukButton({
@@ -56,12 +58,12 @@
             To search for Contacts relating to "Psychiatric Treatment" press here
           </p>
         {% else %}
-          <h2 class="govuk-heading-m">Contacts relating to Treatment</h2>
-          <h2 class="govuk-heading-m">{{ searchResults.results.length }} Contacts found</h2>
+          <h2 id="treatment-heading" class="govuk-heading-m">Contacts relating to Treatment</h2>
+          <h2 id="contacts-found" class="govuk-heading-m">{{ searchResults.results.length }} Contacts found</h2>
           <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 
           {% if searchResults.results.length == 0 %}
-            <p class="govuk-body">No contacts relating to Psychiatric Treatment have been found.</p>
+            <p id="no-contacts-found" class="govuk-body">No contacts relating to Psychiatric Treatment have been found.</p>
 
           {% else %}
             {% for entry in contactsWithDocs %}
@@ -71,7 +73,7 @@
               <div class="govuk-grid-row govuk-!-margin-bottom-3">
                 <div class="govuk-grid-column-full">
 
-                  <p class="govuk-body">
+                  <p id="contact-notes-details-{{ loop.index }}" class="govuk-body">
                     <strong>Date:</strong> {{ result.date | dayMonthYear }}<br>
                     <strong>Description:</strong> {{ result.description }}<br>
                     <strong>Type:</strong> {{ result.typeDescription }}<br>
@@ -80,7 +82,10 @@
 
                   {{ govukDetails({
                     summaryText: "View Contact notes",
-                    text: result.notes or "No notes found for this contact"
+                    text: result.notes or "No notes found for this contact",
+                    attributes: {
+                      id: "view-contact-notes--govuk-details-" ~ loop.index
+                    }
                   }) }}
 
                   {% if documents.length > 0 %}
@@ -96,17 +101,23 @@
 
                     {{ govukDetails({
                       summaryText: "Show associated documents",
-                      html: docHtml
+                      html: docHtml,
+                      attributes: {
+                        id: "show-documents-found--govuk-details-" ~ loop.index
+                      }
                     }) }}
 
                   {% else %}
                     {{ govukDetails({
-                      summaryText: "show document details",
-                      text: "No documents found for this contact"
+                      summaryText: "Show associated documents",
+                      text: "No documents found for this contact",
+                      attributes: {
+                        id: "show-documents-not-found--govuk-details-" ~ loop.index
+                      }
                     }) }}
                   {% endif %}
                   <p>
-                    <a href="{{ contactDeeplink }}{{ result.id }}" target="_blank" class="govuk-link">
+                    <a href="{{ contactDeeplink }}{{ result.id }}" id="contact--deeplink-{{ loop.index }}" target="_blank" class="govuk-link">
                       select this hyperlink to open the ndelius contact page in a new tab
                     </a>
                   </p>
