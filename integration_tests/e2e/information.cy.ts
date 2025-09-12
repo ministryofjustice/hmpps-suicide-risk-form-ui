@@ -88,7 +88,6 @@ context('information', () => {
   it('displays a working treatment nav menu option', () => {
     cy.visit('/information/00000000-0000-0000-0000-300000000003')
     cy.get('#nav-treatment').should('exist')
-    cy.pause()
     cy.get('#nav-treatment').click()
     cy.url().should('include', '/treatment/00000000-0000-0000-0000-300000000003')
     cy.contains('Suicide Risk - Treatment').should('exist')
