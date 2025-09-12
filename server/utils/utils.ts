@@ -83,6 +83,17 @@ export function toIsoDateFormat(dateStr: string): string {
   return ''
 }
 
+export function toDayMonthYearDateFormat(dateStr: string): string {
+  if (dateStr && dateStr.trim().length > 0) {
+    const [year, month, day] = dateStr.split('-').map(Number)
+    if (Number.isNaN(day) || Number.isNaN(month) || Number.isNaN(year)) {
+      return ''
+    }
+    return `${String(day).padStart(2, '0')}/${String(month).padStart(2, '0')}/${year}`
+  }
+  return ''
+}
+
 export function formatTitleAndFullName(title: string, name: Name): string {
   return [title, name.forename, name.middleName, name.surname].filter(Boolean).join(' ')
 }

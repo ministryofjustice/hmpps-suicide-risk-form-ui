@@ -22,6 +22,10 @@ export default function routes({ auditService, hmppsAuthClient, commonUtils }: S
     res.redirect(`/basic-details/${req.params.id}`)
   })
 
+  router.get('/assess-risks-and-needs/risks/crn/:crn/summary', async (req, res, next) => {
+    res.redirect(`/information/crn/${req.params.crn}`)
+  })
+
   router.get('/close', async (req, res, next) => {
     res.send(
       `<p>You can now safely close this window</p><script nonce="${res.locals.cspNonce}">window.close()</script>`,
