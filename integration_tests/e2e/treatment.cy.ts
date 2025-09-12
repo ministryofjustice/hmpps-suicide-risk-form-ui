@@ -28,10 +28,8 @@ context('Treatment Page', () => {
     cy.contains('You have 1 character too many').should('not.exist')
 
     // Directly set the value rather than using type() which is slow.
-    const longText = '1'.repeat(4001);
-    cy.get('#current-psych-treatment')
-      .invoke('val', longText)
-      .trigger('input');
+    const longText = '1'.repeat(4001)
+    cy.get('#current-psych-treatment').invoke('val', longText).trigger('input')
 
     cy.contains('You have 1 character too many').should('exist')
     cy.get('#continue-button').click()
