@@ -12,6 +12,16 @@
 
   <form method="post">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+
+    {% set errorList =[
+      { text: errorMessages.genericErrorMessage.text, href: "#" } if errorMessages.genericErrorMessage else None
+    ] | reject("undefined") %}
+
+    {% if errorMessages | length > 0 %}
+      {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+      {{ govukErrorSummary({ titleText: "There is a problem", errorList: errorList }) }}
+    {% endif %}
+
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-one-third">
         {% include "pages/side-nav.njk" %}
@@ -22,7 +32,7 @@
         {{ govukCharacterCount({
           name: "additionalInfo",
           id: "additionalInfo",
-          maxlength: 4000,
+          maxlength: 20000,
           value: suicideRisk.additionalInfo,
           hint: {
             text: "Additional Information"
