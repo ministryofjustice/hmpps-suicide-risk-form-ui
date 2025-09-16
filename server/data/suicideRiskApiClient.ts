@@ -74,6 +74,7 @@ export interface SuicideRiskContact {
   contactTypeDescription: string
   contactPerson: string
   contactLocation: SuicideRiskAddress
+  emailAddress: string
   formSent: boolean
 }
 
