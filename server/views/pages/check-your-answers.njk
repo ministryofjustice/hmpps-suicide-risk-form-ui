@@ -238,35 +238,307 @@
                   </dd>
                 </div>
               {% else %}
-                {% for rec in suicideRisk.suicideRiskContactList %}
-                  <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
-                      {{ rec.contactTypeDescription }}
-                    </dt>
-                    <dd class="govuk-summary-list__value">
-                      {% if rec.contactPerson != null %} {{ rec.contactPerson }}
-                        <br> {% endif %}
-                      {% if rec.contactLocation != null %}
-                        {% if rec.contactLocation.officeDescription != null %} {{ rec.contactLocation.officeDescription }}
-                          <br> {% endif %}
-                        {% if rec.contactLocation.buildingName != null %} {{ rec.contactLocation.buildingName }}
-                          <br> {% endif %}
-                        {% if rec.contactLocation.buildingNumber != null or rec.contactLocation.streetName != null %} {{ rec.contactLocation.buildingNumber }} {{ rec.contactLocation.streetName }}
-                          <br> {% endif %}
-                        {% if rec.contactLocation.district != null %} {{ rec.contactLocation.district }}
-                          <br> {% endif %}
-                        {% if rec.contactLocation.townCity != null %} {{ rec.contactLocation.townCity }}
-                          <br> {% endif %}
-                        {% if rec.contactLocation.county != null %} {{ rec.contactLocation.county }}
-                          <br> {% endif %}
-                        {% if rec.contactLocation.postcode != null %} {{ rec.contactLocation.postcode }} <br> {% endif %}
-                      {% endif %}
-                      {% if rec.contactDate != null %} {{ rec.contactDate }} {% endif %}
-                    </dd>
-                    <dd class="govuk-summary-list__actions">
-                    </dd>
-                  </div>
-                {% endfor %}
+
+                {% if contactsOtherColleagues.length > 0 %}
+                  {% for rec in contactsOtherColleagues %}
+                    <h3>Other Colleague</h3>
+                    <div class="govuk-summary-list__row">
+                      <dt class="govuk-summary-list__key">
+                        Name
+                      </dt>
+                      <dd class="govuk-summary-list__value">
+                        {{ rec.contactPerson }}
+                      </dd>
+                      <dd class="govuk-summary-list__actions">
+                      </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                      <dt class="govuk-summary-list__key">
+                        Location
+                      </dt>
+                      <dd class="govuk-summary-list__value">
+                        {% if rec.contactLocation != null %}
+                          {% if rec.contactLocation.officeDescription != null %} {{ rec.contactLocation.officeDescription }}
+                            <br> {% endif %}
+                          {% if rec.contactLocation.buildingName != null %} {{ rec.contactLocation.buildingName }}
+                            <br> {% endif %}
+                          {% if rec.contactLocation.buildingNumber != null or rec.contactLocation.streetName != null %} {{ rec.contactLocation.buildingNumber }} {{ rec.contactLocation.streetName }}
+                            <br> {% endif %}
+                          {% if rec.contactLocation.district != null %} {{ rec.contactLocation.district }}
+                            <br> {% endif %}
+                          {% if rec.contactLocation.townCity != null %} {{ rec.contactLocation.townCity }}
+                            <br> {% endif %}
+                          {% if rec.contactLocation.county != null %} {{ rec.contactLocation.county }}
+                            <br> {% endif %}
+                          {% if rec.contactLocation.postcode != null %} {{ rec.contactLocation.postcode }} <br> {% endif %}
+                        {% endif %}
+                      </dd>
+                      <dd class="govuk-summary-list__actions">
+                      </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                      <dt class="govuk-summary-list__key">
+                        Contact Date
+                      </dt>
+                      <dd class="govuk-summary-list__value">
+                        {{ rec.contactDate | toUserDate }}
+                      </dd>
+                      <dd class="govuk-summary-list__actions">
+                      </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                      <dt class="govuk-summary-list__key">
+                        Email Address
+                      </dt>
+                      <dd class="govuk-summary-list__value">
+                        {{ rec.emailAddress }}
+                      </dd>
+                      <dd class="govuk-summary-list__actions">
+                      </dd>
+                    </div>
+                  {% endfor %}
+                {% endif %}
+
+                {% if contactsPrisonEstablishment.length > 0 %}
+                  {% for rec in contactsPrisonEstablishment %}
+                    <h3>Prison Establishment</h3>
+                    <div class="govuk-summary-list__row">
+                      <dt class="govuk-summary-list__key">
+                        Name
+                      </dt>
+                      <dd class="govuk-summary-list__value">
+                        {{ rec.contactPerson }}
+                      </dd>
+                      <dd class="govuk-summary-list__actions">
+                      </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                      <dt class="govuk-summary-list__key">
+                        Location
+                      </dt>
+                      <dd class="govuk-summary-list__value">
+                        {% if rec.contactLocation != null %}
+                          {% if rec.contactLocation.officeDescription != null %} {{ rec.contactLocation.officeDescription }}
+                            <br> {% endif %}
+                          {% if rec.contactLocation.buildingName != null %} {{ rec.contactLocation.buildingName }}
+                            <br> {% endif %}
+                          {% if rec.contactLocation.buildingNumber != null or rec.contactLocation.streetName != null %} {{ rec.contactLocation.buildingNumber }} {{ rec.contactLocation.streetName }}
+                            <br> {% endif %}
+                          {% if rec.contactLocation.district != null %} {{ rec.contactLocation.district }}
+                            <br> {% endif %}
+                          {% if rec.contactLocation.townCity != null %} {{ rec.contactLocation.townCity }}
+                            <br> {% endif %}
+                          {% if rec.contactLocation.county != null %} {{ rec.contactLocation.county }}
+                            <br> {% endif %}
+                          {% if rec.contactLocation.postcode != null %} {{ rec.contactLocation.postcode }} <br> {% endif %}
+                        {% endif %}
+                      </dd>
+                      <dd class="govuk-summary-list__actions">
+                      </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                      <dt class="govuk-summary-list__key">
+                        Contact Date
+                      </dt>
+                      <dd class="govuk-summary-list__value">
+                        {{ rec.contactDate | toUserDate }}
+                      </dd>
+                      <dd class="govuk-summary-list__actions">
+                      </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                      <dt class="govuk-summary-list__key">
+                        Email Address
+                      </dt>
+                      <dd class="govuk-summary-list__value">
+                        {{ rec.emailAddress }}
+                      </dd>
+                      <dd class="govuk-summary-list__actions">
+                      </dd>
+                    </div>
+                  {% endfor %}
+                {% endif %}
+
+                {% if contactsPoliceCustodyCells.length > 0 %}
+                  {% for rec in contactsPoliceCustodyCells %}
+                    <h3>Police (Custody Cells)</h3>
+                    <div class="govuk-summary-list__row">
+                      <dt class="govuk-summary-list__key">
+                        Name
+                      </dt>
+                      <dd class="govuk-summary-list__value">
+                        {{ rec.contactPerson }}
+                      </dd>
+                      <dd class="govuk-summary-list__actions">
+                      </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                      <dt class="govuk-summary-list__key">
+                        Location
+                      </dt>
+                      <dd class="govuk-summary-list__value">
+                        {% if rec.contactLocation != null %}
+                          {% if rec.contactLocation.officeDescription != null %} {{ rec.contactLocation.officeDescription }}
+                            <br> {% endif %}
+                          {% if rec.contactLocation.buildingName != null %} {{ rec.contactLocation.buildingName }}
+                            <br> {% endif %}
+                          {% if rec.contactLocation.buildingNumber != null or rec.contactLocation.streetName != null %} {{ rec.contactLocation.buildingNumber }} {{ rec.contactLocation.streetName }}
+                            <br> {% endif %}
+                          {% if rec.contactLocation.district != null %} {{ rec.contactLocation.district }}
+                            <br> {% endif %}
+                          {% if rec.contactLocation.townCity != null %} {{ rec.contactLocation.townCity }}
+                            <br> {% endif %}
+                          {% if rec.contactLocation.county != null %} {{ rec.contactLocation.county }}
+                            <br> {% endif %}
+                          {% if rec.contactLocation.postcode != null %} {{ rec.contactLocation.postcode }} <br> {% endif %}
+                        {% endif %}
+                      </dd>
+                      <dd class="govuk-summary-list__actions">
+                      </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                      <dt class="govuk-summary-list__key">
+                        Contact Date
+                      </dt>
+                      <dd class="govuk-summary-list__value">
+                        {{ rec.contactDate | toUserDate }}
+                      </dd>
+                      <dd class="govuk-summary-list__actions">
+                      </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                      <dt class="govuk-summary-list__key">
+                        Email Address
+                      </dt>
+                      <dd class="govuk-summary-list__value">
+                        {{ rec.emailAddress }}
+                      </dd>
+                      <dd class="govuk-summary-list__actions">
+                      </dd>
+                    </div>
+                  {% endfor %}
+                {% endif %}
+
+                {% if contactsMedicalServices.length > 0 %}
+                  {% for rec in contactsMedicalServices %}
+                    <h3>Medical Services</h3>
+                    <div class="govuk-summary-list__row">
+                      <dt class="govuk-summary-list__key">
+                        Name
+                      </dt>
+                      <dd class="govuk-summary-list__value">
+                        {{ rec.contactPerson }}
+                      </dd>
+                      <dd class="govuk-summary-list__actions">
+                      </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                      <dt class="govuk-summary-list__key">
+                        Location
+                      </dt>
+                      <dd class="govuk-summary-list__value">
+                        {% if rec.contactLocation != null %}
+                          {% if rec.contactLocation.officeDescription != null %} {{ rec.contactLocation.officeDescription }}
+                            <br> {% endif %}
+                          {% if rec.contactLocation.buildingName != null %} {{ rec.contactLocation.buildingName }}
+                            <br> {% endif %}
+                          {% if rec.contactLocation.buildingNumber != null or rec.contactLocation.streetName != null %} {{ rec.contactLocation.buildingNumber }} {{ rec.contactLocation.streetName }}
+                            <br> {% endif %}
+                          {% if rec.contactLocation.district != null %} {{ rec.contactLocation.district }}
+                            <br> {% endif %}
+                          {% if rec.contactLocation.townCity != null %} {{ rec.contactLocation.townCity }}
+                            <br> {% endif %}
+                          {% if rec.contactLocation.county != null %} {{ rec.contactLocation.county }}
+                            <br> {% endif %}
+                          {% if rec.contactLocation.postcode != null %} {{ rec.contactLocation.postcode }} <br> {% endif %}
+                        {% endif %}
+                      </dd>
+                      <dd class="govuk-summary-list__actions">
+                      </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                      <dt class="govuk-summary-list__key">
+                        Contact Date
+                      </dt>
+                      <dd class="govuk-summary-list__value">
+                        {{ rec.contactDate | toUserDate }}
+                      </dd>
+                      <dd class="govuk-summary-list__actions">
+                      </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                      <dt class="govuk-summary-list__key">
+                        Email Address
+                      </dt>
+                      <dd class="govuk-summary-list__value">
+                        {{ rec.emailAddress }}
+                      </dd>
+                      <dd class="govuk-summary-list__actions">
+                      </dd>
+                    </div>
+                  {% endfor %}
+                {% endif %}
+
+                {% if contactsOtherAgency.length > 0 %}
+                  {% for rec in contactsOtherAgency %}
+                    <h3>Other Agency</h3>
+                    <div class="govuk-summary-list__row">
+                      <dt class="govuk-summary-list__key">
+                        Name
+                      </dt>
+                      <dd class="govuk-summary-list__value">
+                        {{ rec.contactPerson }}
+                      </dd>
+                      <dd class="govuk-summary-list__actions">
+                      </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                      <dt class="govuk-summary-list__key">
+                        Location
+                      </dt>
+                      <dd class="govuk-summary-list__value">
+                        {% if rec.contactLocation != null %}
+                          {% if rec.contactLocation.officeDescription != null %} {{ rec.contactLocation.officeDescription }}
+                            <br> {% endif %}
+                          {% if rec.contactLocation.buildingName != null %} {{ rec.contactLocation.buildingName }}
+                            <br> {% endif %}
+                          {% if rec.contactLocation.buildingNumber != null or rec.contactLocation.streetName != null %} {{ rec.contactLocation.buildingNumber }} {{ rec.contactLocation.streetName }}
+                            <br> {% endif %}
+                          {% if rec.contactLocation.district != null %} {{ rec.contactLocation.district }}
+                            <br> {% endif %}
+                          {% if rec.contactLocation.townCity != null %} {{ rec.contactLocation.townCity }}
+                            <br> {% endif %}
+                          {% if rec.contactLocation.county != null %} {{ rec.contactLocation.county }}
+                            <br> {% endif %}
+                          {% if rec.contactLocation.postcode != null %} {{ rec.contactLocation.postcode }} <br> {% endif %}
+                        {% endif %}
+                      </dd>
+                      <dd class="govuk-summary-list__actions">
+                      </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                      <dt class="govuk-summary-list__key">
+                        Contact Date
+                      </dt>
+                      <dd class="govuk-summary-list__value">
+                        {{ rec.contactDate | toUserDate }}
+                      </dd>
+                      <dd class="govuk-summary-list__actions">
+                      </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                      <dt class="govuk-summary-list__key">
+                        Email Address
+                      </dt>
+                      <dd class="govuk-summary-list__value">
+                        {{ rec.emailAddress }}
+                      </dd>
+                      <dd class="govuk-summary-list__actions">
+                      </dd>
+                    </div>
+                  {% endfor %}
+                {% endif %}
+
               {% endif %}
 
             </dl>
