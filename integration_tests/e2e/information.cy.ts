@@ -69,6 +69,21 @@ context('information', () => {
     })
   })
 
+  it('Additional information > 20000 characters triggers validation', () => {
+    cy.visit('/information/00000000-0000-0000-0000-000000000001')
+    cy.get('#additionalInfo').should('exist')
+    cy.contains('Additional information must be 20000 characters or fewer').should('not.exist')
+    cy.contains('You have 1 character too many').should('not.exist')
+
+    // Directly set the value rather than using type() which is slow.
+    const longText = '1'.repeat(20001)
+    cy.get('#additionalInfo').invoke('val', longText).trigger('input')
+
+    cy.contains('You have 1 character too many').should('exist')
+    cy.get('#continue-button').click()
+    cy.contains('Additional information must be 20000 characters or fewer').should('exist')
+  })
+
   it('displays a working basic details nav menu option', () => {
     cy.visit('/information/00000000-0000-0000-0000-300000000003')
     cy.get('#nav-basic-details').should('exist')
