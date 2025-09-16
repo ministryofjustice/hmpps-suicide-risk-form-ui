@@ -16,7 +16,8 @@
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
 
     {% set errorList =[
-      { text: errorMessages.genericErrorMessage.text, href: "#" } if errorMessages.genericErrorMessage else None
+      { text: errorMessages.genericErrorMessage.text, href: "#" } if errorMessages.genericErrorMessage else None,
+      { text: errorMessages.psychTreatment.text, href: "#current-psych-treatment" } if errorMessages.psychTreatment else None
     ] | reject("undefined") %}
 
     {% if errorMessages | length > 0 %}
@@ -63,71 +64,75 @@
           <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 
           {% if searchResults.results.length == 0 %}
-            <p id="no-contacts-found" class="govuk-body">No contacts relating to Psychiatric Treatment have been found.</p>
+            <p id="no-contacts-found" class="govuk-body">No contacts relating to Psychiatric Treatment have been
+              found.</p>
 
           {% else %}
-            {% for entry in contactsWithDocs %}
-              {% set result = entry.contact %}
-              {% set documents = entry.documents %}
+            {% if contactsWithDocs %}
+              {% for entry in contactsWithDocs %}
+                {% set result = entry.contact %}
+                {% set documents = entry.documents %}
 
-              <div class="govuk-grid-row govuk-!-margin-bottom-3">
-                <div class="govuk-grid-column-full">
+                <div class="govuk-grid-row govuk-!-margin-bottom-3">
+                  <div class="govuk-grid-column-full">
 
-                  <p id="contact-notes-details-{{ loop.index }}" class="govuk-body">
-                    <strong>Date:</strong> {{ result.date | dayMonthYear }}<br>
-                    <strong>Description:</strong> {{ result.description }}<br>
-                    <strong>Type:</strong> {{ result.typeDescription }}<br>
-                    <strong>Outcome:</strong> {{ result.outcomeDescription }}<br>
-                  </p>
-
-                  {{ govukDetails({
-                    summaryText: "View Contact notes",
-                    text: result.notes or "No notes found for this contact",
-                    attributes: {
-                      id: "view-contact-notes--govuk-details-" ~ loop.index
-                    }
-                  }) }}
-
-                  {% if documents.length > 0 %}
-
-                    {% set docHtml %}
-                      {% for doc in documents %}
-                        <p class="govuk-body">
-                          <strong>Document name:</strong> {{ doc.name | escape }}<br>
-                          <strong>Last updated:</strong> {{ doc.lastUpdated | escape }}
-                        </p>
-                      {% endfor %}
-                    {% endset %}
+                    <p id="contact-notes-details-{{ loop.index }}" class="govuk-body">
+                      <strong>Date:</strong> {{ result.date | dayMonthYear }}<br>
+                      <strong>Description:</strong> {{ result.description }}<br>
+                      <strong>Type:</strong> {{ result.typeDescription }}<br>
+                      <strong>Outcome:</strong> {{ result.outcomeDescription }}<br>
+                    </p>
 
                     {{ govukDetails({
-                      summaryText: "Show associated documents",
-                      html: docHtml,
+                      summaryText: "View Contact notes",
+                      text: result.notes or "No notes found for this contact",
                       attributes: {
-                        id: "show-documents-found--govuk-details-" ~ loop.index
+                        id: "view-contact-notes--govuk-details-" ~ loop.index
                       }
                     }) }}
 
-                  {% else %}
-                    {{ govukDetails({
-                      summaryText: "Show associated documents",
-                      text: "No documents found for this contact",
-                      attributes: {
-                        id: "show-documents-not-found--govuk-details-" ~ loop.index
-                      }
-                    }) }}
-                  {% endif %}
-                  <p>
-                    <a href="{{ contactDeeplink }}{{ result.id }}" id="contact--deeplink-{{ loop.index }}" target="_blank" class="govuk-link">
-                      select this hyperlink to open the ndelius contact page in a new tab
-                    </a>
-                  </p>
+                    {% if documents.length > 0 %}
+
+                      {% set docHtml %}
+                        {% for doc in documents %}
+                          <p class="govuk-body">
+                            <strong>Document name:</strong> {{ doc.name | escape }}<br>
+                            <strong>Last updated:</strong> {{ doc.lastUpdated | escape }}
+                          </p>
+                        {% endfor %}
+                      {% endset %}
+
+                      {{ govukDetails({
+                        summaryText: "Show associated documents",
+                        html: docHtml,
+                        attributes: {
+                          id: "show-documents-found--govuk-details-" ~ loop.index
+                        }
+                      }) }}
+
+                    {% else %}
+                      {{ govukDetails({
+                        summaryText: "Show associated documents",
+                        text: "No documents found for this contact",
+                        attributes: {
+                          id: "show-documents-not-found--govuk-details-" ~ loop.index
+                        }
+                      }) }}
+                    {% endif %}
+                    <p>
+                      <a href="{{ contactDeeplink }}{{ result.id }}" id="contact--deeplink-{{ loop.index }}"
+                         target="_blank" class="govuk-link">
+                        select this hyperlink to open the ndelius contact page in a new tab
+                      </a>
+                    </p>
+                  </div>
                 </div>
-              </div>
 
-              {% if not loop.last %}
-                <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
-              {% endif %}
-            {% endfor %}
+                {% if not loop.last %}
+                  <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+                {% endif %}
+              {% endfor %}
+            {% endif %}
           {% endif %}
         {% endif %}
 

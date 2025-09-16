@@ -70,8 +70,8 @@ export default function treatmentRoutes(
     suicideRisk.informationSaved = true
 
     // validate notes field
-    if (suicideRisk.currentPsychTreatment.length > 20000) {
-      errorMessages.genericErrorMessage = {
+    if (suicideRisk?.currentPsychTreatment?.length > 20000) {
+      errorMessages.psychTreatment = {
         text: 'Psychiatric Treatment must be 20000 characters or fewer',
       }
       const showEmbeddedError = true

@@ -14,7 +14,8 @@
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
 
     {% set errorList =[
-      { text: errorMessages.genericErrorMessage.text, href: "#" } if errorMessages.genericErrorMessage else None
+      { text: errorMessages.genericErrorMessage.text, href: "#" } if errorMessages.genericErrorMessage else None,
+      { text: errorMessages.additionalInfo.text, href: "#additionalInfo" } if errorMessages.additionalInfo else None
     ] | reject("undefined") %}
 
     {% if errorMessages | length > 0 %}
