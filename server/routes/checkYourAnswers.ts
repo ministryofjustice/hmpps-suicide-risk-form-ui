@@ -29,6 +29,22 @@ export default function checkYourAnswersRoutes(
     const dateOfBirth: string = toUserDate(suicideRisk.dateOfBirth)
     const reportValidated = validateReport(suicideRisk)
 
+    const contactsOtherColleagues = suicideRisk.suicideRiskContactList?.filter(
+      c => c.contactTypeDescription === 'other_colleagues',
+    )
+    const contactsPrisonEstablishment = suicideRisk.suicideRiskContactList?.filter(
+      c => c.contactTypeDescription === 'prison_establishment',
+    )
+    const contactsPoliceCustodyCells = suicideRisk.suicideRiskContactList?.filter(
+      c => c.contactTypeDescription === 'police_custody_cells',
+    )
+    const contactsMedicalServices = suicideRisk.suicideRiskContactList?.filter(
+      c => c.contactTypeDescription === 'medical_services',
+    )
+    const contactsOtherAgency = suicideRisk.suicideRiskContactList?.filter(
+      c => c.contactTypeDescription === 'other_agency',
+    )
+
     res.render('pages/check-your-answers', {
       suicideRisk,
       currentPage,
@@ -36,6 +52,11 @@ export default function checkYourAnswersRoutes(
       dateOfLetter,
       dateOfBirth,
       reportValidated,
+      contactsOtherColleagues,
+      contactsPrisonEstablishment,
+      contactsPoliceCustodyCells,
+      contactsMedicalServices,
+      contactsOtherAgency,
     })
   })
 
