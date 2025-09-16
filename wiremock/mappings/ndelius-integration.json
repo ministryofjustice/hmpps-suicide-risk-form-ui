@@ -75,6 +75,28 @@
         }
       }
     },
+
+    {
+      "request": {
+        "urlPattern": "/ndelius/basic-details/X300003/(.*?)",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "title": "Dr",
+          "name": {
+            "forename": "Iris",
+            "middleName": "Quinn",
+            "surname": "Pembroke"
+          }
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+
     {
       "request": {
         "urlPattern": "/ndelius/basic-details/X012345/(.*?)",
@@ -371,6 +393,159 @@
               "postcode": "PR11 1EV"
             }
           ]
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+
+    {
+      "request": {
+        "urlPattern": "/ndelius/basic-details/X000003/(.*?)",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "title": "Mr",
+          "name": {
+            "forename": "George",
+            "middleName": "The",
+            "surname": "Squid"
+          }
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPattern": "/information/1/ALLOW/1/COMPLETE",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "title": "Mr",
+          "name": {
+            "forename": "Billy",
+            "middleName": "The",
+            "surname": "Kid"
+          },
+          "prisonNumber": "1234567",
+          "dateOfBirth": "17/03/1980",
+          "addresses": [
+            {
+              "id": 1,
+              "status": "Postal",
+              "buildingName": null,
+              "buildingNumber": "281",
+              "streetName": "Postal Default Street",
+              "townCity": "Postinton",
+              "district": "Postrict",
+              "county": "County Post",
+              "postcode": "NE30 3ZZ"
+            },
+            {
+              "id": 2,
+              "status": "Main",
+              "buildingName": null,
+              "buildingNumber": "2789",
+              "streetName": "Main Street",
+              "townCity": "Maintown",
+              "district": "MainDistrict",
+              "county": "Maincounty",
+              "postcode": "MA30 3IN"
+            },
+            {
+              "id": 3,
+              "status": "Previous",
+              "buildingName": null,
+              "buildingNumber": "6543",
+              "streetName": "Previous Street",
+              "townCity": "Prevtown",
+              "district": "PrevDistrict",
+              "county": "Prevcounty",
+              "postcode": "PR11 1EV"
+            }
+          ]
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+
+    {
+      "request": {
+        "url": "/ndelius/suicide-risk-information/crn/X300003",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "123456",
+          "startDate": "2025-01-01",
+          "endDate": "2025-01-01",
+          "notes": "some notes in here",
+          "documentsLinked": true,
+          "deregistered": false,
+          "type": {
+            "code": "REG1",
+            "description": "registration type 1"
+          }
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+
+    {
+      "request": {
+        "url": "/ndelius/suicide-risk-information/crn/X000002",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "654321",
+          "startDate": "2025-02-02",
+          "endDate": "2025-02-02",
+          "notes": "some notes in here",
+          "documentsLinked": true,
+          "deregistered": false,
+          "type": {
+            "code": "REG2",
+            "description": "registration type 2"
+          }
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+
+    {
+      "request": {
+        "url": "/ndelius/suicide-risk-information/crn/X000001",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "123456",
+          "startDate": "2025-01-01",
+          "endDate": "2025-01-01",
+          "notes": "some notes in here",
+          "documentsLinked": true,
+          "deregistered": false,
+          "type": {
+            "code": "REG1",
+            "description": "registration type 1"
+          }
         },
         "headers": {
           "Content-Type": "application/json;charset=UTF-8"
