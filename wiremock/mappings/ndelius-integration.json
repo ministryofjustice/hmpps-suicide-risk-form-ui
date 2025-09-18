@@ -75,6 +75,28 @@
         }
       }
     },
+
+    {
+      "request": {
+        "urlPattern": "/ndelius/basic-details/X300003/(.*?)",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "title": "Dr",
+          "name": {
+            "forename": "Iris",
+            "middleName": "Quinn",
+            "surname": "Pembroke"
+          }
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+
     {
       "request": {
         "urlPattern": "/ndelius/basic-details/X012345/(.*?)",
@@ -377,7 +399,7 @@
         }
       }
     },
-
+    
     {
       "request": {
         "urlPattern": "/ndelius/basic-details/X600010/(.*?)",
@@ -479,6 +501,159 @@
               "postcode": "PR11 1EV"
             }
           ]
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+
+    {
+      "request": {
+        "urlPattern": "/ndelius/basic-details/X000003/(.*?)",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "title": "Mr",
+          "name": {
+            "forename": "George",
+            "middleName": "The",
+            "surname": "Squid"
+          }
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPattern": "/information/1/ALLOW/1/COMPLETE",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "title": "Mr",
+          "name": {
+            "forename": "Billy",
+            "middleName": "The",
+            "surname": "Kid"
+          },
+          "prisonNumber": "1234567",
+          "dateOfBirth": "17/03/1980",
+          "addresses": [
+            {
+              "id": 1,
+              "status": "Postal",
+              "buildingName": null,
+              "buildingNumber": "281",
+              "streetName": "Postal Default Street",
+              "townCity": "Postinton",
+              "district": "Postrict",
+              "county": "County Post",
+              "postcode": "NE30 3ZZ"
+            },
+            {
+              "id": 2,
+              "status": "Main",
+              "buildingName": null,
+              "buildingNumber": "2789",
+              "streetName": "Main Street",
+              "townCity": "Maintown",
+              "district": "MainDistrict",
+              "county": "Maincounty",
+              "postcode": "MA30 3IN"
+            },
+            {
+              "id": 3,
+              "status": "Previous",
+              "buildingName": null,
+              "buildingNumber": "6543",
+              "streetName": "Previous Street",
+              "townCity": "Prevtown",
+              "district": "PrevDistrict",
+              "county": "Prevcounty",
+              "postcode": "PR11 1EV"
+            }
+          ]
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+
+    {
+      "request": {
+        "url": "/ndelius/suicide-risk-information/crn/X300003",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "123456",
+          "startDate": "2025-01-01",
+          "endDate": "2025-01-01",
+          "notes": "some notes in here",
+          "documentsLinked": true,
+          "deregistered": false,
+          "type": {
+            "code": "REG1",
+            "description": "registration type 1"
+          }
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+
+    {
+      "request": {
+        "url": "/ndelius/suicide-risk-information/crn/X000002",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "654321",
+          "startDate": "2025-02-02",
+          "endDate": "2025-02-02",
+          "notes": "some notes in here",
+          "documentsLinked": true,
+          "deregistered": false,
+          "type": {
+            "code": "REG2",
+            "description": "registration type 2"
+          }
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+
+    {
+      "request": {
+        "url": "/ndelius/suicide-risk-information/crn/X000001",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "123456",
+          "startDate": "2025-01-01",
+          "endDate": "2025-01-01",
+          "notes": "some notes in here",
+          "documentsLinked": true,
+          "deregistered": false,
+          "type": {
+            "code": "REG1",
+            "description": "registration type 1"
+          }
         },
         "headers": {
           "Content-Type": "application/json;charset=UTF-8"
@@ -616,6 +791,56 @@
               "district": "Previous District",
               "county": "Prev County",
               "postcode": "FS1 3SH"
+            }
+          ]
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "urlPattern": "/ndelius/treatment",
+        "bodyPatterns": [
+          { "matchesJsonPath": "$.contactIds[?(@ == 2500310461)]" },
+          { "matchesJsonPath": "$.contactIds[?(@ == 2500310463)]" },
+          { "matchesJsonPath": "$.contactIds[?(@ == 2500310465)]" }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "content": [
+            {
+              "id": 2500310461,
+              "documents": [
+                {
+                  "id": 123,
+                  "name": "my document.pdf",
+                  "lastUpdated": "2025-09-11T09:53:12.123+01:00[Europe/London]"
+                },
+                {
+                  "id": 456,
+                  "name": "my document 2.docx",
+                  "lastUpdated": "2025-09-10T14:12:44.456+01:00[Europe/London]"
+                }
+              ]
+            },
+            {
+              "id": 2500310463,
+              "documents": [
+                {
+                  "id": 789,
+                  "name": "single document.txt",
+                  "lastUpdated": "2025-09-09T10:05:21.789+01:00[Europe/London]"
+                }
+              ]
+            },
+            {
+              "id": 2500310465,
+              "documents": []
             }
           ]
         },

@@ -38,6 +38,24 @@
 
     {
       "request": {
+        "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-300000000003",
+        "method": "PUT"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "00000000-0000-0000-0000-300000000003",
+          "crn": "X300003"
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        "transformers": ["response-template"]
+      }
+    },
+
+    {
+      "request": {
         "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-100000000005",
         "method": "GET"
       },
@@ -151,6 +169,29 @@
           "treatmentSaved": true,
           "signAndSendSaved": true,
           "contactSaved": true
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        "transformers": ["response-template"]
+      }
+    },
+
+    {
+      "request": {
+        "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-300000000003",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "00000000-0000-0000-0000-300000000003",
+          "crn": "X300003",
+          "basicDetailsSaved": true,
+          "informationSaved": true,
+          "treatmentSaved": false,
+          "signAndSendSaved": false,
+          "contactSaved": false
         },
         "headers": {
           "Content-Type": "application/json;charset=UTF-8"
@@ -750,7 +791,7 @@
               "id": "00000000-0000-0000-0001-600000000006",
               "suicideRiskId": "00000000-0000-0000-0000-600000000006",
               "contactDate": "2025-06-01",
-              "contactTypeDescription": "Responsible Officer",
+              "contactTypeDescription": "prison_establishment",
               "contactPerson": "Elara Quinn",
               "contactLocation": {
                 "id": "10000001",
@@ -771,7 +812,7 @@
               "id": "00000000-0000-0000-0002-600000000005",
               "suicideRiskId": "00000000-0000-0000-0000-600000000005",
               "contactDate": "2025-06-01",
-              "contactTypeDescription": "Medical Professional",
+              "contactTypeDescription": "other_colleagues",
               "contactPerson": "Elvira Susperia",
               "contactLocation": {
                 "id": "10000001",
