@@ -399,7 +399,7 @@
         }
       }
     },
-    
+
     {
       "request": {
         "urlPattern": "/ndelius/basic-details/X600010/(.*?)",
@@ -843,6 +843,81 @@
               "documents": []
             }
           ]
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+
+    {
+      "request": {
+        "url": "/ndelius/suicide-risk-information/crn/X600010",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "123456",
+          "startDate": "2025-01-01",
+          "endDate": "2025-01-01",
+          "notes": "some notes in here",
+          "documentsLinked": true,
+          "deregistered": false,
+          "type": {
+            "code": "REG1",
+            "description": "registration type 1"
+          }
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+
+    {
+      "request": {
+        "url": "/ndelius/suicide-risk-information/crn/X600011",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "123456",
+          "startDate": "2025-01-01",
+          "endDate": "2025-01-01",
+          "notes": "some notes in here",
+          "documentsLinked": true,
+          "deregistered": false,
+          "type": {
+            "code": "REG1",
+            "description": "registration type 1"
+          }
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+
+    {
+      "request": {
+        "url": "/ndelius/suicide-risk-information/crn/X600012",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "123456",
+          "startDate": "2025-01-01",
+          "endDate": "2025-01-01",
+          "notes": "some notes in here",
+          "documentsLinked": true,
+          "deregistered": false,
+          "type": {
+            "code": "REG1",
+            "description": "registration type 1"
+          }
         },
         "headers": {
           "Content-Type": "application/json;charset=UTF-8"
