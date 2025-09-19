@@ -13,7 +13,9 @@
   {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
   <form method="post">
+
     {% set errorList =[
+      { text: errorMessages.replyAddress.text, href: "#work-address" } if errorMessages.workAddress else None,
       { text: errorMessages.genericErrorMessage.text, href: "#" } if errorMessages.genericErrorMessage else None
     ] | reject("undefined") %}
 
@@ -42,6 +44,7 @@
         {% endset -%}
 
         {% if not showEmbeddedError %}
+          {% include "partials/review-required.njk" %}
 
         <h1 class="govuk-heading-l">Suicide Risk - Sign and Send</h1>
 
@@ -99,7 +102,7 @@
                 <br />{% endif %}
             </p>
 
-            {% if suicideRisk.workAddress != null and suicideRisk.workAddress.addressId == null %}
+            {% if suicideRisk.workAddress != null and suicideRisk.workAddress.addressId == null and (userDetails.addresses == null or userDetails.addresses.length == 0) %}
               {{ govukButton({
                 text: "Update Address",
                 href: '/update-work-address/'+suicideRiskId,
@@ -111,10 +114,7 @@
               }) }}
             {% endif %}
           {% elseif addressNotAvailable %}
-            {{ govukWarningText({
-              text: "The previously selected address is no longer available. Please select an alternative.",
-              iconFallbackText: "Warning"
-            }) }}
+            <p id="workAddress">The previously selected address is no longer available. Please select an alternative.</p>
           {% else %}
             <p id="no-address"> </p>
           {% endif %}
@@ -123,7 +123,7 @@
 
             {{ govukButton({
               text: "Add Address",
-              href: '/add-work-address/'+suicideRiskId,
+              href: '/update-work-address/'+suicideRiskId,
               classes: "govuk-button--secondary",
               preventDoubleClick: "true",
               attributes: {
@@ -131,7 +131,7 @@
               }
             }) }}
 
-          {% elseif not addressNotAvailable %}
+          {% elseif not addressNotAvailable and userDetails.addresses != null and userDetails.addresses.length > 0 %}
 
           {{ govukRadios({
             name: "offenderAddressSelectOne",
@@ -162,7 +162,7 @@
             ]
           }) }}
 
-          {% else %}
+          {% elseif userDetails.addresses != null and userDetails.addresses.length > 0 %}
 
             {{ alternateAddressHtml | safe }}
 

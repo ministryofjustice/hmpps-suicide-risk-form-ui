@@ -1,0 +1,119 @@
+{
+  "mappings": [
+    {
+      "request": {
+        "method": "POST",
+        "urlPathPattern": "/probation-offender-search/search/contacts",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": "$[?(@.crn == 'X000001')]"
+          },
+          {
+            "matchesJsonPath": "$.query"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "size": 10,
+          "page": 0,
+          "totalResults": 3,
+          "totalPages": 1,
+          "results": [
+            {
+              "crn": "X000001",
+              "id": 2500310461,
+              "typeCode": "SRISK",
+              "typeDescription": "Suicide/Self-Harm Incident",
+              "outcomeCode": "ATTCOMP",
+              "outcomeDescription": "Attended - Complied",
+              "description": "Test description 1",
+              "notes": "Test notes attended complied with psychiatric treatment",
+              "date": "2025-09-01",
+              "startTime": "09:00",
+              "endTime": "10:00",
+              "lastUpdatedDateTime": "2025-09-11T08:30:47.407Z",
+              "highlights": {
+                "description": [
+                  "psychiatric",
+                  "treatment"
+                ]
+              },
+              "score": 0.9
+            },
+            {
+              "crn": "X000001",
+              "id": 2500310463,
+              "typeCode": "SRPLAN",
+              "typeDescription": "Suicide/Self-Harm Safety Plan",
+              "outcomeCode": "FAILCOMP",
+              "outcomeDescription": "Failed to comply",
+              "description": "Test description 2",
+              "notes": "Test notes failed to comply with psychiatric",
+              "date": "2025-09-05",
+              "startTime": "11:00",
+              "endTime": "12:00",
+              "lastUpdatedDateTime": "2025-09-11T08:30:47.407Z",
+              "highlights": {
+                "notes": [
+                  "psychiatric"
+                ]
+              },
+              "score": 0.7
+            },
+            {
+              "crn": "X000001",
+              "id": 2500310465,
+              "typeCode": "C01",
+              "typeDescription": "Suicide Risk",
+              "outcomeCode": "FTC",
+              "outcomeDescription": "Failed to comply",
+              "description": "Test description 3",
+              "date": "2025-09-09",
+              "startTime": "08:30",
+              "endTime": "09:31",
+              "lastUpdatedDateTime": "2025-09-11T09:30:47.407Z",
+              "highlights": {
+                "notes": [
+                  "treatment"
+                ]
+              },
+              "score": 0.7
+            }
+          ]
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "urlPathPattern": "/probation-offender-search/search/contacts",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": "$[?(@.crn == 'X000002')]"
+          },
+          {
+            "matchesJsonPath": "$.query"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "size": 10,
+          "page": 0,
+          "totalResults": 0,
+          "totalPages": 0,
+          "results": []
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    }
+  ]
+}

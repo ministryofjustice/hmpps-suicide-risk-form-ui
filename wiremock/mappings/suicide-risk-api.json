@@ -38,6 +38,24 @@
 
     {
       "request": {
+        "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-300000000003",
+        "method": "PUT"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "00000000-0000-0000-0000-300000000003",
+          "crn": "X300003"
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        "transformers": ["response-template"]
+      }
+    },
+
+    {
+      "request": {
         "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-100000000005",
         "method": "GET"
       },
@@ -151,6 +169,29 @@
           "treatmentSaved": true,
           "signAndSendSaved": true,
           "contactSaved": true
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        "transformers": ["response-template"]
+      }
+    },
+
+    {
+      "request": {
+        "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-300000000003",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "00000000-0000-0000-0000-300000000003",
+          "crn": "X300003",
+          "basicDetailsSaved": true,
+          "informationSaved": true,
+          "treatmentSaved": false,
+          "signAndSendSaved": false,
+          "contactSaved": false
         },
         "headers": {
           "Content-Type": "application/json;charset=UTF-8"
@@ -750,6 +791,124 @@
               "id": "00000000-0000-0000-0001-600000000006",
               "suicideRiskId": "00000000-0000-0000-0000-600000000006",
               "contactDate": "2025-06-01",
+              "contactTypeDescription": "prison_establishment",
+              "contactPerson": "Elara Quinn",
+              "contactLocation": {
+                "id": "10000001",
+                "addressId": "60000001",
+                "status": "active",
+                "officeDescription": "Descriptive Name",
+                "buildingName": "Descriptive Tower",
+                "buildingNumber": "33",
+                "streetName": "Descriptive Street",
+                "townCity": "Descriptive Town",
+                "district": "Descriptive District",
+                "county": "Descriptive County",
+                "postcode": "DE5 41BE"
+              },
+              "formSent": true
+            },
+            {
+              "id": "00000000-0000-0000-0002-600000000005",
+              "suicideRiskId": "00000000-0000-0000-0000-600000000005",
+              "contactDate": "2025-06-01",
+              "contactTypeDescription": "other_colleagues",
+              "contactPerson": "Elvira Susperia",
+              "contactLocation": {
+                "id": "10000001",
+                "addressId": "60000001",
+                "status": "active",
+                "officeDescription": "Descriptive Name",
+                "buildingName": "Descriptive Tower",
+                "buildingNumber": "33",
+                "streetName": "Descriptive Street",
+                "townCity": "Descriptive Town",
+                "district": "Descriptive District",
+                "county": "Descriptive County",
+                "postcode": "DE5 41BE"
+              },
+              "formSent": true
+            }
+          ],
+          "dateOfLetter": "2025-01-01",
+          "signature": "Elvira Quinn 4/5/2025 17:23",
+          "basicDetailsSaved": true,
+          "informationSaved": true,
+          "treatmentSaved": true,
+          "signAndSendSaved": true,
+          "contactSaved": true,
+          "completedDate": null
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        "transformers": ["response-template"]
+      }
+    },
+
+    {
+      "request": {
+        "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-600000000009",
+        "method": "PUT"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "00000000-0000-0000-0000-600000000009",
+          "crn": "X600009"
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        "transformers": ["response-template"]
+      }
+    },
+
+    {
+      "request": {
+        "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-600000000010",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "00000000-0000-0000-0000-600000000010",
+          "crn": "X600010",
+          "titleAndFullName": "Mr Grayson Vale",
+          "postalAddress": {
+            "id": "10000001",
+            "addressId": "60000001",
+            "status": "active",
+            "officeDescription": "Descriptive Name",
+            "buildingName": "Descriptive Tower",
+            "buildingNumber": "33",
+            "streetName": "Descriptive Street",
+            "townCity": "Descriptive Town",
+            "district": "Descriptive District",
+            "county": "Descriptive County",
+            "postcode": "DE5 41BE"
+          },
+          "workAddress": {
+            "id": "10000002",
+            "addressId": null,
+            "status": "active",
+            "officeDescription": "The Bessies Factory",
+            "buildingName": "Bessie Building",
+            "buildingNumber": "1",
+            "streetName": "Yorkshire Street",
+            "townCity": "Fry Town",
+            "district": "Previous District",
+            "county": "Prev County",
+            "postcode": "FS1 3SH"
+          },
+          "dateOfBirth": "1980-01-01",
+          "additionalInfo": "Mr Greyson Vale is a very curious individual who should be checked in on at regular intervals.",
+          "currentPsychTreatment": "Extensive talking therapy on a weekly basis to ensure patient is lucid and does not require intervention.",
+          "suicideRiskContactList": [
+            {
+              "id": "00000000-0000-0000-0001-600000000006",
+              "suicideRiskId": "00000000-0000-0000-0000-600000000006",
+              "contactDate": "2025-06-01",
               "contactTypeDescription": "Responsible Officer",
               "contactPerson": "Elara Quinn",
               "contactLocation": {
@@ -796,7 +955,9 @@
           "treatmentSaved": true,
           "signAndSendSaved": true,
           "contactSaved": true,
-          "completedDate": null
+          "completedDate": null,
+          "reviewEvent": "MERGE",
+          "reviewRequiredDate": "1980-01-01"
         },
         "headers": {
           "Content-Type": "application/json;charset=UTF-8"
@@ -807,14 +968,200 @@
 
     {
       "request": {
-        "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-600000000009",
-        "method": "PUT"
+        "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-600000000011",
+        "method": "GET"
       },
       "response": {
         "status": 200,
         "jsonBody": {
-          "id": "00000000-0000-0000-0000-600000000009",
-          "crn": "X600009"
+          "id": "00000000-0000-0000-0000-600000000011",
+          "crn": "X600011",
+          "titleAndFullName": "Mr Grayson Vale",
+          "postalAddress": {
+            "id": "10000001",
+            "addressId": "60000001",
+            "status": "active",
+            "officeDescription": "Descriptive Name",
+            "buildingName": "Descriptive Tower",
+            "buildingNumber": "33",
+            "streetName": "Descriptive Street",
+            "townCity": "Descriptive Town",
+            "district": "Descriptive District",
+            "county": "Descriptive County",
+            "postcode": "DE5 41BE"
+          },
+          "workAddress": {
+            "id": "10000002",
+            "addressId": null,
+            "status": "active",
+            "officeDescription": "The Bessies Factory",
+            "buildingName": "Bessie Building",
+            "buildingNumber": "1",
+            "streetName": "Yorkshire Street",
+            "townCity": "Fry Town",
+            "district": "Previous District",
+            "county": "Prev County",
+            "postcode": "FS1 3SH"
+          },
+          "dateOfBirth": "1980-01-01",
+          "additionalInfo": "Mr Greyson Vale is a very curious individual who should be checked in on at regular intervals.",
+          "currentPsychTreatment": "Extensive talking therapy on a weekly basis to ensure patient is lucid and does not require intervention.",
+          "suicideRiskContactList": [
+            {
+              "id": "00000000-0000-0000-0001-600000000006",
+              "suicideRiskId": "00000000-0000-0000-0000-600000000006",
+              "contactDate": "2025-06-01",
+              "contactTypeDescription": "Responsible Officer",
+              "contactPerson": "Elara Quinn",
+              "contactLocation": {
+                "id": "10000001",
+                "addressId": "60000001",
+                "status": "active",
+                "officeDescription": "Descriptive Name",
+                "buildingName": "Descriptive Tower",
+                "buildingNumber": "33",
+                "streetName": "Descriptive Street",
+                "townCity": "Descriptive Town",
+                "district": "Descriptive District",
+                "county": "Descriptive County",
+                "postcode": "DE5 41BE"
+              },
+              "formSent": true
+            },
+            {
+              "id": "00000000-0000-0000-0002-600000000005",
+              "suicideRiskId": "00000000-0000-0000-0000-600000000005",
+              "contactDate": "2025-06-01",
+              "contactTypeDescription": "Medical Professional",
+              "contactPerson": "Elvira Susperia",
+              "contactLocation": {
+                "id": "10000001",
+                "addressId": "60000001",
+                "status": "active",
+                "officeDescription": "Descriptive Name",
+                "buildingName": "Descriptive Tower",
+                "buildingNumber": "33",
+                "streetName": "Descriptive Street",
+                "townCity": "Descriptive Town",
+                "district": "Descriptive District",
+                "county": "Descriptive County",
+                "postcode": "DE5 41BE"
+              },
+              "formSent": true
+            }
+          ],
+          "dateOfLetter": "2025-01-01",
+          "signature": "Elvira Quinn 4/5/2025 17:23",
+          "basicDetailsSaved": true,
+          "informationSaved": true,
+          "treatmentSaved": true,
+          "signAndSendSaved": true,
+          "contactSaved": true,
+          "completedDate": null,
+          "reviewEvent": "UNMERGE",
+          "reviewRequiredDate": "1980-01-01"
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        "transformers": ["response-template"]
+      }
+    },
+
+    {
+      "request": {
+        "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-600000000012",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "00000000-0000-0000-0000-600000000012",
+          "crn": "X600012",
+          "titleAndFullName": "Mr Grayson Vale",
+          "postalAddress": {
+            "id": "10000001",
+            "addressId": "60000001",
+            "status": "active",
+            "officeDescription": "Descriptive Name",
+            "buildingName": "Descriptive Tower",
+            "buildingNumber": "33",
+            "streetName": "Descriptive Street",
+            "townCity": "Descriptive Town",
+            "district": "Descriptive District",
+            "county": "Descriptive County",
+            "postcode": "DE5 41BE"
+          },
+          "workAddress": {
+            "id": "10000002",
+            "addressId": null,
+            "status": "active",
+            "officeDescription": "The Bessies Factory",
+            "buildingName": "Bessie Building",
+            "buildingNumber": "1",
+            "streetName": "Yorkshire Street",
+            "townCity": "Fry Town",
+            "district": "Previous District",
+            "county": "Prev County",
+            "postcode": "FS1 3SH"
+          },
+          "dateOfBirth": "1980-01-01",
+          "additionalInfo": "Mr Greyson Vale is a very curious individual who should be checked in on at regular intervals.",
+          "currentPsychTreatment": "Extensive talking therapy on a weekly basis to ensure patient is lucid and does not require intervention.",
+          "suicideRiskContactList": [
+            {
+              "id": "00000000-0000-0000-0001-600000000006",
+              "suicideRiskId": "00000000-0000-0000-0000-600000000006",
+              "contactDate": "2025-06-01",
+              "contactTypeDescription": "Responsible Officer",
+              "contactPerson": "Elara Quinn",
+              "contactLocation": {
+                "id": "10000001",
+                "addressId": "60000001",
+                "status": "active",
+                "officeDescription": "Descriptive Name",
+                "buildingName": "Descriptive Tower",
+                "buildingNumber": "33",
+                "streetName": "Descriptive Street",
+                "townCity": "Descriptive Town",
+                "district": "Descriptive District",
+                "county": "Descriptive County",
+                "postcode": "DE5 41BE"
+              },
+              "formSent": true
+            },
+            {
+              "id": "00000000-0000-0000-0002-600000000005",
+              "suicideRiskId": "00000000-0000-0000-0000-600000000005",
+              "contactDate": "2025-06-01",
+              "contactTypeDescription": "Medical Professional",
+              "contactPerson": "Elvira Susperia",
+              "contactLocation": {
+                "id": "10000001",
+                "addressId": "60000001",
+                "status": "active",
+                "officeDescription": "Descriptive Name",
+                "buildingName": "Descriptive Tower",
+                "buildingNumber": "33",
+                "streetName": "Descriptive Street",
+                "townCity": "Descriptive Town",
+                "district": "Descriptive District",
+                "county": "Descriptive County",
+                "postcode": "DE5 41BE"
+              },
+              "formSent": true
+            }
+          ],
+          "dateOfLetter": "2025-01-01",
+          "signature": "Elvira Quinn 4/5/2025 17:23",
+          "basicDetailsSaved": true,
+          "informationSaved": true,
+          "treatmentSaved": true,
+          "signAndSendSaved": true,
+          "contactSaved": true,
+          "completedDate": null,
+          "reviewEvent": "EVENT_MOVE",
+          "reviewRequiredDate": "1980-01-01"
         },
         "headers": {
           "Content-Type": "application/json;charset=UTF-8"

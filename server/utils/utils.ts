@@ -50,6 +50,10 @@ export function handleIntegrationErrors(status: number, message: string, integra
     errorMessages.genericErrorMessage = {
       text: 'There has been a problem fetching information from NDelius. Please try again later.',
     }
+  } else if (integrationService === 'Probation offender search') {
+    errorMessages.genericErrorMessage = {
+      text: 'There has been a problem fetching information from Probation offender search. Please try again later.',
+    }
   } else {
     errorMessages.genericErrorMessage = {
       text: 'There has been a problem fetching information from the Suicide Risk Service. Please try again later.',
@@ -79,6 +83,17 @@ export function toIsoDateFormat(dateStr: string): string {
       return ''
     }
     return `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`
+  }
+  return ''
+}
+
+export function toDayMonthYearDateFormat(dateStr: string): string {
+  if (dateStr && dateStr.trim().length > 0) {
+    const [year, month, day] = dateStr.split('-').map(Number)
+    if (Number.isNaN(day) || Number.isNaN(month) || Number.isNaN(year)) {
+      return ''
+    }
+    return `${String(day).padStart(2, '0')}/${String(month).padStart(2, '0')}/${year}`
   }
   return ''
 }
