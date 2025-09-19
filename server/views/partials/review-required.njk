@@ -1,0 +1,27 @@
+{%- from "moj/components/alert/macro.njk" import mojAlert -%}
+
+{% if suicideRisk.reviewRequiredDate != null %}
+
+  {% set messageHtml %}
+    {% if suicideRisk.reviewEvent == 'MERGE' %}
+      A Merge occurred on {{ suicideRisk.reviewRequiredDate | toUserDate() }} in NDelius and important details have changed. This report should be reviewed before proceeding. Please confirm all information or discard this report.
+    {% endif %}
+    {% if suicideRisk.reviewEvent == 'UNMERGE' %}
+      An Unmerge occurred on {{ suicideRisk.reviewRequiredDate | toUserDate() }} in NDelius and important details have changed. This report should be reviewed before proceeding. Please confirm all information or discard this report.
+    {% endif %}
+    {% if suicideRisk.reviewEvent == 'EVENT_MOVE' %}
+      A Move Event occurred on {{ suicideRisk.reviewRequiredDate | toUserDate() }} in NDelius and important details have changed. This report should be reviewed before proceeding. Please confirm all information or discard this report.
+    {% endif %}
+  {% endset -%}
+
+  {{ mojAlert({
+    variant: "warning",
+    title: "Review Required",
+    showTitleAsHeading: true,
+    dismissible: false,
+    html: messageHtml,
+    attributes: {
+      id: "reviewAlert"
+    }
+  }) }}
+{% endif %}
