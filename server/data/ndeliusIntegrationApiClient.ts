@@ -11,7 +11,7 @@ export default class NDeliusIntegrationApiClient extends RestClient {
   async getBasicDetails(crn: string, username: string): Promise<BasicDetails> {
     return this.get(
       {
-        path: `/basic-details/${crn}/${username}`,
+        path: `/basic-details/${crn}`,
       },
       asSystem(username),
     )
