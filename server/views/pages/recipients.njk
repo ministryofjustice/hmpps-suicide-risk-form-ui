@@ -7,6 +7,7 @@
 
   {% from "moj/components/side-navigation/macro.njk" import mojSideNavigation %}
   {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+  {% from "govuk/components/button/macro.njk" import govukButton %}
 
   <form method="post">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
@@ -16,6 +17,325 @@
       </div>
       <div class="govuk-grid-column-two-thirds">
         <h1 class="govuk-heading-l">Suicide Risk - Recipients</h1>
+
+        <div class="govuk-summary-card">
+          <div class="govuk-summary-card__content">
+            <h2 class="govuk-heading-m">Other Colleagues</h2>
+
+            {% if contactsOtherColleagues and contactsOtherColleagues.length > 0 %}
+              {% for rec in contactsOtherColleagues %}
+                <dl class="govuk-summary-list govuk-!-margin-bottom-3 govuk-!-margin-top-3">
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Name</dt>
+                    <dd class="govuk-summary-list__value">{{ rec.contactPerson }}</dd>
+                    <dd class="govuk-summary-list__actions"></dd>
+                  </div>
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Location</dt>
+                    <dd class="govuk-summary-list__value">
+                      {% if rec.contactLocation %}
+                        {% if rec.contactLocation.officeDescription %}{{ rec.contactLocation.officeDescription }}
+                          <br>{% endif %}
+                        {% if rec.contactLocation.buildingName %}{{ rec.contactLocation.buildingName }}<br>{% endif %}
+                        {% if rec.contactLocation.buildingNumber or rec.contactLocation.streetName %}
+                          {{ rec.contactLocation.buildingNumber }} {{ rec.contactLocation.streetName }}<br>
+                        {% endif %}
+                        {% if rec.contactLocation.district %}{{ rec.contactLocation.district }}<br>{% endif %}
+                        {% if rec.contactLocation.townCity %}{{ rec.contactLocation.townCity }}<br>{% endif %}
+                        {% if rec.contactLocation.county %}{{ rec.contactLocation.county }}<br>{% endif %}
+                        {% if rec.contactLocation.postcode %}{{ rec.contactLocation.postcode }}<br>{% endif %}
+                      {% endif %}
+                    </dd>
+                    <dd class="govuk-summary-list__actions"></dd>
+                  </div>
+                </dl>
+                <p>
+                  <a href="{{ '/recipient-details/' + suicideRiskId + '?recipientId=' + rec.id }}" class="govuk-link">
+                    Click this link to edit the recipient
+                  </a><br>
+                  <a href="{{ '/delete-recipient/' + suicideRiskId + '/' + rec.id }}" class="govuk-link">
+                    Click this link to delete the recipient
+                  </a>
+                </p>
+                {% if not loop.last %}
+                  <hr
+                    class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+                {% endif %}
+              {% endfor %}
+            {% else %}
+              <p>No Recipients of this type added</p>
+            {% endif %}
+
+            {{ govukButton({
+              text: "Add Recipient of this type",
+              type: "submit",
+              href: '/recipient-details/' + suicideRiskId + '?contactType=COLLEAGUE',
+              attributes: { id: "add-other-colleagues--button" }
+            }) }}
+          </div>
+        </div>
+
+        <div class="govuk-summary-card">
+          <div class="govuk-summary-card__content">
+            <h2 class="govuk-heading-m">Prison Establishment</h2>
+
+            {% if contactsPrisonEstablishment and contactsPrisonEstablishment.length > 0 %}
+              {% for rec in contactsPrisonEstablishment %}
+                <dl class="govuk-summary-list govuk-!-margin-bottom-3 govuk-!-margin-top-3">
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Name</dt>
+                    <dd class="govuk-summary-list__value">{{ rec.contactPerson }}</dd>
+                    <dd class="govuk-summary-list__actions"></dd>
+                  </div>
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Location</dt>
+                    <dd class="govuk-summary-list__value">
+                      {% if rec.contactLocation %}
+                        {% if rec.contactLocation.officeDescription %}{{ rec.contactLocation.officeDescription }}
+                          <br>{% endif %}
+                        {% if rec.contactLocation.buildingName %}{{ rec.contactLocation.buildingName }}<br>{% endif %}
+                        {% if rec.contactLocation.buildingNumber or rec.contactLocation.streetName %}
+                          {{ rec.contactLocation.buildingNumber }} {{ rec.contactLocation.streetName }}<br>
+                        {% endif %}
+                        {% if rec.contactLocation.district %}{{ rec.contactLocation.district }}<br>{% endif %}
+                        {% if rec.contactLocation.townCity %}{{ rec.contactLocation.townCity }}<br>{% endif %}
+                        {% if rec.contactLocation.county %}{{ rec.contactLocation.county }}<br>{% endif %}
+                        {% if rec.contactLocation.postcode %}{{ rec.contactLocation.postcode }}<br>{% endif %}
+                      {% endif %}
+                    </dd>
+                    <dd class="govuk-summary-list__actions"></dd>
+                  </div>
+                </dl>
+                <p>
+                  <a href="{{ '/recipient-details/' + suicideRiskId + '?recipientId=' + rec.id }}" class="govuk-link">
+                    Click this link to edit the recipient
+                  </a><br>
+                  <a href="{{ '/delete-recipient/' + suicideRiskId + '/' + rec.id }}" class="govuk-link">
+                    Click this link to delete the recipient
+                  </a>
+                </p>
+                {% if not loop.last %}
+                <hr
+                  class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+                {% endif %}
+              {% endfor %}
+            {% else %}
+              <p>No Recipients of this type added</p>
+            {% endif %}
+
+            {{ govukButton({
+              text: "Add Recipient of this type",
+              type: "submit",
+              href: '/recipient-details/' + suicideRiskId + '?contactType=PRISON',
+              attributes: { id: "add-prison-establishment--button" }
+            }) }}
+          </div>
+        </div>
+
+
+        <div class="govuk-summary-card">
+          <div class="govuk-summary-card__content">
+            <h2 class="govuk-heading-m">Police Custody (Cells)</h2>
+
+            {% if contactsPoliceCustodyCells and contactsPoliceCustodyCells.length > 0 %}
+              {% for rec in contactsPoliceCustodyCells %}
+                <dl class="govuk-summary-list govuk-!-margin-bottom-3 govuk-!-margin-top-3">
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Name</dt>
+                    <dd class="govuk-summary-list__value">{{ rec.contactPerson }}</dd>
+                    <dd class="govuk-summary-list__actions"></dd>
+                  </div>
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Location</dt>
+                    <dd class="govuk-summary-list__value">
+                      {% if rec.contactLocation %}
+                        {% if rec.contactLocation.officeDescription %}{{ rec.contactLocation.officeDescription }}
+                          <br>{% endif %}
+                        {% if rec.contactLocation.buildingName %}{{ rec.contactLocation.buildingName }}<br>{% endif %}
+                        {% if rec.contactLocation.buildingNumber or rec.contactLocation.streetName %}
+                          {{ rec.contactLocation.buildingNumber }} {{ rec.contactLocation.streetName }}<br>
+                        {% endif %}
+                        {% if rec.contactLocation.district %}{{ rec.contactLocation.district }}<br>{% endif %}
+                        {% if rec.contactLocation.townCity %}{{ rec.contactLocation.townCity }}<br>{% endif %}
+                        {% if rec.contactLocation.county %}{{ rec.contactLocation.county }}<br>{% endif %}
+                        {% if rec.contactLocation.postcode %}{{ rec.contactLocation.postcode }}<br>{% endif %}
+                      {% endif %}
+                    </dd>
+                    <dd class="govuk-summary-list__actions"></dd>
+                  </div>
+                </dl>
+                <p>
+                  <a href="{{ '/recipient-details/' + suicideRiskId + '?recipientId=' + rec.id }}" class="govuk-link">
+                    Click this link to edit the recipient
+                  </a><br>
+                  <a href="{{ '/delete-recipient/' + suicideRiskId + '/' + rec.id }}" class="govuk-link">
+                    Click this link to delete the recipient
+                  </a>
+                </p>
+                {% if not loop.last %}
+                <hr
+                  class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+                {% endif %}
+              {% endfor %}
+            {% else %}
+              <p>No Recipients of this type added</p>
+            {% endif %}
+
+            {{ govukButton({
+              text: "Add Recipient of this type",
+              type: "submit",
+              href: '/recipient-details/' + suicideRiskId + '?contactType=POLICE',
+              attributes: { id: "add-police-custody--button" }
+            }) }}
+          </div>
+        </div>
+
+        <div class="govuk-summary-card">
+          <div class="govuk-summary-card__content">
+            <h2 class="govuk-heading-m">Medical Services</h2>
+
+            {% if contactsMedicalServices and contactsMedicalServices.length > 0 %}
+              {% for rec in contactsMedicalServices %}
+                <dl class="govuk-summary-list govuk-!-margin-bottom-3 govuk-!-margin-top-3">
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Name</dt>
+                    <dd class="govuk-summary-list__value">{{ rec.contactPerson }}</dd>
+                    <dd class="govuk-summary-list__actions"></dd>
+                  </div>
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Location</dt>
+                    <dd class="govuk-summary-list__value">
+                      {% if rec.contactLocation %}
+                        {% if rec.contactLocation.officeDescription %}{{ rec.contactLocation.officeDescription }}
+                          <br>{% endif %}
+                        {% if rec.contactLocation.buildingName %}{{ rec.contactLocation.buildingName }}<br>{% endif %}
+                        {% if rec.contactLocation.buildingNumber or rec.contactLocation.streetName %}
+                          {{ rec.contactLocation.buildingNumber }} {{ rec.contactLocation.streetName }}<br>
+                        {% endif %}
+                        {% if rec.contactLocation.district %}{{ rec.contactLocation.district }}<br>{% endif %}
+                        {% if rec.contactLocation.townCity %}{{ rec.contactLocation.townCity }}<br>{% endif %}
+                        {% if rec.contactLocation.county %}{{ rec.contactLocation.county }}<br>{% endif %}
+                        {% if rec.contactLocation.postcode %}{{ rec.contactLocation.postcode }}<br>{% endif %}
+                      {% endif %}
+                    </dd>
+                    <dd class="govuk-summary-list__actions"></dd>
+                  </div>
+                </dl>
+                <p>
+                  <a href="{{ '/recipient-details/' + suicideRiskId + '?recipientId=' + rec.id }}" class="govuk-link">
+                    Click this link to edit the recipient
+                  </a><br>
+                  <a href="{{ '/delete-recipient/' + suicideRiskId + '/' + rec.id }}" class="govuk-link">
+                    Click this link to delete the recipient
+                  </a>
+                </p>
+                {% if not loop.last %}
+                <hr
+                  class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+                {% endif %}
+              {% endfor %}
+            {% else %}
+              <p>No Recipients of this type added</p>
+            {% endif %}
+
+            {{ govukButton({
+              text: "Add Recipient of this type",
+              type: "submit",
+              href: '/recipient-details/' + suicideRiskId + '?contactType=MEDICAL',
+              attributes: { id: "add-medical-services--button" }
+            }) }}
+          </div>
+        </div>
+
+        <div class="govuk-summary-card">
+          <div class="govuk-summary-card__content">
+            <h2 class="govuk-heading-m">Other Agencies</h2>
+
+            {% if contactsOtherAgency and contactsOtherAgency.length > 0 %}
+              {% for rec in contactsOtherAgency %}
+                <dl class="govuk-summary-list govuk-!-margin-bottom-3 govuk-!-margin-top-3">
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Name</dt>
+                    <dd class="govuk-summary-list__value">{{ rec.contactPerson }}</dd>
+                    <dd class="govuk-summary-list__actions"></dd>
+                  </div>
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Location</dt>
+                    <dd class="govuk-summary-list__value">
+                      {% if rec.contactLocation %}
+                        {% if rec.contactLocation.officeDescription %}{{ rec.contactLocation.officeDescription }}
+                          <br>{% endif %}
+                        {% if rec.contactLocation.buildingName %}{{ rec.contactLocation.buildingName }}<br>{% endif %}
+                        {% if rec.contactLocation.buildingNumber or rec.contactLocation.streetName %}
+                          {{ rec.contactLocation.buildingNumber }} {{ rec.contactLocation.streetName }}<br>
+                        {% endif %}
+                        {% if rec.contactLocation.district %}{{ rec.contactLocation.district }}<br>{% endif %}
+                        {% if rec.contactLocation.townCity %}{{ rec.contactLocation.townCity }}<br>{% endif %}
+                        {% if rec.contactLocation.county %}{{ rec.contactLocation.county }}<br>{% endif %}
+                        {% if rec.contactLocation.postcode %}{{ rec.contactLocation.postcode }}<br>{% endif %}
+                      {% endif %}
+                    </dd>
+                    <dd class="govuk-summary-list__actions"></dd>
+                  </div>
+                </dl>
+                <p>
+                  <a href="{{ '/recipient-details/' + suicideRiskId + '?recipientId=' + rec.id }}" class="govuk-link">
+                    Click this link to edit the recipient
+                  </a><br>
+                  <a href="{{ '/delete-recipient/' + suicideRiskId + '/' + rec.id }}" class="govuk-link">
+                    Click this link to delete the recipient
+                  </a>
+                </p>
+                {% if not loop.last %}
+                  <hr
+                    class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+                {% endif %}
+              {% endfor %}
+            {% else %}
+              <p>No Recipients of this type added</p>
+            {% endif %}
+
+            {{ govukButton({
+              text: "Add Recipient of this type",
+              type: "submit",
+              href: '/recipient-details/' + suicideRiskId + '?contactType=OTHER',
+              attributes: { id: "add-other-agencies--button" }
+            }) }}
+          </div>
+        </div>
+
+        <div>
+          {{ govukButton({
+            text: "Continue",
+            preventDoubleClick: "true",
+            type: "submit",
+            attributes: {
+              id: "continue-button"
+            }
+          }) }}
+          {{ govukButton({
+            text: "Save Progress and Close",
+            type: "submit",
+            name: "action",
+            value: "saveProgressAndClose",
+            classes: "govuk-button--secondary",
+            attributes: {
+              id: "close-button"
+            }
+          }) }}
+
+          {{ govukButton({
+            text: "Refresh from Delius",
+            preventDoubleClick: "true",
+            type: "submit",
+            name: "action",
+            value: "refreshFromNdelius",
+            classes: "govuk-button--secondary",
+            attributes: {
+              id: "refresh-from-ndelius--button"
+            }
+          }) }}
+        </div>
       </div>
     </div>
   </form>
