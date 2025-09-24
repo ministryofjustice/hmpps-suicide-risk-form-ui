@@ -1168,6 +1168,354 @@
         },
         "transformers": ["response-template"]
       }
+    },
+
+    {
+      "request": {
+        "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-700000000000",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "00000000-0000-0000-0000-700000000000",
+          "crn": "X700000",
+          "titleAndFullName": "Mr Test Recipient",
+          "postalAddress": {
+            "id": "70000001",
+            "addressId": "70000000",
+            "status": "active",
+            "officeDescription": "Postal Office",
+            "buildingName": "Postal Building",
+            "buildingNumber": "7",
+            "streetName": "Postal Street",
+            "townCity": "Postal Town",
+            "district": "Postal District",
+            "county": "Postal County",
+            "postcode": "AA1 1AA"
+          },
+          "workAddress": {
+            "id": "70000002",
+            "addressId": null,
+            "status": "active",
+            "officeDescription": "Work Office",
+            "buildingName": "Work Building",
+            "buildingNumber": "77",
+            "streetName": "Work Street",
+            "townCity": "Work Town",
+            "district": "Work District",
+            "county": "Work County",
+            "postcode": "AA1 1AB"
+          },
+          "dateOfBirth": "2000-01-01",
+          "additionalInfo": "Additional information.",
+          "currentPsychTreatment": "Current Psych Treatment.",
+          "suicideRiskContactList": [
+            {
+              "id": "00000000-0000-0000-0000-700000000001",
+              "suicideRiskId": "00000000-0000-0000-0000-700000000000",
+              "contactDate": "2025-09-17",
+              "contactTypeDescription": "other_colleagues",
+              "contactPerson": "John Smith",
+              "contactLocation": {
+                "id": "70000002",
+                "addressId": "70000000",
+                "status": "active",
+                "officeDescription": "Office",
+                "buildingName": "Building",
+                "buildingNumber": "7",
+                "streetName": "Street",
+                "townCity": "Town",
+                "district": "District",
+                "county": "County",
+                "postcode": "AA1 1AA"
+              },
+              "formSent": false
+            },
+            {
+              "id": "00000000-0000-0000-0000-700000000002",
+              "suicideRiskId": "00000000-0000-0000-0000-700000000000",
+              "contactDate": "2025-09-17",
+              "contactTypeDescription": "prison_establishment",
+              "contactPerson": "Jack Smith",
+              "contactLocation": {
+                "id": "70000002",
+                "addressId": "70000000",
+                "status": "active",
+                "officeDescription": "Office",
+                "buildingName": "Building",
+                "buildingNumber": "7",
+                "streetName": "Street",
+                "townCity": "Town",
+                "district": "District",
+                "county": "County",
+                "postcode": "AA1 1AA"
+              },
+              "formSent": false
+            },
+            {
+              "id": "00000000-0000-0000-0000-700000000003",
+              "suicideRiskId": "00000000-0000-0000-0000-700000000000",
+              "contactDate": "2025-09-17",
+              "contactTypeDescription": "police_custody_cells",
+              "contactPerson": "James Smith",
+              "contactLocation": {
+                "id": "70000002",
+                "addressId": "70000000",
+                "status": "active",
+                "officeDescription": "Office",
+                "buildingName": "Building",
+                "buildingNumber": "7",
+                "streetName": "Street",
+                "townCity": "Town",
+                "district": "District",
+                "county": "County",
+                "postcode": "AA1 1AA"
+              },
+              "formSent": false
+            },
+            {
+              "id": "00000000-0000-0000-0000-700000000004",
+              "suicideRiskId": "00000000-0000-0000-0000-700000000000",
+              "contactDate": "2025-09-17",
+              "contactTypeDescription": "medical_services",
+              "contactPerson": "Jimmy Smith",
+              "contactLocation": {
+                "id": "70000002",
+                "addressId": "70000000",
+                "status": "active",
+                "officeDescription": "Office",
+                "buildingName": "Building",
+                "buildingNumber": "7",
+                "streetName": "Street",
+                "townCity": "Town",
+                "district": "District",
+                "county": "County",
+                "postcode": "AA1 1AA"
+              },
+              "formSent": false
+            },
+            {
+              "id": "00000000-0000-0000-0000-700000000005",
+              "suicideRiskId": "00000000-0000-0000-0000-700000000000",
+              "contactDate": "2025-09-17",
+              "contactTypeDescription": "other_agency",
+              "contactPerson": "Jason Smith",
+              "contactLocation": {
+                "id": "70000002",
+                "addressId": "70000000",
+                "status": "active",
+                "officeDescription": "Office",
+                "buildingName": "Building",
+                "buildingNumber": "7",
+                "streetName": "Street",
+                "townCity": "Town",
+                "district": "District",
+                "county": "County",
+                "postcode": "AA1 1AA"
+              },
+              "formSent": false
+            },
+            {
+              "id": "00000000-0000-0000-0000-700000000006",
+              "suicideRiskId": "00000000-0000-0000-0000-700000000000",
+              "contactDate": "2025-09-17",
+              "contactTypeDescription": "other_agency",
+              "contactPerson": "Jason Smith Junior",
+              "contactLocation": {
+                "id": "70000003",
+                "addressId": "70000000",
+                "status": "active",
+                "officeDescription": "Office",
+                "buildingName": "Building",
+                "buildingNumber": "7",
+                "streetName": "Street",
+                "townCity": "Town",
+                "district": "District",
+                "county": "County",
+                "postcode": "AA1 1AA"
+              },
+              "formSent": false
+            }
+          ],
+          "dateOfLetter": "2025-01-01",
+          "signature": "Elvira Quinn 4/5/2025 17:23",
+          "basicDetailsSaved": true,
+          "informationSaved": true,
+          "treatmentSaved": true,
+          "signAndSendSaved": true,
+          "contactSaved": true,
+          "completedDate": null
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        "transformers": ["response-template"]
+      }
+    },
+    {
+      "request": {
+        "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-700000000000/recipient/00000000-0000-0000-0000-700000000001",
+        "method": "DELETE"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        "transformers": ["response-template"]
+      }
+    },
+    {
+      "request": {
+        "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-700000000000/recipient/00000000-0000-0000-0000-700000000002",
+        "method": "DELETE"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        "transformers": ["response-template"]
+      }
+    },
+    {
+      "request": {
+        "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-700000000000/recipient/00000000-0000-0000-0000-700000000003",
+        "method": "DELETE"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        "transformers": ["response-template"]
+      }
+    },
+    {
+      "request": {
+        "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-700000000000/recipient/00000000-0000-0000-0000-700000000004",
+        "method": "DELETE"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        "transformers": ["response-template"]
+      }
+    },
+    {
+      "request": {
+        "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-700000000000/recipient/00000000-0000-0000-0000-700000000005",
+        "method": "DELETE"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        "transformers": ["response-template"]
+      }
+    },
+    {
+      "request": {
+        "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-700000000000/recipient/00000000-0000-0000-0000-700000000001",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "contactTypeDescription": "other_colleagues",
+          "contactPerson": "John Smith",
+          "contactLocation": {
+            "id": "70000002",
+            "addressId": "70000000",
+            "status": "active",
+            "officeDescription": "Office",
+            "buildingName": "Building",
+            "buildingNumber": "7",
+            "streetName": "Street",
+            "townCity": "Town",
+            "district": "District",
+            "county": "County",
+            "postcode": "AA1 1AA"
+          },
+          "formSent": false
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        "transformers": ["response-template"]
+      }
+    },
+    {
+      "request": {
+        "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-700000000000/recipient/00000000-0000-0000-0000-700000000001",
+        "method": "PUT"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "00000000-0000-0000-0000-700000000001",
+          "suicideRiskId": "00000000-0000-0000-0000-700000000000",
+          "contactDate": "2025-09-17",
+          "contactTypeDescription": "other_agency",
+          "contactPerson": "Jason Smith UPDATED",
+          "contactLocation": {
+            "id": "70000003",
+            "addressId": "70000000",
+            "status": "active",
+            "officeDescription": "Office",
+            "buildingName": "Building",
+            "buildingNumber": "7",
+            "streetName": "Street",
+            "townCity": "Town",
+            "district": "District",
+            "county": "County",
+            "postcode": "AA1 1AA"
+          },
+          "formSent": false
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        "transformers": ["response-template"]
+      }
+    },
+    {
+      "request": {
+        "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-700000000000/recipient",
+        "method": "POST"
+      },
+      "response": {
+        "status": 201,
+        "jsonBody": {
+          "id": "00000000-0000-0000-0000-700000000007",
+          "suicideRiskId": "00000000-0000-0000-0000-700000000000",
+          "contactDate": "2025-09-24",
+          "contactTypeDescription": "medical_services",
+          "contactPerson": "NEW Jason Smith",
+          "contactLocation": {
+            "id": "70000004",
+            "addressId": "70000000",
+            "status": "active",
+            "officeDescription": "Office",
+            "buildingName": "Building",
+            "buildingNumber": "7",
+            "streetName": "Street",
+            "townCity": "Town",
+            "district": "District",
+            "county": "County",
+            "postcode": "AA1 1AA"
+          },
+          "formSent": false
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        "transformers": ["response-template"]
+      }
     }
   ]
 }

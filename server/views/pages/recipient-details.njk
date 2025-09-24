@@ -1,0 +1,209 @@
+{% extends "../partials/layout.njk" %}
+
+{% set pageTitle = applicationName + " - Recipient Details" %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block content %}
+
+  {% from "govuk/components/button/macro.njk" import govukButton %}
+  {% from "govuk/components/input/macro.njk" import govukInput %}
+
+  <form method="post">
+
+    {% set errorList =[
+      { text: errorMessages.name.text, href: "#name" } if errorMessages.name else None,
+      { text: errorMessages.identifier.text, href: "#description" } if errorMessages.identifier else None,
+      { text: errorMessages.streetName.text, href: "#streetName" } if errorMessages.streetName else None,
+      { text: errorMessages.townCity.text, href: "#townCity" } if errorMessages.townCity else None,
+      { text: errorMessages.postcode.text, href: "#postcode" } if errorMessages.postcode else None,
+      { text: errorMessages.genericErrorMessage.text, href: "#" } if errorMessages.genericErrorMessage else None
+    ] | reject("undefined") %}
+
+    {% if errorMessages | length > 0 %}
+      {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+      {{ govukErrorSummary({ titleText: "There is a problem", errorList: errorList }) }}
+    {% endif %}
+
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third"></div>
+
+      <div class="govuk-grid-column-two-thirds">
+
+        {% set typeMap = {
+          "other_colleagues": "Other Colleagues",
+          "prison_establishment": "Prison Establishment",
+          "police_custody_cells": "Police Custody (Cells)",
+          "medical_services": "Medical Services",
+          "other_agency": "Other Agencies"
+        } %}
+
+        <h1 id="page-title" class="govuk-heading-l">
+          {% if recipientId %}
+            Edit Recipient – {{ typeMap[recipient.contactTypeDescription] or recipient.contactTypeDescription }}
+          {% else %}
+            Add Recipient – {{ typeMap[contactTypeDescription] or contactTypeDescription }}
+          {% endif %}
+        </h1>
+
+        {{ govukInput({
+          label: {
+            text: "Name",
+            classes: "govuk-label--m",
+            isPageHeading: false
+          },
+          id: "name",
+          value: recipient.contactPerson,
+          classes: "govuk-input--width-30",
+          name: "name",
+          errorMessage: {
+            text: errorMessages.name.text
+          } if errorMessages.name.text
+        }) }}
+
+        {{ govukInput({
+          label: {
+            text: "Office Description (if applicable)",
+            classes: "govuk-label--m",
+            isPageHeading: false
+          },
+          id: "description",
+          value: recipient.contactLocation.officeDescription,
+          classes: "govuk-input--width-30",
+          name: "officeDescription",
+          errorMessage: {
+            text: errorMessages.identifier.text
+          } if errorMessages.identifier.text
+        }) }}
+
+        {{ govukInput({
+          label: {
+            text: "Building Name (if applicable)",
+            classes: "govuk-label--m",
+            isPageHeading: false
+          },
+          id: "buildingName",
+          value: recipient.contactLocation.buildingName,
+          classes: "govuk-input--width-30",
+          name: "buildingName",
+          errorMessage: {
+            text: errorMessages.identifier.text
+          } if errorMessages.identifier.text
+        }) }}
+
+        {{ govukInput({
+          label: {
+            text: "Address Number (if applicable)",
+            classes: "govuk-label--m",
+            isPageHeading: false
+          },
+          id: "houseNumber",
+          value: recipient.contactLocation.buildingNumber,
+          classes: "govuk-input--width-30",
+          name: "buildingNumber",
+          errorMessage: {
+            text: errorMessages.identifier.text
+          } if errorMessages.identifier.text
+        }) }}
+
+        {{ govukInput({
+          label: {
+            text: "Street Name",
+            classes: "govuk-label--m",
+            isPageHeading: false
+          },
+          id: "streetName",
+          value: recipient.contactLocation.streetName,
+          classes: "govuk-input--width-30",
+          name: "streetName",
+          errorMessage: {
+            text: errorMessages.streetName.text
+          } if errorMessages.streetName.text
+        }) }}
+
+        {{ govukInput({
+          label: {
+            text: "District (if applicable)",
+            classes: "govuk-label--m",
+            isPageHeading: false
+          },
+          id: "district",
+          value: recipient.contactLocation.district,
+          classes: "govuk-input--width-30",
+          name: "district"
+        }) }}
+
+        {{ govukInput({
+          label: {
+            text: "Town or City",
+            classes: "govuk-label--m",
+            isPageHeading: false
+          },
+          id: "townCity",
+          value: recipient.contactLocation.townCity,
+          classes: "govuk-input--width-20",
+          name: "townCity",
+          errorMessage: {
+            text: errorMessages.townCity.text
+          } if errorMessages.townCity.text
+        }) }}
+
+        {{ govukInput({
+          label: {
+            text: "County (if applicable)",
+            classes: "govuk-label--m",
+            isPageHeading: false
+          },
+          id: "county",
+          value: recipient.contactLocation.county,
+          classes: "govuk-input--width-20",
+          name: "county",
+          errorMessage: {
+            text: errorMessages.county.text
+          } if errorMessages.county.text
+        }) }}
+
+        {{ govukInput({
+          label: {
+            text: "Postcode",
+            classes: "govuk-label--m",
+            isPageHeading: false
+          },
+          id: "postcode",
+          value: recipient.contactLocation.postcode,
+          classes: "govuk-input--width-10",
+          name: "postcode",
+          errorMessage: {
+            text: errorMessages.postcode.text
+          } if errorMessages.postcode.text
+        }) }}
+
+        <div class="moj-button-group">
+
+          {{ govukButton({
+            text: "Confirm",
+            type: "submit",
+            name: "action",
+            value: "confirm",
+            attributes: {
+              id: "confirm-button"
+            }
+          }) }}
+          {{ govukButton({
+            text: "Cancel",
+            type: "submit",
+            name: "action",
+            value: "cancel",
+            classes: "govuk-button--secondary",
+            attributes: {
+              id: "cancel-button"
+            }
+          }) }}
+        </div>
+      </div>
+    </div>
+
+  </form>
+
+{% endblock %}
