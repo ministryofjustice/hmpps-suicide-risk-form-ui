@@ -1050,6 +1050,174 @@
     {
       "request": {
         "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-700000000000/recipient/00000000-0000-0000-0000-700000000001",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "contactTypeDescription": "other_colleagues",
+          "contactPerson": "John Smith",
+          "contactLocation": {
+            "id": "70000002",
+            "addressId": "70000000",
+            "status": "active",
+            "officeDescription": "Office",
+            "buildingName": "Building",
+            "buildingNumber": "7",
+            "streetName": "Street",
+            "townCity": "Town",
+            "district": "District",
+            "county": "County",
+            "postcode": "AA1 1AA"
+          },
+          "formSent": false
+        },
+        "headers": { "Content-Type": "application/json;charset=UTF-8" }
+      }
+    },
+    {
+      "request": {
+        "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-700000000000/recipient/00000000-0000-0000-0000-700000000002",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "contactTypeDescription": "prison_establishment",
+          "contactPerson": "Jack Smith",
+          "contactLocation": {
+            "id": "70000002",
+            "addressId": "70000000",
+            "status": "active",
+            "officeDescription": "Office",
+            "buildingName": "Building",
+            "buildingNumber": "7",
+            "streetName": "Street",
+            "townCity": "Town",
+            "district": "District",
+            "county": "County",
+            "postcode": "AA1 1AA"
+          },
+          "formSent": false
+        },
+        "headers": { "Content-Type": "application/json;charset=UTF-8" }
+      }
+    },
+    {
+      "request": {
+        "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-700000000000/recipient/00000000-0000-0000-0000-700000000003",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "contactTypeDescription": "police_custody_cells",
+          "contactPerson": "James Smith",
+          "contactLocation": {
+            "id": "70000002",
+            "addressId": "70000000",
+            "status": "active",
+            "officeDescription": "Office",
+            "buildingName": "Building",
+            "buildingNumber": "7",
+            "streetName": "Street",
+            "townCity": "Town",
+            "district": "District",
+            "county": "County",
+            "postcode": "AA1 1AA"
+          },
+          "formSent": false
+        },
+        "headers": { "Content-Type": "application/json;charset=UTF-8" }
+      }
+    },
+    {
+      "request": {
+        "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-700000000000/recipient/00000000-0000-0000-0000-700000000004",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "contactTypeDescription": "medical_services",
+          "contactPerson": "Jimmy Smith",
+          "contactLocation": {
+            "id": "70000002",
+            "addressId": "70000000",
+            "status": "active",
+            "officeDescription": "Office",
+            "buildingName": "Building",
+            "buildingNumber": "7",
+            "streetName": "Street",
+            "townCity": "Town",
+            "district": "District",
+            "county": "County",
+            "postcode": "AA1 1AA"
+          },
+          "formSent": false
+        },
+        "headers": { "Content-Type": "application/json;charset=UTF-8" }
+      }
+    },
+    {
+      "request": {
+        "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-700000000000/recipient/00000000-0000-0000-0000-700000000005",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "contactTypeDescription": "other_agency",
+          "contactPerson": "Jason Smith",
+          "contactLocation": {
+            "id": "70000002",
+            "addressId": "70000000",
+            "status": "active",
+            "officeDescription": "Office",
+            "buildingName": "Building",
+            "buildingNumber": "7",
+            "streetName": "Street",
+            "townCity": "Town",
+            "district": "District",
+            "county": "County",
+            "postcode": "AA1 1AA"
+          },
+          "formSent": false
+        },
+        "headers": { "Content-Type": "application/json;charset=UTF-8" }
+      }
+    },
+    {
+      "request": {
+        "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-700000000000/recipient/00000000-0000-0000-0000-700000000006",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "contactTypeDescription": "other_agency",
+          "contactPerson": "Jason Smith Junior",
+          "contactLocation": {
+            "id": "70000003",
+            "addressId": "70000000",
+            "status": "active",
+            "officeDescription": "Office",
+            "buildingName": "Building",
+            "buildingNumber": "7",
+            "streetName": "Street",
+            "townCity": "Town",
+            "district": "District",
+            "county": "County",
+            "postcode": "AA1 1AA"
+          },
+          "formSent": false
+        },
+        "headers": { "Content-Type": "application/json;charset=UTF-8" }
+      }
+    },
+    {
+      "request": {
+        "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-700000000000/recipient/00000000-0000-0000-0000-700000000001",
         "method": "DELETE"
       },
       "response": {
