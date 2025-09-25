@@ -116,7 +116,7 @@ export default function recipientsRoutes(
     recipient.contactLocation.county = req.body.county || null
     recipient.contactLocation.postcode = req.body.postcode || null
     recipient.contactPerson = req.body.name || null
-    recipient.contactTypeDescription = contactTypeDescription
+    recipient.contactDate = new Date().toISOString()
 
     const errorMessages: ErrorMessages = validateRecipient(recipient)
     const hasErrors: boolean = Object.keys(errorMessages).length > 0
