@@ -1,3 +1,4 @@
+import { DateTimeFormatter, LocalDate, Period } from '@js-joda/core'
 import { ErrorMessages, SelectItem } from '../data/uiModels'
 import { DeliusAddress, Name } from '../data/ndeliusIntegrationApiClient'
 import { SuicideRiskAddress } from '../data/suicideRiskApiClient'
@@ -104,21 +105,9 @@ export function formatTitleAndFullName(title: string, name: Name): string {
 
 export function calculateAge(dobString: string): string {
   if (dobString && dobString.trim().length > 0) {
-    const [day, month, year] = dobString.split('/').map(Number)
-
-    const dob = new Date(year, month - 1, day)
-    const today = new Date()
-
-    let age = today.getFullYear() - dob.getFullYear()
-
-    const hasHadBirthday =
-      today.getMonth() > dob.getMonth() || (today.getMonth() === dob.getMonth() && today.getDate() >= dob.getDate())
-
-    if (!hasHadBirthday) {
-      age -= 1
-    }
-
-    return age.toString()
+    const dob = LocalDate.from(DateTimeFormatter.ISO_DATE.parse(dobString))
+    const today = LocalDate.now()
+    return Period.between(dob, today).years().toString()
   }
   return ''
 }

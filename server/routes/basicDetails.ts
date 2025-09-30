@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import { AuthenticationClient } from '@ministryofjustice/hmpps-auth-clients'
+import { DateTimeFormatter } from '@js-joda/core'
 import AuditService, { Page } from '../services/auditService'
 
 import SuicideRiskApiClient, { SuicideRisk, SuicideRiskAddress } from '../data/suicideRiskApiClient'
@@ -9,7 +10,6 @@ import {
   findDefaultAddressInAddressList,
   formatTitleAndFullName,
   handleIntegrationErrors,
-  toIsoDateFormat,
   toSuicideRiskAddress,
 } from '../utils/utils'
 import CommonUtils from '../services/commonUtils'
@@ -85,6 +85,9 @@ export default function basicDetailsRoutes(
     }
 
     const age = calculateAge(basicDetails.dateOfBirth)
+    const formattedDob = DateTimeFormatter.ofPattern('dd/MM/yyyy').format(
+      DateTimeFormatter.ISO_LOCAL_DATE.parse(basicDetails.dateOfBirth),
+    )
     const defaultAddress: DeliusAddress = findDefaultAddressInAddressList(basicDetails.addresses)
     const titleAndFullName: string = formatTitleAndFullName(basicDetails.title, basicDetails.name)
     const { prisonNumber } = basicDetails
@@ -94,6 +97,7 @@ export default function basicDetailsRoutes(
       suicideRiskId,
       basicDetails,
       age,
+      formattedDob,
       defaultAddress,
       titleAndFullName,
       prisonNumber,
@@ -141,13 +145,12 @@ export default function basicDetailsRoutes(
       return
     }
 
-    const dob = toIsoDateFormat(basicDetails.dateOfBirth)
     const defaultAddress: DeliusAddress = findDefaultAddressInAddressList(basicDetails.addresses)
     const suicideRiskDefaultAddress: SuicideRiskAddress = toSuicideRiskAddress(defaultAddress)
     const titleAndFullName: string = formatTitleAndFullName(basicDetails.title, basicDetails.name)
     const { prisonNumber } = basicDetails
 
-    suicideRisk.dateOfBirth = dob
+    suicideRisk.dateOfBirth = basicDetails.dateOfBirth
     suicideRisk.titleAndFullName = titleAndFullName
     suicideRisk.postalAddress = suicideRiskDefaultAddress
     suicideRisk.prisonNumber = prisonNumber
