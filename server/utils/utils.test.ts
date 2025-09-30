@@ -176,7 +176,7 @@ describe('calculateAge', () => {
   it.each([
     [
       '30 Years old',
-      `${String(currentDay).padStart(2, '0')}/${String(currentMonth).padStart(2, '0')}/${currentYear - 30}`,
+      `${currentYear - 30}-${String(currentMonth).padStart(2, '0')}-${String(currentDay).padStart(2, '0')}`,
       '30',
     ],
     ['Empty string', '', ''],
