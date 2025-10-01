@@ -48,7 +48,10 @@
             "forename": "Brian",
             "middleName": "Geoff",
             "surname": "Smith"
-          }
+          },
+          "prisonNumber": "7654321",
+          "dateOfBirth": "1981-04-18",
+          "addresses": []
         },
         "headers": {
           "Content-Type": "application/json;charset=UTF-8"

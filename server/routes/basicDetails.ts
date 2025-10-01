@@ -85,9 +85,11 @@ export default function basicDetailsRoutes(
     }
 
     const age = calculateAge(basicDetails.dateOfBirth)
-    const formattedDob = DateTimeFormatter.ofPattern('dd/MM/yyyy').format(
-      DateTimeFormatter.ISO_LOCAL_DATE.parse(basicDetails.dateOfBirth),
-    )
+    const formattedDob = basicDetails.dateOfBirth
+      ? DateTimeFormatter.ofPattern('dd/MM/yyyy').format(
+          DateTimeFormatter.ISO_LOCAL_DATE.parse(basicDetails.dateOfBirth),
+        )
+      : ''
     const defaultAddress: DeliusAddress = findDefaultAddressInAddressList(basicDetails.addresses)
     const titleAndFullName: string = formatTitleAndFullName(basicDetails.title, basicDetails.name)
     const { prisonNumber } = basicDetails

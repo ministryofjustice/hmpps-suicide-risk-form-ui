@@ -164,6 +164,7 @@
         "jsonBody": {
           "id": "00000000-0000-0000-0000-200000000002",
           "crn": "X000002",
+          "dateOfBirth": "1981-04-18",
           "basicDetailsSaved": true,
           "informationSaved": true,
           "treatmentSaved": true,
