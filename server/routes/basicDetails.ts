@@ -1,6 +1,5 @@
 import { Router } from 'express'
 import { AuthenticationClient } from '@ministryofjustice/hmpps-auth-clients'
-import { DateTimeFormatter } from '@js-joda/core'
 import AuditService, { Page } from '../services/auditService'
 
 import SuicideRiskApiClient, { SuicideRisk, SuicideRiskAddress } from '../data/suicideRiskApiClient'
@@ -14,6 +13,7 @@ import {
 } from '../utils/utils'
 import CommonUtils from '../services/commonUtils'
 import { ErrorMessages } from '../data/uiModels'
+import { toFullUserDate } from '../utils/dateUtils'
 
 export default function basicDetailsRoutes(
   router: Router,
@@ -85,11 +85,7 @@ export default function basicDetailsRoutes(
     }
 
     const age = calculateAge(basicDetails.dateOfBirth)
-    const formattedDob = basicDetails.dateOfBirth
-      ? DateTimeFormatter.ofPattern('dd/MM/yyyy').format(
-          DateTimeFormatter.ISO_LOCAL_DATE.parse(basicDetails.dateOfBirth),
-        )
-      : ''
+    const formattedDob = toFullUserDate(basicDetails.dateOfBirth)
     const defaultAddress: DeliusAddress = findDefaultAddressInAddressList(basicDetails.addresses)
     const titleAndFullName: string = formatTitleAndFullName(basicDetails.title, basicDetails.name)
     const { prisonNumber } = basicDetails
