@@ -20,7 +20,7 @@ export default class NDeliusIntegrationApiClient extends RestClient {
   async getSuicideRiskInformation(crn: string, username: string): Promise<Registration> {
     return this.get(
       {
-        path: `/suicide-risk-information/crn/${crn}`,
+        path: `/information-page/${crn}`,
       },
       asSystem(username),
     )

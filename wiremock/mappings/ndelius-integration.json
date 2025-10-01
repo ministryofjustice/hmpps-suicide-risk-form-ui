@@ -591,7 +591,7 @@
 
     {
       "request": {
-        "url": "/ndelius/suicide-risk-information/crn/X300003",
+        "url": "/ndelius/information-page/X300003",
         "method": "GET"
       },
       "response": {
@@ -616,7 +616,7 @@
 
     {
       "request": {
-        "url": "/ndelius/suicide-risk-information/crn/X000002",
+        "url": "/ndelius/information-page/X000002",
         "method": "GET"
       },
       "response": {
@@ -641,7 +641,7 @@
 
     {
       "request": {
-        "url": "/ndelius/suicide-risk-information/crn/X000001",
+        "url": "/ndelius/information-page/X000001",
         "method": "GET"
       },
       "response": {
@@ -855,7 +855,7 @@
 
     {
       "request": {
-        "url": "/ndelius/suicide-risk-information/crn/X600010",
+        "url": "/ndelius/information-page/X600010",
         "method": "GET"
       },
       "response": {
@@ -880,7 +880,7 @@
 
     {
       "request": {
-        "url": "/ndelius/suicide-risk-information/crn/X600011",
+        "url": "/ndelius/information-page/X600011",
         "method": "GET"
       },
       "response": {
@@ -905,7 +905,7 @@
 
     {
       "request": {
-        "url": "/ndelius/suicide-risk-information/crn/X600012",
+        "url": "/ndelius/information-page/X600012",
         "method": "GET"
       },
       "response": {
