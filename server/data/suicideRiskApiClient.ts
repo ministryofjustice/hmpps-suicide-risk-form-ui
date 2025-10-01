@@ -37,6 +37,53 @@ export default class SuicideRiskApiClient extends RestClient {
       asSystem(username),
     )
   }
+
+  async getRecipient(suicideRiskId: string, recipientId: string, username: string): Promise<SuicideRiskContact> {
+    return this.get(
+      {
+        path: `/suicide-risk/${suicideRiskId}/recipient/${recipientId}`,
+      },
+      asSystem(username),
+    )
+  }
+
+  async createRecipient(
+    suicideRiskId: string,
+    recipient: SuicideRiskContact,
+    username: string,
+  ): Promise<SuicideRiskContact> {
+    return this.post(
+      {
+        path: `/suicide-risk/${suicideRiskId}/recipient`,
+        data: recipient as unknown as Record<string, unknown>,
+      },
+      asSystem(username),
+    )
+  }
+
+  async updateRecipient(
+    suicideRiskId: string,
+    recipientId: string,
+    recipient: SuicideRiskContact,
+    username: string,
+  ): Promise<SuicideRiskContact> {
+    return this.put(
+      {
+        path: `/suicide-risk/${suicideRiskId}/recipient/${recipientId}`,
+        data: recipient as unknown as Record<string, unknown>,
+      },
+      asSystem(username),
+    )
+  }
+
+  async deleteRecipient(suicideRiskId: string, recipientId: string, username: string): Promise<SuicideRisk> {
+    return this.delete(
+      {
+        path: `/suicide-risk/${suicideRiskId}/recipient/${recipientId}`,
+      },
+      asSystem(username),
+    )
+  }
 }
 
 export interface SuicideRisk {

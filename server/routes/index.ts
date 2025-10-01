@@ -5,6 +5,8 @@ import basicDetailsRoutes from './basicDetails'
 import informationRoutes from './information'
 import treatmentRoutes from './treatment'
 import recipientsRoutes from './recipients'
+import recipientDetailsRoutes from './recipientDetails'
+import deleteRecipientRoutes from './deleteRecipient'
 import signAndSendRoutes from './signAndSend'
 import checkYourAnswersRoutes from './checkYourAnswers'
 import reportCompletedRoutes from './reportCompleted'
@@ -36,6 +38,8 @@ export default function routes({ auditService, hmppsAuthClient, commonUtils }: S
   informationRoutes(router, auditService, hmppsAuthClient, commonUtils)
   treatmentRoutes(router, auditService, hmppsAuthClient, commonUtils)
   recipientsRoutes(router, auditService, hmppsAuthClient, commonUtils)
+  recipientDetailsRoutes(router, auditService, hmppsAuthClient, commonUtils)
+  deleteRecipientRoutes(router, auditService, hmppsAuthClient, commonUtils)
   signAndSendRoutes(router, auditService, hmppsAuthClient, commonUtils)
   updateWorkAddressRoutes(router, auditService, hmppsAuthClient, commonUtils)
   checkYourAnswersRoutes(router, auditService, hmppsAuthClient, commonUtils)
