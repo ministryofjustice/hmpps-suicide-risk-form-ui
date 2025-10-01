@@ -11,7 +11,7 @@ export default class NDeliusIntegrationApiClient extends RestClient {
   async getBasicDetails(crn: string, username: string): Promise<BasicDetails> {
     return this.get(
       {
-        path: `/basic-details/${crn}/${username}`,
+        path: `/basic-details/${crn}`,
       },
       asSystem(username),
     )
@@ -27,9 +27,12 @@ export default class NDeliusIntegrationApiClient extends RestClient {
   }
 
   async getLimitedAccessCheck(crn: string, username: string): Promise<LimitedAccessCheck> {
-    return this.get({
-      path: `/users/${username}/access/${crn}`,
-    })
+    return this.get(
+      {
+        path: `/users/${username}/access/${crn}`,
+      },
+      asSystem(username),
+    )
   }
 
   async getSignAndSendDetails(username: string): Promise<BasicDetails> {

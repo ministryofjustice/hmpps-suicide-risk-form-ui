@@ -2,7 +2,7 @@
   "mappings": [
     {
       "request": {
-        "urlPattern": "/ndelius/basic-details/X000001/(.*?)",
+        "urlPattern": "/ndelius/basic-details/X000001",
         "method": "GET"
       },
       "response": {
@@ -37,7 +37,7 @@
     },
     {
       "request": {
-        "urlPattern": "/ndelius/basic-details/X000002/(.*?)",
+        "urlPattern": "/ndelius/basic-details/X000002",
         "method": "GET"
       },
       "response": {
@@ -57,7 +57,7 @@
     },
     {
       "request": {
-        "urlPattern": "/ndelius/basic-details/X000003/(.*?)",
+        "urlPattern": "/ndelius/basic-details/X000003",
         "method": "GET"
       },
       "response": {
@@ -78,7 +78,7 @@
 
     {
       "request": {
-        "urlPattern": "/ndelius/basic-details/X300003/(.*?)",
+        "urlPattern": "/ndelius/basic-details/X300003",
         "method": "GET"
       },
       "response": {
@@ -99,7 +99,7 @@
 
     {
       "request": {
-        "urlPattern": "/ndelius/basic-details/X012345/(.*?)",
+        "urlPattern": "/ndelius/basic-details/X012345",
         "method": "GET"
       },
       "response": {
@@ -156,7 +156,7 @@
     },
     {
       "request": {
-        "urlPattern": "/ndelius/basic-details/X600001/(.*?)",
+        "urlPattern": "/ndelius/basic-details/X600001",
         "method": "GET"
       },
       "response": {
@@ -191,7 +191,7 @@
     },
     {
       "request": {
-        "urlPattern": "/ndelius/basic-details/X600002/(.*?)",
+        "urlPattern": "/ndelius/basic-details/X600002",
         "method": "GET"
       },
       "response": {
@@ -226,7 +226,7 @@
     },
     {
       "request": {
-        "urlPattern": "/ndelius/basic-details/X600003/(.*?)",
+        "urlPattern": "/ndelius/basic-details/X600003",
         "method": "GET"
       },
       "response": {
@@ -261,7 +261,7 @@
     },
     {
       "request": {
-        "urlPattern": "/ndelius/basic-details/X600004/(.*?)",
+        "urlPattern": "/ndelius/basic-details/X600004",
         "method": "GET"
       },
       "response": {
@@ -296,7 +296,7 @@
     },
     {
       "request": {
-        "urlPattern": "/ndelius/basic-details/X600005/(.*?)",
+        "urlPattern": "/ndelius/basic-details/X600005",
         "method": "GET"
       },
       "response": {
@@ -331,7 +331,7 @@
     },
     {
       "request": {
-        "urlPattern": "/ndelius/basic-details/X600006/(.*?)",
+        "urlPattern": "/ndelius/basic-details/X600006",
         "method": "GET"
       },
       "response": {
@@ -366,7 +366,7 @@
     },
     {
       "request": {
-        "urlPattern": "/ndelius/basic-details/X600007/(.*?)",
+        "urlPattern": "/ndelius/basic-details/X600007",
         "method": "GET"
       },
       "response": {
@@ -402,7 +402,115 @@
 
     {
       "request": {
-        "urlPattern": "/ndelius/basic-details/X000003/(.*?)",
+        "urlPattern": "/ndelius/basic-details/X600010",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "title": "Mr",
+          "name": {
+            "forename": "Billy",
+            "middleName": "The",
+            "surname": "Kid"
+          },
+          "prisonNumber": "1234567",
+          "dateOfBirth": "17/03/1980",
+          "addresses": [
+            {
+              "id": 1,
+              "status": "Previous",
+              "buildingName": null,
+              "buildingNumber": "6543",
+              "streetName": "Previous Street",
+              "townCity": "Prevtown",
+              "district": "PrevDistrict",
+              "county": "Prevcounty",
+              "postcode": "PR11 1EV"
+            }
+          ]
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+
+    {
+      "request": {
+        "urlPattern": "/ndelius/basic-details/X600011",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "title": "Mr",
+          "name": {
+            "forename": "Billy",
+            "middleName": "The",
+            "surname": "Kid"
+          },
+          "prisonNumber": "1234567",
+          "dateOfBirth": "17/03/1980",
+          "addresses": [
+            {
+              "id": 1,
+              "status": "Previous",
+              "buildingName": null,
+              "buildingNumber": "6543",
+              "streetName": "Previous Street",
+              "townCity": "Prevtown",
+              "district": "PrevDistrict",
+              "county": "Prevcounty",
+              "postcode": "PR11 1EV"
+            }
+          ]
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+
+    {
+      "request": {
+        "urlPattern": "/ndelius/basic-details/X600012",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "title": "Mr",
+          "name": {
+            "forename": "Billy",
+            "middleName": "The",
+            "surname": "Kid"
+          },
+          "prisonNumber": "1234567",
+          "dateOfBirth": "17/03/1980",
+          "addresses": [
+            {
+              "id": 1,
+              "status": "Previous",
+              "buildingName": null,
+              "buildingNumber": "6543",
+              "streetName": "Previous Street",
+              "townCity": "Prevtown",
+              "district": "PrevDistrict",
+              "county": "Prevcounty",
+              "postcode": "PR11 1EV"
+            }
+          ]
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+
+    {
+      "request": {
+        "urlPattern": "/ndelius/basic-details/X000003",
         "method": "GET"
       },
       "response": {
@@ -735,6 +843,81 @@
               "documents": []
             }
           ]
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+
+    {
+      "request": {
+        "url": "/ndelius/suicide-risk-information/crn/X600010",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "123456",
+          "startDate": "2025-01-01",
+          "endDate": "2025-01-01",
+          "notes": "some notes in here",
+          "documentsLinked": true,
+          "deregistered": false,
+          "type": {
+            "code": "REG1",
+            "description": "registration type 1"
+          }
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+
+    {
+      "request": {
+        "url": "/ndelius/suicide-risk-information/crn/X600011",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "123456",
+          "startDate": "2025-01-01",
+          "endDate": "2025-01-01",
+          "notes": "some notes in here",
+          "documentsLinked": true,
+          "deregistered": false,
+          "type": {
+            "code": "REG1",
+            "description": "registration type 1"
+          }
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+
+    {
+      "request": {
+        "url": "/ndelius/suicide-risk-information/crn/X600012",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "123456",
+          "startDate": "2025-01-01",
+          "endDate": "2025-01-01",
+          "notes": "some notes in here",
+          "documentsLinked": true,
+          "deregistered": false,
+          "type": {
+            "code": "REG1",
+            "description": "registration type 1"
+          }
         },
         "headers": {
           "Content-Type": "application/json;charset=UTF-8"
