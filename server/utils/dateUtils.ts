@@ -1,4 +1,4 @@
-import { DateTimeFormatter, ZonedDateTime } from '@js-joda/core'
+import { DateTimeFormatter, LocalDate, Period, ZonedDateTime } from '@js-joda/core'
 
 export function fromUserDate(str: string): string {
   if (str) {
@@ -47,6 +47,15 @@ export function toUserTimeFromDateTime(str: string): string {
 export function toUserDateFromDateTime(str: string): string {
   if (str) {
     return DateTimeFormatter.ofPattern('d/M/yyyy').format(DateTimeFormatter.ISO_LOCAL_DATE_TIME.parse(str))
+  }
+  return ''
+}
+
+export function calculateAge(dobString: string): string {
+  if (dobString && dobString.trim().length > 0) {
+    const dob = LocalDate.from(DateTimeFormatter.ISO_DATE.parse(dobString))
+    const today = LocalDate.now()
+    return Period.between(dob, today).years().toString()
   }
   return ''
 }

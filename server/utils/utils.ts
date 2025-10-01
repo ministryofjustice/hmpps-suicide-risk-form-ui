@@ -1,4 +1,3 @@
-import { DateTimeFormatter, LocalDate, Period } from '@js-joda/core'
 import { ErrorMessages, SelectItem } from '../data/uiModels'
 import { DeliusAddress, Name } from '../data/ndeliusIntegrationApiClient'
 import { SuicideRiskAddress } from '../data/suicideRiskApiClient'
@@ -101,15 +100,6 @@ export function toDayMonthYearDateFormat(dateStr: string): string {
 
 export function formatTitleAndFullName(title: string, name: Name): string {
   return [title, name.forename, name.middleName, name.surname].filter(Boolean).join(' ')
-}
-
-export function calculateAge(dobString: string): string {
-  if (dobString && dobString.trim().length > 0) {
-    const dob = LocalDate.from(DateTimeFormatter.ISO_DATE.parse(dobString))
-    const today = LocalDate.now()
-    return Period.between(dob, today).years().toString()
-  }
-  return ''
 }
 
 export function toSuicideRiskAddress(deliusAddress: DeliusAddress): SuicideRiskAddress {

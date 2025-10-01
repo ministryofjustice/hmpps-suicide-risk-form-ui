@@ -5,7 +5,6 @@ import AuditService, { Page } from '../services/auditService'
 import SuicideRiskApiClient, { SuicideRisk, SuicideRiskAddress } from '../data/suicideRiskApiClient'
 import NDeliusIntegrationApiClient, { BasicDetails, DeliusAddress } from '../data/ndeliusIntegrationApiClient'
 import {
-  calculateAge,
   findDefaultAddressInAddressList,
   formatTitleAndFullName,
   handleIntegrationErrors,
@@ -13,7 +12,7 @@ import {
 } from '../utils/utils'
 import CommonUtils from '../services/commonUtils'
 import { ErrorMessages } from '../data/uiModels'
-import { toFullUserDate } from '../utils/dateUtils'
+import { calculateAge, toFullUserDate } from '../utils/dateUtils'
 
 export default function basicDetailsRoutes(
   router: Router,
