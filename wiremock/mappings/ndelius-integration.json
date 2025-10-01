@@ -15,7 +15,7 @@
             "surname": "Kid"
           },
           "prisonNumber": "1234567",
-          "dateOfBirth": "17/03/1980",
+          "dateOfBirth": "1980-03-17",
           "addresses": [
             {
               "id": 1,
@@ -48,7 +48,10 @@
             "forename": "Brian",
             "middleName": "Geoff",
             "surname": "Smith"
-          }
+          },
+          "prisonNumber": "7654321",
+          "dateOfBirth": "1981-04-18",
+          "addresses": []
         },
         "headers": {
           "Content-Type": "application/json;charset=UTF-8"
@@ -112,7 +115,7 @@
             "surname": "Kid"
           },
           "prisonNumber": "1234567",
-          "dateOfBirth": "17/03/1980",
+          "dateOfBirth": "1980-03-17",
           "addresses": [
             {
               "id": 1,
@@ -169,7 +172,7 @@
             "surname": "Kid"
           },
           "prisonNumber": "1234567",
-          "dateOfBirth": "17/03/1980",
+          "dateOfBirth": "1980-03-17",
           "addresses": [
             {
               "id": 1,
@@ -204,7 +207,7 @@
             "surname": "Kid"
           },
           "prisonNumber": "1234567",
-          "dateOfBirth": "17/03/1980",
+          "dateOfBirth": "1980-03-17",
           "addresses": [
             {
               "id": 1,
@@ -239,7 +242,7 @@
             "surname": "Kid"
           },
           "prisonNumber": "1234567",
-          "dateOfBirth": "17/03/1980",
+          "dateOfBirth": "1980-03-17",
           "addresses": [
             {
               "id": 1,
@@ -274,7 +277,7 @@
             "surname": "Kid"
           },
           "prisonNumber": "1234567",
-          "dateOfBirth": "17/03/1980",
+          "dateOfBirth": "1980-03-17",
           "addresses": [
             {
               "id": 1,
@@ -309,7 +312,7 @@
             "surname": "Kid"
           },
           "prisonNumber": "1234567",
-          "dateOfBirth": "17/03/1980",
+          "dateOfBirth": "1980-03-17",
           "addresses": [
             {
               "id": 1,
@@ -344,7 +347,7 @@
             "surname": "Kid"
           },
           "prisonNumber": "1234567",
-          "dateOfBirth": "17/03/1980",
+          "dateOfBirth": "1980-03-17",
           "addresses": [
             {
               "id": 1,
@@ -379,7 +382,7 @@
             "surname": "Kid"
           },
           "prisonNumber": "1234567",
-          "dateOfBirth": "17/03/1980",
+          "dateOfBirth": "1980-03-17",
           "addresses": [
             {
               "id": 1,
@@ -415,7 +418,7 @@
             "surname": "Kid"
           },
           "prisonNumber": "1234567",
-          "dateOfBirth": "17/03/1980",
+          "dateOfBirth": "1980-03-17",
           "addresses": [
             {
               "id": 1,
@@ -451,7 +454,7 @@
             "surname": "Kid"
           },
           "prisonNumber": "1234567",
-          "dateOfBirth": "17/03/1980",
+          "dateOfBirth": "1980-03-17",
           "addresses": [
             {
               "id": 1,
@@ -487,7 +490,7 @@
             "surname": "Kid"
           },
           "prisonNumber": "1234567",
-          "dateOfBirth": "17/03/1980",
+          "dateOfBirth": "1980-03-17",
           "addresses": [
             {
               "id": 1,
@@ -543,7 +546,7 @@
             "surname": "Kid"
           },
           "prisonNumber": "1234567",
-          "dateOfBirth": "17/03/1980",
+          "dateOfBirth": "1980-03-17",
           "addresses": [
             {
               "id": 1,

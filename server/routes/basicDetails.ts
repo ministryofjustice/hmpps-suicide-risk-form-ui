@@ -5,15 +5,14 @@ import AuditService, { Page } from '../services/auditService'
 import SuicideRiskApiClient, { SuicideRisk, SuicideRiskAddress } from '../data/suicideRiskApiClient'
 import NDeliusIntegrationApiClient, { BasicDetails, DeliusAddress } from '../data/ndeliusIntegrationApiClient'
 import {
-  calculateAge,
   findDefaultAddressInAddressList,
   formatTitleAndFullName,
   handleIntegrationErrors,
-  toIsoDateFormat,
   toSuicideRiskAddress,
 } from '../utils/utils'
 import CommonUtils from '../services/commonUtils'
 import { ErrorMessages } from '../data/uiModels'
+import { calculateAge, toFullUserDate } from '../utils/dateUtils'
 
 export default function basicDetailsRoutes(
   router: Router,
@@ -85,6 +84,7 @@ export default function basicDetailsRoutes(
     }
 
     const age = calculateAge(basicDetails.dateOfBirth)
+    const formattedDob = toFullUserDate(basicDetails.dateOfBirth)
     const defaultAddress: DeliusAddress = findDefaultAddressInAddressList(basicDetails.addresses)
     const titleAndFullName: string = formatTitleAndFullName(basicDetails.title, basicDetails.name)
     const { prisonNumber } = basicDetails
@@ -94,6 +94,7 @@ export default function basicDetailsRoutes(
       suicideRiskId,
       basicDetails,
       age,
+      formattedDob,
       defaultAddress,
       titleAndFullName,
       prisonNumber,
@@ -141,13 +142,12 @@ export default function basicDetailsRoutes(
       return
     }
 
-    const dob = toIsoDateFormat(basicDetails.dateOfBirth)
     const defaultAddress: DeliusAddress = findDefaultAddressInAddressList(basicDetails.addresses)
     const suicideRiskDefaultAddress: SuicideRiskAddress = toSuicideRiskAddress(defaultAddress)
     const titleAndFullName: string = formatTitleAndFullName(basicDetails.title, basicDetails.name)
     const { prisonNumber } = basicDetails
 
-    suicideRisk.dateOfBirth = dob
+    suicideRisk.dateOfBirth = basicDetails.dateOfBirth
     suicideRisk.titleAndFullName = titleAndFullName
     suicideRisk.postalAddress = suicideRiskDefaultAddress
     suicideRisk.prisonNumber = prisonNumber
