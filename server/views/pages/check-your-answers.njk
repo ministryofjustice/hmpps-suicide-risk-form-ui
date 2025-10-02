@@ -45,7 +45,7 @@
                 </dt>
                 <dd class="govuk-summary-list__value">
                   {% if suicideRisk.titleAndFullName == null and suicideRisk.basicDetailsSaved %}
-                    <a id="cya-link-title-and-name" href="/basic-details/{{ suicideRisk.id }}?returnTo=check-your-report" class="govuk-link">enter required
+                    <a id="cya-link-title-and-name" href="/basic-details/{{ suicideRiskId }}?returnTo=check-your-report" class="govuk-link">enter required
                       information<span class="govuk-visually-hidden"> for Title and Full name</span></a>
                   {% else %}
                     {{ suicideRisk.titleAndFullName }}
@@ -75,7 +75,7 @@
                 </dt>
                 <dd class="govuk-summary-list__value">
                   {% if suicideRisk.postalAddress == null and suicideRisk.basicDetailsSaved %}
-                    <a id="cya-link-postal-address" href="/basic-details/{{ suicideRisk.id }}?returnTo=check-your-report" class="govuk-link">enter required
+                    <a id="cya-link-postal-address" href="/basic-details/{{ suicideRiskId }}?returnTo=check-your-report" class="govuk-link">enter required
                       information<span class="govuk-visually-hidden"> for Postal Address</span></a>
                   {% else %}
                     {% if suicideRisk.postalAddress.officeDescription != null %} {{ suicideRisk.postalAddress.officeDescription }}
@@ -106,7 +106,7 @@
                 </dt>
                 <dd class="govuk-summary-list__value">
                   {% if suicideRisk.dateOfBirth == null and suicideRisk.basicDetailsSaved %}
-                    <a id="cya-link-date-of-birth" href="/basic-details/{{ suicideRisk.id }}?returnTo=check-your-report" class="govuk-link">enter required
+                    <a id="cya-link-date-of-birth" href="/basic-details/{{ suicideRiskId }}?returnTo=check-your-report" class="govuk-link">enter required
                       information<span class="govuk-visually-hidden"> for Date of Birth</span></a>
                   {% else %}
                     {{ dateOfBirth }}
@@ -128,7 +128,7 @@
         <div class="govuk-summary-card">
           <div class="govuk-summary-card__title-wrapper">
             <h2 class="govuk-summary-card__title">
-              Additional Information
+              Information
             </h2>
             <ul class="govuk-summary-card__actions">
               <li class="govuk-summary-card__action">
@@ -149,7 +149,7 @@
                 </dt>
                 <dd class="govuk-summary-list__value">
                   {% if suicideRisk.additionalInfo == null and suicideRisk.basicDetailsSaved %}
-                    <a id="cya-link-additional-info" href="/information/{{ suicideRisk.id }}?returnTo=check-your-report" class="govuk-link">enter required
+                    <a id="cya-link-additional-info" href="/information/{{ suicideRiskId }}?returnTo=check-your-report" class="govuk-link">enter required
                       information<span class="govuk-visually-hidden"> for Additional Information</span></a>
                   {% else %}
                     {{ suicideRisk.additionalInfo }}
@@ -190,7 +190,7 @@
                 </dt>
                 <dd class="govuk-summary-list__value">
                   {% if suicideRisk.currentPsychTreatment == null and suicideRisk.informationSaved %}
-                    <a id="cya-link-treatment" href="/treatment/{{ suicideRisk.id }}?returnTo=check-your-report" class="govuk-link">enter required
+                    <a id="cya-link-treatment" href="/treatment/{{ suicideRiskId }}?returnTo=check-your-report" class="govuk-link">enter required
                       information<span class="govuk-visually-hidden"> for Treatment</span></a>
                   {% else %}
                     {{ suicideRisk.currentPsychTreatment }}
@@ -232,7 +232,7 @@
                   </dt>
                   <dd class="govuk-summary-list__value">
                     {% if suicideRisk.treatmentSaved %}
-                    <a id="cya-link-recipients" href="/recipients/{{ suicideRisk.id }}?returnTo=check-your-report" class="govuk-link">enter required
+                    <a id="cya-link-recipients" href="/recipients/{{ suicideRiskId }}?returnTo=check-your-report" class="govuk-link">enter required
                       information<span class="govuk-visually-hidden"> for Recipients</span></a>
                     {% endif %}
                   </dd>
@@ -573,7 +573,7 @@
                 </dt>
                 <dd class="govuk-summary-list__value">
                   {% if suicideRisk.signature == null and suicideRisk.contactSaved %}
-                    <a id="cya-link-signature" href="/sign-and-send/{{ suicideRisk.id }}?returnTo=check-your-report" class="govuk-link">enter required
+                    <a id="cya-link-signature" href="/sign-and-send/{{ suicideRiskId }}?returnTo=check-your-report" class="govuk-link">enter required
                       information<span class="govuk-visually-hidden"> for Signature</span></a>
                   {% else %}
                     {{ suicideRisk.signature }}
