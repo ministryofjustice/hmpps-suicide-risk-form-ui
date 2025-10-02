@@ -105,6 +105,7 @@ export default function basicDetailsRoutes(
   router.post('/basic-details/:id', async (req, res) => {
     const suicideRiskApiClient = new SuicideRiskApiClient(authenticationClient)
     const ndeliusIntegrationApiClient = new NDeliusIntegrationApiClient(authenticationClient)
+    const callingScreen: string = req.query.returnTo as string
 
     const suicideRiskId: string = req.params.id
     let suicideRisk: SuicideRisk = null
@@ -161,6 +162,8 @@ export default function basicDetailsRoutes(
       )
     } else if (req.body.action === 'refreshFromNdelius') {
       res.redirect(`/basic-details/${req.params.id}`)
+    } else if (callingScreen && callingScreen === 'check-your-report') {
+      res.redirect(`/check-your-answers/${req.params.id}`)
     } else {
       res.redirect(`/information/${req.params.id}`)
     }
