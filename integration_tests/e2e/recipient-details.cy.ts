@@ -10,10 +10,10 @@ context('Recipient Details Page', () => {
   ]
 
   addCases.forEach(({ contactType, label }) => {
-    it(`renders Add Recipient form correctly for ${label}`, () => {
+    it(`renders Recipient Details form correctly for ${label}`, () => {
       cy.visit(`/recipient-details/${suicideRiskId}?contactType=${contactType}`)
 
-      cy.contains(`Add Recipient – ${label}`).should('exist')
+      cy.contains(`Recipient Details – ${label}`).should('exist')
 
       cy.get('#name').should('exist')
       cy.get('#description').should('exist')
@@ -25,8 +25,8 @@ context('Recipient Details Page', () => {
       cy.get('#county').should('exist')
       cy.get('#postcode').should('exist')
 
-      cy.get('#confirm-button').should('contain.text', 'Confirm')
-      cy.get('#cancel-button').should('contain.text', 'Cancel')
+      cy.get('#confirm-button').should('contain.text', 'Save')
+      cy.get('#cancel-button').should('contain.text', 'Cancel without saving')
     })
   })
 
@@ -48,10 +48,10 @@ context('Recipient Details Page', () => {
   ]
 
   editCases.forEach(({ recipientId, label, expectedName }) => {
-    it(`renders Edit Recipient form correctly for ${label}`, () => {
+    it(`renders Recipient Details form correctly for ${label}`, () => {
       cy.visit(`/recipient-details/${suicideRiskId}?recipientId=${recipientId}`)
 
-      cy.contains('Edit Recipient –').should('exist')
+      cy.contains('Recipient Details –').should('exist')
       cy.get('#name').should('have.value', expectedName)
       cy.get('#description').should('have.value', 'Office')
       cy.get('#buildingName').should('have.value', 'Building')
