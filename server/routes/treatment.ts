@@ -67,7 +67,7 @@ export default function treatmentRoutes(
     }
 
     suicideRisk.currentPsychTreatment = currentPsychTreatment
-    suicideRisk.informationSaved = true
+    suicideRisk.treatmentSaved = true
 
     // validate notes field
     if (suicideRisk?.currentPsychTreatment?.length > 20000) {
