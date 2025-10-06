@@ -159,6 +159,90 @@
     },
     {
       "request": {
+        "urlPattern": "/ndelius/basic-details/X700000",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "title": "Mr",
+          "name": {
+            "forename": "Test",
+            "middleName": null,
+            "surname": "Recipient"
+          },
+          "prisonNumber": "1234567",
+          "dateOfBirth": "1980-03-17",
+          "addresses": [
+            {
+              "id": 1,
+              "status": "Postal",
+              "buildingName": "Older Postal Address",
+              "buildingNumber": "1",
+              "streetName": "Older Postal Address",
+              "townCity": "Older Postal Address",
+              "district": "Older Postal Address",
+              "county": "Older Postal Address",
+              "postcode": "AA1 1AA",
+              "startDate": "2025-02-15"
+            },
+            {
+              "id": 2,
+              "status": "Postal",
+              "buildingName": "Newer Postal Address",
+              "buildingNumber": "2",
+              "streetName": "Newer Postal Address",
+              "townCity": "Newer Postal Address",
+              "district": "Newer Postal Address",
+              "county": "Newer Postal Address",
+              "postcode": "PO20 2ST",
+              "startDate": "2025-09-20"
+            },
+            {
+              "id": 3,
+              "status": "Main",
+              "buildingName": "Older Main Address",
+              "buildingNumber": "3",
+              "streetName": "Older Main Address",
+              "townCity": "Older Main Address",
+              "district": "Older Main Address",
+              "county": "Older Main Address",
+              "postcode": "AA2 2AA",
+              "startDate": "2025-01-10"
+            },
+            {
+              "id": 4,
+              "status": "Main",
+              "buildingName": "Newer Main Address",
+              "buildingNumber": "4",
+              "streetName": "Newer Main Address",
+              "townCity": "Newer Main Address",
+              "district": "Newer Main Address",
+              "county": "Newer Main Address",
+              "postcode": "AA3 3AA",
+              "startDate": "2025-07-25"
+            },
+            {
+              "id": 5,
+              "status": "Previous",
+              "buildingName": "1",
+              "buildingNumber": "1",
+              "streetName": "Previous Street",
+              "townCity": "Previous Town",
+              "district": "Previous District",
+              "county": "Previous county",
+              "postcode": "AA3 3AA",
+              "startDate": "2024-05-01"
+            }
+          ]
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+    {
+      "request": {
         "urlPattern": "/ndelius/basic-details/X600001",
         "method": "GET"
       },
