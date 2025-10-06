@@ -68,12 +68,16 @@ export function findDefaultAddressInAddressList(addressList: Array<DeliusAddress
     return null
   }
 
-  return (
-    addressList.find(a => a.status === 'Default') ??
-    addressList.find(a => a.status === 'Postal') ??
-    addressList.find(a => a.status === 'Main') ??
-    null
-  )
+  const parseDate = (date?: string): number => (date ? Date.parse(date) || 0 : 0)
+
+  const latestByStatus = (status: string): DeliusAddress =>
+    addressList
+      .filter(a => a.status === status)
+      .sort((a, b) => parseDate(b.startDate) - parseDate(a.startDate))[0]
+
+  // Return the latest address from start date with the following priority for statuses:
+  // Postal → Main → None (Displays No Fixed Abode)
+  return latestByStatus('Postal') ?? latestByStatus('Main') ?? null
 }
 
 export function toIsoDateFormat(dateStr: string): string {
