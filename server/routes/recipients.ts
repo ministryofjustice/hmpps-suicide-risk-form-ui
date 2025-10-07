@@ -15,7 +15,7 @@ export default function recipientsRoutes(
 ): Router {
   const currentPage = 'recipients'
 
-  router.get('/recipients/:id', async (req, res, next) => {
+  router.get('/recipients/:id', async (req, res) => {
     await auditService.logPageView(Page.RECIPIENTS, { who: res.locals.user.username, correlationId: req.id })
     const suicideRiskId: string = req.params.id
     const suicideRiskApiClient = new SuicideRiskApiClient(authenticationClient)
@@ -58,9 +58,10 @@ export default function recipientsRoutes(
     }
   })
 
-  router.post('/recipients/:id', async (req, res, next) => {
+  router.post('/recipients/:id', async (req, res) => {
     const suicideRiskId: string = req.params.id
     const suicideRiskApiClient = new SuicideRiskApiClient(authenticationClient)
+    const callingScreen: string = req.query.returnTo as string
     let suicideRisk: SuicideRisk = null
     let errorMessages: ErrorMessages = {}
 
@@ -82,6 +83,8 @@ export default function recipientsRoutes(
       )
     } else if (req.body.action === 'refreshFromNdelius') {
       res.redirect(`/recipients/${req.params.id}`)
+    } else if (callingScreen && callingScreen === 'check-your-report') {
+      res.redirect(`/check-your-answers/${req.params.id}`)
     } else {
       res.redirect(`/sign-and-send/${req.params.id}`)
     }
