@@ -102,35 +102,27 @@ describe('findDefaultAddressInAddressList', () => {
     ['null input', null, null],
     ['empty array', [], null],
     [
-      'Default takes priority',
+      'Postal takes priority over Main (latest startDate)',
       [
-        { ...baseAddress, id: 1, status: 'Default' },
-        { ...baseAddress, id: 2, status: 'Postal' },
-        { ...baseAddress, id: 3, status: 'Main' },
+        { ...baseAddress, id: 1, status: 'Postal', startDate: '2025-03-01' },
+        { ...baseAddress, id: 2, status: 'Postal', startDate: '2025-09-20' },
+        { ...baseAddress, id: 3, status: 'Main', startDate: '2025-07-10' },
       ],
-      { ...baseAddress, id: 1, status: 'Default' },
+      { ...baseAddress, id: 2, status: 'Postal', startDate: '2025-09-20' },
     ],
     [
-      'No default then postal takes priority',
+      'No Postal so Main is selected (latest startDate)',
       [
-        { ...baseAddress, id: 1, status: 'Postal' },
-        { ...baseAddress, id: 2, status: 'Main' },
+        { ...baseAddress, id: 1, status: 'Main', startDate: '2025-03-01' },
+        { ...baseAddress, id: 2, status: 'Main', startDate: '2025-08-25' },
       ],
-      { ...baseAddress, id: 1, status: 'Postal' },
+      { ...baseAddress, id: 2, status: 'Main', startDate: '2025-08-25' },
     ],
     [
-      'No default or postal then main takes priority ',
+      'No Postal or Main so expect null',
       [
-        { ...baseAddress, id: 1, status: 'Main' },
-        { ...baseAddress, id: 2, status: 'Other' },
-      ],
-      { ...baseAddress, id: 1, status: 'Main' },
-    ],
-    [
-      'No Default, Postal, or Main then expect null',
-      [
-        { ...baseAddress, id: 1, status: 'Other' },
-        { ...baseAddress, id: 2, status: 'Test' },
+        { ...baseAddress, id: 1, status: 'Previous', startDate: '2025-02-01' },
+        { ...baseAddress, id: 2, status: 'Other', startDate: '2025-04-01' },
       ],
       null,
     ],
@@ -179,6 +171,7 @@ describe('toSuicideRiskAddress', () => {
     district: 'Test District',
     county: 'Test County',
     postcode: 'TE5 2ST',
+    startDate: '2025-02-15'
   }
 
   it.each([
