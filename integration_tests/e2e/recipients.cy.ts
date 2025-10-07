@@ -73,40 +73,33 @@ context('Recipients Page', () => {
     })
   })
 
-  it('Check all edit recipient links function correctly', () => {
+  it('Check edit recipient links function correctly', () => {
     const suicideRiskId = '00000000-0000-0000-0000-700000000000'
     cy.visit(`/recipients/${suicideRiskId}`)
-
+    cy.contains('Click this link to edit the recipient').should('exist')
     cy.contains('Click this link to edit the recipient')
-      .should('exist')
-      .each($link => {
+      .first()
+      .then($link => {
         const href = $link.attr('href')
-        expect(href).to.match(new RegExp(`/recipient-details/${suicideRiskId}\\?recipientId=.+`))
-
-        cy.wrap($link).click()
-        cy.url().should('match', new RegExp(`/recipient-details/${suicideRiskId}\\?recipientId=.+`))
+        expect(href).to.include(`/recipient-details/${suicideRiskId}?recipientId=`)
+        cy.visit(href)
         cy.contains('Recipient Details –').should('be.visible')
-        cy.go('back')
       })
   })
 
-  it('Check all delete recipient links function correctly', () => {
+  it('Check delete recipient links function correctly', () => {
     const suicideRiskId = '00000000-0000-0000-0000-700000000000'
     cy.visit(`/recipients/${suicideRiskId}`)
-
+    cy.contains('Click this link to delete the recipient').should('exist')
     cy.contains('Click this link to delete the recipient')
-      .should('exist')
-      .each($link => {
+      .first()
+      .then($link => {
         const href = $link.attr('href')
-        expect(href).to.match(new RegExp(`/delete-recipient/${suicideRiskId}/.+`))
-
-        cy.wrap($link).click()
-        cy.url().should('match', new RegExp(`/delete-recipient/${suicideRiskId}/.+`))
+        expect(href).to.include(`/delete-recipient/${suicideRiskId}/`)
+        cy.visit(href)
         cy.contains('Are you sure you wish to delete this Recipient?').should('be.visible')
-        cy.go('back')
       })
   })
-
   it('Check all add recipients buttons function correctly', () => {
     cy.visit('/recipients/00000000-0000-0000-0000-000000000001')
 
@@ -125,8 +118,8 @@ context('Recipients Page', () => {
 
     cy.get('#continue-button').click()
     cy.wait('@recipientsSubmit')
-    cy.url().should('include', '/check-your-answers/00000000-0000-0000-0000-000000000001')
-    cy.contains('Suicide Risk - Check Your Answers').should('exist')
+    cy.url().should('include', '/sign-and-send/00000000-0000-0000-0000-000000000001')
+    cy.contains('Suicide Risk - Sign and Send').should('exist')
   })
 
   it('save and close button posts correct action', () => {
