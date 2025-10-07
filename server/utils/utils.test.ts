@@ -171,7 +171,7 @@ describe('toSuicideRiskAddress', () => {
     district: 'Test District',
     county: 'Test County',
     postcode: 'TE5 2ST',
-    startDate: '2025-02-15'
+    startDate: '2025-02-15',
   }
 
   it.each([

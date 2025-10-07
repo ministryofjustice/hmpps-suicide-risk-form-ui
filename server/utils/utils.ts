@@ -71,9 +71,7 @@ export function findDefaultAddressInAddressList(addressList: Array<DeliusAddress
   const parseDate = (date?: string): number => (date ? Date.parse(date) || 0 : 0)
 
   const latestByStatus = (status: string): DeliusAddress =>
-    addressList
-      .filter(a => a.status === status)
-      .sort((a, b) => parseDate(b.startDate) - parseDate(a.startDate))[0]
+    addressList.filter(a => a.status === status).sort((a, b) => parseDate(b.startDate) - parseDate(a.startDate))[0]
 
   // Return the latest address from start date with the following priority for statuses:
   // Postal → Main → None (Displays No Fixed Abode)
