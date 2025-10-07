@@ -163,7 +163,7 @@
     {
       "request": {
         "method": "GET",
-        "url": "/assess-risks-and-needs/risks/crn/X600012/summary"
+        "url": "/assess-risks-and-needs/risks/crn/X300003/summary"
       },
       "response": {
         "status": 200,
@@ -174,15 +174,32 @@
           "riskIncreaseFactors": "If offender in situation X the risk can be higher",
           "riskMitigationFactors": "Giving offender therapy in X will reduce the risk",
           "riskInCommunity": {
-            "HIGH": [],
-            "MEDIUM": [],
-            "LOW": []
+            "HIGH": ["Children", "Public", "Know adult"],
+            "MEDIUM": ["Staff"],
+            "LOW": ["Prisoners"]
           },
           "riskInCustody": {
-            "HIGH ": [],
-            "VERY_HIGH": [],
-            "LOW": []
+            "HIGH ": ["Know adult"],
+            "VERY_HIGH": ["Staff", "Prisoners"],
+            "LOW": ["Children", "Public"]
           },
+          "assessedOn": "2025-07-31T12:18:58",
+          "overallRiskLevel": "HIGH"
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+
+    {
+      "request": {
+        "method": "GET",
+        "url": "/assess-risks-and-needs/risks/crn/X700000/summary"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
           "assessedOn": "2025-07-31T12:18:58",
           "overallRiskLevel": "LOW"
         },

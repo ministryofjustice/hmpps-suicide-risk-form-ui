@@ -9,6 +9,7 @@
   {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
   {% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
   {% from "govuk/components/button/macro.njk" import govukButton %}
+  {% from "govuk/components/details/macro.njk" import govukDetails %}
 
   <form method="post">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
@@ -29,7 +30,7 @@
       </div>
       <div class="govuk-grid-column-two-thirds">
         {% include "partials/review-required.njk" %}
-        
+
         <h1 id="page-title" class="govuk-heading-l">Suicide Risk - Information</h1>
 
         {{ govukCharacterCount({
@@ -42,17 +43,45 @@
           }
         }) }}
 
-        <h2 class="govuk-heading-m">Nature of Risk</h2>
-        <p id="nature-of-risk">{{ riskAssessment.natureOfRisk }}</p>
+        {% if riskAssessment %}
+          {% set detailsContent %}
+            <h2 class="govuk-heading-m">Nature of Risk</h2>
+            {% if riskAssessment.natureOfRisk %}
+              <p id="nature-of-risk">{{ riskAssessment.natureOfRisk }}</p>
+            {% else %}
+              <p>No information available.</p>
+            {% endif %}
 
-        <h2 class="govuk-heading-m">Risk is greatest when</h2>
-        <p id="risk-imminence">{{ riskAssessment.riskImminence }}</p>
+            <h2 class="govuk-heading-m">Risk is greatest when</h2>
+            {% if riskAssessment.riskImminence %}
+              <p id="risk-imminence">{{ riskAssessment.riskImminence }}</p>
+            {% else %}
+              <p>No information available.</p>
+            {% endif %}
 
-        <h2 class="govuk-heading-m">Risk increases when</h2>
-        <p id="risk-increase-factors">{{ riskAssessment.riskIncreaseFactors }}</p>
+            <h2 class="govuk-heading-m">Risk increases when</h2>
+            {% if riskAssessment.riskIncreaseFactors %}
+              <p id="risk-increase-factors">{{ riskAssessment.riskIncreaseFactors }}</p>
+            {% else %}
+              <p>No information available.</p>
+            {% endif %}
 
-        <h2 class="govuk-heading-m">Risk Decreases when</h2>
-        <p id="risk-decrease-factors">{{ riskAssessment.riskMitigationFactors }}</p>
+            <h2 class="govuk-heading-m">Risk decreases when</h2>
+            {% if riskAssessment.riskMitigationFactors %}
+              <p id="risk-decrease-factors">{{ riskAssessment.riskMitigationFactors }}</p>
+            {% else %}
+              <p>No information available.</p>
+            {% endif %}
+          {% endset %}
+
+          {{ govukDetails({
+            summaryText: "View Information from Assess Risks and Needs",
+            html: detailsContent,
+            attributes: {
+              id: "view-information-arn--govuk-details"
+            }
+          }) }}
+        {% endif %}
 
         <h2 class="govuk-heading-m">Suicide/Self Harm Register</h2>
 

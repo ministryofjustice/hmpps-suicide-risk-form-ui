@@ -1174,6 +1174,24 @@
     {
       "request": {
         "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-700000000000",
+        "method": "PUT"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "00000000-0000-0000-0000-600000000009",
+          "crn": "X600009"
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        "transformers": ["response-template"]
+      }
+    },
+
+    {
+      "request": {
+        "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-700000000000",
         "method": "GET"
       },
       "response": {
