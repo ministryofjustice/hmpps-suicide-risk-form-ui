@@ -102,27 +102,6 @@ export function formatTitleAndFullName(title: string, name: Name): string {
   return [title, name.forename, name.middleName, name.surname].filter(Boolean).join(' ')
 }
 
-export function calculateAge(dobString: string): string {
-  if (dobString && dobString.trim().length > 0) {
-    const [day, month, year] = dobString.split('/').map(Number)
-
-    const dob = new Date(year, month - 1, day)
-    const today = new Date()
-
-    let age = today.getFullYear() - dob.getFullYear()
-
-    const hasHadBirthday =
-      today.getMonth() > dob.getMonth() || (today.getMonth() === dob.getMonth() && today.getDate() >= dob.getDate())
-
-    if (!hasHadBirthday) {
-      age -= 1
-    }
-
-    return age.toString()
-  }
-  return ''
-}
-
 export function toSuicideRiskAddress(deliusAddress: DeliusAddress): SuicideRiskAddress {
   if (!deliusAddress) {
     return null

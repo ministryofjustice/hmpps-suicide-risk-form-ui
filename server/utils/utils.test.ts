@@ -1,5 +1,4 @@
 import {
-  calculateAge,
   convertToTitleCase,
   findDefaultAddressInAddressList,
   formatTitleAndFullName,
@@ -165,24 +164,6 @@ describe('formatTitleAndFullName', () => {
     ['Title and forename only', 'Dr', { forename: 'John' }, 'Dr John'],
   ])('%s', (_: string, title: string, name: Name, expected: string) => {
     expect(formatTitleAndFullName(title, name)).toEqual(expected)
-  })
-})
-
-describe('calculateAge', () => {
-  const currentYear = new Date().getFullYear()
-  const currentMonth = new Date().getMonth() + 1
-  const currentDay = new Date().getDate()
-
-  it.each([
-    [
-      '30 Years old',
-      `${String(currentDay).padStart(2, '0')}/${String(currentMonth).padStart(2, '0')}/${currentYear - 30}`,
-      '30',
-    ],
-    ['Empty string', '', ''],
-    ['Whitespace', '   ', ''],
-  ])('%s', (_: string, dobString: string, expected: string) => {
-    expect(calculateAge(dobString)).toEqual(expected)
   })
 })
 
