@@ -41,9 +41,9 @@
 
         <h1 id="page-title" class="govuk-heading-l">
           {% if recipientId %}
-            Edit Recipient – {{ typeMap[recipient.contactTypeDescription] or recipient.contactTypeDescription }}
+            Recipient Details – {{ typeMap[recipient.contactTypeDescription] or recipient.contactTypeDescription }}
           {% else %}
-            Add Recipient – {{ typeMap[contactTypeDescription] or contactTypeDescription }}
+            Recipient Details – {{ typeMap[contactTypeDescription] or contactTypeDescription }}
           {% endif %}
         </h1>
 
@@ -182,7 +182,7 @@
         <div class="moj-button-group">
 
           {{ govukButton({
-            text: "Confirm",
+            text: "Save",
             type: "submit",
             name: "action",
             value: "confirm",
@@ -191,7 +191,7 @@
             }
           }) }}
           {{ govukButton({
-            text: "Cancel",
+            text: "Cancel without saving",
             type: "submit",
             name: "action",
             value: "cancel",

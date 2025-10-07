@@ -104,4 +104,11 @@ context('Basic Details page', () => {
     cy.visit('/basic-details/30000000-0000-0000-0000-33333333333')
     cy.url().should('include', '/report-completed/30000000-0000-0000-0000-3333333333')
   })
+
+  it('should return to check your answers if came from check your answers', () => {
+    cy.visit('/basic-details/2923f8ed-d425-43da-97c3-54ddab9dff7e?returnTo=check-your-report')
+    cy.url().should('include', '/basic-details')
+    cy.get('#continue-button').click()
+    cy.url().should('include', '/check-your-answers/')
+  })
 })
