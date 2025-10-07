@@ -1685,6 +1685,46 @@
         },
         "transformers": ["response-template"]
       }
+    },
+    {
+      "request": {
+        "url": "/suicide-risk-api/suicide-risk/2923f8ed-d425-43da-97c3-54ddab9dff7e",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "2923f8ed-d425-43da-97c3-54ddab9dff7e",
+          "crn": "X000001",
+          "basicDetailsSaved": true,
+          "informationSaved": true,
+          "treatmentSaved": false,
+          "signAndSendSaved": false,
+          "contactSaved": false,
+          "completedDate": null
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        "transformers": ["response-template"]
+      }
+    },
+    {
+      "request": {
+        "url": "/suicide-risk-api/suicide-risk/2923f8ed-d425-43da-97c3-54ddab9dff7e",
+        "method": "PUT"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "00000000-0000-0000-0000-000000000001",
+          "crn": "X000001"
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        "transformers": ["response-template"]
+      }
     }
   ]
 }
