@@ -35,7 +35,7 @@ export default function informationRoutes(
       // get existing suicide risk and use crn for calls to other services
       suicideRisk = await suicideRiskApiClient.getSuicideRiskById(suicideRiskId, res.locals.user.username)
       crn = suicideRisk.crn
-      registrationDeeplink = `${config.ndeliusDeeplink.url}?component=RegisterSummary=${crn}`
+      registrationDeeplink = `${config.ndeliusDeeplink.url}?component=RegisterSummary&CRN=${crn}`
     } catch (error) {
       errorMessages = handleIntegrationErrors(error.status, error.data?.message, 'Suicide Risk')
       const showEmbeddedError = true

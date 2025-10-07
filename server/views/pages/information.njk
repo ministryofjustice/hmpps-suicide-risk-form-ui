@@ -69,11 +69,13 @@
           <p id="no-registrations">No registration details found of this type</p>
         {% endif %}
 
-        <p id="registration-deeplink-message">
-          <a href="{{ registrationDeeplink }}" target="_blank" id="registrationDeeplink">
-            click here to open full Registration details in a new tab
-          </a>
-        </p>
+        {% if registrationDeeplink %}
+          <p id="registration-deeplink-message">
+            <a href="{{ registrationDeeplink }}" target="_blank" id="registrationDeeplink">
+              click here to open full Registration details in a new tab
+            </a>
+          </p>
+        {% endif %}
 
         <div class="moj-button-group">
           {{ govukButton({
