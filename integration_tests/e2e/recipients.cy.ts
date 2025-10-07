@@ -85,7 +85,7 @@ context('Recipients Page', () => {
 
         cy.wrap($link).click()
         cy.url().should('match', new RegExp(`/recipient-details/${suicideRiskId}\\?recipientId=.+`))
-        cy.contains('Edit Recipient –').should('be.visible')
+        cy.contains('Recipient Details –').should('be.visible')
         cy.go('back')
       })
   })
