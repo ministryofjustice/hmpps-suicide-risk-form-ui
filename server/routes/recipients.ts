@@ -22,7 +22,7 @@ export default function recipientsRoutes(
     const suicideRisk = await suicideRiskApiClient.getSuicideRiskById(suicideRiskId, res.locals.user.username)
     if (await commonUtils.redirectRequired(suicideRisk, suicideRiskId, res, authenticationClient)) return
 
-    if (suicideRisk && suicideRisk.suicideRiskContactList != null && suicideRisk.suicideRiskContactList.length > 0) {
+    if (suicideRisk?.suicideRiskContactList?.length > 0) {
       const contactsOtherColleagues = suicideRisk.suicideRiskContactList?.filter(
         c => c.contactTypeDescription === 'other_colleagues',
       )
@@ -83,7 +83,7 @@ export default function recipientsRoutes(
     } else if (req.body.action === 'refreshFromNdelius') {
       res.redirect(`/recipients/${req.params.id}`)
     } else {
-      res.redirect(`/check-your-answers/${req.params.id}`)
+      res.redirect(`/sign-and-send/${req.params.id}`)
     }
   })
 
