@@ -107,6 +107,7 @@ export interface DeliusAddress {
   district: string
   county: string
   postcode: string
+  startDate: string
 }
 
 export interface SignAndSendDetails {
