@@ -148,7 +148,7 @@
                   Additional Information
                 </dt>
                 <dd class="govuk-summary-list__value">
-                  {% if suicideRisk.additionalInfo == null and suicideRisk.basicDetailsSaved %}
+                  {% if not suicideRisk.additionalInfo or suicideRisk.additionalInfo | trim == '' and suicideRisk.basicDetailsSaved %}
                     <a id="cya-link-additional-info" href="/information/{{ suicideRiskId }}?returnTo=check-your-report" class="govuk-link">enter required
                       information<span class="govuk-visually-hidden"> for Additional Information</span></a>
                   {% else %}
@@ -156,7 +156,7 @@
                   {% endif %}
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                  {% if suicideRisk.additionalInfo == null %}
+                  {% if not suicideRisk.additionalInfo or suicideRisk.additionalInfo | trim == '' %}
                     <span class="govuk-tag--light-blue">Required</span>
                   {% endif %}
                 </dd>
@@ -189,7 +189,7 @@
                   Current Psychiatric Treatment
                 </dt>
                 <dd class="govuk-summary-list__value">
-                  {% if suicideRisk.currentPsychTreatment == null and suicideRisk.informationSaved %}
+                  {% if not suicideRisk.currentPsychTreatment or suicideRisk.currentPsychTreatment | trim == '' and suicideRisk.informationSaved %}
                     <a id="cya-link-treatment" href="/treatment/{{ suicideRiskId }}?returnTo=check-your-report" class="govuk-link">enter required
                       information<span class="govuk-visually-hidden"> for Treatment</span></a>
                   {% else %}
@@ -197,7 +197,7 @@
                   {% endif %}
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                  {% if suicideRisk.currentPsychTreatment == null %}
+                  {% if not suicideRisk.currentPsychTreatment or suicideRisk.currentPsychTreatment | trim == '' %}
                     <span class="govuk-tag--light-blue">Required</span>
                   {% endif %}
                 </dd>
