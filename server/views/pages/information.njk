@@ -85,12 +85,12 @@
 
         <h2 class="govuk-heading-m">Suicide/Self Harm Register</h2>
 
-        {% if registration is not null and registration|length > 0 %}
+        {% if registration %}
           <h2 class="govuk-heading-m">Registration Start Date</h2>
-          <p id="registration-start-date">{{ registration.startDate }}</p>
+          <p id="registration-start-date">{{ registration.startDate | dayMonthYear }}</p>
 
           <h2 class="govuk-heading-m">Registration End Date</h2>
-          <p id="registration-end-date">{{ registration.endDate }}</p>
+          <p id="registration-end-date">{{ registration.endDate | dayMonthYear }}</p>
 
           <h2 class="govuk-heading-m">Registration Notes</h2>
           <p id="registration-notes">{{ registration.notes }}</p>
