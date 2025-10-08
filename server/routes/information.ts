@@ -87,6 +87,14 @@ export default function informationRoutes(
       return
     }
 
+    const showRiskAndNeedsDetailsTwisty = !!(
+      riskAssessment &&
+      ((riskAssessment.natureOfRisk && riskAssessment.natureOfRisk.trim() !== '') ||
+        (riskAssessment.riskImminence && riskAssessment.riskImminence.trim() !== '') ||
+        (riskAssessment.riskIncreaseFactors && riskAssessment.riskIncreaseFactors.trim() !== '') ||
+        (riskAssessment.riskMitigationFactors && riskAssessment.riskMitigationFactors.trim() !== ''))
+    )
+
     res.render('pages/information', {
       riskAssessment,
       registration,
@@ -94,6 +102,7 @@ export default function informationRoutes(
       suicideRisk,
       suicideRiskId,
       registrationDeeplink,
+      showRiskAndNeedsDetailsTwisty,
     })
   })
 
