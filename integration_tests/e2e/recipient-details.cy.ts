@@ -2,11 +2,11 @@ context('Recipient Details Page', () => {
   const suicideRiskId = '00000000-0000-0000-0000-700000000000'
 
   const addCases = [
-    { contactType: 'COLLEAGUE', label: 'Other Colleagues' },
+    { contactType: 'COLLEAGUE', label: 'Other colleagues' },
     { contactType: 'PRISON', label: 'Prison Establishment' },
-    { contactType: 'POLICE', label: 'Police Custody (Cells)' },
+    { contactType: 'POLICE', label: 'Police (Custody Cells)' },
     { contactType: 'MEDICAL', label: 'Medical Services' },
-    { contactType: 'OTHER', label: 'Other Agencies' },
+    { contactType: 'OTHER', label: 'Other Agency' },
   ]
 
   addCases.forEach(({ contactType, label }) => {
@@ -31,18 +31,18 @@ context('Recipient Details Page', () => {
   })
 
   const editCases = [
-    { recipientId: '00000000-0000-0000-0000-700000000001', label: 'Other Colleagues', expectedName: 'John Smith' },
+    { recipientId: '00000000-0000-0000-0000-700000000001', label: 'Other colleagues', expectedName: 'John Smith' },
     { recipientId: '00000000-0000-0000-0000-700000000002', label: 'Prison Establishment', expectedName: 'Jack Smith' },
     {
       recipientId: '00000000-0000-0000-0000-700000000003',
-      label: 'Police Custody (Cells)',
+      label: 'Police (Custody Cells)',
       expectedName: 'James Smith',
     },
     { recipientId: '00000000-0000-0000-0000-700000000004', label: 'Medical Services', expectedName: 'Jimmy Smith' },
-    { recipientId: '00000000-0000-0000-0000-700000000005', label: 'Other Agencies', expectedName: 'Jason Smith' },
+    { recipientId: '00000000-0000-0000-0000-700000000005', label: 'Other Agency', expectedName: 'Jason Smith' },
     {
       recipientId: '00000000-0000-0000-0000-700000000006',
-      label: 'Other Agencies (2nd record)',
+      label: 'Other Agency (2nd record)',
       expectedName: 'Jason Smith Junior',
     },
   ]
