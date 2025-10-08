@@ -8,11 +8,11 @@ context('Recipients Page', () => {
     cy.visit('/recipients/00000000-0000-0000-0000-000000000001')
 
     cy.contains('Suicide Risk - Recipients').should('exist')
-    cy.contains('Other Colleagues').should('exist')
+    cy.contains('Other colleagues').should('exist')
     cy.contains('Prison Establishment').should('exist')
-    cy.contains('Police Custody (Cells)').should('exist')
+    cy.contains('Police (Custody Cells)').should('exist')
     cy.contains('Medical Services').should('exist')
-    cy.contains('Other Agencies').should('exist')
+    cy.contains('Other Agency').should('exist')
 
     cy.get('#add-other-colleagues--button').should('contain.text', 'Add Recipient of this type')
     cy.get('#add-prison-establishment--button').should('contain.text', 'Add Recipient of this type')
@@ -29,11 +29,11 @@ context('Recipients Page', () => {
 
     cy.contains('No Recipients of this type added').should('not.exist')
 
-    cy.contains('Other Colleagues').should('exist')
+    cy.contains('Other colleagues').should('exist')
     cy.contains('Prison Establishment').should('exist')
-    cy.contains('Police Custody (Cells)').should('exist')
+    cy.contains('Police (Custody Cells)').should('exist')
     cy.contains('Medical Services').should('exist')
-    cy.contains('Other Agencies').should('exist')
+    cy.contains('Other Agency').should('exist')
 
     cy.get('.govuk-summary-card').each($card => {
       cy.wrap($card).within(() => {
@@ -45,7 +45,7 @@ context('Recipients Page', () => {
     cy.contains('Click this link to edit the recipient').should('exist')
     cy.contains('Click this link to delete the recipient').should('exist')
 
-    cy.contains('Other Agencies')
+    cy.contains('Other Agency')
       .parent()
       .within(() => {
         cy.contains('Jason Smith').should('exist')
