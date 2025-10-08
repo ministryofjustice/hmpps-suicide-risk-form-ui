@@ -11,7 +11,6 @@ import ProbationOffenderSearchApiClient, {
   SearchContactsResponse,
 } from '../data/probation-offender-search-api'
 import NDeliusIntegrationApiClient, {
-  ContactDocSearchRequest,
   ContactDocSearchResponse,
   DocumentDetails,
 } from '../data/ndeliusIntegrationApiClient'
@@ -26,7 +25,7 @@ export default function treatmentRoutes(
 ): Router {
   const currentPage = 'treatment'
 
-  router.get('/treatment/:id', async (req, res, next) => {
+  router.get('/treatment/:id', async (req, res) => {
     await auditService.logPageView(Page.TREATMENT, { who: res.locals.user.username, correlationId: req.id })
     let suicideRisk: SuicideRisk = null
     const suicideRiskId: string = req.params.id
@@ -48,7 +47,7 @@ export default function treatmentRoutes(
     })
   })
 
-  router.post('/treatment/:id', async (req, res, next) => {
+  router.post('/treatment/:id', async (req, res) => {
     const suicideRiskId: string = req.params.id
     const suicideRiskApiClient = new SuicideRiskApiClient(authenticationClient)
     const { currentPsychTreatment } = req.body
@@ -125,13 +124,12 @@ export default function treatmentRoutes(
       }
 
       const ndeliusIntegrationApiClient = new NDeliusIntegrationApiClient(authenticationClient)
-      const docRequest: ContactDocSearchRequest = {
-        contactIds: searchResults.results.map(r => r.id),
-      }
+      const contactIds = searchResults.results.map(r => r.id)
+
       // Post request to probation integration to find any documents linked to our contacts
       try {
         documentsResponse = await ndeliusIntegrationApiClient.getDocumentsForContacts(
-          docRequest,
+          contactIds,
           res.locals.user.username,
         )
       } catch (error) {
@@ -151,14 +149,12 @@ export default function treatmentRoutes(
         return
       }
 
-      // map contact ids to their associated documents
-      const contactsWithDocs: ContactWithDocuments[] = searchResults.results.map(contact => {
-        const match = documentsResponse.content.find(d => d.id === contact.id)
-        return {
-          contact,
-          documents: match ? match.documents : [],
-        }
-      })
+      const docsById = new Map(documentsResponse.content.map(d => [d.id, d.documents]))
+
+      const contactsWithDocs: ContactWithDocuments[] = searchResults.results.map(contact => ({
+        contact,
+        documents: docsById.get(contact.id) ?? [],
+      }))
 
       res.render('pages/treatment', {
         suicideRiskId,

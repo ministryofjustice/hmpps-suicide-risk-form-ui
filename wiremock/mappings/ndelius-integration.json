@@ -891,9 +891,9 @@
         "method": "POST",
         "urlPattern": "/ndelius/treatment",
         "bodyPatterns": [
-          { "matchesJsonPath": "$.contactIds[?(@ == 2500310461)]" },
-          { "matchesJsonPath": "$.contactIds[?(@ == 2500310463)]" },
-          { "matchesJsonPath": "$.contactIds[?(@ == 2500310465)]" }
+          { "matchesJsonPath": "$[?(@ == 2500310461)]" },
+          { "matchesJsonPath": "$[?(@ == 2500310463)]" },
+          { "matchesJsonPath": "$[?(@ == 2500310465)]" }
         ]
       },
       "response": {
