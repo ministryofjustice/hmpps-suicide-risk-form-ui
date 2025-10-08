@@ -70,6 +70,7 @@ export default function checkYourAnswersRoutes(
     )
     if (await commonUtils.redirectRequired(suicideRisk, suicideRiskId, res, authenticationClient)) return
     suicideRisk.completedDate = ZonedDateTime.now(ZoneId.of('Europe/London'))
+    suicideRisk.dateOfLetter = new Date().toISOString()
     await suicideRiskApiClient.updateSuicideRisk(suicideRiskId, suicideRisk, res.locals.user.username)
     res.redirect(`/report-completed/${req.params.id}`)
   })
@@ -79,7 +80,6 @@ export default function checkYourAnswersRoutes(
       suicideRisk.crn != null &&
       suicideRisk.titleAndFullName != null &&
       suicideRisk.postalAddress != null &&
-      suicideRisk.dateOfLetter != null &&
       suicideRisk.signature != null &&
       suicideRisk.dateOfBirth != null &&
       suicideRisk.additionalInfo != null &&

@@ -128,3 +128,18 @@ context('information', () => {
     cy.contains('Suicide Risk - Check Your Answers').should('exist')
   })
 })
+
+it('Show twisty when risk assessment information is available', () => {
+  cy.visit('/information/00000000-0000-0000-0000-300000000003')
+
+  cy.get('#view-information-arn--govuk-details')
+    .should('exist')
+    .and('contain.text', 'View Information from Assess Risks and Needs')
+
+  cy.get('#nature-of-risk').should('contain.text', 'The nature of the risk is X')
+})
+
+it('Twisty not displayed when no risk assessment information available', () => {
+  cy.visit('/information/00000000-0000-0000-0000-100000000008')
+  cy.get('#view-information-arn--govuk-details').should('not.exist')
+})

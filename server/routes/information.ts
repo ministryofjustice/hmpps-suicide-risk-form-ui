@@ -5,7 +5,7 @@ import AuditService, { Page } from '../services/auditService'
 import SuicideRiskApiClient, { SuicideRisk } from '../data/suicideRiskApiClient'
 import AssessRiskAndNeedsApiClient, { RiskAssessment } from '../data/assessRiskAndNeedsApiClient'
 import { ErrorMessages } from '../data/uiModels'
-import { handleIntegrationErrors, toDayMonthYearDateFormat } from '../utils/utils'
+import { handleIntegrationErrors } from '../utils/utils'
 import config from '../config'
 import NDeliusIntegrationApiClient, { Registration } from '../data/ndeliusIntegrationApiClient'
 import CommonUtils from '../services/commonUtils'
@@ -18,7 +18,7 @@ export default function informationRoutes(
 ): Router {
   const currentPage = 'information'
 
-  router.get('/information/:id', async (req, res, next) => {
+  router.get('/information/:id', async (req, res) => {
     await auditService.logPageView(Page.INFORMATION, { who: res.locals.user.username, correlationId: req.id })
     const assessRiskAndNeedsApiClient = new AssessRiskAndNeedsApiClient(authenticationClient)
     const suicideRiskApiClient = new SuicideRiskApiClient(authenticationClient)
@@ -35,7 +35,7 @@ export default function informationRoutes(
       // get existing suicide risk and use crn for calls to other services
       suicideRisk = await suicideRiskApiClient.getSuicideRiskById(suicideRiskId, res.locals.user.username)
       crn = suicideRisk.crn
-      registrationDeeplink = `${config.ndeliusDeeplink.url}?component=RegisterSummary=${crn}`
+      registrationDeeplink = `${config.ndeliusDeeplink.url}?component=RegisterSummary&CRN=${crn}`
     } catch (error) {
       errorMessages = handleIntegrationErrors(error.status, error.data?.message, 'Suicide Risk')
       const showEmbeddedError = true
@@ -67,9 +67,8 @@ export default function informationRoutes(
 
     try {
       // get registration details from integration service
-      registration = await integrationApiClient.getSuicideRiskInformation(crn, res.locals.user.username)
-      registration.startDate = toDayMonthYearDateFormat(registration.startDate)
-      registration.endDate = toDayMonthYearDateFormat(registration.endDate)
+      const response = await integrationApiClient.getSuicideRiskInformation(crn, res.locals.user.username)
+      registration = response.registration ?? null
     } catch (error) {
       // get risk assessment from assess risk and needs service
       errorMessages = handleIntegrationErrors(error.status, error.data?.message, 'NDelius Integration')
@@ -88,6 +87,14 @@ export default function informationRoutes(
       return
     }
 
+    const showRiskAndNeedsDetailsTwisty = !!(
+      riskAssessment &&
+      ((riskAssessment.natureOfRisk && riskAssessment.natureOfRisk.trim() !== '') ||
+        (riskAssessment.riskImminence && riskAssessment.riskImminence.trim() !== '') ||
+        (riskAssessment.riskIncreaseFactors && riskAssessment.riskIncreaseFactors.trim() !== '') ||
+        (riskAssessment.riskMitigationFactors && riskAssessment.riskMitigationFactors.trim() !== ''))
+    )
+
     res.render('pages/information', {
       riskAssessment,
       registration,
@@ -95,6 +102,7 @@ export default function informationRoutes(
       suicideRisk,
       suicideRiskId,
       registrationDeeplink,
+      showRiskAndNeedsDetailsTwisty,
     })
   })
 
@@ -140,10 +148,13 @@ export default function informationRoutes(
       return
     }
 
-    suicideRisk.natureOfRisk = riskAssessment.natureOfRisk
-    suicideRisk.riskIsGreatestWhen = riskAssessment.riskImminence
-    suicideRisk.riskIncreasesWhen = riskAssessment.riskIncreaseFactors
-    suicideRisk.riskDecreasesWhen = riskAssessment.riskMitigationFactors
+    if (riskAssessment != null) {
+      suicideRisk.natureOfRisk = riskAssessment.natureOfRisk
+      suicideRisk.riskIsGreatestWhen = riskAssessment.riskImminence
+      suicideRisk.riskIncreasesWhen = riskAssessment.riskIncreaseFactors
+      suicideRisk.riskDecreasesWhen = riskAssessment.riskMitigationFactors
+    }
+
     suicideRisk.additionalInfo = additionalInfo
     suicideRisk.informationSaved = true
 

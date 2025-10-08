@@ -184,8 +184,36 @@
             "LOW": []
           },
           "assessedOn": "2025-07-31T12:18:58",
-          "overallRiskLevel": "LOW"
+          "overallRiskLevel": "HIGH"
         },
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+
+    {
+      "request": {
+        "method": "GET",
+        "url": "/assess-risks-and-needs/risks/crn/X100504/summary"
+      },
+      "response": {
+        "status": 200,
+        "body": "null",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+
+    {
+      "request": {
+        "method": "GET",
+        "url": "/assess-risks-and-needs/risks/crn/X700000/summary"
+      },
+      "response": {
+        "status": 200,
+        "body": "null",
         "headers": {
           "Content-Type": "application/json"
         }

@@ -78,7 +78,6 @@
         }
       }
     },
-
     {
       "request": {
         "urlPattern": "/ndelius/basic-details/X300003",
@@ -99,7 +98,6 @@
         }
       }
     },
-
     {
       "request": {
         "urlPattern": "/ndelius/basic-details/X012345",
@@ -486,7 +484,6 @@
         }
       }
     },
-
     {
       "request": {
         "urlPattern": "/ndelius/basic-details/X600010",
@@ -522,7 +519,6 @@
         }
       }
     },
-
     {
       "request": {
         "urlPattern": "/ndelius/basic-details/X600011",
@@ -558,7 +554,6 @@
         }
       }
     },
-
     {
       "request": {
         "urlPattern": "/ndelius/basic-details/X600012",
@@ -594,7 +589,6 @@
         }
       }
     },
-
     {
       "request": {
         "urlPattern": "/ndelius/basic-details/X000003",
@@ -672,82 +666,6 @@
         }
       }
     },
-
-    {
-      "request": {
-        "url": "/ndelius/information-page/X300003",
-        "method": "GET"
-      },
-      "response": {
-        "status": 200,
-        "jsonBody": {
-          "id": "123456",
-          "startDate": "2025-01-01",
-          "endDate": "2025-01-01",
-          "notes": "some notes in here",
-          "documentsLinked": true,
-          "deregistered": false,
-          "type": {
-            "code": "REG1",
-            "description": "registration type 1"
-          }
-        },
-        "headers": {
-          "Content-Type": "application/json;charset=UTF-8"
-        }
-      }
-    },
-
-    {
-      "request": {
-        "url": "/ndelius/information-page/X000002",
-        "method": "GET"
-      },
-      "response": {
-        "status": 200,
-        "jsonBody": {
-          "id": "654321",
-          "startDate": "2025-02-02",
-          "endDate": "2025-02-02",
-          "notes": "some notes in here",
-          "documentsLinked": true,
-          "deregistered": false,
-          "type": {
-            "code": "REG2",
-            "description": "registration type 2"
-          }
-        },
-        "headers": {
-          "Content-Type": "application/json;charset=UTF-8"
-        }
-      }
-    },
-
-    {
-      "request": {
-        "url": "/ndelius/information-page/X000001",
-        "method": "GET"
-      },
-      "response": {
-        "status": 200,
-        "jsonBody": {
-          "id": "123456",
-          "startDate": "2025-01-01",
-          "endDate": "2025-01-01",
-          "notes": "some notes in here",
-          "documentsLinked": true,
-          "deregistered": false,
-          "type": {
-            "code": "REG1",
-            "description": "registration type 1"
-          }
-        },
-        "headers": {
-          "Content-Type": "application/json;charset=UTF-8"
-        }
-      }
-    },
-
     {
       "request": {
         "urlPattern": "/ndelius/users/(.*?)/access/(.*?)",
@@ -764,7 +682,6 @@
         }
       }
     },
-
     {
       "request": {
         "urlPattern": "/ndelius/users/(.*?)/access/X000002",
@@ -781,7 +698,6 @@
         }
       }
     },
-
     {
       "request": {
         "urlPattern": "/ndelius/users/(.*?)/access/X100501",
@@ -800,7 +716,6 @@
         }
       }
     },
-
     {
       "request": {
         "urlPattern": "/ndelius/users/(.*?)/access/X100502",
@@ -819,7 +734,6 @@
         }
       }
     },
-
     {
       "request": {
         "urlPattern": "/ndelius/users/(.*?)/access/X100503",
@@ -839,7 +753,6 @@
         }
       }
     },
-
     {
       "request": {
         "urlPattern": "/ndelius/sign-and-send/(.*?)",
@@ -891,9 +804,15 @@
         "method": "POST",
         "urlPattern": "/ndelius/treatment",
         "bodyPatterns": [
-          { "matchesJsonPath": "$.contactIds[?(@ == 2500310461)]" },
-          { "matchesJsonPath": "$.contactIds[?(@ == 2500310463)]" },
-          { "matchesJsonPath": "$.contactIds[?(@ == 2500310465)]" }
+          {
+            "matchesJsonPath": "$[?(@ == 2500310461)]"
+          },
+          {
+            "matchesJsonPath": "$[?(@ == 2500310463)]"
+          },
+          {
+            "matchesJsonPath": "$[?(@ == 2500310465)]"
+          }
         ]
       },
       "response": {
@@ -936,7 +855,84 @@
         }
       }
     },
-
+    {
+      "request": {
+        "url": "/ndelius/information-page/X300003",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "registration": {
+            "id": "123456",
+            "startDate": "2025-01-01",
+            "endDate": "2025-01-01",
+            "notes": "some notes in here",
+            "documentsLinked": true,
+            "deregistered": false,
+            "type": {
+              "code": "REG1",
+              "description": "registration type 1"
+            }
+          }
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+    {
+      "request": {
+        "url": "/ndelius/information-page/X000001",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "registration": {
+            "id": "123456",
+            "startDate": "2025-01-01",
+            "endDate": "2025-01-01",
+            "notes": "some notes in here",
+            "documentsLinked": true,
+            "deregistered": false,
+            "type": {
+              "code": "REG1",
+              "description": "registration type 1"
+            }
+          }
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+    {
+      "request": {
+        "url": "/ndelius/information-page/X000002",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "registration": {
+            "id": "654321",
+            "startDate": "2025-02-02",
+            "endDate": "2025-02-02",
+            "notes": "some notes in here",
+            "documentsLinked": true,
+            "deregistered": false,
+            "type": {
+              "code": "REG2",
+              "description": "registration type 2"
+            }
+          }
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
     {
       "request": {
         "url": "/ndelius/information-page/X600010",
@@ -945,15 +941,17 @@
       "response": {
         "status": 200,
         "jsonBody": {
-          "id": "123456",
-          "startDate": "2025-01-01",
-          "endDate": "2025-01-01",
-          "notes": "some notes in here",
-          "documentsLinked": true,
-          "deregistered": false,
-          "type": {
-            "code": "REG1",
-            "description": "registration type 1"
+          "registration": {
+            "id": "123456",
+            "startDate": "2025-01-01",
+            "endDate": "2025-01-01",
+            "notes": "some notes in here",
+            "documentsLinked": true,
+            "deregistered": false,
+            "type": {
+              "code": "REG1",
+              "description": "registration type 1"
+            }
           }
         },
         "headers": {
@@ -961,7 +959,6 @@
         }
       }
     },
-
     {
       "request": {
         "url": "/ndelius/information-page/X600011",
@@ -970,15 +967,17 @@
       "response": {
         "status": 200,
         "jsonBody": {
-          "id": "123456",
-          "startDate": "2025-01-01",
-          "endDate": "2025-01-01",
-          "notes": "some notes in here",
-          "documentsLinked": true,
-          "deregistered": false,
-          "type": {
-            "code": "REG1",
-            "description": "registration type 1"
+          "registration": {
+            "id": "123456",
+            "startDate": "2025-01-01",
+            "endDate": "2025-01-01",
+            "notes": "some notes in here",
+            "documentsLinked": true,
+            "deregistered": false,
+            "type": {
+              "code": "REG1",
+              "description": "registration type 1"
+            }
           }
         },
         "headers": {
@@ -986,7 +985,6 @@
         }
       }
     },
-
     {
       "request": {
         "url": "/ndelius/information-page/X600012",
@@ -995,16 +993,59 @@
       "response": {
         "status": 200,
         "jsonBody": {
-          "id": "123456",
-          "startDate": "2025-01-01",
-          "endDate": "2025-01-01",
-          "notes": "some notes in here",
-          "documentsLinked": true,
-          "deregistered": false,
-          "type": {
-            "code": "REG1",
-            "description": "registration type 1"
+          "registration": {
+            "id": "123456",
+            "startDate": "2025-01-01",
+            "endDate": "2025-01-01",
+            "notes": "some notes in here",
+            "documentsLinked": true,
+            "deregistered": false,
+            "type": {
+              "code": "REG1",
+              "description": "registration type 1"
+            }
           }
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+    {
+      "request": {
+        "url": "/ndelius/information-page/X700000",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "registration": {
+            "id": "123456",
+            "type": {
+              "code": "ALSH",
+              "description": "Suicide/Self Harm"
+            },
+            "startDate": "2025-01-01",
+            "endDate": "2025-06-01",
+            "notes": "This person has an active suicide/self-harm registration.",
+            "documentsLinked": true,
+            "deregistered": false
+          }
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+    {
+      "request": {
+        "url": "/ndelius/information-page/X700001",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "registration": null
         },
         "headers": {
           "Content-Type": "application/json;charset=UTF-8"

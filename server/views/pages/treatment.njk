@@ -65,7 +65,7 @@
           <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 
           {% if searchResults.results.length == 0 %}
-            <p id="no-contacts-found" class="govuk-body">
+            <p id="no-contacts-found">
               No contacts relating to Psychiatric Treatment have been found.
             </p>
 
@@ -78,7 +78,7 @@
                 <div class="govuk-grid-row govuk-!-margin-bottom-3">
                   <div class="govuk-grid-column-full">
 
-                    <p id="contact-notes-details-{{ loop.index }}" class="govuk-body">
+                    <p id="contact-notes-details-{{ loop.index }}">
                       <strong>Date:</strong> {{ result.date | dayMonthYear }}<br>
                       <strong>Description:</strong> {{ result.description }}<br>
                       <strong>Type:</strong> {{ result.typeDescription }}<br>
@@ -97,7 +97,7 @@
 
                       {% set docHtml %}
                         {% for doc in documents %}
-                          <p class="govuk-body">
+                          <p>
                             <strong>Document name:</strong> {{ doc.name | escape }}<br>
                             <strong>Last updated:</strong> {{ doc.lastUpdated | escape }}
                           </p>

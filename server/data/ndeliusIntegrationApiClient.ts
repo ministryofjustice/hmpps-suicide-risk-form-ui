@@ -17,7 +17,7 @@ export default class NDeliusIntegrationApiClient extends RestClient {
     )
   }
 
-  async getSuicideRiskInformation(crn: string, username: string): Promise<Registration> {
+  async getSuicideRiskInformation(crn: string, username: string): Promise<RegistrationResponse> {
     return this.get(
       {
         path: `/information-page/${crn}`,
@@ -44,19 +44,15 @@ export default class NDeliusIntegrationApiClient extends RestClient {
     )
   }
 
-  async getDocumentsForContacts(request: ContactDocSearchRequest, username: string): Promise<ContactDocSearchResponse> {
+  async getDocumentsForContacts(contactIds: number[], username: string): Promise<ContactDocSearchResponse> {
     return this.post(
       {
         path: `/treatment`,
-        data: request as unknown as Record<string, unknown>,
+        data: contactIds,
       },
       asSystem(username),
     )
   }
-}
-
-export interface ContactDocSearchRequest {
-  contactIds: number[]
 }
 
 export interface DocumentDetails {
@@ -125,6 +121,10 @@ export interface Registration {
   notes: string
   documentsLinked: boolean
   deregistered: false
+}
+
+export interface RegistrationResponse {
+  registration: Registration | null
 }
 
 export interface ReferenceData {

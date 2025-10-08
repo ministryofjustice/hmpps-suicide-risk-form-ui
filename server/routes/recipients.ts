@@ -75,6 +75,8 @@ export default function recipientsRoutes(
       return
     }
 
+    suicideRisk.contactSaved = true
+
     await suicideRiskApiClient.updateSuicideRisk(req.params.id, suicideRisk, res.locals.user.username)
 
     if (req.body.action === 'saveProgressAndClose') {
