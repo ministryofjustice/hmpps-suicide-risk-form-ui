@@ -1,6 +1,5 @@
-import { Router, Request } from 'express'
+import { Request, Router } from 'express'
 import { AuthenticationClient } from '@ministryofjustice/hmpps-auth-clients'
-import { ZonedDateTime, ZoneId } from '@js-joda/core'
 import AuditService, { Page } from '../services/auditService'
 
 import SuicideRiskApiClient, { SuicideRisk } from '../data/suicideRiskApiClient'
@@ -13,7 +12,7 @@ import {
   toSuicideRiskAddress,
 } from '../utils/utils'
 import NDeliusIntegrationApiClient, { DeliusAddress, SignAndSendDetails } from '../data/ndeliusIntegrationApiClient'
-import { toUserDate, toUserDateTime } from '../utils/dateUtils'
+import { toFullUserDate, toUserDate } from '../utils/dateUtils'
 
 export default function signAndSendRoutes(
   router: Router,
@@ -202,7 +201,7 @@ export default function signAndSendRoutes(
       if (userDetails.name.middleName != null) {
         signature += ` ${userDetails.name.middleName}`
       }
-      signature += ` ${userDetails.name.surname} ${toUserDateTime(ZonedDateTime.now(ZoneId.of('Europe/London')))}`
+      signature += ` ${userDetails.name.surname} ${toFullUserDate(new Date().toISOString())}`
     }
     return signature
   }
