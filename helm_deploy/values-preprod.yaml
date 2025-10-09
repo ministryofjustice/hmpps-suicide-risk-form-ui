@@ -8,11 +8,20 @@ generic-service:
     host: suicide-risk-form-preprod.hmpps.service.justice.gov.uk
 
   env:
+    ENVIRONMENT_NAME: PRE-PRODUCTION
     INGRESS_URL: "https://suicide-risk-form-preprod.hmpps.service.justice.gov.uk"
     HMPPS_AUTH_URL: "https://sign-in-preprod.hmpps.service.justice.gov.uk/auth"
     TOKEN_VERIFICATION_API_URL: "https://token-verification-api-preprod.prison.service.justice.gov.uk"
-    ENVIRONMENT_NAME: PRE-PRODUCTION
-    AUDIT_ENABLED: "false"
+    NDELIUS_DEEPLINK_URL: "https://ndelius.pre-prod.delius.probation.hmpps.dsd.io//NDelius-war/delius/JSP/deeplink.xhtml"
+    SUICIDE_RISK_API_URL: "https://suicide-risk-form-api-preprod.hmpps.service.justice.gov.uk"
+    ASSESS_RISKS_AND_NEEDS_API_URL: "https://assess-risks-and-needs-preprod.hmpps.service.justice.gov.uk"
+    PROBATION_OFFENDER_SEARCH_API_URL: "https://probation-offender-search-preprod.hmpps.service.justice.gov.uk"
+    NDELIUS_INTEGRATION_URL: "https://suicide-risk-form-and-delius-preprod.hmpps.service.justice.gov.uk"
+
+  allowlist:
+    groups:
+      - digital_staff_and_mojo
+      - unilink_staff
 
 generic-prometheus-alerts:
   alertSeverity: hmpps-suicide-risk-form-notifications

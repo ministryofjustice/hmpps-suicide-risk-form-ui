@@ -8,16 +8,19 @@ generic-service:
     host: suicide-risk-form-dev.hmpps.service.justice.gov.uk
 
   env:
+    ENVIRONMENT_NAME: DEV
     INGRESS_URL: "https://suicide-risk-form-dev.hmpps.service.justice.gov.uk"
     HMPPS_AUTH_URL: "https://sign-in-dev.hmpps.service.justice.gov.uk/auth"
     TOKEN_VERIFICATION_API_URL: "https://token-verification-api-dev.prison.service.justice.gov.uk"
-    ENVIRONMENT_NAME: DEV
-    AUDIT_ENABLED: "false"
-    NDELIUS_DEEPLINK_URL: "https://ndelius.test.probation.service.justice.gov.uk/NDelius-war/delius/JSP/"
+    NDELIUS_DEEPLINK_URL: "https://ndelius.test.probation.service.justice.gov.uk/NDelius-war/delius/JSP/deeplink.xhtml"
+    SUICIDE_RISK_API_URL: "https://suicide-risk-form-api-dev.hmpps.service.justice.gov.uk"
+    ASSESS_RISKS_AND_NEEDS_API_URL: "https://assess-risks-and-needs-dev.hmpps.service.justice.gov.uk"
+    PROBATION_OFFENDER_SEARCH_API_URL: "https://probation-offender-search-dev.hmpps.service.justice.gov.uk"
+    NDELIUS_INTEGRATION_URL: "https://suicide-risk-form-and-delius-dev.hmpps.service.justice.gov.uk"
 
   allowlist:
     groups:
-      - internal
+      - digital_staff_and_mojo
       - unilink_staff
       - moj_cloud_platform # for end-to-end testing
 
