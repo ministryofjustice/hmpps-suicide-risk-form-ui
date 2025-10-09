@@ -1,7 +1,6 @@
 import { Router } from 'express'
 import { AuthenticationClient } from '@ministryofjustice/hmpps-auth-clients'
 import AuditService, { Page } from '../services/auditService'
-import CommonUtils from '../services/commonUtils'
 import SuicideRiskApiClient from '../data/suicideRiskApiClient'
 import { ErrorMessages } from '../data/uiModels'
 import { handleIntegrationErrors } from '../utils/utils'
