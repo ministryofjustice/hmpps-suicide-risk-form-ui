@@ -44,6 +44,6 @@ export default function routes({ auditService, hmppsAuthClient, commonUtils }: S
   updateWorkAddressRoutes(router, auditService, hmppsAuthClient, commonUtils)
   checkYourAnswersRoutes(router, auditService, hmppsAuthClient, commonUtils)
   reportCompletedRoutes(router, auditService, hmppsAuthClient)
-  pdfMaintenanceRoutes(router, auditService, hmppsAuthClient, commonUtils)
+  pdfMaintenanceRoutes(router, auditService, hmppsAuthClient)
   return router
 }
