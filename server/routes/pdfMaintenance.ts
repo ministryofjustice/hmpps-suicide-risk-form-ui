@@ -20,8 +20,6 @@ export default function pdfMaintenanceRoutes(
     const suicideRiskApiClient = new SuicideRiskApiClient(authenticationClient)
     const suicideRisk = await suicideRiskApiClient.getSuicideRiskById(req.params.id as string, res.locals.user.username)
 
-    if (await commonUtils.redirectRequired(suicideRisk, suicideRiskId, res, authenticationClient)) return
-
     try {
       const stream: ArrayBuffer = await suicideRiskApiClient.getPdfById(suicideRiskId, res.locals.user.username)
 
