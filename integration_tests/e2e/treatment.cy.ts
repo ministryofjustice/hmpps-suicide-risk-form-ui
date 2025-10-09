@@ -24,7 +24,7 @@ context('Treatment Page', () => {
   it('Current psychiatric treatment > 20000 characters triggers validation', () => {
     cy.visit('/treatment/00000000-0000-0000-0000-000000000001')
     cy.get('#current-psych-treatment').should('exist')
-    cy.contains('Psychiatric Treatment must be 20000 characters or fewer').should('not.exist')
+    cy.contains('Any current psychiatric treatment must be 20000 characters or less').should('not.exist')
     cy.contains('You have 1 character too many').should('not.exist')
 
     // Directly set the value rather than using type() which is slow.
@@ -33,7 +33,7 @@ context('Treatment Page', () => {
 
     cy.contains('You have 1 character too many').should('exist')
     cy.get('#continue-button').click()
-    cy.contains('Psychiatric Treatment must be 20000 characters or fewer').should('exist')
+    cy.contains('Any current psychiatric treatment must be 20000 characters or less').should('exist')
   })
 
   it('close button performs a post request and displays message', () => {
