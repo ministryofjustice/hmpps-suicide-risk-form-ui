@@ -71,7 +71,7 @@ export default function treatmentRoutes(
     // validate notes field
     if (suicideRisk?.currentPsychTreatment?.length > 20000) {
       errorMessages.psychTreatment = {
-        text: 'Psychiatric Treatment must be 20000 characters or fewer',
+        text: 'Any current psychiatric treatment must be 20000 characters or less',
       }
       const showEmbeddedError = true
       res.render(`pages/treatment`, { errorMessages, showEmbeddedError, suicideRisk })
