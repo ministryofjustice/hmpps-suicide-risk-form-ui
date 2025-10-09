@@ -10,9 +10,8 @@ export default function pdfMaintenanceRoutes(
   router: Router,
   auditService: AuditService,
   authenticationClient: AuthenticationClient,
-  commonUtils: CommonUtils,
 ): Router {
-  router.get('/pdf/:id', async (req, res, next) => {
+  router.get('/pdf/:id', async (req, res) => {
     await auditService.logPageView(Page.VIEW_PDF, { who: res.locals.user.username, correlationId: req.id })
 
     const suicideRiskId: string = req.params.id
