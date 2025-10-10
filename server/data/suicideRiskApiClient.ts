@@ -123,6 +123,8 @@ export interface SuicideRiskContact {
   contactLocation: SuicideRiskAddress
   emailAddress: string
   formSent: boolean
+  sendFormManually: boolean
+  sendFormViaEmail: boolean
 }
 
 export interface SuicideRiskAddress {

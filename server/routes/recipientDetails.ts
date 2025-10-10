@@ -15,7 +15,7 @@ export default function recipientsRoutes(
 ): Router {
   const currentPage = 'recipient-details'
 
-  router.get('/recipient-details/:id', async (req, res, next) => {
+  router.get('/recipient-details/:id', async (req, res) => {
     await auditService.logPageView(Page.RECIPIENT_DETAILS, { who: res.locals.user.username, correlationId: req.id })
     const suicideRiskId: string = req.params.id
     const { recipientId, contactType } = req.query
@@ -68,7 +68,7 @@ export default function recipientsRoutes(
     }
   })
 
-  router.post('/recipient-details/:id', async (req, res, next) => {
+  router.post('/recipient-details/:id', async (req, res) => {
     const suicideRiskId: string = req.params.id
     const { recipientId, contactType } = req.query
     const suicideRiskApiClient = new SuicideRiskApiClient(authenticationClient)
@@ -115,6 +115,9 @@ export default function recipientsRoutes(
     recipient.contactLocation.townCity = req.body.townCity || null
     recipient.contactLocation.county = req.body.county || null
     recipient.contactLocation.postcode = req.body.postcode || null
+    recipient.emailAddress = req.body.emailAddress || null
+    recipient.sendFormViaEmail = parseBooleanField(req.body.sendFormViaEmail)
+    recipient.sendFormManually = parseBooleanField(req.body.sendFormManually)
     recipient.contactPerson = req.body.name || null
     recipient.contactDate = new Date().toISOString()
 
@@ -164,11 +167,55 @@ export default function recipientsRoutes(
   })
 
   function validateRecipient(recipient: SuicideRiskContact): ErrorMessages {
-    const errorMessages: ErrorMessages = validateAddress(recipient.contactLocation)
+    let errorMessages: ErrorMessages = validateAddress(recipient.contactLocation)
 
     if (!recipient.contactPerson || recipient.contactPerson.trim() === '') {
       errorMessages.name = {
         text: 'Name: This is a required value, please enter a value',
+      }
+    } else {
+      errorMessages = validateLength(recipient.contactPerson, 'name', 'Name', errorMessages)
+    }
+
+    if (recipient.sendFormManually === null || recipient.sendFormManually === undefined) {
+      errorMessages.sendFormManually = {
+        text: 'Please select an answer to the question Will you be sending this form manually',
+      }
+    }
+
+    if (recipient.sendFormViaEmail === null || recipient.sendFormViaEmail === undefined) {
+      errorMessages.sendFormViaEmail = {
+        text: 'Please select an answer to the question Will you be sending this form by email',
+      }
+    }
+
+    if (recipient.emailAddress && recipient.emailAddress.trim() !== '') {
+      errorMessages = validateLength(recipient.emailAddress, 'email', 'Email', errorMessages)
+    }
+
+    if (recipient.sendFormViaEmail === true && (!recipient.emailAddress || recipient.emailAddress.trim() === '')) {
+      errorMessages.email = {
+        text: 'You have indicated that you will be emailing the form to a recipient but have not entered the recipients email address. Please enter an email address',
+      }
+    }
+    return errorMessages
+  }
+
+  function validateLength(
+    fieldValue: string | null,
+    fieldName: keyof typeof FIELD_LIMITS,
+    label: string,
+    errorMessages: ErrorMessages,
+  ): ErrorMessages {
+    const maxLength = FIELD_LIMITS[fieldName]
+    if (!fieldValue) return errorMessages
+
+    if (fieldValue.trim().length > maxLength) {
+      return {
+        ...errorMessages,
+        [fieldName]: {
+          text: `Please enter ${maxLength} characters or less for ${label}`,
+        },
       }
     }
 
@@ -176,8 +223,7 @@ export default function recipientsRoutes(
   }
 
   function validateAddress(address: SuicideRiskAddress): ErrorMessages {
-    const errorMessages: ErrorMessages = {}
-
+    let errorMessages: ErrorMessages = {}
     if (
       (!address.officeDescription || address.officeDescription.trim() === '') &&
       (!address.buildingName || address.buildingName.trim() === '') &&
@@ -206,6 +252,15 @@ export default function recipientsRoutes(
       }
     }
 
+    errorMessages = validateLength(address.officeDescription, 'officeDescription', 'Office Description', errorMessages)
+    errorMessages = validateLength(address.buildingName, 'buildingName', 'Building Name', errorMessages)
+    errorMessages = validateLength(address.buildingNumber, 'buildingNumber', 'Address Number', errorMessages)
+    errorMessages = validateLength(address.streetName, 'streetName', 'Street Name', errorMessages)
+    errorMessages = validateLength(address.district, 'district', 'District', errorMessages)
+    errorMessages = validateLength(address.townCity, 'townCity', 'Town or City', errorMessages)
+    errorMessages = validateLength(address.county, 'county', 'County', errorMessages)
+    errorMessages = validateLength(address.postcode, 'postcode', 'Postcode', errorMessages)
+
     return errorMessages
   }
 
@@ -230,6 +285,8 @@ export default function recipientsRoutes(
       },
       emailAddress: null,
       formSent: false,
+      sendFormManually: null,
+      sendFormViaEmail: null,
     }
   }
 
@@ -241,5 +298,24 @@ export default function recipientsRoutes(
     OTHER: 'other_agency',
   }
 
+  const FIELD_LIMITS = {
+    name: 200,
+    officeDescription: 50,
+    buildingName: 35,
+    buildingNumber: 35,
+    streetName: 35,
+    district: 35,
+    townCity: 35,
+    county: 35,
+    postcode: 8,
+    email: 250,
+  }
+
   return router
+}
+
+function parseBooleanField(value: string | boolean | null | undefined): boolean | null {
+  if (value === 'true') return true
+  if (value === 'false') return false
+  return null
 }
