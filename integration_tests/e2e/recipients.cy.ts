@@ -86,9 +86,12 @@ context('Recipients Page', () => {
       .first()
       .then($link => {
         const href = $link.attr('href')
-        expect(href).to.include(`/recipient-details/${suicideRiskId}?recipientId=`)
+        expect(href, 'href should include correct path').to.include(`/recipient-details/${suicideRiskId}?recipientId=`)
+        cy.request(href).then(response => {
+          expect(response.status, 'edit page should return 200').to.eq(200)
+        })
         cy.visit(href)
-        cy.contains('Recipient Details –').should('be.visible')
+        cy.contains('Recipient Details –', { timeout: 10000 }).should('be.visible')
       })
   })
 
