@@ -47,7 +47,33 @@
                         {% if rec.contactLocation.postcode %}{{ rec.contactLocation.postcode }}<br>{% endif %}
                       {% endif %}
                     </dd>
-                    <dd class="govuk-summary-list__actions"></dd>
+                  </div>
+
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Email</dt>
+                    <dd class="govuk-summary-list__value">{{ rec.emailAddress }}</dd>
+                  </div>
+
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Will be sent manually?</dt>
+                    <dd class="govuk-summary-list__value">
+                      {% if rec.sendFormManually %}
+                        Yes
+                      {% else %}
+                        No
+                      {% endif %}
+                    </dd>
+                  </div>
+
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Will be sent by email by this service?</dt>
+                    <dd class="govuk-summary-list__value">
+                      {% if rec.sendFormViaEmail %}
+                        Yes
+                      {% else %}
+                        No
+                      {% endif %}
+                    </dd>
                   </div>
                 </dl>
                 <p>
@@ -59,8 +85,7 @@
                   </a>
                 </p>
                 {% if not loop.last %}
-                  <hr
-                    class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+                  <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
                 {% endif %}
               {% endfor %}
             {% else %}
@@ -104,7 +129,33 @@
                         {% if rec.contactLocation.postcode %}{{ rec.contactLocation.postcode }}<br>{% endif %}
                       {% endif %}
                     </dd>
-                    <dd class="govuk-summary-list__actions"></dd>
+                  </div>
+
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Email</dt>
+                    <dd class="govuk-summary-list__value">{{ rec.emailAddress }}</dd>
+                  </div>
+
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Will be sent manually?</dt>
+                    <dd class="govuk-summary-list__value">
+                      {% if rec.sendFormManually %}
+                        Yes
+                      {% else %}
+                        No
+                      {% endif %}
+                    </dd>
+                  </div>
+
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Will be sent by email by this service?</dt>
+                    <dd class="govuk-summary-list__value">
+                      {% if rec.sendFormViaEmail %}
+                        Yes
+                      {% else %}
+                        No
+                      {% endif %}
+                    </dd>
                   </div>
                 </dl>
                 <p>
@@ -116,8 +167,7 @@
                   </a>
                 </p>
                 {% if not loop.last %}
-                <hr
-                  class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+                  <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
                 {% endif %}
               {% endfor %}
             {% else %}
@@ -162,7 +212,33 @@
                         {% if rec.contactLocation.postcode %}{{ rec.contactLocation.postcode }}<br>{% endif %}
                       {% endif %}
                     </dd>
-                    <dd class="govuk-summary-list__actions"></dd>
+                  </div>
+
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Email</dt>
+                    <dd class="govuk-summary-list__value">{{ rec.emailAddress }}</dd>
+                  </div>
+
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Will be sent manually?</dt>
+                    <dd class="govuk-summary-list__value">
+                      {% if rec.sendFormManually %}
+                        Yes
+                      {% else %}
+                        No
+                      {% endif %}
+                    </dd>
+                  </div>
+
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Will be sent by email by this service?</dt>
+                    <dd class="govuk-summary-list__value">
+                      {% if rec.sendFormViaEmail %}
+                        Yes
+                      {% else %}
+                        No
+                      {% endif %}
+                    </dd>
                   </div>
                 </dl>
                 <p>
@@ -174,8 +250,7 @@
                   </a>
                 </p>
                 {% if not loop.last %}
-                <hr
-                  class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+                  <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
                 {% endif %}
               {% endfor %}
             {% else %}
@@ -219,7 +294,33 @@
                         {% if rec.contactLocation.postcode %}{{ rec.contactLocation.postcode }}<br>{% endif %}
                       {% endif %}
                     </dd>
-                    <dd class="govuk-summary-list__actions"></dd>
+                  </div>
+
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Email</dt>
+                    <dd class="govuk-summary-list__value">{{ rec.emailAddress }}</dd>
+                  </div>
+
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Will be sent manually?</dt>
+                    <dd class="govuk-summary-list__value">
+                      {% if rec.sendFormManually %}
+                        Yes
+                      {% else %}
+                        No
+                      {% endif %}
+                    </dd>
+                  </div>
+
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Will be sent by email by this service?</dt>
+                    <dd class="govuk-summary-list__value">
+                      {% if rec.sendFormViaEmail %}
+                        Yes
+                      {% else %}
+                        No
+                      {% endif %}
+                    </dd>
                   </div>
                 </dl>
                 <p>
@@ -231,8 +332,7 @@
                   </a>
                 </p>
                 {% if not loop.last %}
-                <hr
-                  class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+                  <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
                 {% endif %}
               {% endfor %}
             {% else %}
@@ -276,7 +376,33 @@
                         {% if rec.contactLocation.postcode %}{{ rec.contactLocation.postcode }}<br>{% endif %}
                       {% endif %}
                     </dd>
-                    <dd class="govuk-summary-list__actions"></dd>
+                  </div>
+
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Email</dt>
+                    <dd class="govuk-summary-list__value">{{ rec.emailAddress }}</dd>
+                  </div>
+
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Will be sent manually?</dt>
+                    <dd class="govuk-summary-list__value">
+                      {% if rec.sendFormManually %}
+                        Yes
+                      {% else %}
+                        No
+                      {% endif %}
+                    </dd>
+                  </div>
+
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">Will be sent by email by this service?</dt>
+                    <dd class="govuk-summary-list__value">
+                      {% if rec.sendFormViaEmail %}
+                        Yes
+                      {% else %}
+                        No
+                      {% endif %}
+                    </dd>
                   </div>
                 </dl>
                 <p>
@@ -288,8 +414,7 @@
                   </a>
                 </p>
                 {% if not loop.last %}
-                  <hr
-                    class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+                  <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
                 {% endif %}
               {% endfor %}
             {% else %}

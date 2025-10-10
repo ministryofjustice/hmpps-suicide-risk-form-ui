@@ -35,10 +35,13 @@ context('Recipients Page', () => {
     cy.contains('Medical Services').should('exist')
     cy.contains('Other Agency').should('exist')
 
-    cy.get('.govuk-summary-card').each($card => {
-      cy.wrap($card).within(() => {
+    cy.get('.govuk-summary-list').each($list => {
+      cy.wrap($list).within(() => {
         cy.contains('Name').should('exist')
+        cy.contains('Email').should('exist')
         cy.contains('Location').should('exist')
+        cy.contains('Will be sent manually?').should('exist')
+        cy.contains('Will be sent by email by this service?').should('exist')
       })
     })
 
@@ -50,6 +53,8 @@ context('Recipients Page', () => {
       .within(() => {
         cy.contains('Jason Smith').should('exist')
         cy.contains('Jason Smith Junior').should('exist')
+        cy.contains('Yes').should('exist')
+        cy.contains('No').should('exist')
       })
   })
 
@@ -81,9 +86,12 @@ context('Recipients Page', () => {
       .first()
       .then($link => {
         const href = $link.attr('href')
-        expect(href).to.include(`/recipient-details/${suicideRiskId}?recipientId=`)
+        expect(href, 'href should include correct path').to.include(`/recipient-details/${suicideRiskId}?recipientId=`)
+        cy.request(href).then(response => {
+          expect(response.status, 'edit page should return 200').to.eq(200)
+        })
         cy.visit(href)
-        cy.contains('Recipient Details –').should('be.visible')
+        cy.contains('Recipient Details –', { timeout: 10000 }).should('be.visible')
       })
   })
 
