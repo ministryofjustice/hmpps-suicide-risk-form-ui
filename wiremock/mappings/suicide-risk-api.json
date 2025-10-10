@@ -1320,6 +1320,8 @@
               "contactDate": "2025-09-17",
               "contactTypeDescription": "other_agency",
               "contactPerson": "Jason Smith",
+              "sendFormManually": false,
+              "sendFormViaEmail": false,
               "contactLocation": {
                 "id": "70000002",
                 "addressId": "70000000",
@@ -1341,6 +1343,8 @@
               "contactDate": "2025-09-17",
               "contactTypeDescription": "other_agency",
               "contactPerson": "Jason Smith Junior",
+              "sendFormManually": false,
+              "sendFormViaEmail": false,
               "contactLocation": {
                 "id": "70000003",
                 "addressId": "70000000",
@@ -1517,6 +1521,8 @@
         "jsonBody": {
           "contactTypeDescription": "other_agency",
           "contactPerson": "Jason Smith",
+          "sendFormManually": false,
+          "sendFormViaEmail": false,
           "contactLocation": {
             "id": "70000002",
             "addressId": "70000000",
@@ -1545,6 +1551,8 @@
         "jsonBody": {
           "contactTypeDescription": "other_agency",
           "contactPerson": "Jason Smith Junior",
+          "sendFormManually": false,
+          "sendFormViaEmail": false,
           "contactLocation": {
             "id": "70000003",
             "addressId": "70000000",
@@ -1672,6 +1680,8 @@
           "contactDate": "2025-09-17",
           "contactTypeDescription": "other_agency",
           "contactPerson": "Jason Smith UPDATED",
+          "sendFormManually": false,
+          "sendFormViaEmail": false,
           "contactLocation": {
             "id": "70000003",
             "addressId": "70000000",
@@ -1706,6 +1716,8 @@
           "contactDate": "2025-09-24",
           "contactTypeDescription": "medical_services",
           "contactPerson": "NEW Jason Smith",
+          "sendFormManually": false,
+          "sendFormViaEmail": false,
           "contactLocation": {
             "id": "70000004",
             "addressId": "70000000",
@@ -1899,6 +1911,8 @@
               "contactDate": "2025-09-17",
               "contactTypeDescription": "other_agency",
               "contactPerson": "Jason Smith",
+              "sendFormManually": false,
+              "sendFormViaEmail": false,
               "contactLocation": {
                 "id": "70000002",
                 "addressId": "70000000",
@@ -1920,6 +1934,8 @@
               "contactDate": "2025-09-17",
               "contactTypeDescription": "other_agency",
               "contactPerson": "Jason Smith Junior",
+              "sendFormManually": false,
+              "sendFormViaEmail": false,
               "contactLocation": {
                 "id": "70000003",
                 "addressId": "70000000",
@@ -2097,6 +2113,8 @@
         "jsonBody": {
           "contactTypeDescription": "other_agency",
           "contactPerson": "Jason Smith",
+          "sendFormManually": false,
+          "sendFormViaEmail": false,
           "contactLocation": {
             "id": "70000002",
             "addressId": "70000000",
@@ -2125,6 +2143,8 @@
         "jsonBody": {
           "contactTypeDescription": "other_agency",
           "contactPerson": "Jason Smith Junior",
+          "sendFormManually": false,
+          "sendFormViaEmail": false,
           "contactLocation": {
             "id": "70000003",
             "addressId": "70000000",
@@ -2283,6 +2303,8 @@
           "contactDate": "2025-09-17",
           "contactTypeDescription": "other_agency",
           "contactPerson": "Jason Smith UPDATED",
+          "sendFormManually": false,
+          "sendFormViaEmail": false,
           "contactLocation": {
             "id": "70000003",
             "addressId": "70000000",
@@ -2317,6 +2339,8 @@
           "contactDate": "2025-09-24",
           "contactTypeDescription": "medical_services",
           "contactPerson": "NEW Jason Smith",
+          "sendFormManually": false,
+          "sendFormViaEmail": false,
           "contactLocation": {
             "id": "70000004",
             "addressId": "70000000",
