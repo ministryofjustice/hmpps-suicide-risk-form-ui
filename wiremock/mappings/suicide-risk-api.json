@@ -1320,6 +1320,8 @@
               "contactDate": "2025-09-17",
               "contactTypeDescription": "other_agency",
               "contactPerson": "Jason Smith",
+              "sendFormManually": false,
+              "sendFormViaEmail": false,
               "contactLocation": {
                 "id": "70000002",
                 "addressId": "70000000",
@@ -1341,6 +1343,8 @@
               "contactDate": "2025-09-17",
               "contactTypeDescription": "other_agency",
               "contactPerson": "Jason Smith Junior",
+              "sendFormManually": false,
+              "sendFormViaEmail": false,
               "contactLocation": {
                 "id": "70000003",
                 "addressId": "70000000",
@@ -1355,6 +1359,30 @@
                 "postcode": "AA1 1AA"
               },
               "formSent": false
+            },
+            {
+              "id": "00000000-0000-0000-0000-700000000007",
+              "suicideRiskId": "00000000-0000-0000-0000-700000000000",
+              "contactDate": "2025-09-17",
+              "contactTypeDescription": "other_agency",
+              "contactPerson": "Janet Smith",
+              "emailAddress": "janet.smith@example.com",
+              "sendFormManually": true,
+              "sendFormViaEmail": false,
+              "formSent": false,
+              "contactLocation": {
+                "id": "70000007",
+                "addressId": "70000000",
+                "status": "active",
+                "officeDescription": "Regional Office",
+                "buildingName": "The Archway",
+                "buildingNumber": "9",
+                "streetName": "Main Street",
+                "townCity": "Riverside",
+                "district": "North District",
+                "county": "Northshire",
+                "postcode": "BB2 2BB"
+              }
             }
           ],
           "signature": "Elvira Quinn 4/5/2025 17:23",
@@ -1493,6 +1521,8 @@
         "jsonBody": {
           "contactTypeDescription": "other_agency",
           "contactPerson": "Jason Smith",
+          "sendFormManually": false,
+          "sendFormViaEmail": false,
           "contactLocation": {
             "id": "70000002",
             "addressId": "70000000",
@@ -1521,6 +1551,8 @@
         "jsonBody": {
           "contactTypeDescription": "other_agency",
           "contactPerson": "Jason Smith Junior",
+          "sendFormManually": false,
+          "sendFormViaEmail": false,
           "contactLocation": {
             "id": "70000003",
             "addressId": "70000000",
@@ -1648,6 +1680,8 @@
           "contactDate": "2025-09-17",
           "contactTypeDescription": "other_agency",
           "contactPerson": "Jason Smith UPDATED",
+          "sendFormManually": false,
+          "sendFormViaEmail": false,
           "contactLocation": {
             "id": "70000003",
             "addressId": "70000000",
@@ -1682,6 +1716,8 @@
           "contactDate": "2025-09-24",
           "contactTypeDescription": "medical_services",
           "contactPerson": "NEW Jason Smith",
+          "sendFormManually": false,
+          "sendFormViaEmail": false,
           "contactLocation": {
             "id": "70000004",
             "addressId": "70000000",
@@ -1875,6 +1911,8 @@
               "contactDate": "2025-09-17",
               "contactTypeDescription": "other_agency",
               "contactPerson": "Jason Smith",
+              "sendFormManually": false,
+              "sendFormViaEmail": false,
               "contactLocation": {
                 "id": "70000002",
                 "addressId": "70000000",
@@ -1896,6 +1934,8 @@
               "contactDate": "2025-09-17",
               "contactTypeDescription": "other_agency",
               "contactPerson": "Jason Smith Junior",
+              "sendFormManually": false,
+              "sendFormViaEmail": false,
               "contactLocation": {
                 "id": "70000003",
                 "addressId": "70000000",
@@ -1910,6 +1950,30 @@
                 "postcode": "AA1 1AA"
               },
               "formSent": false
+            },
+            {
+              "id": "00000000-0000-0000-0000-700000000007",
+              "suicideRiskId": "00000000-0000-0000-0000-700000000000",
+              "contactDate": "2025-09-17",
+              "contactTypeDescription": "other_agency",
+              "contactPerson": "Janet Smith",
+              "emailAddress": "janet.smith@example.com",
+              "sendFormManually": true,
+              "sendFormViaEmail": false,
+              "formSent": false,
+              "contactLocation": {
+                "id": "70000007",
+                "addressId": "70000000",
+                "status": "active",
+                "officeDescription": "Regional Office",
+                "buildingName": "The Archway",
+                "buildingNumber": "9",
+                "streetName": "Main Street",
+                "townCity": "Riverside",
+                "district": "North District",
+                "county": "Northshire",
+                "postcode": "BB2 2BB"
+              }
             }
           ],
           "dateOfLetter": "2025-01-01",
@@ -2049,6 +2113,8 @@
         "jsonBody": {
           "contactTypeDescription": "other_agency",
           "contactPerson": "Jason Smith",
+          "sendFormManually": false,
+          "sendFormViaEmail": false,
           "contactLocation": {
             "id": "70000002",
             "addressId": "70000000",
@@ -2077,6 +2143,8 @@
         "jsonBody": {
           "contactTypeDescription": "other_agency",
           "contactPerson": "Jason Smith Junior",
+          "sendFormManually": false,
+          "sendFormViaEmail": false,
           "contactLocation": {
             "id": "70000003",
             "addressId": "70000000",
@@ -2089,6 +2157,37 @@
             "district": "District",
             "county": "County",
             "postcode": "AA1 1AA"
+          },
+          "formSent": false
+        },
+        "headers": { "Content-Type": "application/json;charset=UTF-8" }
+      }
+    },
+    {
+      "request": {
+        "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-700000000000/recipient/00000000-0000-0000-0000-700000000007",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "contactTypeDescription": "other_agency",
+          "contactPerson": "Janet Smith",
+          "emailAddress": "janet.smith@example.com",
+          "sendFormManually": true,
+          "sendFormViaEmail": false,
+          "contactLocation": {
+            "id": "70000007",
+            "addressId": "70000000",
+            "status": "active",
+            "officeDescription": "Regional Office",
+            "buildingName": "The Archway",
+            "buildingNumber": "9",
+            "streetName": "Main Street",
+            "townCity": "Riverside",
+            "district": "North District",
+            "county": "Northshire",
+            "postcode": "BB2 2BB"
           },
           "formSent": false
         },
@@ -2204,6 +2303,8 @@
           "contactDate": "2025-09-17",
           "contactTypeDescription": "other_agency",
           "contactPerson": "Jason Smith UPDATED",
+          "sendFormManually": false,
+          "sendFormViaEmail": false,
           "contactLocation": {
             "id": "70000003",
             "addressId": "70000000",
@@ -2238,6 +2339,8 @@
           "contactDate": "2025-09-24",
           "contactTypeDescription": "medical_services",
           "contactPerson": "NEW Jason Smith",
+          "sendFormManually": false,
+          "sendFormViaEmail": false,
           "contactLocation": {
             "id": "70000004",
             "addressId": "70000000",

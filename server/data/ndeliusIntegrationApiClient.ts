@@ -59,6 +59,7 @@ export interface DocumentDetails {
   id: number
   name: string
   lastUpdated: string
+  alfrescoId: string
 }
 
 export interface ContactDocSearchResponseItem {
