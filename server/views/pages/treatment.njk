@@ -99,7 +99,7 @@
                         {% for doc in documents %}
                           <p>
                             <strong>Document name:</strong> {{ doc.name | escape }}<br>
-                            <strong>Last updated:</strong> {{ doc.lastUpdated | escape }}
+                            <strong>Last updated:</strong> {{ doc.lastUpdated | toUserDateTimeFromString }}
                           </p>
                         {% endfor %}
                       {% endset %}

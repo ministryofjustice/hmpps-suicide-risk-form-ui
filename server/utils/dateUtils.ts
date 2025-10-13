@@ -30,6 +30,14 @@ export function toUserDateTime(timestamp: ZonedDateTime): string {
   return ''
 }
 
+export function toUserDateTimeFromString(str: string): string {
+  if (str) {
+    const zdt = ZonedDateTime.parse(str)
+    return DateTimeFormatter.ofPattern('dd/MM/yyyy HH:mm').format(zdt.toLocalDateTime())
+  }
+  return ''
+}
+
 export function toUserTime(str: string): string {
   if (str) {
     return DateTimeFormatter.ofPattern('HH:mm').format(DateTimeFormatter.ISO_LOCAL_DATE_TIME.parse(str))
