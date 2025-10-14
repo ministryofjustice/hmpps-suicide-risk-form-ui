@@ -55,14 +55,18 @@ export default function informationRoutes(
         res.render(`pages/detailed-error`, { errorMessages })
         return
       }
+      if (error.responseStatus === 404) {
+        riskAssessment = null
+      }
       // stay on the current page for 500 errors
-      if (error.status === 500) {
+      else if (error.status === 500) {
         const showEmbeddedError = true
         res.render(`pages/information`, { errorMessages, showEmbeddedError })
         return
+      } else {
+        res.render(`pages/detailed-error`, { errorMessages })
+        return
       }
-      res.render(`pages/detailed-error`, { errorMessages })
-      return
     }
 
     try {
