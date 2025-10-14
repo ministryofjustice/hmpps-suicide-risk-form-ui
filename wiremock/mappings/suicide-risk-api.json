@@ -132,6 +132,25 @@
 
     {
       "request": {
+        "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-100000000009",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "00000000-0000-0000-0000-100000000009",
+          "crn": "X100505",
+          "completedDate": null
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        "transformers": ["response-template"]
+      }
+    },
+
+    {
+      "request": {
         "url": "/suicide-risk-api/suicide-risk/30000000-0000-0000-0000-33333333333",
         "method": "GET"
       },
