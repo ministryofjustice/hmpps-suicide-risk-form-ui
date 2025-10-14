@@ -143,3 +143,8 @@ it('Twisty not displayed when no risk assessment information available', () => {
   cy.visit('/information/00000000-0000-0000-0000-100000000008')
   cy.get('#view-information-arn--govuk-details').should('not.exist')
 })
+
+it('Twisty not displayed when 404 returned by arns service', () => {
+  cy.visit('/information/00000000-0000-0000-0000-100000000009')
+  cy.get('#view-information-arn--govuk-details').should('not.exist')
+})
