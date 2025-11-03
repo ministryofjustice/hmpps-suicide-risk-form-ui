@@ -77,7 +77,7 @@
     "@js-joda/core": "^5.6.5",
     "@js-joda/timezone": "^2.22.0",
     "@ministryofjustice/frontend": "^6.0.0",
-    "@ministryofjustice/hmpps-auth-clients": "^0.0.1",
+    "@ministryofjustice/hmpps-auth-clients": "^1.0.0",
     "@ministryofjustice/hmpps-monitoring": "^0.0.1",
     "@ministryofjustice/hmpps-rest-client": "^0.0.1",
     "applicationinsights": "^3.9.0",
