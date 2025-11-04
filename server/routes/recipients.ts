@@ -20,6 +20,8 @@ export default function recipientsRoutes(
     const suicideRiskId: string = req.params.id
     const suicideRiskApiClient = new SuicideRiskApiClient(authenticationClient)
     const suicideRisk = await suicideRiskApiClient.getSuicideRiskById(suicideRiskId, res.locals.user.username)
+    const callingScreen: string = req.query.returnTo as string
+
     if (await commonUtils.redirectRequired(suicideRisk, suicideRiskId, res, authenticationClient)) return
 
     if (suicideRisk?.suicideRiskContactList?.length > 0) {
@@ -48,12 +50,14 @@ export default function recipientsRoutes(
         contactsPoliceCustodyCells,
         contactsMedicalServices,
         contactsOtherAgency,
+        callingScreen,
       })
     } else {
       res.render('pages/recipients', {
         suicideRisk,
         currentPage,
         suicideRiskId,
+        callingScreen,
       })
     }
   })

@@ -27,6 +27,7 @@ export default function deleteRecipientRoutes(
   router.post('/delete-recipient/:suicideRiskId/:recipientId', async (req, res) => {
     await auditService.logPageView(Page.DELETE_RECIPIENT, { who: res.locals.user.username, correlationId: req.id })
     const { suicideRiskId, recipientId } = req.params
+    const callingScreen: string = req.query.returnTo as string
     const suicideRiskApiClient = new SuicideRiskApiClient(authenticationClient)
 
     if (req.body.action === 'confirm') {
@@ -51,7 +52,9 @@ export default function deleteRecipientRoutes(
         return
       }
     }
-    res.redirect(`/recipients/${suicideRiskId}`)
+    let redirectUrl = `/recipients/${suicideRiskId}`
+    if (callingScreen) redirectUrl += `?returnTo=${callingScreen}`
+    res.redirect(redirectUrl)
   })
 
   return router

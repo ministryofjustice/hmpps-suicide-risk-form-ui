@@ -23,6 +23,11 @@
           <div class="govuk-summary-card__content">
             <h2 class="govuk-heading-m">Other colleagues</h2>
 
+            {% set returnToParam = '' %}
+            {% if callingScreen %}
+              {% set returnToParam = 'returnTo=' + callingScreen %}
+            {% endif %}
+
             {% if contactsOtherColleagues and contactsOtherColleagues.length > 0 %}
               {% for rec in contactsOtherColleagues %}
                 <dl class="govuk-summary-list govuk-!-margin-bottom-3 govuk-!-margin-top-3">
@@ -77,10 +82,18 @@
                   </div>
                 </dl>
                 <p>
-                  <a href="{{ '/recipient-details/' + suicideRiskId + '?recipientId=' + rec.id }}" class="govuk-link">
+                  {% set detailsLink = '/recipient-details/' + suicideRiskId + '?recipientId=' + rec.id %}
+                  {% if returnToParam %}
+                    {% set detailsLink = detailsLink + '&' + returnToParam %}
+                  {% endif %}
+                  <a href="{{ detailsLink }}" class="govuk-link">
                     Click this link to edit the recipient
                   </a><br>
-                  <a href="{{ '/delete-recipient/' + suicideRiskId + '/' + rec.id }}" class="govuk-link">
+                  {% set deleteLink = '/delete-recipient/' + suicideRiskId + '/' + rec.id %}
+                  {% if returnToParam %}
+                    {% set deleteLink = deleteLink + '?' + returnToParam %}
+                  {% endif %}
+                  <a href="{{ deleteLink }}" class="govuk-link">
                     Click this link to delete the recipient
                   </a>
                 </p>
@@ -92,10 +105,15 @@
               <p>No Recipients of this type added</p>
             {% endif %}
 
+            {% set colleagueUrl = '/recipient-details/' + suicideRiskId + '?contactType=COLLEAGUE' %}
+            {% if returnToParam %}
+              {% set colleagueUrl = colleagueUrl + '&' + returnToParam %}
+            {% endif %}
+
             {{ govukButton({
               text: "Add Recipient of this type",
               type: "submit",
-              href: '/recipient-details/' + suicideRiskId + '?contactType=COLLEAGUE',
+              href: colleagueUrl,
               attributes: { id: "add-other-colleagues--button" }
             }) }}
           </div>
@@ -159,10 +177,18 @@
                   </div>
                 </dl>
                 <p>
-                  <a href="{{ '/recipient-details/' + suicideRiskId + '?recipientId=' + rec.id }}" class="govuk-link">
+                  {% set detailsLink = '/recipient-details/' + suicideRiskId + '?recipientId=' + rec.id %}
+                  {% if returnToParam %}
+                    {% set detailsLink = detailsLink + '&' + returnToParam %}
+                  {% endif %}
+                  <a href="{{ detailsLink }}" class="govuk-link">
                     Click this link to edit the recipient
                   </a><br>
-                  <a href="{{ '/delete-recipient/' + suicideRiskId + '/' + rec.id }}" class="govuk-link">
+                  {% set deleteLink = '/delete-recipient/' + suicideRiskId + '/' + rec.id %}
+                  {% if returnToParam %}
+                    {% set deleteLink = deleteLink + '?' + returnToParam %}
+                  {% endif %}
+                  <a href="{{ deleteLink }}" class="govuk-link">
                     Click this link to delete the recipient
                   </a>
                 </p>
@@ -174,10 +200,15 @@
               <p>No Recipients of this type added</p>
             {% endif %}
 
+            {% set prisonUrl = '/recipient-details/' + suicideRiskId + '?contactType=PRISON' %}
+            {% if returnToParam %}
+              {% set prisonUrl = prisonUrl + '&' + returnToParam %}
+            {% endif %}
+
             {{ govukButton({
               text: "Add Recipient of this type",
               type: "submit",
-              href: '/recipient-details/' + suicideRiskId + '?contactType=PRISON',
+              href: prisonUrl,
               attributes: { id: "add-prison-establishment--button" }
             }) }}
           </div>
@@ -242,10 +273,18 @@
                   </div>
                 </dl>
                 <p>
-                  <a href="{{ '/recipient-details/' + suicideRiskId + '?recipientId=' + rec.id }}" class="govuk-link">
+                  {% set detailsLink = '/recipient-details/' + suicideRiskId + '?recipientId=' + rec.id %}
+                  {% if returnToParam %}
+                    {% set detailsLink = detailsLink + '&' + returnToParam %}
+                  {% endif %}
+                  <a href="{{ detailsLink }}" class="govuk-link">
                     Click this link to edit the recipient
                   </a><br>
-                  <a href="{{ '/delete-recipient/' + suicideRiskId + '/' + rec.id }}" class="govuk-link">
+                  {% set deleteLink = '/delete-recipient/' + suicideRiskId + '/' + rec.id %}
+                  {% if returnToParam %}
+                    {% set deleteLink = deleteLink + '?' + returnToParam %}
+                  {% endif %}
+                  <a href="{{ deleteLink }}" class="govuk-link">
                     Click this link to delete the recipient
                   </a>
                 </p>
@@ -257,10 +296,15 @@
               <p>No Recipients of this type added</p>
             {% endif %}
 
+            {% set policeUrl = '/recipient-details/' + suicideRiskId + '?contactType=POLICE' %}
+            {% if returnToParam %}
+              {% set policeUrl = policeUrl + '&' + returnToParam %}
+            {% endif %}
+
             {{ govukButton({
               text: "Add Recipient of this type",
               type: "submit",
-              href: '/recipient-details/' + suicideRiskId + '?contactType=POLICE',
+              href: policeUrl,
               attributes: { id: "add-police-custody--button" }
             }) }}
           </div>
@@ -324,10 +368,18 @@
                   </div>
                 </dl>
                 <p>
-                  <a href="{{ '/recipient-details/' + suicideRiskId + '?recipientId=' + rec.id }}" class="govuk-link">
+                  {% set detailsLink = '/recipient-details/' + suicideRiskId + '?recipientId=' + rec.id %}
+                  {% if returnToParam %}
+                    {% set detailsLink = detailsLink + '&' + returnToParam %}
+                  {% endif %}
+                  <a href="{{ detailsLink }}" class="govuk-link">
                     Click this link to edit the recipient
                   </a><br>
-                  <a href="{{ '/delete-recipient/' + suicideRiskId + '/' + rec.id }}" class="govuk-link">
+                  {% set deleteLink = '/delete-recipient/' + suicideRiskId + '/' + rec.id %}
+                  {% if returnToParam %}
+                    {% set deleteLink = deleteLink + '?' + returnToParam %}
+                  {% endif %}
+                  <a href="{{ deleteLink }}" class="govuk-link">
                     Click this link to delete the recipient
                   </a>
                 </p>
@@ -339,10 +391,15 @@
               <p>No Recipients of this type added</p>
             {% endif %}
 
+            {% set medicalUrl = '/recipient-details/' + suicideRiskId + '?contactType=MEDICAL' %}
+            {% if returnToParam %}
+              {% set medicalUrl = medicalUrl + '&' + returnToParam %}
+            {% endif %}
+
             {{ govukButton({
               text: "Add Recipient of this type",
               type: "submit",
-              href: '/recipient-details/' + suicideRiskId + '?contactType=MEDICAL',
+              href: medicalUrl,
               attributes: { id: "add-medical-services--button" }
             }) }}
           </div>
@@ -406,10 +463,18 @@
                   </div>
                 </dl>
                 <p>
-                  <a href="{{ '/recipient-details/' + suicideRiskId + '?recipientId=' + rec.id }}" class="govuk-link">
+                  {% set detailsLink = '/recipient-details/' + suicideRiskId + '?recipientId=' + rec.id %}
+                  {% if returnToParam %}
+                    {% set detailsLink = detailsLink + '&' + returnToParam %}
+                  {% endif %}
+                  <a href="{{ detailsLink }}" class="govuk-link">
                     Click this link to edit the recipient
                   </a><br>
-                  <a href="{{ '/delete-recipient/' + suicideRiskId + '/' + rec.id }}" class="govuk-link">
+                  {% set deleteLink = '/delete-recipient/' + suicideRiskId + '/' + rec.id %}
+                  {% if returnToParam %}
+                    {% set deleteLink = deleteLink + '?' + returnToParam %}
+                  {% endif %}
+                  <a href="{{ deleteLink }}" class="govuk-link">
                     Click this link to delete the recipient
                   </a>
                 </p>
@@ -421,10 +486,15 @@
               <p>No Recipients of this type added</p>
             {% endif %}
 
+            {% set otherUrl = '/recipient-details/' + suicideRiskId + '?contactType=OTHER' %}
+            {% if returnToParam %}
+              {% set otherUrl = otherUrl + '&' + returnToParam %}
+            {% endif %}
+
             {{ govukButton({
               text: "Add Recipient of this type",
               type: "submit",
-              href: '/recipient-details/' + suicideRiskId + '?contactType=OTHER',
+              href: otherUrl,
               attributes: { id: "add-other-agencies--button" }
             }) }}
           </div>
