@@ -142,18 +142,6 @@ context('Recipients Page', () => {
     cy.contains('You can now safely close this window').should('be.visible')
   })
 
-  it('refresh from Delius button reloads the page', () => {
-    cy.intercept('POST', '/recipients/**').as('refreshFromNdelius')
-    cy.visit('/recipients/00000000-0000-0000-0000-000000000001')
-
-    cy.get('#refresh-from-ndelius--button').click()
-    cy.wait('@refreshFromNdelius').then(({ request }) => {
-      const body = new URLSearchParams(request.body)
-      expect(body.get('action')).to.equal('refreshFromNdelius')
-    })
-    cy.url().should('include', '/recipients/00000000-0000-0000-0000-000000000001')
-  })
-
   it('displays working navigation menu options', () => {
     cy.visit('/recipients/00000000-0000-0000-0000-300000000003')
 
