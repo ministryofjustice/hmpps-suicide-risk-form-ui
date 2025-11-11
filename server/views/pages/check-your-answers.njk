@@ -189,7 +189,7 @@
                   Current Psychiatric Treatment
                 </dt>
                 <dd class="govuk-summary-list__value">
-                  {% if not suicideRisk.currentPsychTreatment or suicideRisk.currentPsychTreatment | trim == '' and suicideRisk.informationSaved %}
+                  {% if (not suicideRisk.currentPsychTreatment or suicideRisk.currentPsychTreatment | trim == '') and suicideRisk.informationSaved %}
                     <a id="cya-link-treatment" href="/treatment/{{ suicideRiskId }}?returnTo=check-your-report" class="govuk-link">enter required
                       information<span class="govuk-visually-hidden"> for Treatment</span></a>
                   {% else %}
