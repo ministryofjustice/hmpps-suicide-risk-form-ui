@@ -13,7 +13,7 @@ context('Check your answers data checks', () => {
     cy.get('#cya-link-title-and-name').should('exist')
     cy.get('#cya-link-postal-address').should('exist')
     cy.get('#cya-link-date-of-birth').should('exist')
-    cy.get('#change-information').should('exist')
+    cy.get('#change-information').should('not.exist')
     cy.get('#change-treatment').should('not.exist')
     cy.get('#change-recipients').should('not.exist')
     cy.get('#change-sign-and-send').should('not.exist')
@@ -33,7 +33,7 @@ context('Check your answers data checks', () => {
   it('Basic Details is populated', () => {
     cy.visit('/check-your-answers/00000000-0000-0000-0000-600000000002')
     cy.get('#change-basic-details').should('exist')
-    cy.get('#change-information').should('exist')
+    cy.get('#change-information').should('not.exist')
     cy.get('#change-treatment').should('not.exist')
     cy.get('#change-recipients').should('not.exist')
     cy.get('#change-sign-and-send').should('not.exist')
@@ -48,20 +48,14 @@ context('Check your answers data checks', () => {
 
   it('Additional Information not populated', () => {
     cy.visit('/check-your-answers/00000000-0000-0000-0000-600000000002')
-    cy.get('#change-information').should('exist')
-    cy.get('#cya-link-additional-info').should('exist')
-    cy.get('#cya-link-additional-info-review').should('not.exist')
-    cy.get('#change-information').click()
-    cy.url().should('include', '/information/00000000-0000-0000-0000-600000000002')
-    cy.visit('/check-your-answers/00000000-0000-0000-0000-600000000002')
-    cy.get('#cya-link-additional-info').click()
-    cy.url().should('include', '/information/00000000-0000-0000-0000-600000000002')
+    cy.get('#change-information').should('not.exist')
+    cy.get('#cya-link-additional-info').should('not.exist')
   })
 
   it('Additional Information populated', () => {
     cy.visit('/check-your-answers/00000000-0000-0000-0000-600000000003')
     cy.get('#change-information').should('exist')
-    cy.get('#change-treatment').should('exist')
+    cy.get('#change-treatment').should('not.exist')
     cy.get('#change-recipients').should('not.exist')
     cy.get('#change-sign-and-send').should('not.exist')
     cy.get('#cya-link-additional-info').should('not.exist')
@@ -72,19 +66,14 @@ context('Check your answers data checks', () => {
 
   it('Treatment not populated', () => {
     cy.visit('/check-your-answers/00000000-0000-0000-0000-600000000003')
-    cy.get('#change-treatment').should('exist')
-    cy.get('#cya-link-treatment').should('exist')
-    cy.get('#change-treatment').click()
-    cy.url().should('include', '/treatment/00000000-0000-0000-0000-600000000003')
-    cy.visit('/check-your-answers/00000000-0000-0000-0000-600000000003')
-    cy.get('#cya-link-treatment').click()
-    cy.url().should('include', '/treatment/00000000-0000-0000-0000-600000000003')
+    cy.get('#change-treatment').should('not.exist')
+    cy.get('#cya-link-treatment').should('not.exist')
   })
 
   it('Treatment populated', () => {
     cy.visit('/check-your-answers/00000000-0000-0000-0000-600000000004')
     cy.get('#change-treatment').should('exist')
-    cy.get('#change-recipients').should('exist')
+    cy.get('#change-recipients').should('not.exist')
     cy.get('#change-sign-and-send').should('not.exist')
     cy.get('#cya-link-treatment').should('not.exist')
     cy.get('#change-treatment').click()
@@ -94,19 +83,14 @@ context('Check your answers data checks', () => {
 
   it('Recipients not populated', () => {
     cy.visit('/check-your-answers/00000000-0000-0000-0000-600000000004')
-    cy.get('#change-recipients').should('exist')
-    cy.get('#cya-link-recipients').should('exist')
-    cy.get('#change-recipients').click()
-    cy.url().should('include', '/recipients/00000000-0000-0000-0000-600000000004')
-    cy.visit('/check-your-answers/00000000-0000-0000-0000-600000000004')
-    cy.get('#cya-link-recipients').click()
-    cy.url().should('include', '/recipients/00000000-0000-0000-0000-600000000004')
+    cy.get('#change-recipients').should('not.exist')
+    cy.get('#cya-link-recipients').should('not.exist')
   })
 
   it('Recipients populated', () => {
     cy.visit('/check-your-answers/00000000-0000-0000-0000-600000000005')
     cy.get('#change-recipients').should('exist')
-    cy.get('#change-sign-and-send').should('exist')
+    cy.get('#change-sign-and-send').should('not.exist')
     cy.get('#cya-link-recipients').should('not.exist')
     cy.get('#change-recipients').click()
     cy.url().should('include', '/recipients/00000000-0000-0000-0000-600000000005')
@@ -115,14 +99,8 @@ context('Check your answers data checks', () => {
 
   it('Sign and Send not populated', () => {
     cy.visit('/check-your-answers/00000000-0000-0000-0000-600000000005')
-    cy.get('#change-sign-and-send').should('exist')
-    cy.get('#cya-link-signature').should('exist')
-    cy.get('#change-sign-and-send').click()
-    cy.url().should('include', '/sign-and-send/00000000-0000-0000-0000-600000000005')
-    cy.visit('/check-your-answers/00000000-0000-0000-0000-600000000005')
-    cy.get('#cya-link-signature').click()
-    cy.url().should('include', '/sign-and-send/00000000-0000-0000-0000-600000000005')
-    cy.visit('/check-your-answers/00000000-0000-0000-0000-600000000005')
+    cy.get('#change-sign-and-send').should('not.exist')
+    cy.get('#cya-link-signature').should('not.exist')
   })
 
   it('Sign and Send populated', () => {
