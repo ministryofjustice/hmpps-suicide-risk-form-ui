@@ -71,12 +71,16 @@ export default function recipientsRoutes(
   router.post('/recipient-details/:id', async (req, res) => {
     const suicideRiskId: string = req.params.id
     const { recipientId, contactType } = req.query
+    const callingScreen: string = req.query.returnTo as string
     const suicideRiskApiClient = new SuicideRiskApiClient(authenticationClient)
     let suicideRisk: SuicideRisk = null
     let recipient = null
 
+    let redirectUrl = `/recipients/${suicideRiskId}`
+    if (callingScreen) redirectUrl += `?returnTo=${callingScreen}`
+
     if (req.body.action === 'cancel') {
-      return res.redirect(`/recipients/${suicideRiskId}`)
+      return res.redirect(redirectUrl)
     }
 
     const contactTypeDescription = contactTypeMap[contactType as string] || null
@@ -149,7 +153,7 @@ export default function recipientsRoutes(
         // Create new recipient
         await suicideRiskApiClient.createRecipient(suicideRiskId, recipient, res.locals.user.username)
       }
-      return res.redirect(`/recipients/${suicideRiskId}`)
+      return res.redirect(redirectUrl)
     } catch (error) {
       const integrationErrorMessages = handleIntegrationErrors(error.status, error.data?.message, 'Suicide Risk')
       const showEmbeddedError = true

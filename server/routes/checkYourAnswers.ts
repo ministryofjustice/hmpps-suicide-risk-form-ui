@@ -77,13 +77,13 @@ export default function checkYourAnswersRoutes(
 
   function validateReport(suicideRisk: SuicideRisk): boolean {
     return (
-      suicideRisk.crn != null &&
-      suicideRisk.titleAndFullName != null &&
+      suicideRisk.crn?.trim().length > 0 &&
+      suicideRisk.titleAndFullName?.trim().length > 0 &&
       suicideRisk.postalAddress != null &&
-      suicideRisk.signature != null &&
-      suicideRisk.dateOfBirth != null &&
-      suicideRisk.additionalInfo != null &&
-      suicideRisk.currentPsychTreatment != null &&
+      suicideRisk.signature?.trim().length > 0 &&
+      suicideRisk.dateOfBirth?.trim().length > 0 &&
+      suicideRisk.additionalInfo?.trim().length > 0 &&
+      suicideRisk.currentPsychTreatment?.trim().length > 0 &&
       suicideRisk.suicideRiskContactList != null &&
       suicideRisk.suicideRiskContactList.length > 0
     )

@@ -33,6 +33,14 @@ export default function basicDetailsRoutes(
 
     try {
       suicideRisk = await suicideRiskApiClient.getSuicideRiskById(suicideRiskId, res.locals.user.username)
+      if (Object.keys(suicideRisk).length === 0) {
+        const errorMessages: ErrorMessages = {}
+        errorMessages.genericErrorMessage = {
+          text: 'The document has not been found or has been deleted. An error has been logged. 404',
+        }
+        res.render(`pages/detailed-error`, { errorMessages })
+        return
+      }
     } catch (error) {
       const errorMessages: ErrorMessages = handleIntegrationErrors(
         error?.data?.status,

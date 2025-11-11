@@ -115,8 +115,11 @@ export default function informationRoutes(
     let crn = null
     const suicideRiskApiClient = new SuicideRiskApiClient(authenticationClient)
     const assessRiskAndNeedsApiClient = new AssessRiskAndNeedsApiClient(authenticationClient)
+    const integrationApiClient = new NDeliusIntegrationApiClient(authenticationClient)
     let suicideRisk: SuicideRisk = null
     let riskAssessment: RiskAssessment = null
+    let registrationDeeplink = null
+    let registration: Registration = null
     const { additionalInfo } = req.body
     const callingScreen: string = req.query.returnTo as string
     let errorMessages: ErrorMessages = {}
@@ -125,6 +128,7 @@ export default function informationRoutes(
       // get existing suicide risk and use crn for calls to other services
       suicideRisk = await suicideRiskApiClient.getSuicideRiskById(suicideRiskId, res.locals.user.username)
       crn = suicideRisk.crn
+      registrationDeeplink = `${config.ndeliusDeeplink.url}?component=RegisterSummary&CRN=${crn}`
     } catch (error) {
       errorMessages = handleIntegrationErrors(error.status, error.data?.message, 'Suicide Risk')
       const showEmbeddedError = true
@@ -156,6 +160,36 @@ export default function informationRoutes(
       }
     }
 
+    try {
+      // get registration details from integration service
+      const response = await integrationApiClient.getSuicideRiskInformation(crn, res.locals.user.username)
+      registration = response.registration ?? null
+    } catch (error) {
+      // get risk assessment from assess risk and needs service
+      errorMessages = handleIntegrationErrors(error.status, error.data?.message, 'NDelius Integration')
+      // take the user to detailed error page for 400 type errors
+      if (error.status === 400) {
+        res.render(`pages/detailed-error`, { errorMessages })
+        return
+      }
+      // stay on the current page for 500 errors
+      if (error.status === 500) {
+        const showEmbeddedError = true
+        res.render(`pages/information`, { errorMessages, showEmbeddedError })
+        return
+      }
+      res.render(`pages/detailed-error`, { errorMessages })
+      return
+    }
+
+    const showRiskAndNeedsDetailsTwisty = !!(
+      riskAssessment &&
+      ((riskAssessment.natureOfRisk && riskAssessment.natureOfRisk.trim() !== '') ||
+        (riskAssessment.riskImminence && riskAssessment.riskImminence.trim() !== '') ||
+        (riskAssessment.riskIncreaseFactors && riskAssessment.riskIncreaseFactors.trim() !== '') ||
+        (riskAssessment.riskMitigationFactors && riskAssessment.riskMitigationFactors.trim() !== ''))
+    )
+
     if (riskAssessment != null) {
       suicideRisk.natureOfRisk = riskAssessment.natureOfRisk
       suicideRisk.riskIsGreatestWhen = riskAssessment.riskImminence
@@ -172,7 +206,17 @@ export default function informationRoutes(
         text: 'Additional information must be 20000 characters or fewer',
       }
       const showEmbeddedError = true
-      res.render(`pages/information`, { errorMessages, showEmbeddedError, suicideRisk })
+      res.render(`pages/information`, {
+        errorMessages,
+        showEmbeddedError,
+        suicideRisk,
+        suicideRiskId,
+        riskAssessment,
+        currentPage,
+        registrationDeeplink,
+        registration,
+        showRiskAndNeedsDetailsTwisty,
+      })
       return
     }
 

@@ -1,6 +1,6 @@
 {% extends "../partials/layout.njk" %}
 
-{% set pageTitle = applicationName + " - Home" %}
+{% set pageTitle = applicationName + " - Report Completed" %}
 {% set mainClasses = "app-container govuk-body" %}
 
 {% block content %}
@@ -21,7 +21,7 @@
           <h1 class="govuk-heading-l">What to do next</h1>
 
           <h2 class="govuk-heading-m">Review and print your Suicide Risk Form</h2>
-          <p id="reviewReport"><a href="{{ '/pdf/' + suicideRiskId }}" class="govuk-link" target="_blank">View your completed PDF letter</a></p>
+          <p id="reviewReport"><a href="{{ '/pdf/' + suicideRiskId }}" class="govuk-link" target="_blank">View your completed PDF Form</a></p>
 
           <h2 class="govuk-heading-m">Close this window</h2>
           <p id="close-window"><a href="/close" class="govuk-link">Close the Suicide Risk Form Service</a></p>
