@@ -80,6 +80,7 @@ export default function signAndSendRoutes(
       if (addressPresent == null) {
         suicideRisk.workAddress = null
         addressNotAvailable = true
+        await suicideRiskApiClient.updateSuicideRisk(req.params.id, suicideRisk, res.locals.user.username)
 
         errorMessages.genericErrorMessage = {
           text: 'Work Location and Address: The previously selected address is no longer available. Please select an alternative.',
