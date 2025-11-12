@@ -12,6 +12,8 @@ import checkYourAnswersRoutes from './checkYourAnswers'
 import reportCompletedRoutes from './reportCompleted'
 import pdfMaintenanceRoutes from './pdfMaintenance'
 import updateWorkAddressRoutes from './updateWorkAddress'
+import confirmDeleteRoutes from './confirm-delete'
+import formDeletedRoutes from './form-deleted'
 
 export default function routes({ auditService, hmppsAuthClient, commonUtils }: Services): Router {
   const router = Router()
@@ -45,5 +47,7 @@ export default function routes({ auditService, hmppsAuthClient, commonUtils }: S
   checkYourAnswersRoutes(router, auditService, hmppsAuthClient, commonUtils)
   reportCompletedRoutes(router, auditService, hmppsAuthClient)
   pdfMaintenanceRoutes(router, auditService, hmppsAuthClient)
+  confirmDeleteRoutes(router, auditService, hmppsAuthClient)
+  formDeletedRoutes(router, auditService)
   return router
 }
