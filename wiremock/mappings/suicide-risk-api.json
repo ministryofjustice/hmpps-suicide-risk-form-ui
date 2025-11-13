@@ -35,7 +35,6 @@
         "transformers": ["response-template"]
       }
     },
-
     {
       "request": {
         "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-300000000003",
@@ -2375,6 +2374,37 @@
           },
           "formSent": false
         },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        "transformers": ["response-template"]
+      }
+    },
+    {
+      "request": {
+        "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-800000000000",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "00000000-0000-0000-0000-000000000001",
+          "crn": "X000001",
+          "basicDetailsSaved": true
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        "transformers": ["response-template"]
+      }
+    },
+    {
+      "request": {
+        "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-800000000000",
+        "method": "DELETE"
+      },
+      "response": {
+        "status": 200,
         "headers": {
           "Content-Type": "application/json;charset=UTF-8"
         },

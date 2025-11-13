@@ -84,6 +84,15 @@ export default class SuicideRiskApiClient extends RestClient {
       asSystem(username),
     )
   }
+
+  async deleteSuicideRisk(suicideRiskId: string, username: string) {
+    return this.delete(
+      {
+        path: `/suicide-risk/${suicideRiskId}`,
+      },
+      asSystem(username),
+    )
+  }
 }
 
 export interface SuicideRisk {
