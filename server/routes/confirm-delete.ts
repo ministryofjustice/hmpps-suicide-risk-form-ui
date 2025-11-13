@@ -39,7 +39,7 @@ export default function confirmDeleteRoutes(
       } catch (error) {
         const errorMessages: ErrorMessages = handleIntegrationErrors(error.status, error.data?.message, 'Suicide Risk')
         const showEmbeddedError = true
-        res.render(`pages/detailed-error`, { errorMessages, showEmbeddedError })
+        res.render(`pages/confirm-delete`, { errorMessages, showEmbeddedError })
         return
       }
       res.redirect(`/form-deleted/${suicideRiskId}`)
