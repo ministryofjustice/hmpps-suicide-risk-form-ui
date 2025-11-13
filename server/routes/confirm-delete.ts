@@ -40,7 +40,7 @@ export default function confirmDeleteRoutes(
         const errorMessages: ErrorMessages = handleIntegrationErrors(error.status, error.data?.message, 'Suicide Risk')
         const showEmbeddedError = true
         // take the user to detailed error page for 404
-        if (error.responseStatus === 404  || error.status === 404) {
+        if (error.responseStatus === 404 || error.status === 404) {
           res.render(`pages/detailed-error`, { errorMessages })
           return
         }
