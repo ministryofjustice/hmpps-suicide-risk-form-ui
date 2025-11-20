@@ -59,14 +59,14 @@
               <p>No information available.</p>
             {% endif %}
 
-            <h2 class="govuk-heading-m">Risk increases when</h2>
+            <h2 class="govuk-heading-m">Risk Likely to Increase</h2>
             {% if riskAssessment.riskIncreaseFactors %}
               <p id="risk-increase-factors">{{ riskAssessment.riskIncreaseFactors }}</p>
             {% else %}
               <p>No information available.</p>
             {% endif %}
 
-            <h2 class="govuk-heading-m">Risk decreases when</h2>
+            <h2 class="govuk-heading-m">Risk Likely to Decrease</h2>
             {% if riskAssessment.riskMitigationFactors %}
               <p id="risk-decrease-factors">{{ riskAssessment.riskMitigationFactors }}</p>
             {% else %}
