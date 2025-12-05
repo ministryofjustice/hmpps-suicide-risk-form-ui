@@ -34,7 +34,7 @@ context('Review Alert data checks', () => {
     cy.get('#reviewAlert').should('exist')
     cy.get('#reviewAlert').should(
       'contain.text',
-      'A Merge occurred on 1/1/1980 in NDelius and important details have changed. This report should be reviewed before proceeding. Please confirm all information or discard this report.',
+      'A Merge occurred on 1/1/1980 in NDelius and important details have changed. This form should be reviewed before proceeding. Please confirm all information or discard this form.',
     )
   })
 
@@ -43,7 +43,7 @@ context('Review Alert data checks', () => {
     cy.get('#reviewAlert').should('exist')
     cy.get('#reviewAlert').should(
       'contain.text',
-      'A Merge occurred on 1/1/1980 in NDelius and important details have changed. This report should be reviewed before proceeding. Please confirm all information or discard this report.',
+      'A Merge occurred on 1/1/1980 in NDelius and important details have changed. This form should be reviewed before proceeding. Please confirm all information or discard this form.',
     )
   })
 
@@ -52,7 +52,7 @@ context('Review Alert data checks', () => {
     cy.get('#reviewAlert').should('exist')
     cy.get('#reviewAlert').should(
       'contain.text',
-      'A Merge occurred on 1/1/1980 in NDelius and important details have changed. This report should be reviewed before proceeding. Please confirm all information or discard this report.',
+      'A Merge occurred on 1/1/1980 in NDelius and important details have changed. This form should be reviewed before proceeding. Please confirm all information or discard this form.',
     )
   })
 
@@ -61,7 +61,7 @@ context('Review Alert data checks', () => {
     cy.get('#reviewAlert').should('exist')
     cy.get('#reviewAlert').should(
       'contain.text',
-      'A Merge occurred on 1/1/1980 in NDelius and important details have changed. This report should be reviewed before proceeding. Please confirm all information or discard this report.',
+      'A Merge occurred on 1/1/1980 in NDelius and important details have changed. This form should be reviewed before proceeding. Please confirm all information or discard this form.',
     )
   })
 
@@ -70,7 +70,7 @@ context('Review Alert data checks', () => {
     cy.get('#reviewAlert').should('exist')
     cy.get('#reviewAlert').should(
       'contain.text',
-      'A Merge occurred on 1/1/1980 in NDelius and important details have changed. This report should be reviewed before proceeding. Please confirm all information or discard this report.',
+      'A Merge occurred on 1/1/1980 in NDelius and important details have changed. This form should be reviewed before proceeding. Please confirm all information or discard this form.',
     )
   })
 
@@ -79,7 +79,7 @@ context('Review Alert data checks', () => {
     cy.get('#reviewAlert').should('exist')
     cy.get('#reviewAlert').should(
       'contain.text',
-      'A Merge occurred on 1/1/1980 in NDelius and important details have changed. This report should be reviewed before proceeding. Please confirm all information or discard this report.',
+      'A Merge occurred on 1/1/1980 in NDelius and important details have changed. This form should be reviewed before proceeding. Please confirm all information or discard this form.',
     )
   })
 
@@ -88,7 +88,7 @@ context('Review Alert data checks', () => {
     cy.get('#reviewAlert').should('exist')
     cy.get('#reviewAlert').should(
       'contain.text',
-      'An Unmerge occurred on 1/1/1980 in NDelius and important details have changed. This report should be reviewed before proceeding. Please confirm all information or discard this report.',
+      'An Unmerge occurred on 1/1/1980 in NDelius and important details have changed. This form should be reviewed before proceeding. Please confirm all information or discard this form.',
     )
   })
 
@@ -97,7 +97,7 @@ context('Review Alert data checks', () => {
     cy.get('#reviewAlert').should('exist')
     cy.get('#reviewAlert').should(
       'contain.text',
-      'An Unmerge occurred on 1/1/1980 in NDelius and important details have changed. This report should be reviewed before proceeding. Please confirm all information or discard this report.',
+      'An Unmerge occurred on 1/1/1980 in NDelius and important details have changed. This form should be reviewed before proceeding. Please confirm all information or discard this form.',
     )
   })
 
@@ -106,7 +106,7 @@ context('Review Alert data checks', () => {
     cy.get('#reviewAlert').should('exist')
     cy.get('#reviewAlert').should(
       'contain.text',
-      'An Unmerge occurred on 1/1/1980 in NDelius and important details have changed. This report should be reviewed before proceeding. Please confirm all information or discard this report.',
+      'An Unmerge occurred on 1/1/1980 in NDelius and important details have changed. This form should be reviewed before proceeding. Please confirm all information or discard this form.',
     )
   })
 
@@ -115,7 +115,7 @@ context('Review Alert data checks', () => {
     cy.get('#reviewAlert').should('exist')
     cy.get('#reviewAlert').should(
       'contain.text',
-      'An Unmerge occurred on 1/1/1980 in NDelius and important details have changed. This report should be reviewed before proceeding. Please confirm all information or discard this report.',
+      'An Unmerge occurred on 1/1/1980 in NDelius and important details have changed. This form should be reviewed before proceeding. Please confirm all information or discard this form.',
     )
   })
 
@@ -124,7 +124,7 @@ context('Review Alert data checks', () => {
     cy.get('#reviewAlert').should('exist')
     cy.get('#reviewAlert').should(
       'contain.text',
-      'An Unmerge occurred on 1/1/1980 in NDelius and important details have changed. This report should be reviewed before proceeding. Please confirm all information or discard this report.',
+      'An Unmerge occurred on 1/1/1980 in NDelius and important details have changed. This form should be reviewed before proceeding. Please confirm all information or discard this form.',
     )
   })
 
@@ -133,7 +133,7 @@ context('Review Alert data checks', () => {
     cy.get('#reviewAlert').should('exist')
     cy.get('#reviewAlert').should(
       'contain.text',
-      'An Unmerge occurred on 1/1/1980 in NDelius and important details have changed. This report should be reviewed before proceeding. Please confirm all information or discard this report.',
+      'An Unmerge occurred on 1/1/1980 in NDelius and important details have changed. This form should be reviewed before proceeding. Please confirm all information or discard this form.',
     )
   })
 
@@ -142,7 +142,7 @@ context('Review Alert data checks', () => {
     cy.get('#reviewAlert').should('exist')
     cy.get('#reviewAlert').should(
       'contain.text',
-      'A Move Event occurred on 1/1/1980 in NDelius and important details have changed. This report should be reviewed before proceeding. Please confirm all information or discard this report.',
+      'A Move Event occurred on 1/1/1980 in NDelius and important details have changed. This form should be reviewed before proceeding. Please confirm all information or discard this form.',
     )
   })
 
@@ -151,7 +151,7 @@ context('Review Alert data checks', () => {
     cy.get('#reviewAlert').should('exist')
     cy.get('#reviewAlert').should(
       'contain.text',
-      'A Move Event occurred on 1/1/1980 in NDelius and important details have changed. This report should be reviewed before proceeding. Please confirm all information or discard this report.',
+      'A Move Event occurred on 1/1/1980 in NDelius and important details have changed. This form should be reviewed before proceeding. Please confirm all information or discard this form.',
     )
   })
 
@@ -160,7 +160,7 @@ context('Review Alert data checks', () => {
     cy.get('#reviewAlert').should('exist')
     cy.get('#reviewAlert').should(
       'contain.text',
-      'A Move Event occurred on 1/1/1980 in NDelius and important details have changed. This report should be reviewed before proceeding. Please confirm all information or discard this report.',
+      'A Move Event occurred on 1/1/1980 in NDelius and important details have changed. This form should be reviewed before proceeding. Please confirm all information or discard this form.',
     )
   })
 
@@ -169,7 +169,7 @@ context('Review Alert data checks', () => {
     cy.get('#reviewAlert').should('exist')
     cy.get('#reviewAlert').should(
       'contain.text',
-      'A Move Event occurred on 1/1/1980 in NDelius and important details have changed. This report should be reviewed before proceeding. Please confirm all information or discard this report.',
+      'A Move Event occurred on 1/1/1980 in NDelius and important details have changed. This form should be reviewed before proceeding. Please confirm all information or discard this form.',
     )
   })
 
@@ -178,7 +178,7 @@ context('Review Alert data checks', () => {
     cy.get('#reviewAlert').should('exist')
     cy.get('#reviewAlert').should(
       'contain.text',
-      'A Move Event occurred on 1/1/1980 in NDelius and important details have changed. This report should be reviewed before proceeding. Please confirm all information or discard this report.',
+      'A Move Event occurred on 1/1/1980 in NDelius and important details have changed. This form should be reviewed before proceeding. Please confirm all information or discard this form.',
     )
   })
 
@@ -187,7 +187,7 @@ context('Review Alert data checks', () => {
     cy.get('#reviewAlert').should('exist')
     cy.get('#reviewAlert').should(
       'contain.text',
-      'A Move Event occurred on 1/1/1980 in NDelius and important details have changed. This report should be reviewed before proceeding. Please confirm all information or discard this report.',
+      'A Move Event occurred on 1/1/1980 in NDelius and important details have changed. This form should be reviewed before proceeding. Please confirm all information or discard this form.',
     )
   })
 })
