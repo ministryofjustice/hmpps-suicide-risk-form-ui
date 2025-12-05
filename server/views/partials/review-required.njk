@@ -4,13 +4,13 @@
 
   {% set messageHtml %}
     {% if suicideRisk.reviewEvent == 'MERGE' %}
-      A Merge occurred on {{ suicideRisk.reviewRequiredDate | toUserDate() }} in NDelius and important details have changed. This report should be reviewed before proceeding. Please confirm all information or discard this report.
+      A Merge occurred on {{ suicideRisk.reviewRequiredDate | toUserDate() }} in NDelius and important details have changed. This form should be reviewed before proceeding. Please confirm all information or discard this form.
     {% endif %}
     {% if suicideRisk.reviewEvent == 'UNMERGE' %}
-      An Unmerge occurred on {{ suicideRisk.reviewRequiredDate | toUserDate() }} in NDelius and important details have changed. This report should be reviewed before proceeding. Please confirm all information or discard this report.
+      An Unmerge occurred on {{ suicideRisk.reviewRequiredDate | toUserDate() }} in NDelius and important details have changed. This form should be reviewed before proceeding. Please confirm all information or discard this form.
     {% endif %}
     {% if suicideRisk.reviewEvent == 'EVENT_MOVE' %}
-      A Move Event occurred on {{ suicideRisk.reviewRequiredDate | toUserDate() }} in NDelius and important details have changed. This report should be reviewed before proceeding. Please confirm all information or discard this report.
+      A Move Event occurred on {{ suicideRisk.reviewRequiredDate | toUserDate() }} in NDelius and important details have changed. This form should be reviewed before proceeding. Please confirm all information or discard this form.
     {% endif %}
   {% endset -%}
 
