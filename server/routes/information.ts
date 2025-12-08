@@ -49,21 +49,21 @@ export default function informationRoutes(
       // get risk assessment from assess risk and needs service
       riskAssessment = await assessRiskAndNeedsApiClient.getRisksSummary(crn, res.locals.user.username)
     } catch (error) {
-      errorMessages = handleIntegrationErrors(error.status, error.data?.message, 'Hmpps Assess Risk and Needs')
-      // take the user to detailed error page for 400 type errors
-      if (error.status === 400) {
-        res.render(`pages/detailed-error`, { errorMessages })
-        return
-      }
       if (error.responseStatus === 404 || error.status === 404) {
         riskAssessment = null
-      }
-      // stay on the current page for 500 errors
-      else if (error.status === 500) {
-        const showEmbeddedError = true
-        res.render(`pages/information`, { errorMessages, showEmbeddedError })
-        return
       } else {
+        errorMessages = handleIntegrationErrors(error.status, error.data?.message, 'Hmpps Assess Risk and Needs')
+        // take the user to detailed error page for 400 type errors
+        if (error.status === 400) {
+          res.render(`pages/detailed-error`, { errorMessages })
+          return
+        }
+        // stay on the current page for 500 errors
+        if (error.status === 500) {
+          const showEmbeddedError = true
+          res.render(`pages/information`, { errorMessages, showEmbeddedError })
+          return
+        }
         res.render(`pages/detailed-error`, { errorMessages })
         return
       }
@@ -140,21 +140,21 @@ export default function informationRoutes(
       // get risk assessment from assess risk and needs service
       riskAssessment = await assessRiskAndNeedsApiClient.getRisksSummary(crn, res.locals.user.username)
     } catch (error) {
-      errorMessages = handleIntegrationErrors(error.status, error.data?.message, 'Hmpps Assess Risk and Needs')
-      // take the user to detailed error page for 400 type errors
-      if (error.status === 400) {
-        res.render(`pages/detailed-error`, { errorMessages })
-        return
-      }
       if (error.responseStatus === 404 || error.status === 404) {
         riskAssessment = null
-      }
-      // stay on the current page for 500 errors
-      else if (error.status === 500) {
-        const showEmbeddedError = true
-        res.render(`pages/information`, { errorMessages, showEmbeddedError })
-        return
       } else {
+        errorMessages = handleIntegrationErrors(error.status, error.data?.message, 'Hmpps Assess Risk and Needs')
+        // take the user to detailed error page for 400 type errors
+        if (error.status === 400) {
+          res.render(`pages/detailed-error`, { errorMessages })
+          return
+        }
+        // stay on the current page for 500 errors
+        if (error.status === 500) {
+          const showEmbeddedError = true
+          res.render(`pages/information`, { errorMessages, showEmbeddedError })
+          return
+        }
         res.render(`pages/detailed-error`, { errorMessages })
         return
       }
