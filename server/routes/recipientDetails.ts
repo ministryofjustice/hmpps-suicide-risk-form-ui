@@ -206,7 +206,7 @@ export default function recipientsRoutes(
   }
 
   function validateLength(
-    fieldValue: string | null,
+    fieldValue: string,
     fieldName: keyof typeof FIELD_LIMITS,
     label: string,
     errorMessages: ErrorMessages,

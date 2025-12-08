@@ -15,7 +15,7 @@ export default function updateWorkAddressRoutes(
 ): Router {
   const currentPage = 'sign-and-send'
 
-  router.get('/update-work-address/:id', async (req, res, next) => {
+  router.get('/update-work-address/:id', async (req, res) => {
     await auditService.logPageView(Page.SIGN_AND_SEND, { who: res.locals.user.username, correlationId: req.id })
     const suicideRiskId: string = req.params.id
     const suicideRiskApiClient = new SuicideRiskApiClient(authenticationClient)
@@ -97,8 +97,7 @@ export default function updateWorkAddressRoutes(
   })
 
   function validateAddress(address: SuicideRiskAddress): ErrorMessages {
-    const errorMessages: ErrorMessages = {}
-
+    let errorMessages: ErrorMessages = {}
     if (
       (!address.officeDescription || address.officeDescription.trim() === '') &&
       (!address.buildingName || address.buildingName.trim() === '') &&
@@ -127,7 +126,48 @@ export default function updateWorkAddressRoutes(
       }
     }
 
+    errorMessages = validateLength(address.officeDescription, 'officeDescription', 'Office Description', errorMessages)
+    errorMessages = validateLength(address.buildingName, 'buildingName', 'Building Name', errorMessages)
+    errorMessages = validateLength(address.buildingNumber, 'buildingNumber', 'Address Number', errorMessages)
+    errorMessages = validateLength(address.streetName, 'streetName', 'Street Name', errorMessages)
+    errorMessages = validateLength(address.district, 'district', 'District', errorMessages)
+    errorMessages = validateLength(address.townCity, 'townCity', 'Town or City', errorMessages)
+    errorMessages = validateLength(address.county, 'county', 'County', errorMessages)
+    errorMessages = validateLength(address.postcode, 'postcode', 'Postcode', errorMessages)
+
     return errorMessages
+  }
+
+  function validateLength(
+    fieldValue: string,
+    fieldName: keyof typeof FIELD_LIMITS,
+    label: string,
+    errorMessages: ErrorMessages,
+  ): ErrorMessages {
+    const maxLength = FIELD_LIMITS[fieldName]
+    if (!fieldValue) return errorMessages
+
+    if (fieldValue.trim().length > maxLength) {
+      return {
+        ...errorMessages,
+        [fieldName]: {
+          text: `Please enter ${maxLength} characters or less for ${label}`,
+        },
+      }
+    }
+
+    return errorMessages
+  }
+
+  const FIELD_LIMITS = {
+    officeDescription: 50,
+    buildingName: 35,
+    buildingNumber: 35,
+    streetName: 35,
+    district: 35,
+    townCity: 35,
+    county: 35,
+    postcode: 8,
   }
 
   return router
