@@ -22,7 +22,7 @@ context('Update Work Address page', () => {
     cy.get('#district').type('E District')
     cy.get('#townCity').type('F Town City')
     cy.get('#county').type('G County')
-    cy.get('#postcode').type('H Postcode')
+    cy.get('#postcode').type('H AA11AA')
     cy.get('#save-button').should('exist').should('be.visible').click()
     cy.url().should('include', '/sign-and-send')
   })
