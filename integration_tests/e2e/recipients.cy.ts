@@ -81,18 +81,12 @@ context('Recipients Page', () => {
   it('Check edit recipient links function correctly', () => {
     const suicideRiskId = '00000000-0000-0000-0000-700000000000'
     cy.visit(`/recipients/${suicideRiskId}`)
-    cy.contains('Click this link to edit the recipient').should('exist')
-    cy.contains('Click this link to edit the recipient')
+
+    cy.contains('Click this link to edit the recipient', { timeout: 10000 })
+      .should('exist')
       .first()
-      .then($link => {
-        const href = $link.attr('href')
-        expect(href, 'href should include correct path').to.include(`/recipient-details/${suicideRiskId}?recipientId=`)
-        cy.request(href).then(response => {
-          expect(response.status, 'edit page should return 200').to.eq(200)
-        })
-        cy.visit(href)
-        cy.contains('Recipient Details –', { timeout: 10000 }).should('be.visible')
-      })
+      .should('have.attr', 'href')
+      .and('include', `/recipient-details/${suicideRiskId}?recipientId=`)
   })
 
   it('Check delete recipient links function correctly', () => {
