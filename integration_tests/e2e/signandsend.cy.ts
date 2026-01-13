@@ -16,10 +16,7 @@ context('Sign and Send Page', () => {
   })
 
   it('shows only alternate address dropdown when no default address exists', () => {
-    cy.request(
-      'DELETE',
-      `${wiremock}/mappings/11111111-1111-1111-1111-111111111111`
-    )
+    cy.request('DELETE', `${wiremock}/mappings/11111111-1111-1111-1111-111111111111`)
 
     cy.visit('/sign-and-send/00000000-0000-0000-0000-600000000013')
 

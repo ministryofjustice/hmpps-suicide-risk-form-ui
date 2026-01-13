@@ -72,12 +72,10 @@ export default function signAndSendRoutes(
 
       if (defaultAddress) {
         suicideRisk.workAddress = toSuicideRiskAddress(defaultAddress)
-      } else {
+      } else if (userDetails.addresses?.length > 0) {
         // Scenario when a default address is not found from integration api but other (non-default) alternate addresses are found
         // We do not display radio buttons for the user, just a drop-down of the alternate addresses
-        if (defaultAddress == null && userDetails.addresses != null && userDetails.addresses.length > 0) {
-          onlyAlternateAddressesAvailable = true
-        }
+        onlyAlternateAddressesAvailable = true
       }
     }
 
@@ -118,7 +116,7 @@ export default function signAndSendRoutes(
       addressNotAvailable,
       manualAddressAllowed,
       errorMessages,
-      onlyAlternateAddressesAvailable
+      onlyAlternateAddressesAvailable,
     })
   })
 
