@@ -1209,6 +1209,29 @@
 
     {
       "request": {
+        "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-600000000013",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "00000000-0000-0000-0000-600000000013",
+          "crn": "X600013",
+          "titleAndFullName": "Alternate Address",
+          "workAddress": null,
+          "postalAddress": null,
+          "dateOfLetter": "2025-01-01",
+          "basicDetailsSaved": true,
+          "informationSaved": true,
+          "treatmentSaved": true,
+          "signAndSendSaved": false,
+          "completedDate": null
+        }
+      }
+    },
+
+    {
+      "request": {
         "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-700000000000",
         "method": "GET"
       },

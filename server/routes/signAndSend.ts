@@ -22,7 +22,7 @@ export default function signAndSendRoutes(
 ): Router {
   const currentPage = 'sign-and-send'
 
-  router.get('/sign-and-send/:id', async (req, res, next) => {
+  router.get('/sign-and-send/:id', async (req, res) => {
     await auditService.logPageView(Page.SIGN_AND_SEND, { who: res.locals.user.username, correlationId: req.id })
     const suicideRiskId: string = req.params.id
     const suicideRiskApiClient = new SuicideRiskApiClient(authenticationClient)
@@ -66,11 +66,18 @@ export default function signAndSendRoutes(
     suicideRisk.telephoneNumber = userDetails.telephoneNumber
 
     let defaultAddress: DeliusAddress = null
+    let onlyAlternateAddressesAvailable: boolean = false
     if (suicideRisk.workAddress == null && userDetails.addresses != null) {
       defaultAddress = userDetails.addresses.find(record => record.status === 'Default')
 
       if (defaultAddress) {
         suicideRisk.workAddress = toSuicideRiskAddress(defaultAddress)
+      } else {
+        // Scenario when a default address is not found from integration api but other (non-default) alternate addresses are found
+        // We do not display radio buttons for the user, just a drop-down of the alternate addresses
+        if (defaultAddress == null && userDetails.addresses != null && userDetails.addresses.length > 0) {
+          onlyAlternateAddressesAvailable = true
+        }
       }
     }
 
@@ -111,6 +118,7 @@ export default function signAndSendRoutes(
       addressNotAvailable,
       manualAddressAllowed,
       errorMessages,
+      onlyAlternateAddressesAvailable
     })
   })
 

@@ -591,6 +591,28 @@
     },
     {
       "request": {
+        "urlPattern": "/ndelius/basic-details/X600013",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "title": "Mr",
+          "name": {
+            "forename": "Billy",
+            "middleName": "The",
+            "surname": "Kid"
+          },
+          "prisonNumber": "1234567",
+          "dateOfBirth": "1980-03-17"
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+    {
+      "request": {
         "urlPattern": "/ndelius/basic-details/X000003",
         "method": "GET"
       },
@@ -754,6 +776,54 @@
       }
     },
     {
+      "request": {
+        "urlPattern": "/ndelius/sign-and-send/(.*?)",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "name": {
+            "forename": "Billy",
+            "middleName": "The",
+            "surname": "Kid"
+          },
+          "telephoneNumber": "01234567891",
+          "emailAddress": "example@justice.gov.uk",
+          "addresses": [
+            {
+              "id": 3,
+              "officeDescription": "Alt",
+              "buildingName": "Alt",
+              "buildingNumber": "1",
+              "streetName": "Alt",
+              "townCity": "Alt",
+              "district": "Alt",
+              "county": "Alt",
+              "postcode": "AA1 1AA"
+            },
+            {
+              "id": 4,
+              "officeDescription": "Alt 2",
+              "buildingName": "Alt 2",
+              "buildingNumber": "2",
+              "streetName": "Alt 2",
+              "townCity": "Alt 2",
+              "district": "Alt 2",
+              "county": "Alt 2",
+              "postcode": "AA2 2AA"
+            }
+          ]
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+
+    {
+      "priority": 1,
+      "id": "11111111-1111-1111-1111-111111111111",
       "request": {
         "urlPattern": "/ndelius/sign-and-send/(.*?)",
         "method": "GET"
@@ -1011,6 +1081,33 @@
         }
       }
     },
+    {
+      "request": {
+        "url": "/ndelius/information-page/X600013",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "registration": {
+            "id": "123456",
+            "startDate": "2025-01-01",
+            "endDate": "2025-01-01",
+            "notes": "some notes in here",
+            "documentsLinked": true,
+            "deregistered": false,
+            "type": {
+              "code": "REG1",
+              "description": "registration type 1"
+            }
+          }
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+
     {
       "request": {
         "url": "/ndelius/information-page/X700000",
