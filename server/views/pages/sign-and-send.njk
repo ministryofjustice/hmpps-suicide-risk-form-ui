@@ -46,10 +46,12 @@
         {% if not showEmbeddedError %}
           {% include "partials/review-required.njk" %}
 
-        <h1 class="govuk-heading-l">Suicide Risk - Sign and Send</h1>
+          <h1 class="govuk-heading-l">Suicide Risk - Sign and Send</h1>
 
           <h2 class="govuk-heading-m">Officer Name</h2>
-        <p id="name">{{ userDetails.name.forename }} <span> </span> {% if userDetails.name.middleName != null %} {{ userDetails.name.middleName }} <span> </span> {% endif %} {{ userDetails.name.surname }}</p>
+          <p id="name">{{ userDetails.name.forename }}
+            <span> </span> {% if userDetails.name.middleName != null %} {{ userDetails.name.middleName }}
+              <span> </span> {% endif %} {{ userDetails.name.surname }}</p>
 
           <h2 class="govuk-heading-m">Signature</h2>
 
@@ -84,126 +86,137 @@
           {% endif %}
 
           <h2 class="govuk-heading-m">Work Location and Address</h2>
-          {% if suicideRisk.workAddress != null %}
-            <p id="workAddress">
-              {% if suicideRisk.workAddress.officeDescription %} {{ suicideRisk.workAddress.officeDescription }}
-                <br />{% endif %}
-              {% if suicideRisk.workAddress.buildingName %} {{ suicideRisk.workAddress.buildingName }}
-                <br />{% endif %}
-              {% if suicideRisk.workAddress.buildingName or suicideRisk.workAddress.streetName %} {{ suicideRisk.workAddress.buildingNumber }} {{ suicideRisk.workAddress.streetName }}
-                <br />{% endif %}
-              {% if suicideRisk.workAddress.district %} {{ suicideRisk.workAddress.district }}
-                <br />{% endif %}
-              {% if suicideRisk.workAddress.townCity %} {{ suicideRisk.workAddress.townCity }}
-                <br />{% endif %}
-              {% if suicideRisk.workAddress.county %} {{ suicideRisk.workAddress.county }}
-                <br />{% endif %}
-              {% if suicideRisk.workAddress.postcode %} {{ suicideRisk.workAddress.postcode }}
-                <br />{% endif %}
-            </p>
 
-            {% if suicideRisk.workAddress != null and suicideRisk.workAddress.addressId == null and (userDetails.addresses == null or userDetails.addresses.length == 0) %}
+          {% if onlyAlternateAddressesAvailable %}
+            <p id="alternate-address-text"> Please specify the Work Location and Address that the Person on Probation should contact. </p>
+            <div id="alternate-address-dropdown">
+              {{ alternateAddressHtml | safe }}
+            </div>
+          {% endif %}
+
+          {% if not onlyAlternateAddressesAvailable %}
+            {% if suicideRisk.workAddress != null %}
+              <p id="workAddress">
+                {% if suicideRisk.workAddress.officeDescription %} {{ suicideRisk.workAddress.officeDescription }}
+                  <br />{% endif %}
+                {% if suicideRisk.workAddress.buildingName %} {{ suicideRisk.workAddress.buildingName }}
+                  <br />{% endif %}
+                {% if suicideRisk.workAddress.buildingName or suicideRisk.workAddress.streetName %} {{ suicideRisk.workAddress.buildingNumber }} {{ suicideRisk.workAddress.streetName }}
+                  <br />{% endif %}
+                {% if suicideRisk.workAddress.district %} {{ suicideRisk.workAddress.district }}
+                  <br />{% endif %}
+                {% if suicideRisk.workAddress.townCity %} {{ suicideRisk.workAddress.townCity }}
+                  <br />{% endif %}
+                {% if suicideRisk.workAddress.county %} {{ suicideRisk.workAddress.county }}
+                  <br />{% endif %}
+                {% if suicideRisk.workAddress.postcode %} {{ suicideRisk.workAddress.postcode }}
+                  <br />{% endif %}
+              </p>
+
+              {% if suicideRisk.workAddress != null and suicideRisk.workAddress.addressId == null and (userDetails.addresses == null or userDetails.addresses.length == 0) %}
+                {{ govukButton({
+                  text: "Update Address",
+                  href: '/update-work-address/'+suicideRiskId,
+                  classes: "govuk-button--secondary",
+                  preventDoubleClick: "true",
+                  attributes: {
+                    id: "update-address-button"
+                  }
+                }) }}
+              {% endif %}
+            {% elseif addressNotAvailable %}
+              <p id="workAddress">The previously selected address is no longer available. Please select an
+                alternative.</p>
+            {% else %}
+              <p id="no-address"></p>
+            {% endif %}
+
+            {% if manualAddressAllowed and suicideRisk.workAddress == null %}
+              <p id="AddAddressMessage">No reply address can be found for this responsible officer. Please add an
+                address by selecting the button below.</p>
               {{ govukButton({
-                text: "Update Address",
+                text: "Add Address",
                 href: '/update-work-address/'+suicideRiskId,
                 classes: "govuk-button--secondary",
                 preventDoubleClick: "true",
                 attributes: {
-                  id: "update-address-button"
+                  id: "add-address-button"
                 }
               }) }}
+
+            {% elseif not addressNotAvailable and userDetails.addresses != null and userDetails.addresses.length > 0 %}
+
+              {{ govukRadios({
+                name: "offenderAddressSelectOne",
+                fieldset: {
+                  legend: {
+                    text: "Would you like to use the work location above for this suicide risk form?",
+                    isPageHeading: false,
+                    classes: "govuk-fieldset__legend--m"
+                  }
+                },
+                hint: {
+                  text: "Select one option"
+                },
+                items: [
+                  {
+                    value: "Yes",
+                    text: "Yes",
+                    checked: suicideRisk.workAddress != null
+                  },
+                  {
+                    value: "No",
+                    text: "No, I would like to use a different work location ",
+                    checked: suicideRisk.workAddress == null,
+                    conditional: {
+                    html: alternateAddressHtml
+                  }
+                  }
+                ]
+              }) }}
+
+            {% elseif userDetails.addresses != null and userDetails.addresses.length > 0 %}
+
+              {{ alternateAddressHtml | safe }}
+
             {% endif %}
-          {% elseif addressNotAvailable %}
-            <p id="workAddress">The previously selected address is no longer available. Please select an alternative.</p>
-          {% else %}
-            <p id="no-address"> </p>
-          {% endif %}
-
-          {% if manualAddressAllowed and suicideRisk.workAddress == null %}
-            <p id="AddAddressMessage">No reply address can be found for this responsible officer. Please add an
-              address by selecting the button below.</p>
-            {{ govukButton({
-              text: "Add Address",
-              href: '/update-work-address/'+suicideRiskId,
-              classes: "govuk-button--secondary",
-              preventDoubleClick: "true",
-              attributes: {
-                id: "add-address-button"
-              }
-            }) }}
-
-          {% elseif not addressNotAvailable and userDetails.addresses != null and userDetails.addresses.length > 0 %}
-
-          {{ govukRadios({
-            name: "offenderAddressSelectOne",
-            fieldset: {
-              legend: {
-                text: "Would you like to use the work location above for this suicide risk form?",
-                isPageHeading: false,
-                classes: "govuk-fieldset__legend--m"
-              }
-            },
-            hint: {
-              text: "Select one option"
-            },
-            items: [
-              {
-                value: "Yes",
-                text: "Yes",
-                checked: suicideRisk.workAddress != null
-              },
-              {
-                value: "No",
-                text: "No, I would like to use a different work location ",
-                checked: suicideRisk.workAddress == null,
-                conditional: {
-                html: alternateAddressHtml
-              }
-              }
-            ]
-          }) }}
-
-          {% elseif userDetails.addresses != null and userDetails.addresses.length > 0 %}
-
-            {{ alternateAddressHtml | safe }}
-
           {% endif %}
 
           <h2 class="govuk-heading-m">Telephone Number</h2>
           <p id="telephoneNumber">{{ suicideRisk.telephoneNumber }}</p>
 
-        <div class="moj-button-group">
-          {{ govukButton({
-            text: "Continue",
-            preventDoubleClick: "true",
-            type: "submit",
-            attributes: {
-              id: "continue-button"
-            }
-          }) }}
-          {{ govukButton({
-            text: "Save Progress and Close",
-            type: "submit",
-            name: "action",
-            value: "saveProgressAndClose",
-            classes: "govuk-button--secondary",
-            attributes: {
-              id: "close-button"
-            }
-          }) }}
+          <div class="moj-button-group">
+            {{ govukButton({
+              text: "Continue",
+              preventDoubleClick: "true",
+              type: "submit",
+              attributes: {
+                id: "continue-button"
+              }
+            }) }}
+            {{ govukButton({
+              text: "Save Progress and Close",
+              type: "submit",
+              name: "action",
+              value: "saveProgressAndClose",
+              classes: "govuk-button--secondary",
+              attributes: {
+                id: "close-button"
+              }
+            }) }}
 
-          {{ govukButton({
-            text: "Refresh from Delius",
-            preventDoubleClick: "true",
-            type: "submit",
-            name: "action",
-            value: "refreshFromNdelius",
-            classes: "govuk-button--secondary",
-            attributes: {
-              id: "refresh-from-ndelius--button"
-            }
-          }) }}
-        </div>
+            {{ govukButton({
+              text: "Refresh from Delius",
+              preventDoubleClick: "true",
+              type: "submit",
+              name: "action",
+              value: "refreshFromNdelius",
+              classes: "govuk-button--secondary",
+              attributes: {
+                id: "refresh-from-ndelius--button"
+              }
+            }) }}
+          </div>
 
         {% endif %}
 
