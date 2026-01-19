@@ -80,7 +80,7 @@
     "@ministryofjustice/hmpps-auth-clients": "^1.0.1",
     "@ministryofjustice/hmpps-monitoring": "^1.0.0",
     "@ministryofjustice/hmpps-npm-script-allowlist": "0.0.3",
-    "@ministryofjustice/hmpps-rest-client": "^0.0.1",
+    "@ministryofjustice/hmpps-rest-client": "^1.0.0",
     "applicationinsights": "^3.9.0",
     "body-parser": "^2.2.0",
     "bunyan": "^1.8.15",
