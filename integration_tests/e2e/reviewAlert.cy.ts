@@ -190,4 +190,58 @@ context('Review Alert data checks', () => {
       'A Move Event occurred on 1/1/1980 in NDelius and important details have changed. This form should be reviewed before proceeding. Please confirm all information or discard this form.',
     )
   })
+
+  it('Basic Details move NSI review', () => {
+    cy.visit('/basic-details/00000000-0000-0000-0000-600000000014')
+    cy.get('#reviewAlert').should('exist')
+    cy.get('#reviewAlert').should(
+      'contain.text',
+      'A Move NSI Event occurred on 1/1/1980 in NDelius and important details have changed. This form should be reviewed before proceeding. Please confirm all information or discard this form.',
+    )
+  })
+
+  it('Information move NSI review', () => {
+    cy.visit('/information/00000000-0000-0000-0000-600000000014')
+    cy.get('#reviewAlert').should('exist')
+    cy.get('#reviewAlert').should(
+      'contain.text',
+      'A Move NSI Event occurred on 1/1/1980 in NDelius and important details have changed. This form should be reviewed before proceeding. Please confirm all information or discard this form.',
+    )
+  })
+
+  it('Treatment move NSI review', () => {
+    cy.visit('/treatment/00000000-0000-0000-0000-600000000014')
+    cy.get('#reviewAlert').should('exist')
+    cy.get('#reviewAlert').should(
+      'contain.text',
+      'A Move NSI Event occurred on 1/1/1980 in NDelius and important details have changed. This form should be reviewed before proceeding. Please confirm all information or discard this form.',
+    )
+  })
+
+  it('Recipients move NSI review', () => {
+    cy.visit('/recipients/00000000-0000-0000-0000-600000000014')
+    cy.get('#reviewAlert').should('exist')
+    cy.get('#reviewAlert').should(
+      'contain.text',
+      'A Move NSI Event occurred on 1/1/1980 in NDelius and important details have changed. This form should be reviewed before proceeding. Please confirm all information or discard this form.',
+    )
+  })
+
+  it('Sign and send move NSI review', () => {
+    cy.visit('/sign-and-send/00000000-0000-0000-0000-600000000014')
+    cy.get('#reviewAlert').should('exist')
+    cy.get('#reviewAlert').should(
+      'contain.text',
+      'A Move NSI Event occurred on 1/1/1980 in NDelius and important details have changed. This form should be reviewed before proceeding. Please confirm all information or discard this form.',
+    )
+  })
+
+  it('Check your answers move NSI review', () => {
+    cy.visit('/check-your-answers/00000000-0000-0000-0000-600000000014')
+    cy.get('#reviewAlert').should('exist')
+    cy.get('#reviewAlert').should(
+      'contain.text',
+      'A Move NSI Event occurred on 1/1/1980 in NDelius and important details have changed. This form should be reviewed before proceeding. Please confirm all information or discard this form.',
+    )
+  })
 })

@@ -12,6 +12,9 @@
     {% if suicideRisk.reviewEvent == 'EVENT_MOVE' %}
       A Move Event occurred on {{ suicideRisk.reviewRequiredDate | toUserDate() }} in NDelius and important details have changed. This form should be reviewed before proceeding. Please confirm all information or discard this form.
     {% endif %}
+    {% if suicideRisk.reviewEvent == 'MOVE_NSI' %}
+      A Move NSI Event occurred on {{ suicideRisk.reviewRequiredDate | toUserDate() }} in NDelius and important details have changed. This form should be reviewed before proceeding. Please confirm all information or discard this form.
+    {% endif %}
   {% endset -%}
 
   {{ mojAlert({
