@@ -15,9 +15,14 @@
 
   <form method="post">
     {% set errorList =[
+      { text: errorMessages.officeDescription.text, href: "#description" } if errorMessages.officeDescription else None,
+      { text: errorMessages.buildingName.text, href: "#buildingName" } if errorMessages.buildingName else None,
+      { text: errorMessages.buildingNumber.text, href: "#houseNumber" } if errorMessages.buildingNumber else None,
       { text: errorMessages.identifier.text, href: "#description" } if errorMessages.identifier else None,
       { text: errorMessages.streetName.text, href: "#streetName" } if errorMessages.streetName else None,
+      { text: errorMessages.district.text, href: "#district" } if errorMessages.district else None,
       { text: errorMessages.townCity.text, href: "#townCity" } if errorMessages.townCity else None,
+      { text: errorMessages.county.text, href: "#county" } if errorMessages.county else None,
       { text: errorMessages.postcode.text, href: "#postcode" } if errorMessages.postcode else None,
       { text: errorMessages.genericErrorMessage.text, href: "#" } if errorMessages.genericErrorMessage else None
     ] | reject("undefined") %}
@@ -49,8 +54,8 @@
             classes: "govuk-input--width-30",
             name: "officeDescription",
             errorMessage: {
-              text: errorMessages.identifier.text
-            } if errorMessages.identifier.text
+              text: errorMessages.officeDescription.text or errorMessages.identifier.text
+            } if errorMessages.officeDescription or errorMessages.identifier
           }) }}
 
           {{ govukInput({
@@ -64,8 +69,8 @@
             classes: "govuk-input--width-30",
             name: "buildingName",
             errorMessage: {
-              text: errorMessages.identifier.text
-            } if errorMessages.identifier.text
+              text: errorMessages.buildingName.text or errorMessages.identifier.text
+            } if errorMessages.buildingName or errorMessages.identifier
           }) }}
 
           {{ govukInput({
@@ -79,8 +84,8 @@
             classes: "govuk-input--width-30",
             name: "buildingNumber",
             errorMessage: {
-              text: errorMessages.identifier.text
-            } if errorMessages.identifier.text
+              text: errorMessages.buildingNumber.text or errorMessages.identifier.text
+            } if errorMessages.buildingNumber or errorMessages.identifier
           }) }}
 
           {{ govukInput({
@@ -107,7 +112,10 @@
             id: "district",
             value: suicideRisk.workAddress.district,
             classes: "govuk-input--width-30",
-            name: "district"
+            name: "district",
+            errorMessage: {
+              text: errorMessages.district.text
+            } if errorMessages.district
           }) }}
 
           {{ govukInput({
