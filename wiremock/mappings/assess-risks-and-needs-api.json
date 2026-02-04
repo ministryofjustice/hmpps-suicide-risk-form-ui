@@ -10,7 +10,7 @@
         "jsonBody": {
           "whoIsAtRisk": "X, Y and Z are at risk",
           "natureOfRisk": "The nature of the risk is X",
-          "riskImminence": "the risk is imminent and more probably in X situation",
+          "analysisOfRiskFactors": "the risk is imminent and more probably in X situation",
           "riskIncreaseFactors": "If offender in situation X the risk can be higher",
           "riskMitigationFactors": "Giving offender therapy in X will reduce the risk",
           "riskInCommunity": {
@@ -42,7 +42,7 @@
         "jsonBody": {
           "whoIsAtRisk": "X, Y and Z are at risk",
           "natureOfRisk": "The nature of the risk is X",
-          "riskImminence": "the risk is imminent and more probably in X situation",
+          "analysisOfRiskFactors": "the risk is imminent and more probably in X situation",
           "riskIncreaseFactors": "If offender in situation X the risk can be higher",
           "riskMitigationFactors": "Giving offender therapy in X will reduce the risk",
           "riskInCommunity": {
@@ -74,7 +74,7 @@
         "jsonBody": {
           "whoIsAtRisk": "X, Y and Z are at risk",
           "natureOfRisk": "The nature of the risk is X",
-          "riskImminence": "the risk is imminent and more probably in X situation",
+          "analysisOfRiskFactors": "the risk is imminent and more probably in X situation",
           "riskIncreaseFactors": "If offender in situation X the risk can be higher",
           "riskMitigationFactors": "Giving offender therapy in X will reduce the risk",
           "riskInCommunity": {
@@ -106,7 +106,7 @@
         "jsonBody": {
           "whoIsAtRisk": "X, Y and Z are at risk",
           "natureOfRisk": "The nature of the risk is X",
-          "riskImminence": "the risk is imminent and more probably in X situation",
+          "analysisOfRiskFactors": "the risk is imminent and more probably in X situation",
           "riskIncreaseFactors": "If offender in situation X the risk can be higher",
           "riskMitigationFactors": "Giving offender therapy in X will reduce the risk",
           "riskInCommunity": {
@@ -138,7 +138,7 @@
         "jsonBody": {
           "whoIsAtRisk": "X, Y and Z are at risk",
           "natureOfRisk": "The nature of the risk is X",
-          "riskImminence": "the risk is imminent and more probably in X situation",
+          "analysisOfRiskFactors": "the risk is imminent and more probably in X situation",
           "riskIncreaseFactors": "If offender in situation X the risk can be higher",
           "riskMitigationFactors": "Giving offender therapy in X will reduce the risk",
           "riskInCommunity": {
@@ -170,7 +170,7 @@
         "jsonBody": {
           "whoIsAtRisk": "X, Y and Z are at risk",
           "natureOfRisk": "The nature of the risk is X",
-          "riskImminence": "the risk is imminent and more probably in X situation",
+          "analysisOfRiskFactors": "the risk is imminent and more probably in X situation",
           "riskIncreaseFactors": "If offender in situation X the risk can be higher",
           "riskMitigationFactors": "Giving offender therapy in X will reduce the risk",
           "riskInCommunity": {
@@ -202,7 +202,7 @@
         "jsonBody": {
           "whoIsAtRisk": "X, Y and Z are at risk",
           "natureOfRisk": "The nature of the risk is X",
-          "riskImminence": "the risk is imminent and more probably in X situation",
+          "analysisOfRiskFactors": "the risk is imminent and more probably in X situation",
           "riskIncreaseFactors": "If offender in situation X the risk can be higher",
           "riskMitigationFactors": "Giving offender therapy in X will reduce the risk",
           "riskInCommunity": {

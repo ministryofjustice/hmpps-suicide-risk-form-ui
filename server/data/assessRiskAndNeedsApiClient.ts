@@ -21,7 +21,7 @@ export default class AssessRiskAndNeedsApiClient extends RestClient {
 export interface RiskAssessment {
   whoIsAtRisk: string
   natureOfRisk: string
-  riskImminence: string
+  analysisOfRiskFactors: string
   riskIncreaseFactors: string
   riskMitigationFactors: string
   riskInCommunity: {
