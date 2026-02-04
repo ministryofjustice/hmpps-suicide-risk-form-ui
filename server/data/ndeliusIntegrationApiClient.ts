@@ -90,7 +90,7 @@ export interface BasicDetails {
   name: Name
   addresses: DeliusAddress[]
   dateOfBirth: string
-  prisonNumber: string
+  nomsNumber: string
 }
 
 export interface DeliusAddress {

@@ -95,7 +95,7 @@ export default function basicDetailsRoutes(
     const formattedDob = toFullUserDate(basicDetails.dateOfBirth)
     const defaultAddress: DeliusAddress = findDefaultAddressInAddressList(basicDetails.addresses)
     const titleAndFullName: string = formatTitleAndFullName(basicDetails.title, basicDetails.name)
-    const { prisonNumber } = basicDetails
+    const { nomsNumber } = basicDetails
 
     res.render('pages/basic-details', {
       suicideRisk,
@@ -105,7 +105,7 @@ export default function basicDetailsRoutes(
       formattedDob,
       defaultAddress,
       titleAndFullName,
-      prisonNumber,
+      nomsNumber,
       currentPage,
     })
   })
@@ -154,12 +154,12 @@ export default function basicDetailsRoutes(
     const defaultAddress: DeliusAddress = findDefaultAddressInAddressList(basicDetails.addresses)
     const suicideRiskDefaultAddress: SuicideRiskAddress = toSuicideRiskAddress(defaultAddress)
     const titleAndFullName: string = formatTitleAndFullName(basicDetails.title, basicDetails.name)
-    const { prisonNumber } = basicDetails
+    const { nomsNumber } = basicDetails
 
     suicideRisk.dateOfBirth = basicDetails.dateOfBirth
     suicideRisk.titleAndFullName = titleAndFullName
     suicideRisk.postalAddress = suicideRiskDefaultAddress
-    suicideRisk.prisonNumber = prisonNumber
+    suicideRisk.nomsNumber = nomsNumber
     suicideRisk.basicDetailsSaved = true
 
     await suicideRiskApiClient.updateSuicideRisk(req.params.id, suicideRisk, res.locals.user.username)

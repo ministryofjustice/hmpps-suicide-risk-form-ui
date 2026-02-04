@@ -111,7 +111,7 @@ export interface SuicideRisk {
   currentPsychTreatment: string
   postalAddress: SuicideRiskAddress
   dateOfBirth: string
-  prisonNumber: string
+  nomsNumber: string
   workAddress: SuicideRiskAddress
   basicDetailsSaved: boolean
   informationSaved: boolean
