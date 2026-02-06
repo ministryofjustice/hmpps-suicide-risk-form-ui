@@ -7,7 +7,7 @@ context('Basic Details page', () => {
     cy.get('#no-fixed-abode').should('contain.text', 'No Fixed Abode')
     cy.get('#date-of-birth').should('contain.text', '17/03/1980')
     cy.get('#calculated-age').should('contain.text', '45')
-    cy.get('#prison-number').should('contain.text', '1234567')
+    cy.get('#noms-number').should('contain.text', '1234567')
   })
 
   it('can see buttons', () => {
@@ -28,7 +28,7 @@ context('Basic Details page', () => {
     cy.get('#crn').should('contain.text', 'X000001')
     cy.get('#date-of-birth').should('contain.text', '17/03/1980')
     cy.get('#calculated-age').should('contain.text', '45')
-    cy.get('#prison-number').should('contain.text', '1234567')
+    cy.get('#noms-number').should('contain.text', '1234567')
   })
 
   it('close button performs a post request and displays message', () => {
