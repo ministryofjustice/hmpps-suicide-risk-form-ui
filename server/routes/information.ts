@@ -94,7 +94,7 @@ export default function informationRoutes(
     const showRiskAndNeedsDetailsTwisty = !!(
       riskAssessment &&
       ((riskAssessment.natureOfRisk && riskAssessment.natureOfRisk.trim() !== '') ||
-        (riskAssessment.riskImminence && riskAssessment.riskImminence.trim() !== '') ||
+        (riskAssessment.analysisOfRiskFactors && riskAssessment.analysisOfRiskFactors.trim() !== '') ||
         (riskAssessment.riskIncreaseFactors && riskAssessment.riskIncreaseFactors.trim() !== '') ||
         (riskAssessment.riskMitigationFactors && riskAssessment.riskMitigationFactors.trim() !== ''))
     )
@@ -185,14 +185,14 @@ export default function informationRoutes(
     const showRiskAndNeedsDetailsTwisty = !!(
       riskAssessment &&
       ((riskAssessment.natureOfRisk && riskAssessment.natureOfRisk.trim() !== '') ||
-        (riskAssessment.riskImminence && riskAssessment.riskImminence.trim() !== '') ||
+        (riskAssessment.analysisOfRiskFactors && riskAssessment.analysisOfRiskFactors.trim() !== '') ||
         (riskAssessment.riskIncreaseFactors && riskAssessment.riskIncreaseFactors.trim() !== '') ||
         (riskAssessment.riskMitigationFactors && riskAssessment.riskMitigationFactors.trim() !== ''))
     )
 
     if (riskAssessment != null) {
       suicideRisk.natureOfRisk = riskAssessment.natureOfRisk
-      suicideRisk.riskIsGreatestWhen = riskAssessment.riskImminence
+      suicideRisk.riskIsGreatestWhen = riskAssessment.analysisOfRiskFactors
       suicideRisk.riskIncreasesWhen = riskAssessment.riskIncreaseFactors
       suicideRisk.riskDecreasesWhen = riskAssessment.riskMitigationFactors
     }

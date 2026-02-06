@@ -52,9 +52,9 @@
               <p>No information available.</p>
             {% endif %}
 
-            <h2 class="govuk-heading-m">Risk is greatest when</h2>
-            {% if riskAssessment.riskImminence %}
-              <p id="risk-imminence">{{ riskAssessment.riskImminence }}</p>
+            <h2 class="govuk-heading-m">Risk Factors</h2>
+            {% if riskAssessment.analysisOfRiskFactors %}
+              <p id="risk-factors">{{ riskAssessment.analysisOfRiskFactors }}</p>
             {% else %}
               <p>No information available.</p>
             {% endif %}
