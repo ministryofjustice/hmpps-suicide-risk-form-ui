@@ -35,6 +35,69 @@
         }
       }
     },
+
+    {
+      "request": {
+        "urlPattern": "/ndelius/authorised-email",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "authorisedEmails": [
+            {
+              "code":"POL1",
+              "description":"police.uk"
+            },
+            {
+              "code":"GOVUK",
+              "description":"gov.uk"
+            }
+          ]
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+
+
+    {
+      "request": {
+        "urlPattern": "/ndelius/basic-details/P900009",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "title": "Mr",
+          "name": {
+            "forename": "Sammy",
+            "middleName": "Middle",
+            "surname": "Saucer"
+          },
+          "prisonNumber": "1234567",
+          "dateOfBirth": "1980-03-17",
+          "addresses": [
+            {
+              "id": 1,
+              "status": "Previous",
+              "buildingName": null,
+              "buildingNumber": "6543",
+              "streetName": "Previous Street",
+              "townCity": "Prevtown",
+              "district": "PrevDistrict",
+              "county": "Prevcounty",
+              "postcode": "PR11 1EV"
+            }
+          ]
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+
     {
       "request": {
         "urlPattern": "/ndelius/basic-details/X000002",

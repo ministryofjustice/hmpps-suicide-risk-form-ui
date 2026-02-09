@@ -2,6 +2,28 @@
   "mappings": [
     {
       "request": {
+        "url": "/suicide-risk-api/suicide-risk/ad2fb5b0-7463-4f02-8582-28a7b128d571",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "ad2fb5b0-7463-4f02-8582-28a7b128d571",
+          "crn": "P900009",
+          "basicDetailsSaved": true,
+          "informationSaved": true,
+          "treatmentSaved": true,
+          "signAndSendSaved": true,
+          "contactSaved": true
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        "transformers": ["response-template"]
+      }
+    },
+    {
+      "request": {
         "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-000000000001",
         "method": "GET"
       },
