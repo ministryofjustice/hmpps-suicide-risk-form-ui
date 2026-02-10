@@ -116,18 +116,15 @@ export default function recipientsRoutes(
       )
       // take the user to detailed error page for 400 type errors
       if (error.status === 400) {
-        res.render(`pages/detailed-error`, { errorMessages })
-        return
+        return res.render(`pages/detailed-error`, { errorMessages })
       }
 
       // stay on the current page for 500 errors
       if (error.status === 500) {
         const showEmbeddedError = true
-        res.render(`pages/recipient-details`, { errorMessages, showEmbeddedError })
-        return
+        return res.render(`pages/recipient-details`, { errorMessages, showEmbeddedError })
       }
-      res.render(`pages/detailed-error`, { errorMessages })
-      return
+      return res.render(`pages/detailed-error`, { errorMessages })
     }
 
     if (recipientId) {
