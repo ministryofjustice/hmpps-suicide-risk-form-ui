@@ -44,6 +44,15 @@ export default class NDeliusIntegrationApiClient extends RestClient {
     )
   }
 
+  async getRecipientDetails(username: string): Promise<EmailRecipientData> {
+    return this.get(
+      {
+        path: `/authorised-email`,
+      },
+      asSystem(username),
+    )
+  }
+
   async getDocumentsForContacts(contactIds: number[], username: string): Promise<ContactDocSearchResponse> {
     return this.post(
       {
@@ -91,6 +100,10 @@ export interface BasicDetails {
   addresses: DeliusAddress[]
   dateOfBirth: string
   nomsNumber: string
+}
+
+export interface EmailRecipientData {
+  authorisedEmails: ReferenceData[]
 }
 
 export interface DeliusAddress {

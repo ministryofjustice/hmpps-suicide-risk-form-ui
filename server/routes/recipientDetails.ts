@@ -6,6 +6,7 @@ import SuicideRiskApiClient, { SuicideRisk, SuicideRiskAddress, SuicideRiskConta
 import CommonUtils from '../services/commonUtils'
 import { ErrorMessages } from '../data/uiModels'
 import { handleIntegrationErrors } from '../utils/utils'
+import NDeliusIntegrationApiClient, { EmailRecipientData } from '../data/ndeliusIntegrationApiClient'
 
 export default function recipientsRoutes(
   router: Router,
@@ -75,6 +76,7 @@ export default function recipientsRoutes(
     const suicideRiskApiClient = new SuicideRiskApiClient(authenticationClient)
     let suicideRisk: SuicideRisk = null
     let recipient = null
+    let allowedEmailList: string[] = []
 
     let redirectUrl = `/recipients/${suicideRiskId}`
     if (callingScreen) redirectUrl += `?returnTo=${callingScreen}`
@@ -92,6 +94,39 @@ export default function recipientsRoutes(
       const showEmbeddedError = true
       return res.render(`pages/recipient-details`, { errorMessages, showEmbeddedError })
     }
+
+    try {
+      // get the authorised email reference data
+      const ndeliusIntegrationApiClient = new NDeliusIntegrationApiClient(authenticationClient)
+      const emailRecipientData: EmailRecipientData = await ndeliusIntegrationApiClient.getRecipientDetails(
+        res.locals.user.username,
+      )
+      if (
+        emailRecipientData &&
+        emailRecipientData.authorisedEmails &&
+        Object.keys(emailRecipientData.authorisedEmails).length > 0
+      ) {
+        allowedEmailList = emailRecipientData.authorisedEmails.map(({ description }) => description)
+      }
+    } catch (error) {
+      const errorMessages: ErrorMessages = handleIntegrationErrors(
+        error.status,
+        error.data?.message,
+        'NDelius Integration',
+      )
+      // take the user to detailed error page for 400 type errors
+      if (error.status === 400) {
+        return res.render(`pages/detailed-error`, { errorMessages })
+      }
+
+      // stay on the current page for 500 errors
+      if (error.status === 500) {
+        const showEmbeddedError = true
+        return res.render(`pages/recipient-details`, { errorMessages, showEmbeddedError })
+      }
+      return res.render(`pages/detailed-error`, { errorMessages })
+    }
+
     if (recipientId) {
       try {
         recipient = await suicideRiskApiClient.getRecipient(
@@ -125,7 +160,7 @@ export default function recipientsRoutes(
     recipient.contactPerson = req.body.name || null
     recipient.contactDate = new Date().toISOString()
 
-    const errorMessages: ErrorMessages = validateRecipient(recipient)
+    const errorMessages: ErrorMessages = validateRecipient(recipient, allowedEmailList)
     const hasErrors: boolean = Object.keys(errorMessages).length > 0
 
     if (hasErrors) {
@@ -170,7 +205,7 @@ export default function recipientsRoutes(
     }
   })
 
-  function validateRecipient(recipient: SuicideRiskContact): ErrorMessages {
+  function validateRecipient(recipient: SuicideRiskContact, allowedRecipientList: string[]): ErrorMessages {
     let errorMessages: ErrorMessages = validateAddress(recipient.contactLocation)
 
     if (!recipient.contactPerson || recipient.contactPerson.trim() === '') {
@@ -183,13 +218,13 @@ export default function recipientsRoutes(
 
     if (recipient.sendFormManually === null || recipient.sendFormManually === undefined) {
       errorMessages.sendFormManually = {
-        text: 'Please select an answer to the question Will you be sending this form manually',
+        text: 'Please select an answer to the question Are you going to send this form to this recipient manually?',
       }
     }
 
     if (recipient.sendFormViaEmail === null || recipient.sendFormViaEmail === undefined) {
       errorMessages.sendFormViaEmail = {
-        text: 'Please select an answer to the question Will you be sending this form by email',
+        text: 'Please select an answer to the question Do you want the system to email the completed form to this recipient?',
       }
     }
 
@@ -202,6 +237,25 @@ export default function recipientsRoutes(
         text: 'You have indicated that you will be emailing the form to a recipient but have not entered the recipients email address. Please enter an email address',
       }
     }
+
+    if (allowedRecipientList && Object.keys(allowedRecipientList).length > 0) {
+      if (recipient.sendFormViaEmail && recipient.emailAddress && recipient.emailAddress.trim() !== '') {
+        let emailValid = false
+        for (const str of allowedRecipientList) {
+          if (recipient.emailAddress.includes(str)) {
+            emailValid = true
+            break
+          }
+        }
+
+        if (emailValid === false) {
+          errorMessages.email = {
+            text: 'Please enter an email address from the approved recipient list. Please contact IT for further information',
+          }
+        }
+      }
+    }
+
     return errorMessages
   }
 

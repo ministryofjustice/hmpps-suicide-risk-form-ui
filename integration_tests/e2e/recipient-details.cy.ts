@@ -25,8 +25,8 @@ context('Recipient Details Page', () => {
       cy.get('#county').should('exist')
       cy.get('#postcode').should('exist')
       cy.get('#email').should('exist')
-      cy.contains('Will you be sending this form manually?').should('exist')
-      cy.contains('Will you be sending this form by email?').should('exist')
+      cy.contains('Are you going to send this form to this recipient manually?').should('exist')
+      cy.contains('Do you want the system to email the completed form to this recipient?').should('exist')
 
       cy.get('#confirm-button').should('contain.text', 'Save')
       cy.get('#cancel-button').should('contain.text', 'Cancel without saving')
@@ -98,6 +98,36 @@ context('Recipient Details Page', () => {
     cy.contains('Name: This is a required value, please enter a value').should('be.visible')
   })
 
+  it('validates email is in the list of allowed email addresses and fails if not', () => {
+    cy.visit(`/recipient-details/${suicideRiskId}?contactType=COLLEAGUE`)
+    cy.get('input[name="sendFormViaEmail"][value="true"]').check()
+    cy.get('#email').clear()
+    cy.get('#email').type('testuser@polte.uk')
+    clickConfirmButton()
+    cy.contains(
+      'Please enter an email address from the approved recipient list. Please contact IT for further information',
+    ).should('be.visible')
+  })
+
+  it('validates email is in the list of allowed email addresses and succeeds if it is', () => {
+    cy.visit(`/recipient-details/${suicideRiskId}?contactType=COLLEAGUE`)
+    cy.get('input[name="sendFormViaEmail"][value="true"]').check()
+    cy.get('input[name="sendFormManually"][value="false"]').check()
+    cy.get('#name').type('Janet Smith')
+    cy.get('#description').type('Regional Office')
+    cy.get('#buildingName').type('The Archway')
+    cy.get('#houseNumber').type('9')
+    cy.get('#streetName').type('Main Street')
+    cy.get('#district').type('North District')
+    cy.get('#townCity').type('Riverside')
+    cy.get('#county').type('Northshire')
+    cy.get('#postcode').type('BB2 2BB')
+    cy.get('#email').clear()
+    cy.get('#email').type('testuser@police.uk')
+    clickConfirmButton()
+    cy.url().should('include', 'recipients/00000000-0000-0000-0000-700000000000')
+  })
+
   it('validates identifier fields (at least one of Description, Building Name, Address Number)', () => {
     cy.visit(`/recipient-details/${suicideRiskId}?contactType=COLLEAGUE`)
     cy.get('#description').clear()
@@ -128,16 +158,20 @@ context('Recipient Details Page', () => {
     cy.contains('Postcode : This is a required value, please enter a value').should('be.visible')
   })
 
-  it('validates "Will you be sending this form manually?" not selected', () => {
+  it('validates "Are you going to send this form to this recipient manually?" not selected', () => {
     cy.visit(`/recipient-details/${suicideRiskId}?contactType=COLLEAGUE`)
     clickConfirmButton()
-    cy.contains('Please select an answer to the question Will you be sending this form manually').should('be.visible')
+    cy.contains(
+      'Please select an answer to the question Are you going to send this form to this recipient manually?',
+    ).should('be.visible')
   })
 
-  it('validates "Will you be sending this form by email?" not selected', () => {
+  it('validates "Do you want the system to email the completed form to this recipient?" not selected', () => {
     cy.visit(`/recipient-details/${suicideRiskId}?contactType=COLLEAGUE`)
     clickConfirmButton()
-    cy.contains('Please select an answer to the question Will you be sending this form by email').should('be.visible')
+    cy.contains(
+      'Please select an answer to the question Do you want the system to email the completed form to this recipient?',
+    ).should('be.visible')
   })
 
   it('validates email required when "send form by email" is Yes and no email provided', () => {
