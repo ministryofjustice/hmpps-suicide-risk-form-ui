@@ -101,7 +101,9 @@ export interface SuicideRisk {
   dateOfLetter: string
   sheetSentBy: string
   telephoneNumber: string
+  officerEmailAddress: string
   signature: string
+  signedByRo: boolean
   completedDate: ZonedDateTime
   natureOfRisk: string
   riskIsGreatestWhen: string

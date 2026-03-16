@@ -11,7 +11,11 @@ import {
   handleIntegrationErrors,
   toSuicideRiskAddress,
 } from '../utils/utils'
-import NDeliusIntegrationApiClient, { DeliusAddress, SignAndSendDetails } from '../data/ndeliusIntegrationApiClient'
+import NDeliusIntegrationApiClient, {
+  DeliusAddress,
+  PersonDetails,
+  ResponsibleOfficerDetails,
+} from '../data/ndeliusIntegrationApiClient'
 import { toFullUserDate, toUserDate } from '../utils/dateUtils'
 
 export default function signAndSendRoutes(
@@ -28,6 +32,8 @@ export default function signAndSendRoutes(
     const suicideRiskApiClient = new SuicideRiskApiClient(authenticationClient)
     const ndeliusIntegrationApiClient = new NDeliusIntegrationApiClient(authenticationClient)
 
+    const currentUserDisplayName = res.locals.user.displayName
+
     let errorMessages: ErrorMessages = {}
 
     let suicideRisk: SuicideRisk = null
@@ -42,9 +48,12 @@ export default function signAndSendRoutes(
 
     if (await commonUtils.redirectRequired(suicideRisk, suicideRiskId, res, authenticationClient)) return
 
-    let userDetails: SignAndSendDetails = null
+    let responsibleOfficerDetails: ResponsibleOfficerDetails = null
     try {
-      userDetails = await ndeliusIntegrationApiClient.getSignAndSendDetails(res.locals.user.username)
+      responsibleOfficerDetails = await ndeliusIntegrationApiClient.getResponsibleOfficerDetails(
+        suicideRisk.crn,
+        res.locals.user.username,
+      )
     } catch (error) {
       errorMessages = handleIntegrationErrors(error.status, error.data?.message, 'NDelius Integration')
       // take the user to detailed error page for 400 type errors
@@ -63,16 +72,16 @@ export default function signAndSendRoutes(
       return
     }
 
-    suicideRisk.telephoneNumber = userDetails.telephoneNumber
+    suicideRisk.telephoneNumber = responsibleOfficerDetails.telephoneNumber
 
     let defaultAddress: DeliusAddress = null
     let onlyAlternateAddressesAvailable: boolean = false
-    if (suicideRisk.workAddress == null && userDetails.addresses != null) {
-      defaultAddress = userDetails.addresses.find(record => record.status === 'Default')
+    if (suicideRisk.workAddress == null && responsibleOfficerDetails.addresses != null) {
+      defaultAddress = responsibleOfficerDetails.addresses.find(record => record.status === 'Default')
 
       if (defaultAddress) {
         suicideRisk.workAddress = toSuicideRiskAddress(defaultAddress)
-      } else if (userDetails.addresses?.length > 0) {
+      } else if (responsibleOfficerDetails.addresses?.length > 0) {
         // Scenario when a default address is not found from integration api but other (non-default) alternate addresses are found
         // We do not display radio buttons for the user, just a drop-down of the alternate addresses
         onlyAlternateAddressesAvailable = true
@@ -80,8 +89,14 @@ export default function signAndSendRoutes(
     }
 
     let addressNotAvailable: boolean = false
-    if (suicideRisk.workAddress != null && suicideRisk.workAddress.addressId != null && userDetails.addresses != null) {
-      const addressPresent = userDetails.addresses.find(record => record.id === suicideRisk.workAddress.addressId)
+    if (
+      suicideRisk.workAddress != null &&
+      suicideRisk.workAddress.addressId != null &&
+      responsibleOfficerDetails.addresses != null
+    ) {
+      const addressPresent = responsibleOfficerDetails.addresses.find(
+        record => record.id === suicideRisk.workAddress.addressId,
+      )
       if (addressPresent == null) {
         suicideRisk.workAddress = null
         addressNotAvailable = true
@@ -94,12 +109,12 @@ export default function signAndSendRoutes(
     }
 
     let manualAddressAllowed: boolean = false
-    if (userDetails.addresses == null || userDetails.addresses.length === 0) {
+    if (responsibleOfficerDetails.addresses == null || responsibleOfficerDetails.addresses.length === 0) {
       manualAddressAllowed = true
     }
 
     const alternateAddressOptions = addressListToSelectItemList(
-      userDetails.addresses,
+      responsibleOfficerDetails.addresses,
       suicideRisk.basicDetailsSaved,
       suicideRisk.workAddress?.addressId,
     )
@@ -110,7 +125,8 @@ export default function signAndSendRoutes(
       suicideRisk,
       currentPage,
       suicideRiskId,
-      userDetails,
+      responsibleOfficerDetails,
+      currentUserDisplayName,
       dateOfLetter,
       alternateAddressOptions,
       addressNotAvailable,
@@ -123,28 +139,28 @@ export default function signAndSendRoutes(
   router.post('/sign-and-send/:id', async (req, res) => {
     const suicideRiskApiClient = new SuicideRiskApiClient(authenticationClient)
     const ndeliusIntegrationApiClient = new NDeliusIntegrationApiClient(authenticationClient)
-
     const suicideRiskId: string = req.params.id
+    const formSentBy: string = req.body.whoIsSendingTheForm || null
     let suicideRisk: SuicideRisk = null
+    let errorMessages: ErrorMessages = {}
 
     try {
       suicideRisk = await suicideRiskApiClient.getSuicideRiskById(suicideRiskId, res.locals.user.username)
     } catch (error) {
-      const errorMessages: ErrorMessages = handleIntegrationErrors(error.status, error.data?.message, 'Suicide Risk')
+      errorMessages = handleIntegrationErrors(error.status, error.data?.message, 'Suicide Risk')
       const showEmbeddedError = true
-      res.render(`pages/basic-details`, { errorMessages, showEmbeddedError })
+      res.render(`pages/sign-and-send`, { errorMessages, showEmbeddedError })
       return
     }
 
-    let userDetails: SignAndSendDetails = null
+    let responsibleOfficerDetails: ResponsibleOfficerDetails = null
     try {
-      userDetails = await ndeliusIntegrationApiClient.getSignAndSendDetails(res.locals.user.username)
-    } catch (error) {
-      const errorMessages: ErrorMessages = handleIntegrationErrors(
-        error.status,
-        error.data?.message,
-        'NDelius Integration',
+      responsibleOfficerDetails = await ndeliusIntegrationApiClient.getResponsibleOfficerDetails(
+        suicideRisk.crn,
+        res.locals.user.username,
       )
+    } catch (error) {
+      errorMessages = handleIntegrationErrors(error.status, error.data?.message, 'NDelius Integration')
       // take the user to detailed error page for 400 type errors
       if (error.status === 400) {
         res.render(`pages/detailed-error`, { errorMessages })
@@ -162,13 +178,89 @@ export default function signAndSendRoutes(
     }
 
     if (req.body.action === 'saveProgressAndClose') {
+      suicideRisk.signedByRo = null
+      if (formSentBy !== null) {
+        suicideRisk.signedByRo = formSentBy === 'RO'
+      } else {
+        errorMessages.sentByResponsibleOfficerOrUser = {
+          text: 'Please select who is sending this document before leaving this screen',
+        }
+      }
+      const hasValidationErrors: boolean = Object.keys(errorMessages).length > 0
+
       suicideRisk.signAndSendSaved = true
-      suicideRisk.telephoneNumber = userDetails.telephoneNumber
-      suicideRisk = handleSelectedAddress(suicideRisk, userDetails, req)
+      suicideRisk.officerEmailAddress = responsibleOfficerDetails.emailAddress
+      suicideRisk.telephoneNumber = responsibleOfficerDetails.telephoneNumber
+      suicideRisk = handleSelectedAddress(suicideRisk, responsibleOfficerDetails, req)
       await suicideRiskApiClient.updateSuicideRisk(req.params.id, suicideRisk, res.locals.user.username)
-      res.send(
-        `<p>You can now safely close this window</p><script nonce="${res.locals.cspNonce}">window.close()</script>`,
-      )
+
+      if (hasValidationErrors) {
+        const currentUserDisplayName = res.locals.user.displayName
+        const dateOfLetter: string = toUserDate(suicideRisk.dateOfLetter)
+
+        const alternateAddressOptions = addressListToSelectItemList(
+          responsibleOfficerDetails.addresses,
+          suicideRisk.basicDetailsSaved,
+          suicideRisk.workAddress?.addressId,
+        )
+
+        let addressNotAvailable: boolean = false
+        if (
+          suicideRisk.workAddress != null &&
+          suicideRisk.workAddress.addressId != null &&
+          responsibleOfficerDetails.addresses != null
+        ) {
+          const addressPresent = responsibleOfficerDetails.addresses.find(
+            record => record.id === suicideRisk.workAddress.addressId,
+          )
+          if (addressPresent == null) {
+            suicideRisk.workAddress = null
+            addressNotAvailable = true
+            await suicideRiskApiClient.updateSuicideRisk(req.params.id, suicideRisk, res.locals.user.username)
+
+            errorMessages.genericErrorMessage = {
+              text: 'Work Location and Address: The previously selected address is no longer available. Please select an alternative.',
+            }
+          }
+        }
+
+        let manualAddressAllowed: boolean = false
+        if (responsibleOfficerDetails.addresses == null || responsibleOfficerDetails.addresses.length === 0) {
+          manualAddressAllowed = true
+        }
+
+        let defaultAddress: DeliusAddress = null
+        let onlyAlternateAddressesAvailable: boolean = false
+        if (suicideRisk.workAddress == null && responsibleOfficerDetails.addresses != null) {
+          defaultAddress = responsibleOfficerDetails.addresses.find(record => record.status === 'Default')
+
+          if (defaultAddress) {
+            suicideRisk.workAddress = toSuicideRiskAddress(defaultAddress)
+          } else if (responsibleOfficerDetails.addresses?.length > 0) {
+            // Scenario when a default address is not found from integration api but other (non-default) alternate addresses are found
+            // We do not display radio buttons for the user, just a drop-down of the alternate addresses
+            onlyAlternateAddressesAvailable = true
+          }
+        }
+
+        res.render('pages/sign-and-send', {
+          suicideRisk,
+          currentPage,
+          suicideRiskId,
+          responsibleOfficerDetails,
+          currentUserDisplayName,
+          dateOfLetter,
+          alternateAddressOptions,
+          addressNotAvailable,
+          manualAddressAllowed,
+          errorMessages,
+          onlyAlternateAddressesAvailable,
+        })
+      } else {
+        res.send(
+          `<p>You can now safely close this window</p><script nonce="${res.locals.cspNonce}">window.close()</script>`,
+        )
+      }
     } else if (req.body.action === 'clear-signature') {
       suicideRisk.signAndSendSaved = true
       suicideRisk.signature = null
@@ -177,22 +269,93 @@ export default function signAndSendRoutes(
       res.redirect(`/sign-and-send/${req.params.id}`)
     } else if (req.body.action === 'sign') {
       suicideRisk.signAndSendSaved = true
-      suicideRisk.signature = createSignatureString(userDetails)
-      suicideRisk.sheetSentBy = getOfficerString(userDetails)
+      suicideRisk.signature = createSignatureString(responsibleOfficerDetails)
+      suicideRisk.sheetSentBy = getOfficerString(responsibleOfficerDetails)
       await suicideRiskApiClient.updateSuicideRisk(req.params.id, suicideRisk, res.locals.user.username)
       res.redirect(`/sign-and-send/${req.params.id}`)
     } else if (req.body.action === 'refreshFromNdelius') {
       res.redirect(`/sign-and-send/${req.params.id}`)
     } else {
+      // save and continue
+      suicideRisk.signedByRo = null
+      if (formSentBy !== null) {
+        suicideRisk.signedByRo = formSentBy === 'RO'
+      } else {
+        errorMessages.sentByResponsibleOfficerOrUser = {
+          text: 'Please select who is sending this document before leaving this screen',
+        }
+      }
+      const hasValidationErrors: boolean = Object.keys(errorMessages).length > 0
       suicideRisk.signAndSendSaved = true
-      suicideRisk.telephoneNumber = userDetails.telephoneNumber
-      suicideRisk = handleSelectedAddress(suicideRisk, userDetails, req)
-      await suicideRiskApiClient.updateSuicideRisk(req.params.id, suicideRisk, res.locals.user.username)
-      res.redirect(`/check-your-answers/${req.params.id}`)
+      suicideRisk.telephoneNumber = responsibleOfficerDetails.telephoneNumber
+      suicideRisk.officerEmailAddress = responsibleOfficerDetails.emailAddress
+      suicideRisk = handleSelectedAddress(suicideRisk, responsibleOfficerDetails, req)
+
+      if (hasValidationErrors) {
+        const currentUserDisplayName = res.locals.user.displayName
+        const dateOfLetter: string = toUserDate(suicideRisk.dateOfLetter)
+        let addressNotAvailable: boolean = false
+
+        const alternateAddressOptions = addressListToSelectItemList(
+          responsibleOfficerDetails.addresses,
+          suicideRisk.basicDetailsSaved,
+          suicideRisk.workAddress?.addressId,
+        )
+
+        const addressPresent = responsibleOfficerDetails.addresses.find(
+          record => record.id === suicideRisk.workAddress.addressId,
+        )
+        if (addressPresent == null) {
+          suicideRisk.workAddress = null
+          addressNotAvailable = true
+          await suicideRiskApiClient.updateSuicideRisk(req.params.id, suicideRisk, res.locals.user.username)
+
+          errorMessages.genericErrorMessage = {
+            text: 'Work Location and Address: The previously selected address is no longer available. Please select an alternative.',
+          }
+        }
+
+        let manualAddressAllowed: boolean = false
+        if (responsibleOfficerDetails.addresses == null || responsibleOfficerDetails.addresses.length === 0) {
+          manualAddressAllowed = true
+        }
+
+        let defaultAddress: DeliusAddress = null
+        let onlyAlternateAddressesAvailable: boolean = false
+        if (suicideRisk.workAddress == null && responsibleOfficerDetails.addresses != null) {
+          defaultAddress = responsibleOfficerDetails.addresses.find(record => record.status === 'Default')
+
+          if (defaultAddress) {
+            suicideRisk.workAddress = toSuicideRiskAddress(defaultAddress)
+          } else if (responsibleOfficerDetails.addresses?.length > 0) {
+            // Scenario when a default address is not found from integration api but other (non-default) alternate addresses are found
+            // We do not display radio buttons for the user, just a drop-down of the alternate addresses
+            onlyAlternateAddressesAvailable = true
+          }
+        }
+        // we need to end everything into the page again
+        // res.redirect(`/sign-and-send/${req.params.id}`)
+        res.render('pages/sign-and-send', {
+          suicideRisk,
+          currentPage,
+          suicideRiskId,
+          responsibleOfficerDetails,
+          currentUserDisplayName,
+          dateOfLetter,
+          alternateAddressOptions,
+          addressNotAvailable,
+          manualAddressAllowed,
+          errorMessages,
+          onlyAlternateAddressesAvailable,
+        })
+      } else {
+        await suicideRiskApiClient.updateSuicideRisk(req.params.id, suicideRisk, res.locals.user.username)
+        res.redirect(`/check-your-answers/${req.params.id}`)
+      }
     }
   })
 
-  function handleSelectedAddress(suicideRisk: SuicideRisk, userDetails: SignAndSendDetails, req: Request): SuicideRisk {
+  function handleSelectedAddress(suicideRisk: SuicideRisk, userDetails: PersonDetails, req: Request): SuicideRisk {
     const risk = suicideRisk
     const selectedAddress = getSelectedAddress(userDetails.addresses, req.body.alternateAddress)
     if (selectedAddress) {
@@ -201,19 +364,19 @@ export default function signAndSendRoutes(
     return risk
   }
 
-  function createSignatureString(userDetails: SignAndSendDetails): string {
+  function createSignatureString(responsibleOfficerDetails: ResponsibleOfficerDetails): string {
     let signature: string = ''
-    if (userDetails != null && userDetails.name != null) {
-      signature += userDetails.name.forename
-      if (userDetails.name.middleName != null) {
-        signature += ` ${userDetails.name.middleName}`
+    if (responsibleOfficerDetails != null && responsibleOfficerDetails.name != null) {
+      signature += responsibleOfficerDetails.name.forename
+      if (responsibleOfficerDetails.name.middleName != null) {
+        signature += ` ${responsibleOfficerDetails.name.middleName}`
       }
-      signature += ` ${userDetails.name.surname} ${toFullUserDate(new Date().toISOString())}`
+      signature += ` ${responsibleOfficerDetails.name.surname} ${toFullUserDate(new Date().toISOString())}`
     }
     return signature
   }
 
-  function getOfficerString(userDetails: SignAndSendDetails): string {
+  function getOfficerString(userDetails: PersonDetails): string {
     let signature: string = ''
     if (userDetails != null && userDetails.name != null) {
       signature += userDetails.name.forename

@@ -46,12 +46,12 @@
         "jsonBody": {
           "authorisedEmails": [
             {
-              "code":"POL1",
-              "description":"police.uk"
+              "code": "POL1",
+              "description": "police.uk"
             },
             {
-              "code":"GOVUK",
-              "description":"gov.uk"
+              "code": "GOVUK",
+              "description": "gov.uk"
             }
           ]
         },
@@ -60,7 +60,6 @@
         }
       }
     },
-
 
     {
       "request": {
@@ -838,6 +837,7 @@
         }
       }
     },
+
     {
       "request": {
         "urlPattern": "/ndelius/sign-and-send/(.*?)",
@@ -885,10 +885,8 @@
     },
 
     {
-      "priority": 1,
-      "id": "11111111-1111-1111-1111-111111111111",
       "request": {
-        "urlPattern": "/ndelius/sign-and-send/(.*?)",
+        "urlPattern": "/ndelius/sign-and-send/X012345",
         "method": "GET"
       },
       "response": {
@@ -904,26 +902,25 @@
           "addresses": [
             {
               "id": 3,
-              "status": "Default",
-              "officeDescription": "The Findus Factory",
-              "buildingName": "Pancake Building",
+              "officeDescription": "Alt",
+              "buildingName": "Alt",
               "buildingNumber": "1",
-              "streetName": "Crispy Street",
-              "townCity": "Fry Town",
-              "district": "Previous District",
-              "county": "Prev County",
-              "postcode": "PR1 3EV"
+              "streetName": "Alt",
+              "townCity": "Alt",
+              "district": "Alt",
+              "county": "Alt",
+              "postcode": "AA1 1AA"
             },
             {
               "id": 4,
-              "officeDescription": "The Birdseye Factory",
-              "buildingName": "Fish Building",
-              "buildingNumber": "1",
-              "streetName": "Fishy Street",
-              "townCity": "Fry Town",
-              "district": "Previous District",
-              "county": "Prev County",
-              "postcode": "FS1 3SH"
+              "officeDescription": "Alt 2",
+              "buildingName": "Alt 2",
+              "buildingNumber": "2",
+              "streetName": "Alt 2",
+              "townCity": "Alt 2",
+              "district": "Alt 2",
+              "county": "Alt 2",
+              "postcode": "AA2 2AA"
             }
           ]
         },
@@ -932,6 +929,7 @@
         }
       }
     },
+
     {
       "request": {
         "method": "POST",
@@ -1014,6 +1012,34 @@
         }
       }
     },
+
+    {
+      "request": {
+        "url": "/ndelius/information-page/X012345",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "registration": {
+            "id": "123456",
+            "startDate": "2025-01-01",
+            "endDate": "2025-01-01",
+            "notes": "some notes in here",
+            "documentsLinked": true,
+            "deregistered": false,
+            "type": {
+              "code": "REG1",
+              "description": "registration type 1"
+            }
+          }
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+
     {
       "request": {
         "url": "/ndelius/information-page/X000001",
