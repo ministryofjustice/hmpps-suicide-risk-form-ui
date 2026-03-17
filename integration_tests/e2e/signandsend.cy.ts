@@ -15,6 +15,15 @@ context('Sign and Send Page', () => {
     cy.get('#clear-signature-button').should('not.exist')
   })
 
+  it('Can See and Select new who is sending fields', () => {
+    cy.visit('/sign-and-send/00000000-0000-0000-0000-600000000013')
+    cy.get('#whoIsSendingTheForm').should('exist')
+    cy.get('input[type="radio"][value="RO"]').should('exist')
+    cy.get('input[type="radio"][value="USER"]').should('exist')
+    cy.get('input[type="radio"][value="RO"]').check()
+    cy.get('input[type="radio"][value="RO"]').should('be.checked')
+  })
+
   it('shows only alternate address dropdown when no default address exists', () => {
     cy.visit('/sign-and-send/00000000-0000-0000-0000-600000000013')
     cy.get('input[type="radio"][value="RO"]').check()
