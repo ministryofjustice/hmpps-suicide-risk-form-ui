@@ -24,6 +24,12 @@ context('Sign and Send Page', () => {
     cy.get('input[type="radio"][value="RO"]').should('be.checked')
   })
 
+  it('Can See and Select new officer email field', () => {
+    cy.visit('/sign-and-send/00000000-0000-0000-0000-600000000013')
+    cy.get('#officer-email-address').should('exist')
+    cy.get('#officer-email-address').should('contain.text', 'example@justice.gov.uk')
+  })
+
   it('shows only alternate address dropdown when no default address exists', () => {
     cy.visit('/sign-and-send/00000000-0000-0000-0000-600000000013')
     cy.get('input[type="radio"][value="RO"]').check()
