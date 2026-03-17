@@ -16,7 +16,8 @@
 
     {% set errorList =[
       { text: errorMessages.replyAddress.text, href: "#work-address" } if errorMessages.workAddress else None,
-      { text: errorMessages.genericErrorMessage.text, href: "#" } if errorMessages.genericErrorMessage else None
+      { text: errorMessages.replyAddress.text, href: "#work-address" } if errorMessages.workAddress else None,
+      { text: errorMessages.sentByResponsibleOfficerOrUser.text, href: "#who-is-sending-the-form" } if errorMessages.sentByResponsibleOfficerOrUser else None
     ] | reject("undefined") %}
 
     {% if errorMessages | length > 0 %}
@@ -48,10 +49,40 @@
 
           <h1 class="govuk-heading-l">Suicide Risk - Sign and Send</h1>
 
+          {{ govukRadios({
+            id: "who-is-sending-the-form",
+            name: "whoIsSendingTheForm",
+            fieldset: {
+              legend: {
+                text: "Please select who is sending this document?",
+                isPageHeading: false,
+                classes: "govuk-fieldset__legend--m"
+              }
+            },
+            errorMessage: {
+              text: errorMessages.sentByResponsibleOfficerOrUser.text
+            } if errorMessages.sentByResponsibleOfficerOrUser,
+            items: [
+              {
+                value: "RO",
+                text: "Responsible officer",
+                checked: suicideRisk.signedByRo === true
+              },
+              {
+                value: "USER",
+                text: "User on behalf of the Responsible Officer",
+                checked: suicideRisk.signedByRo === false
+              }
+            ]
+          }) }}
+
           <h2 class="govuk-heading-m">Officer Name</h2>
-          <p id="name">{{ userDetails.name.forename }}
-            <span> </span> {% if userDetails.name.middleName != null %} {{ userDetails.name.middleName }}
-              <span> </span> {% endif %} {{ userDetails.name.surname }}</p>
+          <p id="name">{{ responsibleOfficerDetails.name.forename }}
+            <span> </span> {% if responsibleOfficerDetails.name.middleName != null %} {{ responsibleOfficerDetails.name.middleName }}
+              <span> </span> {% endif %} {{ responsibleOfficerDetails.name.surname }}</p>
+
+          <h2 class="govuk-heading-m">Officer Email Address</h2>
+          <p id="officer-email-address">{{ responsibleOfficerDetails.emailAddress }}</p>
 
           <h2 class="govuk-heading-m">Signature</h2>
 
@@ -113,7 +144,7 @@
                   <br />{% endif %}
               </p>
 
-              {% if suicideRisk.workAddress != null and suicideRisk.workAddress.addressId == null and (userDetails.addresses == null or userDetails.addresses.length == 0) %}
+              {% if suicideRisk.workAddress != null and suicideRisk.workAddress.addressId == null and (responsibleOfficerDetails.addresses == null or responsibleOfficerDetails.addresses.length == 0) %}
                 {{ govukButton({
                   text: "Update Address",
                   href: '/update-work-address/'+suicideRiskId,
@@ -144,7 +175,7 @@
                 }
               }) }}
 
-            {% elseif not addressNotAvailable and userDetails.addresses != null and userDetails.addresses.length > 0 %}
+            {% elseif not addressNotAvailable and responsibleOfficerDetails.addresses != null and responsibleOfficerDetails.addresses.length > 0 %}
 
               {{ govukRadios({
                 name: "offenderAddressSelectOne",
@@ -175,7 +206,7 @@
                 ]
               }) }}
 
-            {% elseif userDetails.addresses != null and userDetails.addresses.length > 0 %}
+            {% elseif responsibleOfficerDetails.addresses != null and responsibleOfficerDetails.addresses.length > 0 %}
 
               {{ alternateAddressHtml | safe }}
 

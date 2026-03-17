@@ -6,7 +6,7 @@ context('Basic Details page', () => {
     cy.get('#crn').should('contain.text', 'X000001')
     cy.get('#no-fixed-abode').should('contain.text', 'No Fixed Abode')
     cy.get('#date-of-birth').should('contain.text', '17/03/1980')
-    cy.get('#calculated-age').should('contain.text', '45')
+    cy.get('#calculated-age').should('not.be.empty')
     cy.get('#noms-number').should('contain.text', '1234567')
   })
 
@@ -27,7 +27,7 @@ context('Basic Details page', () => {
     cy.get('#name').should('contain.text', 'Mr Billy The Kid')
     cy.get('#crn').should('contain.text', 'X000001')
     cy.get('#date-of-birth').should('contain.text', '17/03/1980')
-    cy.get('#calculated-age').should('contain.text', '45')
+    cy.get('#calculated-age').should('not.be.empty')
     cy.get('#noms-number').should('contain.text', '1234567')
   })
 

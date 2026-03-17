@@ -15,17 +15,29 @@ context('Sign and Send Page', () => {
     cy.get('#clear-signature-button').should('not.exist')
   })
 
-  it('shows only alternate address dropdown when no default address exists', () => {
-    cy.request('DELETE', `${wiremock}/mappings/11111111-1111-1111-1111-111111111111`)
-
+  it('Can See and Select new who is sending fields', () => {
     cy.visit('/sign-and-send/00000000-0000-0000-0000-600000000013')
+    cy.get('#whoIsSendingTheForm').should('exist')
+    cy.get('input[type="radio"][value="RO"]').should('exist')
+    cy.get('input[type="radio"][value="USER"]').should('exist')
+    cy.get('input[type="radio"][value="RO"]').check()
+    cy.get('input[type="radio"][value="RO"]').should('be.checked')
+  })
 
+  it('Can See and Select new officer email field', () => {
+    cy.visit('/sign-and-send/00000000-0000-0000-0000-600000000013')
+    cy.get('#officer-email-address').should('exist')
+    cy.get('#officer-email-address').should('contain.text', 'example@justice.gov.uk')
+  })
+
+  it('shows only alternate address dropdown when no default address exists', () => {
+    cy.visit('/sign-and-send/00000000-0000-0000-0000-600000000013')
+    cy.get('input[type="radio"][value="RO"]').check()
     cy.get('#alternate-address-text')
       .should('exist')
       .and('contain.text', 'Please specify the Work Location and Address that the Person on Probation should contact.')
     cy.get('#alternate-address-dropdown').should('exist')
     cy.get('#alternate-address').should('exist')
-
     cy.get('#workAddress').should('not.exist')
     cy.get('#update-address-button').should('not.exist')
     cy.get('#add-address-button').should('not.exist')
@@ -34,6 +46,7 @@ context('Sign and Send Page', () => {
 
   it('Continue saves and navigates away', () => {
     cy.visit('/sign-and-send/00000000-0000-0000-0000-600000000005')
+    cy.get('input[type="radio"][value="RO"]').check()
     cy.get('#continue-button').should('exist')
     cy.get('#continue-button').click()
     cy.url().should('include', '/check-your-answers/00000000-0000-0000-0000-600000000005')
