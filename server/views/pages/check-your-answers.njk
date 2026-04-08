@@ -566,6 +566,28 @@
           <div class="govuk-summary-card__content">
             <dl class="govuk-summary-list">
 
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Who is Sending the Document?
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {% if suicideRisk.signAndSendSaved and (suicideRisk.signedByRo == null ) %}
+                    <a id="cya-link-signature" href="/sign-and-send/{{ suicideRiskId }}?returnTo=check-your-report" class="govuk-link">enter required
+                      information<span class="govuk-visually-hidden"> for Who is Sending the Document</span></a>
+                  {% elif suicideRisk.signedByRo === true %}
+                    <span id="ResponsibleOfficerSpan">Responsible officer</span>
+                  {% else %}
+                    <span id="UserOnBehalfSpan">User on behalf of the Responsible Officer</span>
+                  {% endif %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  {% if suicideRisk.signature == null or suicideRisk.signature | trim == '' %}
+                    <span class="govuk-tag--light-blue">Required</span>
+                  {% endif %}
+                </dd>
+              </div>
+
               <div class="govuk-summary-list__row">
 
                 <dt class="govuk-summary-list__key">
@@ -585,6 +607,8 @@
                   {% endif %}
                 </dd>
               </div>
+
+
 
               <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
