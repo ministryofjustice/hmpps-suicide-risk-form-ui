@@ -126,6 +126,28 @@ context('Check your answers data checks', () => {
     cy.get('#publish').should('exist')
   })
 
+  it('Should Show Responsible Officer Sent the document', () => {
+    cy.visit('/check-your-answers/10000000-0000-0000-0000-600000000234')
+    cy.get('#ResponsibleOfficerSpan').should('exist').should('be.visible')
+    cy.contains('Responsible officer')
+    cy.get('#publish').should('exist')
+  })
+
+  it('Should Show User on Behalf of RO and Publish Button', () => {
+    cy.visit('/check-your-answers/10000000-0000-0000-0000-600000000235')
+    cy.get('#UserOnBehalfSpan').should('exist').should('be.visible')
+    cy.contains('User on behalf of the Responsible Officer')
+    cy.get('#publish').should('exist')
+  })
+
+  it('Should Show Hyperlink if signedByRo Not Set and NO Publish Button', () => {
+    cy.visit('/check-your-answers/10000000-0000-0000-0000-600000000236')
+    cy.get('#UserOnBehalfSpan').should('not.exist')
+    cy.get('#ResponsibleOfficerSpan').should('not.exist')
+    cy.get('#cya-link-signedByRO').should('exist').should('be.visible')
+    cy.get('#publish').should('not.exist')
+  })
+
   it('navigates to report completed page if completed date set', () => {
     cy.visit('/check-your-answers/30000000-0000-0000-0000-33333333333')
     cy.url().should('include', '/report-completed/30000000-0000-0000-0000-3333333333')

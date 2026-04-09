@@ -85,6 +85,7 @@ export default function checkYourAnswersRoutes(
       suicideRisk.additionalInfo?.trim().length > 0 &&
       suicideRisk.currentPsychTreatment?.trim().length > 0 &&
       suicideRisk.suicideRiskContactList != null &&
+      suicideRisk.signedByRo != null &&
       suicideRisk.suicideRiskContactList.length > 0
     )
   }
