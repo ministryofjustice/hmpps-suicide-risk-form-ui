@@ -809,7 +809,7 @@
           "contactSaved": true,
           "completedDate": null,
           "telephoneNumber": "01829187263",
-          "signedByRo":
+          "signedByRo": false
         },
         "headers": {
           "Content-Type": "application/json;charset=UTF-8"
@@ -911,7 +911,7 @@
           "contactSaved": true,
           "completedDate": null,
           "telephoneNumber": "01829187263",
-          "signedByRo":  null
+          "signedByRo": null
         },
         "headers": {
           "Content-Type": "application/json;charset=UTF-8"
