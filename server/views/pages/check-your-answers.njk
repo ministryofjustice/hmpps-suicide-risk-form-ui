@@ -582,7 +582,7 @@
                   {% endif %}
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                  {% if suicideRisk.signature == null or suicideRisk.signature | trim == '' %}
+                  {% if suicideRisk.signedByRo == null %}
                     <span class="govuk-tag--light-blue">Required</span>
                   {% endif %}
                 </dd>
