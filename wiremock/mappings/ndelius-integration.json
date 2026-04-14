@@ -38,7 +38,7 @@
 
     {
       "request": {
-        "urlPattern": "/ndelius/authorised-email",
+        "urlPattern": "/ndelius/authorised-emails",
         "method": "GET"
       },
       "response": {
