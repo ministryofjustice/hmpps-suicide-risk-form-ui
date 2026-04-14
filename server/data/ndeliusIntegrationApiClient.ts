@@ -47,7 +47,7 @@ export default class NDeliusIntegrationApiClient extends RestClient {
   async getRecipientDetails(username: string): Promise<EmailRecipientData> {
     return this.get(
       {
-        path: `/authorised-email`,
+        path: `/authorised-emails`,
       },
       asSystem(username),
     )
