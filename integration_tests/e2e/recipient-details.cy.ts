@@ -109,6 +109,66 @@ context('Recipient Details Page', () => {
     ).should('be.visible')
   })
 
+  it('rejects an email which is only the domain', () => {
+    cy.visit(`/recipient-details/${suicideRiskId}?contactType=COLLEAGUE`)
+    cy.get('input[name="sendFormViaEmail"][value="true"]').check()
+    cy.get('#email').clear()
+    cy.get('#email').type('@police.uk')
+    clickConfirmButton()
+
+    cy.contains(
+      'Please enter an email address from the approved recipient list. Please contact IT for further information',
+    ).should('be.visible')
+  })
+
+  it('rejects an email with multiple @ characters', () => {
+    cy.visit(`/recipient-details/${suicideRiskId}?contactType=COLLEAGUE`)
+    cy.get('input[name="sendFormViaEmail"][value="true"]').check()
+    cy.get('#email').clear()
+    cy.get('#email').type('test@gov.uk@gov.uk')
+    clickConfirmButton()
+
+    cy.contains(
+      'Please enter an email address from the approved recipient list. Please contact IT for further information',
+    ).should('be.visible')
+  })
+
+  it('rejects an email with a suffix to the allowed domain', () => {
+    cy.visit(`/recipient-details/${suicideRiskId}?contactType=COLLEAGUE`)
+    cy.get('input[name="sendFormViaEmail"][value="true"]').check()
+    cy.get('#email').clear()
+    cy.get('#email').type('testuser@gov.ukaaa')
+    clickConfirmButton()
+
+    cy.contains(
+      'Please enter an email address from the approved recipient list. Please contact IT for further information',
+    ).should('be.visible')
+  })
+
+  it('rejects an email with a prefix to the allowed domain', () => {
+    cy.visit(`/recipient-details/${suicideRiskId}?contactType=COLLEAGUE`)
+    cy.get('input[name="sendFormViaEmail"][value="true"]').check()
+    cy.get('#email').clear()
+    cy.get('#email').type('testuser@aaagov.uk')
+    clickConfirmButton()
+
+    cy.contains(
+      'Please enter an email address from the approved recipient list. Please contact IT for further information',
+    ).should('be.visible')
+  })
+
+  it('rejects an email using a subdomain of an allowed domain', () => {
+    cy.visit(`/recipient-details/${suicideRiskId}?contactType=COLLEAGUE`)
+    cy.get('input[name="sendFormViaEmail"][value="true"]').check()
+    cy.get('#email').clear()
+    cy.get('#email').type('testuser@mail.gov.uk')
+    clickConfirmButton()
+
+    cy.contains(
+      'Please enter an email address from the approved recipient list. Please contact IT for further information',
+    ).should('be.visible')
+  })
+
   it('validates email is in the list of allowed email addresses and succeeds if it is', () => {
     cy.visit(`/recipient-details/${suicideRiskId}?contactType=COLLEAGUE`)
     cy.get('input[name="sendFormViaEmail"][value="true"]').check()

@@ -237,26 +237,28 @@ export default function recipientsRoutes(
         text: 'You have indicated that you will be emailing the form to a recipient but have not entered the recipients email address. Please enter an email address',
       }
     }
-
-    if (allowedRecipientList && Object.keys(allowedRecipientList).length > 0) {
-      if (recipient.sendFormViaEmail && recipient.emailAddress && recipient.emailAddress.trim() !== '') {
-        let emailValid = false
-        for (const str of allowedRecipientList) {
-          if (recipient.emailAddress.includes(str)) {
-            emailValid = true
-            break
-          }
-        }
-
-        if (emailValid === false) {
-          errorMessages.email = {
-            text: 'Please enter an email address from the approved recipient list. Please contact IT for further information',
-          }
+    if (
+      allowedRecipientList &&
+      allowedRecipientList.length > 0 &&
+      recipient.sendFormViaEmail &&
+      recipient.emailAddress?.trim()
+    ) {
+      if (!isAllowedEmail(recipient.emailAddress, allowedRecipientList)) {
+        errorMessages.email = {
+          text: 'Please enter an email address from the approved recipient list. Please contact IT for further information',
         }
       }
     }
 
     return errorMessages
+  }
+
+  function isAllowedEmail(email: string, allowedDomains: string[]): boolean {
+    if (!email || !allowedDomains || allowedDomains.length === 0) return false
+    const trimmed = email.trim()
+    if (!/^[^@\s]+@[^@\s]+$/.test(trimmed)) return false
+    const domain = trimmed.split('@')[1].toLowerCase()
+    return allowedDomains.includes(domain)
   }
 
   function validateLength(
