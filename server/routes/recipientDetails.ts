@@ -237,26 +237,41 @@ export default function recipientsRoutes(
         text: 'You have indicated that you will be emailing the form to a recipient but have not entered the recipients email address. Please enter an email address',
       }
     }
-
-    if (allowedRecipientList && Object.keys(allowedRecipientList).length > 0) {
-      if (recipient.sendFormViaEmail && recipient.emailAddress && recipient.emailAddress.trim() !== '') {
-        let emailValid = false
-        for (const str of allowedRecipientList) {
-          if (recipient.emailAddress.includes(str)) {
-            emailValid = true
-            break
-          }
-        }
-
-        if (emailValid === false) {
-          errorMessages.email = {
-            text: 'Please enter an email address from the approved recipient list. Please contact IT for further information',
-          }
+    if (
+      allowedRecipientList &&
+      allowedRecipientList.length > 0 &&
+      recipient.sendFormViaEmail &&
+      recipient.emailAddress?.trim()
+    ) {
+      if (!isAllowedEmail(recipient.emailAddress, allowedRecipientList)) {
+        errorMessages.email = {
+          text: 'Please enter an email address from the approved recipient list. Please contact IT for further information',
         }
       }
     }
 
     return errorMessages
+  }
+
+  function isAllowedEmail(email: string, allowedValues: string[]): boolean {
+    if (!email || !allowedValues || allowedValues.length === 0) return false
+
+    const trimmed = email.trim().toLowerCase()
+
+    // exactly one @, no spaces, text before and after the @ required
+    if (!/^[^@\s]+@[^@\s]+$/.test(trimmed)) return false
+
+    return allowedValues.some(value => {
+      const allowed = value.toLowerCase()
+
+      // if authorised value is a full email
+      if (allowed.includes('@')) {
+        return trimmed === allowed
+      }
+
+      // else if authorised value is a domain
+      return trimmed.endsWith(`@${allowed}`) || trimmed.endsWith(`.${allowed}`)
+    })
   }
 
   function validateLength(

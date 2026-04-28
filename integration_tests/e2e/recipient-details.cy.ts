@@ -109,6 +109,106 @@ context('Recipient Details Page', () => {
     ).should('be.visible')
   })
 
+  it('rejects an email which is only the domain', () => {
+    cy.visit(`/recipient-details/${suicideRiskId}?contactType=COLLEAGUE`)
+    cy.get('input[name="sendFormViaEmail"][value="true"]').check()
+    cy.get('#email').clear()
+    cy.get('#email').type('@police.uk')
+    clickConfirmButton()
+
+    cy.contains(
+      'Please enter an email address from the approved recipient list. Please contact IT for further information',
+    ).should('be.visible')
+  })
+
+  it('rejects an email with multiple @ characters', () => {
+    cy.visit(`/recipient-details/${suicideRiskId}?contactType=COLLEAGUE`)
+    cy.get('input[name="sendFormViaEmail"][value="true"]').check()
+    cy.get('#email').clear()
+    cy.get('#email').type('test@gov.uk@gov.uk')
+    clickConfirmButton()
+
+    cy.contains(
+      'Please enter an email address from the approved recipient list. Please contact IT for further information',
+    ).should('be.visible')
+  })
+
+  it('rejects an email with a prefix to the allowed domain', () => {
+    cy.visit(`/recipient-details/${suicideRiskId}?contactType=COLLEAGUE`)
+    cy.get('input[name="sendFormViaEmail"][value="true"]').check()
+    cy.get('#email').clear()
+    cy.get('#email').type('testuser@aaagov.uk')
+    clickConfirmButton()
+
+    cy.contains(
+      'Please enter an email address from the approved recipient list. Please contact IT for further information',
+    ).should('be.visible')
+  })
+
+  it('accepts an email using a subdomain of an allowed domain', () => {
+    cy.visit(`/recipient-details/${suicideRiskId}?contactType=COLLEAGUE`)
+    cy.get('input[name="sendFormViaEmail"][value="true"]').check()
+    cy.get('input[name="sendFormManually"][value="false"]').check()
+    cy.get('#name').type('Janet Smith')
+    cy.get('#description').type('Regional Office')
+    cy.get('#buildingName').type('The Archway')
+    cy.get('#houseNumber').type('9')
+    cy.get('#streetName').type('Main Street')
+    cy.get('#district').type('North District')
+    cy.get('#townCity').type('Riverside')
+    cy.get('#county').type('Northshire')
+    cy.get('#postcode').type('BB2 2BB')
+    cy.get('#email').clear()
+    cy.get('#email').type('testuser@mail.gov.uk')
+    clickConfirmButton()
+
+    cy.url().should('include', 'recipients/00000000-0000-0000-0000-700000000000')
+  })
+
+  it('accepts an email that exactly matches an authorised email address', () => {
+    cy.visit(`/recipient-details/${suicideRiskId}?contactType=COLLEAGUE`)
+    cy.get('input[name="sendFormViaEmail"][value="true"]').check()
+    cy.get('input[name="sendFormManually"][value="false"]').check()
+    cy.get('#name').type('Janet Smith')
+    cy.get('#description').type('Regional Office')
+    cy.get('#buildingName').type('The Archway')
+    cy.get('#houseNumber').type('9')
+    cy.get('#streetName').type('Main Street')
+    cy.get('#district').type('North District')
+    cy.get('#townCity').type('Riverside')
+    cy.get('#county').type('Northshire')
+    cy.get('#postcode').type('BB2 2BB')
+    cy.get('#email').clear()
+    cy.get('#email').type('test123@test.com')
+    clickConfirmButton()
+
+    cy.url().should('include', 'recipients/00000000-0000-0000-0000-700000000000')
+  })
+
+  it('rejects an email when only a different exact email is authorised', () => {
+    cy.visit(`/recipient-details/${suicideRiskId}?contactType=COLLEAGUE`)
+    cy.get('input[name="sendFormViaEmail"][value="true"]').check()
+    cy.get('#email').clear()
+    cy.get('#email').type('test12345@test.com')
+    clickConfirmButton()
+
+    cy.contains(
+      'Please enter an email address from the approved recipient list. Please contact IT for further information',
+    ).should('be.visible')
+  })
+
+  it('rejects an email where the allowed domain is not at the end', () => {
+    cy.visit(`/recipient-details/${suicideRiskId}?contactType=COLLEAGUE`)
+    cy.get('input[name="sendFormViaEmail"][value="true"]').check()
+    cy.get('#email').clear()
+    cy.get('#email').type('test@bbc.co.uk.za')
+    clickConfirmButton()
+
+    cy.contains(
+      'Please enter an email address from the approved recipient list. Please contact IT for further information',
+    ).should('be.visible')
+  })
+
   it('validates email is in the list of allowed email addresses and succeeds if it is', () => {
     cy.visit(`/recipient-details/${suicideRiskId}?contactType=COLLEAGUE`)
     cy.get('input[name="sendFormViaEmail"][value="true"]').check()
