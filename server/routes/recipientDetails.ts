@@ -253,12 +253,25 @@ export default function recipientsRoutes(
     return errorMessages
   }
 
-  function isAllowedEmail(email: string, allowedDomains: string[]): boolean {
-    if (!email || !allowedDomains || allowedDomains.length === 0) return false
-    const trimmed = email.trim()
+  function isAllowedEmail(email: string, allowedValues: string[]): boolean {
+    if (!email || !allowedValues || allowedValues.length === 0) return false
+
+    const trimmed = email.trim().toLowerCase()
+
+    // exactly one @, no spaces, text before and after the @ required
     if (!/^[^@\s]+@[^@\s]+$/.test(trimmed)) return false
-    const domain = trimmed.split('@')[1].toLowerCase()
-    return allowedDomains.includes(domain)
+
+    return allowedValues.some(value => {
+      const allowed = value.toLowerCase()
+
+      // if authorised value is a full email
+      if (allowed.includes('@')) {
+        return trimmed === allowed
+      }
+
+      // else if authorised value is a domain
+      return trimmed.endsWith(`@${allowed}`) || trimmed.endsWith(`.${allowed}`)
+    })
   }
 
   function validateLength(

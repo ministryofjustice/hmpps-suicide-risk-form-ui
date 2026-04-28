@@ -52,6 +52,10 @@
             {
               "code": "GOVUK",
               "description": "gov.uk"
+            },
+            {
+              "code": "JST01",
+              "description": "test123@test.com"
             }
           ]
         },
