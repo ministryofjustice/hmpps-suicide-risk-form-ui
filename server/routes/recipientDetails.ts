@@ -232,17 +232,7 @@ export default function recipientsRoutes(
       errorMessages = validateLength(recipient.emailAddress, 'email', 'Email', errorMessages)
     }
 
-    if (recipient.sendFormViaEmail === true && (!recipient.emailAddress || recipient.emailAddress.trim() === '')) {
-      errorMessages.email = {
-        text: 'You have indicated that you will be emailing the form to a recipient but have not entered the recipients email address. Please enter an email address',
-      }
-    }
-    if (
-      allowedRecipientList &&
-      allowedRecipientList.length > 0 &&
-      recipient.sendFormViaEmail &&
-      recipient.emailAddress?.trim()
-    ) {
+    if (recipient.emailAddress && recipient.emailAddress.trim() !== '') {
       if (!isAllowedEmail(recipient.emailAddress, allowedRecipientList)) {
         errorMessages.email = {
           text: 'Please enter an email address from the approved recipient list. Please contact IT for further information',
@@ -250,6 +240,11 @@ export default function recipientsRoutes(
       }
     }
 
+    if (recipient.sendFormViaEmail === true && (!recipient.emailAddress || recipient.emailAddress.trim() === '')) {
+      errorMessages.email = {
+        text: 'You have indicated that you will be emailing the form to a recipient but have not entered the recipients email address. Please enter an email address',
+      }
+    }
     return errorMessages
   }
 
