@@ -262,12 +262,22 @@ export default function signAndSendRoutes(
         )
       }
     } else if (req.body.action === 'clear-signature') {
+      // store the RO selection
+      suicideRisk.signedByRo = null
+      if (formSentBy !== null) {
+        suicideRisk.signedByRo = formSentBy === 'RO'
+      }
       suicideRisk.signAndSendSaved = true
       suicideRisk.signature = null
       suicideRisk.sheetSentBy = null
       await suicideRiskApiClient.updateSuicideRisk(req.params.id, suicideRisk, res.locals.user.username)
       res.redirect(`/sign-and-send/${req.params.id}`)
     } else if (req.body.action === 'sign') {
+      // store the RO selection
+      suicideRisk.signedByRo = null
+      if (formSentBy !== null) {
+        suicideRisk.signedByRo = formSentBy === 'RO'
+      }
       suicideRisk.signAndSendSaved = true
       suicideRisk.signature = createSignatureString(responsibleOfficerDetails)
       suicideRisk.sheetSentBy = getOfficerString(responsibleOfficerDetails)

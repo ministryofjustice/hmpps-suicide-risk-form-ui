@@ -936,6 +936,52 @@
 
     {
       "request": {
+        "urlPattern": "/ndelius/sign-and-send/P900009",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "name": {
+            "forename": "Billy",
+            "middleName": "The",
+            "surname": "Kid"
+          },
+          "telephoneNumber": "01234567891",
+          "emailAddress": "example@justice.gov.uk",
+          "addresses": [
+            {
+              "id": 3,
+              "officeDescription": "Alt",
+              "buildingName": "Alt",
+              "buildingNumber": "1",
+              "streetName": "Alt",
+              "townCity": "Alt",
+              "district": "Alt",
+              "county": "Alt",
+              "postcode": "AA1 1AA"
+            },
+            {
+              "id": 4,
+              "officeDescription": "Alt 2",
+              "buildingName": "Alt 2",
+              "buildingNumber": "2",
+              "streetName": "Alt 2",
+              "townCity": "Alt 2",
+              "district": "Alt 2",
+              "county": "Alt 2",
+              "postcode": "AA2 2AA"
+            }
+          ]
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+
+    {
+      "request": {
         "method": "POST",
         "urlPattern": "/ndelius/treatment",
         "bodyPatterns": [
@@ -1227,9 +1273,26 @@
         }
       }
     },
+
     {
       "request": {
         "url": "/ndelius/information-page/X700001",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "registration": null
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+
+    {
+      "request": {
+        "url": "/ndelius/information-page/P900009",
         "method": "GET"
       },
       "response": {

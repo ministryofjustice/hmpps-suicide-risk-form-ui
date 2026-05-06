@@ -47,6 +47,13 @@ export default function updateWorkAddressRoutes(
 
     try {
       suicideRisk = await suicideRiskApiClient.getSuicideRiskById(suicideRiskId, res.locals.user.username)
+      const formSentBy: string = req.body.whoIsSendingTheForm || null
+      // store the RO selection
+      suicideRisk.signedByRo = null
+      if (formSentBy !== null) {
+        suicideRisk.signedByRo = formSentBy === 'RO'
+      }
+      await suicideRiskApiClient.updateSuicideRisk(req.params.id, suicideRisk, res.locals.user.username)
     } catch (error) {
       const errorMessages: ErrorMessages = handleIntegrationErrors(error.status, error.data?.message, 'Suicide Risk')
       const showEmbeddedError = true
