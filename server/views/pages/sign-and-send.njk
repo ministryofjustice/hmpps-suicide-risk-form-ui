@@ -147,7 +147,9 @@
               {% if suicideRisk.workAddress != null and suicideRisk.workAddress.addressId == null and (responsibleOfficerDetails.addresses == null or responsibleOfficerDetails.addresses.length == 0) %}
                 {{ govukButton({
                   text: "Update Address",
-                  href: '/update-work-address/'+suicideRiskId,
+                  type: "submit",
+                  name: "action",
+                  value: "addAddress",
                   classes: "govuk-button--secondary",
                   preventDoubleClick: "true",
                   attributes: {
@@ -165,9 +167,12 @@
             {% if manualAddressAllowed and suicideRisk.workAddress == null %}
               <p id="AddAddressMessage">No reply address can be found for this responsible officer. Please add an
                 address by selecting the button below.</p>
+
               {{ govukButton({
                 text: "Add Address",
-                href: '/update-work-address/'+suicideRiskId,
+                type: "submit",
+                name: "action",
+                value: "addAddress",
                 classes: "govuk-button--secondary",
                 preventDoubleClick: "true",
                 attributes: {
