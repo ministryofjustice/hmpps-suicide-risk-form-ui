@@ -96,6 +96,7 @@ context('Recipients Page', () => {
     cy.contains('Click this link to delete the recipient')
       .first()
       .then($link => {
+        // @ts-ignore
         const href = $link.attr('href')
         expect(href).to.include(`/delete-recipient/${suicideRiskId}/`)
         cy.visit(href)
