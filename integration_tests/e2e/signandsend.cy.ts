@@ -69,4 +69,12 @@ context('Sign and Send Page', () => {
     cy.visit('/sign-and-send/00000000-0000-0000-0000-600000000009')
     cy.get('#workAddress').should('contain.text', 'The Bessies Factory')
   })
+
+  it('Should show hyperlinks for all required fields from the sign and send screen', () => {
+    cy.visit('/sign-and-send/00000000-0000-0000-0000-600000000005')
+    cy.get('input[type="radio"][value="RO"]').check()
+    cy.get('#continue-button').should('exist')
+    cy.get('#continue-button').click()
+    cy.url().should('include', '/check-your-answers/00000000-0000-0000-0000-600000000005')
+  })
 })

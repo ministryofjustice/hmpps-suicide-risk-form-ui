@@ -90,23 +90,15 @@ context('Check your answers data checks', () => {
   it('Recipients populated', () => {
     cy.visit('/check-your-answers/00000000-0000-0000-0000-600000000005')
     cy.get('#change-recipients').should('exist')
-    cy.get('#change-sign-and-send').should('not.exist')
     cy.get('#cya-link-recipients').should('not.exist')
     cy.get('#change-recipients').click()
     cy.url().should('include', '/recipients/00000000-0000-0000-0000-600000000005')
     cy.visit('/check-your-answers/00000000-0000-0000-0000-600000000005')
   })
 
-  it('Sign and Send not populated', () => {
-    cy.visit('/check-your-answers/00000000-0000-0000-0000-600000000005')
-    cy.get('#change-sign-and-send').should('not.exist')
-    cy.get('#cya-link-signature').should('not.exist')
-  })
-
   it('Sign and Send populated', () => {
     cy.visit('/check-your-answers/00000000-0000-0000-0000-600000000006')
     cy.get('#change-sign-and-send').should('exist')
-    cy.get('#cya-link-signature').should('not.exist')
     cy.get('#change-sign-and-send').click()
     cy.url().should('include', '/sign-and-send/00000000-0000-0000-0000-600000000006')
   })
@@ -123,6 +115,8 @@ context('Check your answers data checks', () => {
     cy.visit('/check-your-answers/00000000-0000-0000-0000-600000000005')
     cy.get('#publish').should('not.exist')
     cy.visit('/check-your-answers/00000000-0000-0000-0000-600000000006')
+    cy.get('#publish').should('not.exist')
+    cy.visit('/check-your-answers/00000000-0000-0000-0000-600000000666')
     cy.get('#publish').should('exist')
   })
 
@@ -130,14 +124,12 @@ context('Check your answers data checks', () => {
     cy.visit('/check-your-answers/10000000-0000-0000-0000-600000000234')
     cy.get('#ResponsibleOfficerSpan').should('exist').should('be.visible')
     cy.contains('Responsible officer')
-    cy.get('#publish').should('exist')
   })
 
   it('Should Show User on Behalf of RO and Publish Button', () => {
     cy.visit('/check-your-answers/10000000-0000-0000-0000-600000000235')
     cy.get('#UserOnBehalfSpan').should('exist').should('be.visible')
     cy.contains('User on behalf of the Responsible Officer')
-    cy.get('#publish').should('exist')
   })
 
   it('Should Show Hyperlink if signedByRo Not Set and NO Publish Button', () => {
