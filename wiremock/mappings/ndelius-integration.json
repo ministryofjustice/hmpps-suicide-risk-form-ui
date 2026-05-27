@@ -482,6 +482,611 @@
     },
     {
       "request": {
+        "urlPattern": "/ndelius/sign-and-send/X600009",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "title": "Mr",
+          "name": {
+            "forename": "Billy",
+            "middleName": "The",
+            "surname": "Kid"
+          },
+          "nomsNumber": "1234567",
+          "dateOfBirth": "1980-03-17",
+          "addresses": [
+            {
+              "id": 1,
+              "status": "Previous",
+              "buildingName": null,
+              "buildingNumber": "6543",
+              "streetName": "Previous Street",
+              "townCity": "Prevtown",
+              "district": "PrevDistrict",
+              "county": "Prevcounty",
+              "postcode": "PR11 1EV"
+            }
+          ]
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPattern": "/ndelius/sign-and-send/X600006",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "title": "Mr",
+          "name": {
+            "forename": "Billy",
+            "middleName": "The",
+            "surname": "Kid"
+          },
+          "nomsNumber": "1234567",
+          "dateOfBirth": "1980-03-17",
+          "addresses": [
+            {
+              "id": 1,
+              "status": "Previous",
+              "buildingName": null,
+              "buildingNumber": "6543",
+              "streetName": "Previous Street",
+              "townCity": "Prevtown",
+              "district": "PrevDistrict",
+              "county": "Prevcounty",
+              "postcode": "PR11 1EV"
+            }
+          ]
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPattern": "/ndelius/sign-and-send/X600012",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "title": "Mr",
+          "name": {
+            "forename": "Billy",
+            "middleName": "The",
+            "surname": "Kid"
+          },
+          "nomsNumber": "1234567",
+          "dateOfBirth": "1980-03-17",
+          "addresses": [
+            {
+              "id": 1,
+              "status": "Previous",
+              "buildingName": null,
+              "buildingNumber": "6543",
+              "streetName": "Previous Street",
+              "townCity": "Prevtown",
+              "district": "PrevDistrict",
+              "county": "Prevcounty",
+              "postcode": "PR11 1EV"
+            }
+          ]
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPattern": "/ndelius/sign-and-send/X600010",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "title": "Mr",
+          "name": {
+            "forename": "Billy",
+            "middleName": "The",
+            "surname": "Kid"
+          },
+          "nomsNumber": "1234567",
+          "dateOfBirth": "1980-03-17",
+          "addresses": [
+            {
+              "id": 1,
+              "status": "Previous",
+              "buildingName": null,
+              "buildingNumber": "6543",
+              "streetName": "Previous Street",
+              "townCity": "Prevtown",
+              "district": "PrevDistrict",
+              "county": "Prevcounty",
+              "postcode": "PR11 1EV"
+            }
+          ]
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPattern": "/ndelius/sign-and-send/X600011",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "title": "Mr",
+          "name": {
+            "forename": "Billy",
+            "middleName": "The",
+            "surname": "Kid"
+          },
+          "nomsNumber": "1234567",
+          "dateOfBirth": "1980-03-17",
+          "addresses": [
+            {
+              "id": 1,
+              "status": "Previous",
+              "buildingName": null,
+              "buildingNumber": "6543",
+              "streetName": "Previous Street",
+              "townCity": "Prevtown",
+              "district": "PrevDistrict",
+              "county": "Prevcounty",
+              "postcode": "PR11 1EV"
+            }
+          ]
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPattern": "/ndelius/sign-and-send/X000001",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "title": "Mr",
+          "name": {
+            "forename": "Billy",
+            "middleName": "The",
+            "surname": "Kid"
+          },
+          "nomsNumber": "1234567",
+          "dateOfBirth": "1980-03-17",
+          "addresses": [
+            {
+              "id": 1,
+              "status": "Previous",
+              "buildingName": null,
+              "buildingNumber": "6543",
+              "streetName": "Previous Street",
+              "townCity": "Prevtown",
+              "district": "PrevDistrict",
+              "county": "Prevcounty",
+              "postcode": "PR11 1EV"
+            }
+          ]
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPattern": "/ndelius/sign-and-send/X223343",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "title": "Mr",
+          "name": {
+            "forename": "Billy",
+            "middleName": "The",
+            "surname": "Kid"
+          },
+          "nomsNumber": "1234567",
+          "dateOfBirth": "1980-03-17",
+          "addresses": [
+            {
+              "id": 1,
+              "status": "Previous",
+              "buildingName": null,
+              "buildingNumber": "6543",
+              "streetName": "Previous Street",
+              "townCity": "Prevtown",
+              "district": "PrevDistrict",
+              "county": "Prevcounty",
+              "postcode": "PR11 1EV"
+            }
+          ]
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPattern": "/ndelius/sign-and-send/X012345",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "name": {
+            "forename": "Billy",
+            "middleName": "The",
+            "surname": "Kid"
+          },
+          "telephoneNumber": "01234567891",
+          "emailAddress": "example@justice.gov.uk",
+          "addresses": [
+            {
+              "id": 3,
+              "officeDescription": "Alt",
+              "buildingName": "Alt",
+              "buildingNumber": "1",
+              "streetName": "Alt",
+              "townCity": "Alt",
+              "district": "Alt",
+              "county": "Alt",
+              "postcode": "AA1 1AA"
+            },
+            {
+              "id": 4,
+              "officeDescription": "Alt 2",
+              "buildingName": "Alt 2",
+              "buildingNumber": "2",
+              "streetName": "Alt 2",
+              "townCity": "Alt 2",
+              "district": "Alt 2",
+              "county": "Alt 2",
+              "postcode": "AA2 2AA"
+            }
+          ]
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPattern": "/ndelius/sign-and-send/X600013",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "name": {
+            "forename": "Billy",
+            "middleName": "The",
+            "surname": "Kid"
+          },
+          "telephoneNumber": "01234567891",
+          "emailAddress": "example@justice.gov.uk",
+          "addresses": [
+            {
+              "id": 3,
+              "officeDescription": "Alt",
+              "buildingName": "Alt",
+              "buildingNumber": "1",
+              "streetName": "Alt",
+              "townCity": "Alt",
+              "district": "Alt",
+              "county": "Alt",
+              "postcode": "AA1 1AA"
+            },
+            {
+              "id": 4,
+              "officeDescription": "Alt 2",
+              "buildingName": "Alt 2",
+              "buildingNumber": "2",
+              "streetName": "Alt 2",
+              "townCity": "Alt 2",
+              "district": "Alt 2",
+              "county": "Alt 2",
+              "postcode": "AA2 2AA"
+            }
+          ]
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPattern": "/ndelius/sign-and-send/X000002",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "name": {
+            "forename": "Billy",
+            "middleName": "The",
+            "surname": "Kid"
+          },
+          "telephoneNumber": "01234567891",
+          "emailAddress": "example@justice.gov.uk",
+          "addresses": [
+            {
+              "id": 3,
+              "officeDescription": "Alt",
+              "buildingName": "Alt",
+              "buildingNumber": "1",
+              "streetName": "Alt",
+              "townCity": "Alt",
+              "district": "Alt",
+              "county": "Alt",
+              "postcode": "AA1 1AA"
+            },
+            {
+              "id": 4,
+              "officeDescription": "Alt 2",
+              "buildingName": "Alt 2",
+              "buildingNumber": "2",
+              "streetName": "Alt 2",
+              "townCity": "Alt 2",
+              "district": "Alt 2",
+              "county": "Alt 2",
+              "postcode": "AA2 2AA"
+            }
+          ]
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPattern": "/ndelius/sign-and-send/P334499",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "name": {
+            "forename": "Billy",
+            "middleName": "The",
+            "surname": "Kid"
+          },
+          "telephoneNumber": "01234567891",
+          "emailAddress": "example@justice.gov.uk",
+          "addresses": [
+            {
+              "id": 3,
+              "officeDescription": "Alt",
+              "buildingName": "Alt",
+              "buildingNumber": "1",
+              "streetName": "Alt",
+              "townCity": "Alt",
+              "district": "Alt",
+              "county": "Alt",
+              "postcode": "AA1 1AA"
+            },
+            {
+              "id": 4,
+              "officeDescription": "Alt 2",
+              "buildingName": "Alt 2",
+              "buildingNumber": "2",
+              "streetName": "Alt 2",
+              "townCity": "Alt 2",
+              "district": "Alt 2",
+              "county": "Alt 2",
+              "postcode": "AA2 2AA"
+            }
+          ]
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPattern": "/ndelius/sign-and-send/X600005",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "name": {
+            "forename": "Billy",
+            "middleName": "The",
+            "surname": "Kid"
+          },
+          "telephoneNumber": "01234567891",
+          "emailAddress": "example@justice.gov.uk",
+          "addresses": [
+            {
+              "id": 3,
+              "officeDescription": "Alt",
+              "buildingName": "Alt",
+              "buildingNumber": "1",
+              "streetName": "Alt",
+              "townCity": "Alt",
+              "district": "Alt",
+              "county": "Alt",
+              "postcode": "AA1 1AA"
+            },
+            {
+              "id": 4,
+              "officeDescription": "Alt 2",
+              "buildingName": "Alt 2",
+              "buildingNumber": "2",
+              "streetName": "Alt 2",
+              "townCity": "Alt 2",
+              "district": "Alt 2",
+              "county": "Alt 2",
+              "postcode": "AA2 2AA"
+            }
+          ]
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPattern": "/ndelius/sign-and-send/P292929",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "name": {
+            "forename": "Billy",
+            "middleName": "The",
+            "surname": "Kid"
+          },
+          "telephoneNumber": null,
+          "emailAddress": null,
+          "addresses": [
+            {
+              "id": 3,
+              "officeDescription": "Alt",
+              "buildingName": "Alt",
+              "buildingNumber": "1",
+              "streetName": "Alt",
+              "townCity": "Alt",
+              "district": "Alt",
+              "county": "Alt",
+              "postcode": "AA1 1AA"
+            },
+            {
+              "id": 4,
+              "officeDescription": "Alt 2",
+              "buildingName": "Alt 2",
+              "buildingNumber": "2",
+              "streetName": "Alt 2",
+              "townCity": "Alt 2",
+              "district": "Alt 2",
+              "county": "Alt 2",
+              "postcode": "AA2 2AA"
+            }
+          ]
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPattern": "/ndelius/sign-and-send/R134526",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "name": {
+            "forename": "Billy",
+            "middleName": "The",
+            "surname": "Kid"
+          },
+          "telephoneNumber": "01234567891",
+          "emailAddress": "example@justice.gov.uk",
+          "addresses": [
+            {
+              "id": 3,
+              "officeDescription": "Alt",
+              "buildingName": "Alt",
+              "buildingNumber": "1",
+              "streetName": "Alt",
+              "townCity": "Alt",
+              "district": "Alt",
+              "county": "Alt",
+              "postcode": "AA1 1AA"
+            },
+            {
+              "id": 4,
+              "officeDescription": "Alt 2",
+              "buildingName": "Alt 2",
+              "buildingNumber": "2",
+              "streetName": "Alt 2",
+              "townCity": "Alt 2",
+              "district": "Alt 2",
+              "county": "Alt 2",
+              "postcode": "AA2 2AA"
+            }
+          ]
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPattern": "/ndelius/sign-and-send/P900009",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "name": {
+            "forename": "Billy",
+            "middleName": "The",
+            "surname": "Kid"
+          },
+          "telephoneNumber": "01234567891",
+          "emailAddress": "example@justice.gov.uk",
+          "addresses": [
+            {
+              "id": 3,
+              "officeDescription": "Alt",
+              "buildingName": "Alt",
+              "buildingNumber": "1",
+              "streetName": "Alt",
+              "townCity": "Alt",
+              "district": "Alt",
+              "county": "Alt",
+              "postcode": "AA1 1AA"
+            },
+            {
+              "id": 4,
+              "officeDescription": "Alt 2",
+              "buildingName": "Alt 2",
+              "buildingNumber": "2",
+              "streetName": "Alt 2",
+              "townCity": "Alt 2",
+              "district": "Alt 2",
+              "county": "Alt 2",
+              "postcode": "AA2 2AA"
+            }
+          ]
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+    {
+      "request": {
         "urlPattern": "/ndelius/basic-details/X600006",
         "method": "GET"
       },
@@ -636,6 +1241,7 @@
           },
           "nomsNumber": "1234567",
           "dateOfBirth": "1980-03-17",
+          "emailAddress": "example@justice.gov.uk",
           "addresses": [
             {
               "id": 1,
@@ -835,144 +1441,6 @@
           "exclusionMessage": "If you believe you should be able to access this record please contact [whoever]",
           "userRestricted": true,
           "restrictionMessage": "If you believe you should be able to access this record please contact [whoever]"
-        },
-        "headers": {
-          "Content-Type": "application/json;charset=UTF-8"
-        }
-      }
-    },
-
-    {
-      "request": {
-        "urlPattern": "/ndelius/sign-and-send/(.*?)",
-        "method": "GET"
-      },
-      "response": {
-        "status": 200,
-        "jsonBody": {
-          "name": {
-            "forename": "Billy",
-            "middleName": "The",
-            "surname": "Kid"
-          },
-          "telephoneNumber": "01234567891",
-          "emailAddress": "example@justice.gov.uk",
-          "addresses": [
-            {
-              "id": 3,
-              "officeDescription": "Alt",
-              "buildingName": "Alt",
-              "buildingNumber": "1",
-              "streetName": "Alt",
-              "townCity": "Alt",
-              "district": "Alt",
-              "county": "Alt",
-              "postcode": "AA1 1AA"
-            },
-            {
-              "id": 4,
-              "officeDescription": "Alt 2",
-              "buildingName": "Alt 2",
-              "buildingNumber": "2",
-              "streetName": "Alt 2",
-              "townCity": "Alt 2",
-              "district": "Alt 2",
-              "county": "Alt 2",
-              "postcode": "AA2 2AA"
-            }
-          ]
-        },
-        "headers": {
-          "Content-Type": "application/json;charset=UTF-8"
-        }
-      }
-    },
-
-    {
-      "request": {
-        "urlPattern": "/ndelius/sign-and-send/X012345",
-        "method": "GET"
-      },
-      "response": {
-        "status": 200,
-        "jsonBody": {
-          "name": {
-            "forename": "Billy",
-            "middleName": "The",
-            "surname": "Kid"
-          },
-          "telephoneNumber": "01234567891",
-          "emailAddress": "example@justice.gov.uk",
-          "addresses": [
-            {
-              "id": 3,
-              "officeDescription": "Alt",
-              "buildingName": "Alt",
-              "buildingNumber": "1",
-              "streetName": "Alt",
-              "townCity": "Alt",
-              "district": "Alt",
-              "county": "Alt",
-              "postcode": "AA1 1AA"
-            },
-            {
-              "id": 4,
-              "officeDescription": "Alt 2",
-              "buildingName": "Alt 2",
-              "buildingNumber": "2",
-              "streetName": "Alt 2",
-              "townCity": "Alt 2",
-              "district": "Alt 2",
-              "county": "Alt 2",
-              "postcode": "AA2 2AA"
-            }
-          ]
-        },
-        "headers": {
-          "Content-Type": "application/json;charset=UTF-8"
-        }
-      }
-    },
-
-    {
-      "request": {
-        "urlPattern": "/ndelius/sign-and-send/P900009",
-        "method": "GET"
-      },
-      "response": {
-        "status": 200,
-        "jsonBody": {
-          "name": {
-            "forename": "Billy",
-            "middleName": "The",
-            "surname": "Kid"
-          },
-          "telephoneNumber": "01234567891",
-          "emailAddress": "example@justice.gov.uk",
-          "addresses": [
-            {
-              "id": 3,
-              "officeDescription": "Alt",
-              "buildingName": "Alt",
-              "buildingNumber": "1",
-              "streetName": "Alt",
-              "townCity": "Alt",
-              "district": "Alt",
-              "county": "Alt",
-              "postcode": "AA1 1AA"
-            },
-            {
-              "id": 4,
-              "officeDescription": "Alt 2",
-              "buildingName": "Alt 2",
-              "buildingNumber": "2",
-              "streetName": "Alt 2",
-              "townCity": "Alt 2",
-              "district": "Alt 2",
-              "county": "Alt 2",
-              "postcode": "AA2 2AA"
-            }
-          ]
         },
         "headers": {
           "Content-Type": "application/json;charset=UTF-8"

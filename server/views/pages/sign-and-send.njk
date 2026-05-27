@@ -5,6 +5,7 @@
 
 {% block content %}
 
+  {% from "govuk/components/input/macro.njk" import govukInput %}
   {% from "moj/components/side-navigation/macro.njk" import mojSideNavigation %}
   {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
   {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
@@ -81,8 +82,26 @@
             <span> </span> {% if responsibleOfficerDetails.name.middleName != null %} {{ responsibleOfficerDetails.name.middleName }}
               <span> </span> {% endif %} {{ responsibleOfficerDetails.name.surname }}</p>
 
-          <h2 class="govuk-heading-m">Officer Email Address</h2>
-          <p id="officer-email-address">{{ responsibleOfficerDetails.emailAddress }}</p>
+
+          {% if responsibleOfficerDetails == null or responsibleOfficerDetails.emailAddress == null %}
+
+            {{ govukInput({
+              label: {
+                text: "Officer Email Address",
+                classes: "govuk-label--m",
+                isPageHeading: false
+              },
+              id: "officer-email-address_input",
+              value: responsibleOfficerDetails.emailAddress,
+              classes: "govuk-input--width-30",
+              name: "officer-email-address"
+            }) }}
+
+            <p id="officer-email-address">{{ responsibleOfficerDetails.emailAddress }}</p>
+          {% else %}
+            <h2 class="govuk-heading-m">Officer Email Address</h2>
+            <p id="officer-email-address">{{ responsibleOfficerDetails.emailAddress }}</p>
+          {% endif %}
 
           <h2 class="govuk-heading-m">Signature</h2>
 
@@ -218,8 +237,27 @@
             {% endif %}
           {% endif %}
 
-          <h2 class="govuk-heading-m">Telephone Number</h2>
-          <p id="telephoneNumber">{{ suicideRisk.telephoneNumber }}</p>
+
+          {% if responsibleOfficerDetails.telephoneNumber == null %}
+            {{ govukInput({
+              label: {
+                text: "Telephone Number",
+                classes: "govuk-label--m",
+                isPageHeading: false
+              },
+              id: "telephoneNumber_input",
+              value: responsibleOfficerDetails.telephoneNumber,
+              classes: "govuk-input--width-30",
+              name: "telephoneNumber"
+            }) }}
+          {% else %}
+            <h2 class="govuk-heading-m">Telephone Number</h2>
+            <p id="telephoneNumber">{{ responsibleOfficerDetails.telephoneNumber}}</p>
+          {% endif %}
+
+{#          #### for Monday need to get the tests all going as I have removed the wildcard from sign and send#}
+{#          #### then need to show db telephone number if none returned from integration#}
+
 
           <div class="moj-button-group">
             {{ govukButton({

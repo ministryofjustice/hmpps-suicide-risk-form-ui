@@ -115,10 +115,9 @@ context('Recipients Page', () => {
     cy.get('#add-other-agencies--button').should('have.attr', 'href').and('include', 'contactType=OTHER')
   })
 
-  it('continue button performs a post and redirects to check-your-answers', () => {
+  it('continue button performs a post and redirects to sign-and-send', () => {
     cy.intercept('POST', '/recipients/**').as('recipientsSubmit')
     cy.visit('/recipients/00000000-0000-0000-0000-000000000001')
-
     cy.get('#continue-button').click()
     cy.wait('@recipientsSubmit')
     cy.url().should('include', '/sign-and-send/00000000-0000-0000-0000-000000000001')

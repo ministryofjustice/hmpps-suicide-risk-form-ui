@@ -15,8 +15,8 @@ context('Sign and Send Page', () => {
     cy.get('#clear-signature-button').should('not.exist')
   })
 
-  it('Can See and Select new who is sending fields', () => {
-    cy.visit('/sign-and-send/00000000-0000-0000-0000-600000000013')
+  it('Can See and Select who is sending fields', () => {
+    cy.visit('/sign-and-send/00000000-0000-0000-0000-600000000046')
     cy.get('#whoIsSendingTheForm').should('exist')
     cy.get('input[type="radio"][value="RO"]').should('exist')
     cy.get('input[type="radio"][value="USER"]').should('exist')
@@ -25,9 +25,8 @@ context('Sign and Send Page', () => {
   })
 
   it('Can See and Select new officer email field', () => {
-    cy.visit('/sign-and-send/00000000-0000-0000-0000-600000000013')
-    cy.get('#officer-email-address').should('exist')
-    cy.get('#officer-email-address').should('contain.text', 'example@justice.gov.uk')
+    cy.visit('/sign-and-send/00000000-0000-0000-0000-600007777777')
+    cy.get('#officer-email-address_input').should('exist')
   })
 
   it('shows only alternate address dropdown when no default address exists', () => {
@@ -76,5 +75,10 @@ context('Sign and Send Page', () => {
     cy.get('#continue-button').should('exist')
     cy.get('#continue-button').click()
     cy.url().should('include', '/check-your-answers/00000000-0000-0000-0000-600000000005')
+  })
+
+  it('Should show email text box and telephone number text box', () => {
+    cy.visit('/sign-and-send/7777777-4444-0000-0000-600000000999')
+    cy.get('#officer-email-address_input').should('exist')
   })
 })
