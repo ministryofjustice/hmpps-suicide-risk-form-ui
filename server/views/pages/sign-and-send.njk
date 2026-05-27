@@ -18,6 +18,8 @@
     {% set errorList =[
       { text: errorMessages.replyAddress.text, href: "#work-address" } if errorMessages.workAddress else None,
       { text: errorMessages.replyAddress.text, href: "#work-address" } if errorMessages.workAddress else None,
+      { text: errorMessages.email.text, href: "#officer-email-address_input" } if errorMessages.email else None,
+      { text: errorMessages.telephoneNumber.text, href: "#telephoneNumber_input" } if errorMessages.telephoneNumber else None,
       { text: errorMessages.sentByResponsibleOfficerOrUser.text, href: "#who-is-sending-the-form" } if errorMessages.sentByResponsibleOfficerOrUser else None
     ] | reject("undefined") %}
 
@@ -84,7 +86,6 @@
 
 
           {% if responsibleOfficerDetails == null or responsibleOfficerDetails.emailAddress == null %}
-
             {{ govukInput({
               label: {
                 text: "Officer Email Address",
@@ -92,15 +93,16 @@
                 isPageHeading: false
               },
               id: "officer-email-address_input",
-              value: responsibleOfficerDetails.emailAddress,
+              value: suicideRisk.officerEmailAddress,
               classes: "govuk-input--width-30",
-              name: "officer-email-address"
+              name: "officerEmailAddress",
+              errorMessage: {
+                text: errorMessages.email.text
+              } if errorMessages.email.text
             }) }}
-
-            <p id="officer-email-address">{{ responsibleOfficerDetails.emailAddress }}</p>
           {% else %}
             <h2 class="govuk-heading-m">Officer Email Address</h2>
-            <p id="officer-email-address">{{ responsibleOfficerDetails.emailAddress }}</p>
+            <p id="officerEmailAddress">{{ suicideRisk.officerEmailAddress }}</p>
           {% endif %}
 
           <h2 class="govuk-heading-m">Signature</h2>
@@ -246,13 +248,16 @@
                 isPageHeading: false
               },
               id: "telephoneNumber_input",
-              value: responsibleOfficerDetails.telephoneNumber,
+              value: suicideRisk.telephoneNumber,
               classes: "govuk-input--width-30",
-              name: "telephoneNumber"
+              name: "officerTelephoneNumber",
+              errorMessage: {
+                text: errorMessages.telephoneNumber.text
+              } if errorMessages.telephoneNumber.text
             }) }}
           {% else %}
             <h2 class="govuk-heading-m">Telephone Number</h2>
-            <p id="telephoneNumber">{{ responsibleOfficerDetails.telephoneNumber}}</p>
+            <p id="telephoneNumber">{{ suicideRisk.telephoneNumber}}</p>
           {% endif %}
 
 {#          #### for Monday need to get the tests all going as I have removed the wildcard from sign and send#}

@@ -81,4 +81,37 @@ context('Sign and Send Page', () => {
     cy.visit('/sign-and-send/7777777-4444-0000-0000-600000000999')
     cy.get('#officer-email-address_input').should('exist')
   })
+
+  it('enter more than 200 characters in the telephone number or email field gives an error', () => {
+    cy.visit('/sign-and-send/4f777f49-c833-438b-9fee-4daf3e17b094')
+    cy.get('#officer-email-address_input').should('exist')
+    cy.get('#telephoneNumber_input').should('exist')
+    cy.get('#alternate-address').select('3')
+    cy.get('#officer-email-address_input').type(
+      'qnhcdkovyjawnwrndpcxdiupvdszdzsnmgtyrzvwkbwwyhksvjbwfsrlxdvmmxxdmltzymadkssmtcflyfmcbvxklwxuvkveagysszlkylfqbplhncpsgsnnybcuuqfkwigjyoawzdlvhnhkjenmmicsbqjbyglaeaqqukqrniliodjkdajouynetmsavjipczdvrkcd@police.uk',
+    )
+    cy.get('#telephoneNumber_input').type(
+      '0191252qnhcdkovyjawnwrndpcxdiupvdszdzsnmgtyrzvwkbwwyhksvjbwfsrlxdvmmxxdmltzymadkssmtcflyfmcbvxklwxuvkveagysszlkylfqbplhncpsgsnnybcuuqfkwigjyoawzdlvhnhkjenmmicsbqjbyglaeaqqukqrniliodjkdajouynetmsavjipczdvrkcd',
+    )
+    cy.get('#continue-button').should('exist')
+    cy.get('#continue-button').click()
+    cy.url().should('include', '/sign-and-send/4f777f49-c833-438b-9fee-4daf3e17b094')
+    cy.get('.govuk-error-summary__title').should('exist').should('contain.text', 'There is a problem')
+    cy.get('#telephoneNumber_input-error')
+      .should('exist')
+      .should('contain.text', 'Please enter a value that is less than 200 characters for Telephone Number.')
+    cy.get('#officer-email-address_input-error')
+      .should('exist')
+      .should('contain.text', 'Please enter a value that is less than 200 characters for Officer Email Address.')
+  })
+
+  it('rejects an email which is only the domain', () => {
+    cy.visit('/sign-and-send/4f777f49-c833-438b-9fee-4daf3e17b094')
+    cy.get('#officer-email-address_input').clear()
+    cy.get('#officer-email-address_input').type('@police.uk')
+    cy.get('#alternate-address').select('3')
+    cy.get('#continue-button').should('exist')
+    cy.get('#continue-button').click()
+    cy.contains('Enter an email address in the correct format for Officer Email Address.').should('be.visible')
+  })
 })
