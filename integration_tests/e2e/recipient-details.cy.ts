@@ -100,7 +100,6 @@ context('Recipient Details Page', () => {
 
   it('validates email is in the list of allowed email addresses and fails if not', () => {
     cy.visit(`/recipient-details/${suicideRiskId}?contactType=COLLEAGUE`)
-    cy.get('input[name="sendFormViaEmail"][value="true"]').check()
     cy.get('#email').clear()
     cy.get('#email').type('testuser@polte.uk')
     clickConfirmButton()
@@ -111,7 +110,6 @@ context('Recipient Details Page', () => {
 
   it('rejects an email which is only the domain', () => {
     cy.visit(`/recipient-details/${suicideRiskId}?contactType=COLLEAGUE`)
-    cy.get('input[name="sendFormViaEmail"][value="true"]').check()
     cy.get('#email').clear()
     cy.get('#email').type('@police.uk')
     clickConfirmButton()
@@ -123,7 +121,6 @@ context('Recipient Details Page', () => {
 
   it('rejects an email with multiple @ characters', () => {
     cy.visit(`/recipient-details/${suicideRiskId}?contactType=COLLEAGUE`)
-    cy.get('input[name="sendFormViaEmail"][value="true"]').check()
     cy.get('#email').clear()
     cy.get('#email').type('test@gov.uk@gov.uk')
     clickConfirmButton()
@@ -135,7 +132,6 @@ context('Recipient Details Page', () => {
 
   it('rejects an email with a prefix to the allowed domain', () => {
     cy.visit(`/recipient-details/${suicideRiskId}?contactType=COLLEAGUE`)
-    cy.get('input[name="sendFormViaEmail"][value="true"]').check()
     cy.get('#email').clear()
     cy.get('#email').type('testuser@aaagov.uk')
     clickConfirmButton()
@@ -187,7 +183,6 @@ context('Recipient Details Page', () => {
 
   it('rejects an email when only a different exact email is authorised', () => {
     cy.visit(`/recipient-details/${suicideRiskId}?contactType=COLLEAGUE`)
-    cy.get('input[name="sendFormViaEmail"][value="true"]').check()
     cy.get('#email').clear()
     cy.get('#email').type('test12345@test.com')
     clickConfirmButton()
@@ -197,11 +192,21 @@ context('Recipient Details Page', () => {
     ).should('be.visible')
   })
 
+  it('reject an approved email domain that is over 250 chars long', () => {
+    cy.visit(`/recipient-details/${suicideRiskId}?contactType=COLLEAGUE`)
+    cy.get('#email').clear()
+    cy.get('#email').type(
+      '123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890@gov.uk',
+    )
+    clickConfirmButton()
+
+    cy.contains('Please enter 250 characters or less for Email').should('be.visible')
+  })
+
   it('rejects an email where the allowed domain is not at the end', () => {
     cy.visit(`/recipient-details/${suicideRiskId}?contactType=COLLEAGUE`)
-    cy.get('input[name="sendFormViaEmail"][value="true"]').check()
     cy.get('#email').clear()
-    cy.get('#email').type('test@bbc.co.uk.za')
+    cy.get('#email').type('test@gov.uk.za')
     clickConfirmButton()
 
     cy.contains(
@@ -309,7 +314,6 @@ context('Recipient Details Page', () => {
     { selector: '#townCity', label: 'Town or City', max: 35 },
     { selector: '#county', label: 'County', max: 35 },
     { selector: '#postcode', label: 'Postcode', max: 8 },
-    { selector: '#email', label: 'Email', max: 250 },
   ]
 
   lengthTests.forEach(({ selector, label, max }) => {
