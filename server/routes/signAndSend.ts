@@ -72,7 +72,14 @@ export default function signAndSendRoutes(
       return
     }
 
-    suicideRisk.telephoneNumber = responsibleOfficerDetails.telephoneNumber
+    // always use number from NDelius if available and fall back to saved one
+    if (responsibleOfficerDetails.telephoneNumber != null) {
+      suicideRisk.telephoneNumber = responsibleOfficerDetails.telephoneNumber
+    }
+
+    if (responsibleOfficerDetails.emailAddress != null) {
+      suicideRisk.officerEmailAddress = responsibleOfficerDetails.emailAddress
+    }
 
     let defaultAddress: DeliusAddress = null
     let onlyAlternateAddressesAvailable: boolean = false
@@ -141,6 +148,9 @@ export default function signAndSendRoutes(
     const ndeliusIntegrationApiClient = new NDeliusIntegrationApiClient(authenticationClient)
     const suicideRiskId: string = req.params.id
     const formSentBy: string = req.body.whoIsSendingTheForm || null
+    const officerEmailAddress: string = req.body.officerEmailAddress || null
+    const officerTelephoneNumber: string = req.body.officerTelephoneNumber || null
+
     let suicideRisk: SuicideRisk = null
     let errorMessages: ErrorMessages = {}
 
@@ -175,6 +185,29 @@ export default function signAndSendRoutes(
       }
       res.render(`pages/detailed-error`, { errorMessages })
       return
+    }
+
+    // perform field validation
+    if (officerEmailAddress != null && officerEmailAddress.length > 0) {
+      if (!isValidEmail(officerEmailAddress)) {
+        errorMessages.email = {
+          text: 'Enter an email address in the correct format for Officer Email Address.',
+        }
+      }
+
+      if (officerEmailAddress.length > 200) {
+        errorMessages.email = {
+          text: 'Please enter a value that is less than 200 characters for Officer Email Address.',
+        }
+      }
+    }
+
+    if (officerTelephoneNumber != null && officerTelephoneNumber.length > 0) {
+      if (officerTelephoneNumber.length > 200) {
+        errorMessages.telephoneNumber = {
+          text: 'Please enter a value that is less than 200 characters for Telephone Number.',
+        }
+      }
     }
 
     if (req.body.action === 'addAddress') {
@@ -384,6 +417,15 @@ export default function signAndSendRoutes(
       suicideRisk.signAndSendSaved = true
       suicideRisk.telephoneNumber = responsibleOfficerDetails.telephoneNumber
       suicideRisk.officerEmailAddress = responsibleOfficerDetails.emailAddress
+
+      if (officerEmailAddress != null) {
+        suicideRisk.officerEmailAddress = officerEmailAddress
+      }
+
+      if (officerTelephoneNumber != null) {
+        suicideRisk.telephoneNumber = officerTelephoneNumber
+      }
+
       suicideRisk = handleSelectedAddress(suicideRisk, responsibleOfficerDetails, req)
 
       if (hasValidationErrors) {
@@ -400,6 +442,7 @@ export default function signAndSendRoutes(
         const addressPresent = responsibleOfficerDetails.addresses.find(
           record => record.id === suicideRisk.workAddress.addressId,
         )
+
         if (addressPresent == null) {
           suicideRisk.workAddress = null
           addressNotAvailable = true
@@ -511,12 +554,22 @@ export default function signAndSendRoutes(
   }
 
   function getSelectedAddress(addressList: DeliusAddress[], addressIdentifier: string): DeliusAddress {
-    const addressIdentifierNumber: number = +addressIdentifier
-    if (addressList && Object.keys(addressList).length > 0) {
-      return addressList.find(address => address.id === addressIdentifierNumber)
-    }
+    if (addressIdentifier && addressIdentifier.length > 0) {
+      const addressIdentifierNumber: number = +addressIdentifier
+      if (addressList && Object.keys(addressList).length > 0) {
+        return addressList.find(address => address.id === addressIdentifierNumber)
+      }
 
+      return null
+    }
     return null
+  }
+
+  function isValidEmail(email: string): boolean {
+    if (!email) return false
+    const trimmed = email.trim().toLowerCase()
+    // exactly one @, no spaces, text before and after the @ required
+    return /^[^@\s]+@[^@\s]+$/.test(trimmed)
   }
 
   return router
