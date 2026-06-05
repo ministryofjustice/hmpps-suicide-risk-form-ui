@@ -863,6 +863,29 @@
 
     {
       "request": {
+        "urlPattern": "/ndelius/sign-and-send/Z989878",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "name": {
+            "forename": "Billy",
+            "middleName": "The",
+            "surname": "Kid"
+          },
+          "telephoneNumber": null,
+          "emailAddress": null,
+          "addresses": null
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      }
+    },
+
+    {
+      "request": {
         "urlPattern": "/ndelius/sign-and-send/X000002",
         "method": "GET"
       },

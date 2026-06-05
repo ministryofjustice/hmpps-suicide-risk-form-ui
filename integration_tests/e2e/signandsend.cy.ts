@@ -82,7 +82,7 @@ context('Sign and Send Page', () => {
     cy.get('#officer-email-address_input').should('exist')
   })
 
-  it('enter more than 200 characters in the telephone number or email field gives an error', () => {
+  it('enter more than 200 characters in the email field gives an error', () => {
     cy.visit('/sign-and-send/4f777f49-c833-438b-9fee-4daf3e17b094')
     cy.get('#officer-email-address_input').should('exist')
     cy.get('#telephoneNumber_input').should('exist')
@@ -90,19 +90,107 @@ context('Sign and Send Page', () => {
     cy.get('#officer-email-address_input').type(
       'qnhcdkovyjawnwrndpcxdiupvdszdzsnmgtyrzvwkbwwyhksvjbwfsrlxdvmmxxdmltzymadkssmtcflyfmcbvxklwxuvkveagysszlkylfqbplhncpsgsnnybcuuqfkwigjyoawzdlvhnhkjenmmicsbqjbyglaeaqqukqrniliodjkdajouynetmsavjipczdvrkcd@police.uk',
     )
-    cy.get('#telephoneNumber_input').type(
-      '0191252qnhcdkovyjawnwrndpcxdiupvdszdzsnmgtyrzvwkbwwyhksvjbwfsrlxdvmmxxdmltzymadkssmtcflyfmcbvxklwxuvkveagysszlkylfqbplhncpsgsnnybcuuqfkwigjyoawzdlvhnhkjenmmicsbqjbyglaeaqqukqrniliodjkdajouynetmsavjipczdvrkcd',
-    )
+    cy.get('#continue-button').should('exist')
+    cy.get('#continue-button').click()
+    cy.url().should('include', '/sign-and-send/4f777f49-c833-438b-9fee-4daf3e17b094')
+    cy.get('.govuk-error-summary__title').should('exist').should('contain.text', 'There is a problem')
+    cy.get('#officer-email-address_input-error')
+      .should('exist')
+      .should(
+        'contain.text',
+        'Please enter a value that is less than or equal to 200 characters for Officer Email Address.',
+      )
+  })
+
+  it('enter more than 35 characters in the telephone number field click continue gives an error', () => {
+    cy.visit('/sign-and-send/4f777f49-c833-438b-9fee-4daf3e17b094')
+    cy.get('#officer-email-address_input').should('exist')
+    cy.get('#telephoneNumber_input').should('exist')
+    cy.get('#alternate-address').select('3')
+    cy.get('#telephoneNumber_input').type('0191vvrpxoquqjybbvirotkrrtthqxqnlxgdgbbrum')
     cy.get('#continue-button').should('exist')
     cy.get('#continue-button').click()
     cy.url().should('include', '/sign-and-send/4f777f49-c833-438b-9fee-4daf3e17b094')
     cy.get('.govuk-error-summary__title').should('exist').should('contain.text', 'There is a problem')
     cy.get('#telephoneNumber_input-error')
       .should('exist')
-      .should('contain.text', 'Please enter a value that is less than 200 characters for Telephone Number.')
-    cy.get('#officer-email-address_input-error')
+      .should('contain.text', 'Please enter a value that is less than or equal to 35 characters for Telephone Number.')
+  })
+
+  it('enter more than 35 characters in the telephone number field click Save and close gives an error', () => {
+    cy.visit('/sign-and-send/4f777f49-c833-438b-9fee-4daf3e17b094')
+    cy.get('#officer-email-address_input').should('exist')
+    cy.get('#telephoneNumber_input').should('exist')
+    cy.get('#alternate-address').select('3')
+    cy.get('#telephoneNumber_input').type('0191vvrpxoquqjybbvirotkrrtthqxqnlxgdgbbrum')
+    cy.get('#close-button').should('exist')
+    cy.get('#close-button').click()
+    cy.url().should('include', '/sign-and-send/4f777f49-c833-438b-9fee-4daf3e17b094')
+    cy.get('.govuk-error-summary__title').should('exist').should('contain.text', 'There is a problem')
+    cy.get('#telephoneNumber_input-error')
       .should('exist')
-      .should('contain.text', 'Please enter a value that is less than 200 characters for Officer Email Address.')
+      .should('contain.text', 'Please enter a value that is less than or equal to 35 characters for Telephone Number.')
+  })
+
+  // sign
+  it('enter more than 35 characters in the telephone number field click signature button gives an error', () => {
+    cy.visit('/sign-and-send/4f777f49-c833-438b-9fee-4daf3e17b094')
+    cy.get('#officer-email-address_input').should('exist')
+    cy.get('#telephoneNumber_input').should('exist')
+    cy.get('#alternate-address').select('3')
+    cy.get('#telephoneNumber_input').type('0191vvrpxoquqjybbvirotkrrtthqxqnlxgdgbbrum')
+    cy.get('#sign-button').should('exist')
+    cy.get('#sign-button').click()
+    cy.url().should('include', '/sign-and-send/4f777f49-c833-438b-9fee-4daf3e17b094')
+    cy.get('.govuk-error-summary__title').should('exist').should('contain.text', 'There is a problem')
+    cy.get('#telephoneNumber_input-error')
+      .should('exist')
+      .should('contain.text', 'Please enter a value that is less than or equal to 35 characters for Telephone Number.')
+  })
+
+  // need clear signature
+  it('enter more than 35 characters in the telephone number field click clear signature button gives an error', () => {
+    cy.visit('/sign-and-send/5f777f49-c833-438b-9fee-5daf3e17b094')
+    cy.get('#officer-email-address_input').should('exist')
+    cy.get('#telephoneNumber_input').should('exist')
+    cy.get('#alternate-address').select('3')
+    cy.get('#telephoneNumber_input').type('0191vvrpxoquqjybbvirotkrrtthqxqnlxgdgbbrum')
+    cy.get('#clear-signature-button').should('exist')
+    cy.get('#clear-signature-button').click()
+    cy.url().should('include', '/sign-and-send/5f777f49-c833-438b-9fee-5daf3e17b094')
+    cy.get('.govuk-error-summary__title').should('exist').should('contain.text', 'There is a problem')
+    cy.get('#telephoneNumber_input-error')
+      .should('exist')
+      .should('contain.text', 'Please enter a value that is less than or equal to 35 characters for Telephone Number.')
+  })
+
+  it('enter more than 35 characters in the telephone number field and not selecting an alternate address click continue gives a standard error', () => {
+    cy.visit('/sign-and-send/4f777f49-c833-438b-9fee-4daf3e17b094')
+    cy.get('#officer-email-address_input').should('exist')
+    cy.get('#telephoneNumber_input').should('exist')
+    cy.get('#telephoneNumber_input').type('0191vvrpxoquqjybbvirotkrrtthqxqnlxgdgbbrum')
+    cy.get('#continue-button').should('exist')
+    cy.get('#continue-button').click()
+    cy.url().should('include', '/sign-and-send/4f777f49-c833-438b-9fee-4daf3e17b094')
+    cy.get('.govuk-error-summary__title').should('exist').should('contain.text', 'There is a problem')
+    cy.get('#telephoneNumber_input-error')
+      .should('exist')
+      .should('contain.text', 'Please enter a value that is less than or equal to 35 characters for Telephone Number.')
+  })
+
+  // add address
+  it('enter more than 35 characters in the telephone number field and not selecting an alternate address click add address gives a standard error', () => {
+    cy.visit('/sign-and-send/89745555-c833-438b-9fee-4daf89745555')
+    cy.get('#officer-email-address_input').should('exist')
+    cy.get('#telephoneNumber_input').should('exist')
+    cy.get('#telephoneNumber_input').type('0191vvrpxoquqjybbvirotkrrtthqxqnlxgdgbbrum')
+    cy.get('#add-address-button').should('exist')
+    cy.get('#add-address-button').click()
+    cy.url().should('include', '/sign-and-send/89745555-c833-438b-9fee-4daf89745555')
+    cy.get('.govuk-error-summary__title').should('exist').should('contain.text', 'There is a problem')
+    cy.get('#telephoneNumber_input-error')
+      .should('exist')
+      .should('contain.text', 'Please enter a value that is less than or equal to 35 characters for Telephone Number.')
   })
 
   it('rejects an email which is only the domain', () => {
