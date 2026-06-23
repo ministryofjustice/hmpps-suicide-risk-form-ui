@@ -68,7 +68,7 @@
             items: [
               {
                 value: "RO",
-                text: "Responsible officer",
+                text: "Responsible Officer",
                 checked: suicideRisk.signedByRo === true
               },
               {
@@ -80,12 +80,12 @@
           }) }}
 
           <h2 class="govuk-heading-m">Officer Name</h2>
-          <p id="name">{{ responsibleOfficerDetails.name.forename }}
-            <span> </span> {% if responsibleOfficerDetails.name.middleName != null %} {{ responsibleOfficerDetails.name.middleName }}
-              <span> </span> {% endif %} {{ responsibleOfficerDetails.name.surname }}</p>
+          <p id="name">{{ signAndSendDetails.responsibleOfficer.name.forename }}
+            <span> </span> {% if signAndSendDetails.responsibleOfficer.name.middleName != null %} {{ signAndSendDetails.responsibleOfficer.name.middleName }}
+              <span> </span> {% endif %} {{ signAndSendDetails.responsibleOfficer.name.surname }}</p>
 
 
-          {% if responsibleOfficerDetails == null or responsibleOfficerDetails.emailAddress == null %}
+          {% if signAndSendDetails.responsibleOfficer == null or signAndSendDetails.responsibleOfficer.emailAddress == null %}
             {{ govukInput({
               label: {
                 text: "Officer Email Address",
@@ -165,7 +165,7 @@
                   <br />{% endif %}
               </p>
 
-              {% if suicideRisk.workAddress != null and suicideRisk.workAddress.addressId == null and (responsibleOfficerDetails.addresses == null or responsibleOfficerDetails.addresses.length == 0) %}
+              {% if suicideRisk.workAddress != null and suicideRisk.workAddress.addressId == null and (signAndSendDetails.responsibleOfficer.addresses == null or signAndSendDetails.responsibleOfficer.addresses.length == 0) %}
                 {{ govukButton({
                   text: "Update Address",
                   type: "submit",
@@ -186,7 +186,7 @@
             {% endif %}
 
             {% if manualAddressAllowed and suicideRisk.workAddress == null %}
-              <p id="AddAddressMessage">No reply address can be found for this responsible officer. Please add an
+              <p id="AddAddressMessage">No reply address can be found for this Responsible Officer. Please add an
                 address by selecting the button below.</p>
 
               {{ govukButton({
@@ -201,7 +201,7 @@
                 }
               }) }}
 
-            {% elseif not addressNotAvailable and responsibleOfficerDetails.addresses != null and responsibleOfficerDetails.addresses.length > 0 %}
+            {% elseif not addressNotAvailable and signAndSendDetails.responsibleOfficer.addresses != null and signAndSendDetails.responsibleOfficer.addresses.length > 0 %}
 
               {{ govukRadios({
                 name: "offenderAddressSelectOne",
@@ -232,7 +232,7 @@
                 ]
               }) }}
 
-            {% elseif responsibleOfficerDetails.addresses != null and responsibleOfficerDetails.addresses.length > 0 %}
+            {% elseif signAndSendDetails.responsibleOfficer.addresses != null and signAndSendDetails.responsibleOfficer.addresses.length > 0 %}
 
               {{ alternateAddressHtml | safe }}
 
@@ -240,7 +240,7 @@
           {% endif %}
 
 
-          {% if responsibleOfficerDetails.telephoneNumber == null %}
+          {% if signAndSendDetails.responsibleOfficer.telephoneNumber == null %}
             {{ govukInput({
               label: {
                 text: "Telephone Number",

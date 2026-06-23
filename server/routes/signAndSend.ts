@@ -15,6 +15,8 @@ import NDeliusIntegrationApiClient, {
   DeliusAddress,
   PersonDetails,
   ResponsibleOfficerDetails,
+  SignAndSendDetails,
+  UserDetails,
 } from '../data/ndeliusIntegrationApiClient'
 import { toFullUserDate, toUserDate } from '../utils/dateUtils'
 
@@ -48,9 +50,9 @@ export default function signAndSendRoutes(
 
     if (await commonUtils.redirectRequired(suicideRisk, suicideRiskId, res, authenticationClient)) return
 
-    let responsibleOfficerDetails: ResponsibleOfficerDetails = null
+    let signAndSendDetails: SignAndSendDetails = null
     try {
-      responsibleOfficerDetails = await ndeliusIntegrationApiClient.getResponsibleOfficerDetails(
+      signAndSendDetails = await ndeliusIntegrationApiClient.getSignAndSendDetails(
         suicideRisk.crn,
         res.locals.user.username,
       )
@@ -73,22 +75,22 @@ export default function signAndSendRoutes(
     }
 
     // always use number from NDelius if available and fall back to saved one
-    if (responsibleOfficerDetails.telephoneNumber != null) {
-      suicideRisk.telephoneNumber = responsibleOfficerDetails.telephoneNumber
+    if (signAndSendDetails.responsibleOfficer?.telephoneNumber != null) {
+      suicideRisk.telephoneNumber = signAndSendDetails.responsibleOfficer.telephoneNumber
     }
 
-    if (responsibleOfficerDetails.emailAddress != null) {
-      suicideRisk.officerEmailAddress = responsibleOfficerDetails.emailAddress
+    if (signAndSendDetails.responsibleOfficer?.emailAddress != null) {
+      suicideRisk.officerEmailAddress = signAndSendDetails.responsibleOfficer.emailAddress
     }
 
     let defaultAddress: DeliusAddress = null
     let onlyAlternateAddressesAvailable: boolean = false
-    if (suicideRisk.workAddress == null && responsibleOfficerDetails.addresses != null) {
-      defaultAddress = responsibleOfficerDetails.addresses.find(record => record.status === 'Default')
+    if (suicideRisk.workAddress == null && signAndSendDetails.responsibleOfficer?.addresses != null) {
+      defaultAddress = signAndSendDetails.responsibleOfficer?.addresses?.find(record => record.status === 'Default')
 
       if (defaultAddress) {
         suicideRisk.workAddress = toSuicideRiskAddress(defaultAddress)
-      } else if (responsibleOfficerDetails.addresses?.length > 0) {
+      } else if (signAndSendDetails.responsibleOfficer?.addresses?.length > 0) {
         // Scenario when a default address is not found from integration api but other (non-default) alternate addresses are found
         // We do not display radio buttons for the user, just a drop-down of the alternate addresses
         onlyAlternateAddressesAvailable = true
@@ -99,10 +101,10 @@ export default function signAndSendRoutes(
     if (
       suicideRisk.workAddress != null &&
       suicideRisk.workAddress.addressId != null &&
-      responsibleOfficerDetails.addresses != null
+      signAndSendDetails.responsibleOfficer?.addresses != null
     ) {
-      const addressPresent = responsibleOfficerDetails.addresses.find(
-        record => record.id === suicideRisk.workAddress.addressId,
+      const addressPresent = signAndSendDetails.responsibleOfficer?.addresses?.find(
+        record => record.id === suicideRisk.workAddress?.addressId,
       )
       if (addressPresent == null) {
         suicideRisk.workAddress = null
@@ -116,12 +118,15 @@ export default function signAndSendRoutes(
     }
 
     let manualAddressAllowed: boolean = false
-    if (responsibleOfficerDetails.addresses == null || responsibleOfficerDetails.addresses.length === 0) {
+    if (
+      signAndSendDetails.responsibleOfficer?.addresses == null ||
+      signAndSendDetails.responsibleOfficer?.addresses.length === 0
+    ) {
       manualAddressAllowed = true
     }
 
     const alternateAddressOptions = addressListToSelectItemList(
-      responsibleOfficerDetails.addresses,
+      signAndSendDetails.responsibleOfficer?.addresses,
       suicideRisk.basicDetailsSaved,
       suicideRisk.workAddress?.addressId,
     )
@@ -132,7 +137,7 @@ export default function signAndSendRoutes(
       suicideRisk,
       currentPage,
       suicideRiskId,
-      responsibleOfficerDetails,
+      signAndSendDetails,
       currentUserDisplayName,
       dateOfLetter,
       alternateAddressOptions,
@@ -152,7 +157,7 @@ export default function signAndSendRoutes(
     const officerTelephoneNumber: string = req.body.officerTelephoneNumber || null
     let suicideRisk: SuicideRisk = null
     let errorMessages: ErrorMessages = {}
-    let responsibleOfficerDetails: ResponsibleOfficerDetails = null
+    let signAndSendDetails: SignAndSendDetails = null
 
     try {
       suicideRisk = await suicideRiskApiClient.getSuicideRiskById(suicideRiskId, res.locals.user.username)
@@ -164,7 +169,7 @@ export default function signAndSendRoutes(
     }
 
     try {
-      responsibleOfficerDetails = await ndeliusIntegrationApiClient.getResponsibleOfficerDetails(
+      signAndSendDetails = await ndeliusIntegrationApiClient.getSignAndSendDetails(
         suicideRisk.crn,
         res.locals.user.username,
       )
@@ -195,9 +200,9 @@ export default function signAndSendRoutes(
       }
     }
 
-    suicideRisk.officerEmailAddress = responsibleOfficerDetails.emailAddress
-    suicideRisk.telephoneNumber = responsibleOfficerDetails.telephoneNumber
-    suicideRisk = handleSelectedAddress(suicideRisk, responsibleOfficerDetails, req)
+    suicideRisk.officerEmailAddress = signAndSendDetails.responsibleOfficer?.emailAddress
+    suicideRisk.telephoneNumber = signAndSendDetails.responsibleOfficer?.telephoneNumber
+    suicideRisk = handleSelectedAddress(suicideRisk, signAndSendDetails.responsibleOfficer, req)
 
     if (officerEmailAddress != null) {
       suicideRisk.officerEmailAddress = officerEmailAddress
@@ -238,7 +243,7 @@ export default function signAndSendRoutes(
         const dateOfLetter: string = toUserDate(suicideRisk.dateOfLetter)
 
         const alternateAddressOptions = addressListToSelectItemList(
-          responsibleOfficerDetails.addresses,
+          signAndSendDetails.responsibleOfficer?.addresses,
           suicideRisk.basicDetailsSaved,
           suicideRisk.workAddress?.addressId,
         )
@@ -247,9 +252,9 @@ export default function signAndSendRoutes(
         if (
           suicideRisk.workAddress != null &&
           suicideRisk.workAddress.addressId != null &&
-          responsibleOfficerDetails.addresses != null
+          signAndSendDetails.responsibleOfficer?.addresses != null
         ) {
-          const addressPresent = responsibleOfficerDetails.addresses.find(
+          const addressPresent = signAndSendDetails.responsibleOfficer.addresses?.find(
             record => record.id === suicideRisk.workAddress.addressId,
           )
           if (addressPresent == null) {
@@ -262,18 +267,21 @@ export default function signAndSendRoutes(
         }
 
         let manualAddressAllowed: boolean = false
-        if (responsibleOfficerDetails.addresses == null || responsibleOfficerDetails.addresses.length === 0) {
+        if (
+          signAndSendDetails.responsibleOfficer.addresses == null ||
+          signAndSendDetails.responsibleOfficer.addresses.length === 0
+        ) {
           manualAddressAllowed = true
         }
 
         let defaultAddress: DeliusAddress = null
         let onlyAlternateAddressesAvailable: boolean = false
-        if (suicideRisk.workAddress == null && responsibleOfficerDetails.addresses != null) {
-          defaultAddress = responsibleOfficerDetails.addresses.find(record => record.status === 'Default')
+        if (suicideRisk.workAddress == null && signAndSendDetails.responsibleOfficer?.addresses != null) {
+          defaultAddress = signAndSendDetails.responsibleOfficer?.addresses.find(record => record.status === 'Default')
 
           if (defaultAddress) {
             suicideRisk.workAddress = toSuicideRiskAddress(defaultAddress)
-          } else if (responsibleOfficerDetails.addresses?.length > 0) {
+          } else if (signAndSendDetails.responsibleOfficer.addresses?.length > 0) {
             // Scenario when a default address is not found from integration api but other (non-default) alternate addresses are found
             // We do not display radio buttons for the user, just a drop-down of the alternate addresses
             onlyAlternateAddressesAvailable = true
@@ -284,7 +292,7 @@ export default function signAndSendRoutes(
           suicideRisk,
           currentPage,
           suicideRiskId,
-          responsibleOfficerDetails,
+          signAndSendDetails,
           currentUserDisplayName,
           dateOfLetter,
           alternateAddressOptions,
@@ -312,7 +320,7 @@ export default function signAndSendRoutes(
         const dateOfLetter: string = toUserDate(suicideRisk.dateOfLetter)
 
         const alternateAddressOptions = addressListToSelectItemList(
-          responsibleOfficerDetails.addresses,
+          signAndSendDetails.responsibleOfficer?.addresses,
           suicideRisk.basicDetailsSaved,
           suicideRisk.workAddress?.addressId,
         )
@@ -320,9 +328,9 @@ export default function signAndSendRoutes(
         if (
           suicideRisk.workAddress != null &&
           suicideRisk.workAddress.addressId != null &&
-          responsibleOfficerDetails.addresses != null
+          signAndSendDetails.responsibleOfficer?.addresses != null
         ) {
-          const addressPresent = responsibleOfficerDetails.addresses.find(
+          const addressPresent = signAndSendDetails.responsibleOfficer?.addresses.find(
             record => record.id === suicideRisk.workAddress.addressId,
           )
           if (addressPresent == null) {
@@ -336,18 +344,21 @@ export default function signAndSendRoutes(
         }
 
         let manualAddressAllowed: boolean = false
-        if (responsibleOfficerDetails.addresses == null || responsibleOfficerDetails.addresses.length === 0) {
+        if (
+          signAndSendDetails.responsibleOfficer.addresses == null ||
+          signAndSendDetails.responsibleOfficer.addresses?.length === 0
+        ) {
           manualAddressAllowed = true
         }
 
         let defaultAddress: DeliusAddress = null
         let onlyAlternateAddressesAvailable: boolean = false
-        if (suicideRisk.workAddress == null && responsibleOfficerDetails.addresses != null) {
-          defaultAddress = responsibleOfficerDetails.addresses.find(record => record.status === 'Default')
+        if (suicideRisk.workAddress == null && signAndSendDetails.responsibleOfficer.addresses != null) {
+          defaultAddress = signAndSendDetails.responsibleOfficer?.addresses?.find(record => record.status === 'Default')
 
           if (defaultAddress) {
             suicideRisk.workAddress = toSuicideRiskAddress(defaultAddress)
-          } else if (responsibleOfficerDetails.addresses?.length > 0) {
+          } else if (signAndSendDetails.responsibleOfficer.addresses?.length > 0) {
             // Scenario when a default address is not found from integration api but other (non-default) alternate addresses are found
             // We do not display radio buttons for the user, just a drop-down of the alternate addresses
             onlyAlternateAddressesAvailable = true
@@ -358,7 +369,7 @@ export default function signAndSendRoutes(
           suicideRisk,
           currentPage,
           suicideRiskId,
-          responsibleOfficerDetails,
+          signAndSendDetails,
           currentUserDisplayName,
           dateOfLetter,
           alternateAddressOptions,
@@ -383,7 +394,7 @@ export default function signAndSendRoutes(
         const dateOfLetter: string = toUserDate(suicideRisk.dateOfLetter)
 
         const alternateAddressOptions = addressListToSelectItemList(
-          responsibleOfficerDetails.addresses,
+          signAndSendDetails.responsibleOfficer?.addresses,
           suicideRisk.basicDetailsSaved,
           suicideRisk.workAddress?.addressId,
         )
@@ -392,9 +403,9 @@ export default function signAndSendRoutes(
         if (
           suicideRisk.workAddress != null &&
           suicideRisk.workAddress.addressId != null &&
-          responsibleOfficerDetails.addresses != null
+          signAndSendDetails.responsibleOfficer?.addresses != null
         ) {
-          const addressPresent = responsibleOfficerDetails.addresses.find(
+          const addressPresent = signAndSendDetails.responsibleOfficer?.addresses?.find(
             record => record.id === suicideRisk.workAddress.addressId,
           )
           if (addressPresent == null) {
@@ -408,18 +419,21 @@ export default function signAndSendRoutes(
         }
 
         let manualAddressAllowed: boolean = false
-        if (responsibleOfficerDetails.addresses == null || responsibleOfficerDetails.addresses.length === 0) {
+        if (
+          signAndSendDetails.responsibleOfficer?.addresses == null ||
+          signAndSendDetails.responsibleOfficer?.addresses.length === 0
+        ) {
           manualAddressAllowed = true
         }
 
         let defaultAddress: DeliusAddress = null
         let onlyAlternateAddressesAvailable: boolean = false
-        if (suicideRisk.workAddress == null && responsibleOfficerDetails.addresses != null) {
-          defaultAddress = responsibleOfficerDetails.addresses.find(record => record.status === 'Default')
+        if (suicideRisk.workAddress == null && signAndSendDetails.responsibleOfficer?.addresses != null) {
+          defaultAddress = signAndSendDetails.responsibleOfficer?.addresses?.find(record => record.status === 'Default')
 
           if (defaultAddress) {
             suicideRisk.workAddress = toSuicideRiskAddress(defaultAddress)
-          } else if (responsibleOfficerDetails.addresses?.length > 0) {
+          } else if (signAndSendDetails.responsibleOfficer?.addresses?.length > 0) {
             // Scenario when a default address is not found from integration api but other (non-default) alternate addresses are found
             // We do not display radio buttons for the user, just a drop-down of the alternate addresses
             onlyAlternateAddressesAvailable = true
@@ -430,7 +444,7 @@ export default function signAndSendRoutes(
           suicideRisk,
           currentPage,
           suicideRiskId,
-          responsibleOfficerDetails,
+          signAndSendDetails,
           currentUserDisplayName,
           dateOfLetter,
           alternateAddressOptions,
@@ -455,7 +469,7 @@ export default function signAndSendRoutes(
         const dateOfLetter: string = toUserDate(suicideRisk.dateOfLetter)
 
         const alternateAddressOptions = addressListToSelectItemList(
-          responsibleOfficerDetails.addresses,
+          signAndSendDetails.responsibleOfficer?.addresses,
           suicideRisk.basicDetailsSaved,
           suicideRisk.workAddress?.addressId,
         )
@@ -464,9 +478,9 @@ export default function signAndSendRoutes(
         if (
           suicideRisk.workAddress != null &&
           suicideRisk.workAddress.addressId != null &&
-          responsibleOfficerDetails.addresses != null
+          signAndSendDetails.responsibleOfficer?.addresses != null
         ) {
-          const addressPresent = responsibleOfficerDetails.addresses.find(
+          const addressPresent = signAndSendDetails.responsibleOfficer?.addresses.find(
             record => record.id === suicideRisk.workAddress.addressId,
           )
           if (addressPresent == null) {
@@ -480,18 +494,21 @@ export default function signAndSendRoutes(
         }
 
         let manualAddressAllowed: boolean = false
-        if (responsibleOfficerDetails.addresses == null || responsibleOfficerDetails.addresses.length === 0) {
+        if (
+          signAndSendDetails.responsibleOfficer?.addresses == null ||
+          signAndSendDetails.responsibleOfficer?.addresses.length === 0
+        ) {
           manualAddressAllowed = true
         }
 
         let defaultAddress: DeliusAddress = null
         let onlyAlternateAddressesAvailable: boolean = false
-        if (suicideRisk.workAddress == null && responsibleOfficerDetails.addresses != null) {
-          defaultAddress = responsibleOfficerDetails.addresses.find(record => record.status === 'Default')
+        if (suicideRisk.workAddress == null && signAndSendDetails.responsibleOfficer?.addresses != null) {
+          defaultAddress = signAndSendDetails.responsibleOfficer?.addresses.find(record => record.status === 'Default')
 
           if (defaultAddress) {
             suicideRisk.workAddress = toSuicideRiskAddress(defaultAddress)
-          } else if (responsibleOfficerDetails.addresses?.length > 0) {
+          } else if (signAndSendDetails.responsibleOfficer?.addresses?.length > 0) {
             // Scenario when a default address is not found from integration api but other (non-default) alternate addresses are found
             // We do not display radio buttons for the user, just a drop-down of the alternate addresses
             onlyAlternateAddressesAvailable = true
@@ -501,7 +518,7 @@ export default function signAndSendRoutes(
           suicideRisk,
           currentPage,
           suicideRiskId,
-          responsibleOfficerDetails,
+          signAndSendDetails,
           currentUserDisplayName,
           dateOfLetter,
           alternateAddressOptions,
@@ -515,8 +532,8 @@ export default function signAndSendRoutes(
       }
 
       suicideRisk.signAndSendSaved = true
-      suicideRisk.signature = createSignatureString(responsibleOfficerDetails)
-      suicideRisk.sheetSentBy = getOfficerString(responsibleOfficerDetails)
+      suicideRisk.signature = createSignatureString(signAndSendDetails.userDetails, formSentBy)
+      suicideRisk.sheetSentBy = getOfficerString(signAndSendDetails.responsibleOfficer)
       await suicideRiskApiClient.updateSuicideRisk(req.params.id, suicideRisk, res.locals.user.username)
       res.redirect(`/sign-and-send/${req.params.id}`)
     } else if (req.body.action === 'refreshFromNdelius') {
@@ -530,12 +547,12 @@ export default function signAndSendRoutes(
         let addressNotAvailable: boolean = false
 
         const alternateAddressOptions = addressListToSelectItemList(
-          responsibleOfficerDetails.addresses,
+          signAndSendDetails.responsibleOfficer?.addresses,
           suicideRisk.basicDetailsSaved,
           suicideRisk.workAddress?.addressId,
         )
 
-        const addressPresent = responsibleOfficerDetails.addresses.find(
+        const addressPresent = signAndSendDetails.responsibleOfficer?.addresses?.find(
           record => record.id === suicideRisk.workAddress?.addressId,
         )
 
@@ -548,18 +565,21 @@ export default function signAndSendRoutes(
         }
 
         let manualAddressAllowed: boolean = false
-        if (responsibleOfficerDetails.addresses == null || responsibleOfficerDetails.addresses.length === 0) {
+        if (
+          signAndSendDetails.responsibleOfficer?.addresses == null ||
+          signAndSendDetails.responsibleOfficer?.addresses?.length === 0
+        ) {
           manualAddressAllowed = true
         }
 
         let defaultAddress: DeliusAddress = null
         let onlyAlternateAddressesAvailable: boolean = false
-        if (suicideRisk.workAddress == null && responsibleOfficerDetails.addresses != null) {
-          defaultAddress = responsibleOfficerDetails.addresses.find(record => record.status === 'Default')
+        if (suicideRisk.workAddress == null && signAndSendDetails.responsibleOfficer?.addresses != null) {
+          defaultAddress = signAndSendDetails.responsibleOfficer?.addresses?.find(record => record.status === 'Default')
 
           if (defaultAddress) {
             suicideRisk.workAddress = toSuicideRiskAddress(defaultAddress)
-          } else if (responsibleOfficerDetails.addresses?.length > 0) {
+          } else if (signAndSendDetails.responsibleOfficer?.addresses?.length > 0) {
             // Scenario when a default address is not found from integration api but other (non-default) alternate addresses are found
             // We do not display radio buttons for the user, just a drop-down of the alternate addresses
             onlyAlternateAddressesAvailable = true
@@ -569,7 +589,7 @@ export default function signAndSendRoutes(
           suicideRisk,
           currentPage,
           suicideRiskId,
-          responsibleOfficerDetails,
+          signAndSendDetails,
           currentUserDisplayName,
           dateOfLetter,
           alternateAddressOptions,
@@ -596,28 +616,37 @@ export default function signAndSendRoutes(
     return risk
   }
 
-  function createSignatureString(responsibleOfficerDetails: ResponsibleOfficerDetails): string {
+  function createSignatureString(currentUserDetails: UserDetails, formSentBy: string): string {
     let signature: string = ''
-    if (responsibleOfficerDetails != null && responsibleOfficerDetails.name != null) {
-      signature += responsibleOfficerDetails.name.forename
-      if (responsibleOfficerDetails.name.middleName != null) {
-        signature += ` ${responsibleOfficerDetails.name.middleName}`
+    if (currentUserDetails != null) {
+      signature += currentUserDetails.forename
+      if (currentUserDetails.middleName != null) {
+        signature += ` ${currentUserDetails.middleName}`
       }
-      signature += ` ${responsibleOfficerDetails.name.surname} ${toFullUserDate(new Date().toISOString())}`
+      signature += ` ${currentUserDetails.surname} ${toFullUserDate(new Date().toISOString())}`
     }
+
+    if (formSentBy === 'RO') {
+      signature += ` (Responsible Officer)`
+    }
+
+    if (formSentBy === 'USER') {
+      signature += ` (User on behalf of the Responsible Officer)`
+    }
+
     return signature
   }
 
-  function getOfficerString(userDetails: PersonDetails): string {
-    let signature: string = ''
-    if (userDetails != null && userDetails.name != null) {
-      signature += userDetails.name.forename
-      if (userDetails.name.middleName != null) {
-        signature += ` ${userDetails.name.middleName}`
+  function getOfficerString(responsibleOfficerDetails: ResponsibleOfficerDetails): string {
+    let officerNameForDisplay: string = ''
+    if (responsibleOfficerDetails != null) {
+      officerNameForDisplay += responsibleOfficerDetails.name.forename
+      if (responsibleOfficerDetails.name.middleName != null) {
+        officerNameForDisplay += ` ${responsibleOfficerDetails.name.middleName}`
       }
-      signature += ` ${userDetails.name.surname}`
+      officerNameForDisplay += ` ${responsibleOfficerDetails.name.surname}`
     }
-    return signature
+    return officerNameForDisplay
   }
 
   function addressListToSelectItemList(

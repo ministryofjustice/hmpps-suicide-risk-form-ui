@@ -35,10 +35,10 @@ export default class NDeliusIntegrationApiClient extends RestClient {
     )
   }
 
-  async getResponsibleOfficerDetails(crn: string, username: string): Promise<ResponsibleOfficerDetails> {
+  async getSignAndSendDetails(crn: string, username: string): Promise<SignAndSendDetails> {
     return this.get(
       {
-        path: `/sign-and-send/${crn}`,
+        path: `/sign-and-send/${crn}/${username}`,
       },
       asSystem(username),
     )
@@ -100,6 +100,17 @@ export interface BasicDetails {
   addresses: DeliusAddress[]
   dateOfBirth: string
   nomsNumber: string
+}
+
+export interface SignAndSendDetails {
+  userDetails: UserDetails
+  responsibleOfficer: ResponsibleOfficerDetails
+}
+
+export interface UserDetails {
+  forename: string
+  middleName: string
+  surname: string
 }
 
 export interface ResponsibleOfficerDetails {
