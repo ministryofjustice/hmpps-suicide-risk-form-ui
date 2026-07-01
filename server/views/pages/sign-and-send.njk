@@ -17,9 +17,9 @@
 
     {% set errorList =[
       { text: errorMessages.replyAddress.text, href: "#work-address" } if errorMessages.workAddress else None,
-      { text: errorMessages.replyAddress.text, href: "#work-address" } if errorMessages.workAddress else None,
       { text: errorMessages.email.text, href: "#officer-email-address_input" } if errorMessages.email else None,
       { text: errorMessages.telephoneNumber.text, href: "#telephoneNumber_input" } if errorMessages.telephoneNumber else None,
+      { text: errorMessages.missingPreviouslySelectedAddress.text, href: "#workAddressHeading" } if errorMessages.missingPreviouslySelectedAddress else None,
       { text: errorMessages.sentByResponsibleOfficerOrUser.text, href: "#who-is-sending-the-form" } if errorMessages.sentByResponsibleOfficerOrUser else None
     ] | reject("undefined") %}
 
@@ -137,7 +137,7 @@
             }) }}
           {% endif %}
 
-          <h2 class="govuk-heading-m">Work Location and Address</h2>
+          <h2 class="govuk-heading-m" id="workAddressHeading">Work Location and Address</h2>
 
           {% if onlyAlternateAddressesAvailable %}
             <p id="alternate-address-text"> Please specify the Work Location and Address that the Person on Probation should contact. </p>

@@ -33,11 +33,8 @@ export default function signAndSendRoutes(
     const suicideRiskId: string = req.params.id
     const suicideRiskApiClient = new SuicideRiskApiClient(authenticationClient)
     const ndeliusIntegrationApiClient = new NDeliusIntegrationApiClient(authenticationClient)
-
     const currentUserDisplayName = res.locals.user.displayName
-
     let errorMessages: ErrorMessages = {}
-
     let suicideRisk: SuicideRisk = null
     try {
       suicideRisk = await suicideRiskApiClient.getSuicideRiskById(suicideRiskId, res.locals.user.username)
@@ -111,7 +108,7 @@ export default function signAndSendRoutes(
         addressNotAvailable = true
         await suicideRiskApiClient.updateSuicideRisk(req.params.id, suicideRisk, res.locals.user.username)
 
-        errorMessages.genericErrorMessage = {
+        errorMessages.missingPreviouslySelectedAddress = {
           text: 'Work Location and Address: The previously selected address is no longer available. Please select an alternative.',
         }
       }

@@ -59,6 +59,23 @@
     },
     {
       "request": {
+        "url": "/suicide-risk-api/suicide-risk/62626263-0000-0000-1111-600062626263",
+        "method": "PUT"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "62626263-0000-0000-1111-600062626263",
+          "crn": "S334488"
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        "transformers": ["response-template"]
+      }
+    },
+    {
+      "request": {
         "url": "/suicide-risk-api/suicide-risk/00000000-0000-0000-0000-300000000003",
         "method": "PUT"
       },
@@ -418,6 +435,104 @@
           "treatmentSaved": true,
           "signAndSendSaved": false,
           "contactSaved": false,
+          "completedDate": null
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        "transformers": ["response-template"]
+      }
+    },
+
+    {
+      "request": {
+        "url": "/suicide-risk-api/suicide-risk/62626263-0000-0000-1111-600062626263",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "62626263-0000-0000-1111-600062626263",
+          "crn": "S334488",
+          "titleAndFullName": "Mr Grayson Vale",
+          "postalAddress": {
+            "id": "10000001",
+            "addressId": "60000001",
+            "status": "active",
+            "officeDescription": "Descriptive Name",
+            "buildingName": "Descriptive Tower",
+            "buildingNumber": "33",
+            "streetName": "Descriptive Street",
+            "townCity": "Descriptive Town",
+            "district": "Descriptive District",
+            "county": "Descriptive County",
+            "postcode": "DE5 41BE"
+          },
+          "workAddress": {
+            "id": "33",
+            "addressId": "33",
+            "status": "active",
+            "officeDescription": "The Birdseye Factory",
+            "buildingName": "Fish Building",
+            "buildingNumber": "1",
+            "streetName": "Fishy Street",
+            "townCity": "Fry Town",
+            "district": "Previous District",
+            "county": "Prev County",
+            "postcode": "FS1 3SH"
+          },
+          "dateOfBirth": "1980-01-01",
+          "additionalInfo": "Mr Greyson Vale is a very curious individual who should be checked in on at regular intervals.",
+          "currentPsychTreatment": "Extensive talking therapy on a weekly basis to ensure patient is lucid and does not require intervention.",
+          "suicideRiskContactList": [
+            {
+              "id": "00000000-0000-0000-0001-600000000005",
+              "suicideRiskId": "62626263-0000-0000-1111-600062626263",
+              "contactDate": "2025-06-01",
+              "contactTypeDescription": "Responsible Officer",
+              "contactPerson": "Elara Quinn",
+              "contactLocation": {
+                "id": "10000001",
+                "addressId": "60000001",
+                "status": "active",
+                "officeDescription": "Descriptive Name",
+                "buildingName": "Descriptive Tower",
+                "buildingNumber": "33",
+                "streetName": "Descriptive Street",
+                "townCity": "Descriptive Town",
+                "district": "Descriptive District",
+                "county": "Descriptive County",
+                "postcode": "DE5 41BE"
+              },
+              "formSent": true
+            },
+            {
+              "id": "00000000-0000-0000-0002-600000000005",
+              "suicideRiskId": "62626263-0000-0000-1111-600062626263",
+              "contactDate": "2025-06-01",
+              "contactTypeDescription": "Medical Professional",
+              "contactPerson": "Elvira Susperia",
+              "contactLocation": {
+                "id": "10000001",
+                "addressId": "60000001",
+                "status": "active",
+                "officeDescription": "Descriptive Name",
+                "buildingName": "Descriptive Tower",
+                "buildingNumber": "33",
+                "streetName": "Descriptive Street",
+                "townCity": "Descriptive Town",
+                "district": "Descriptive District",
+                "county": "Descriptive County",
+                "postcode": "DE5 41BE"
+              },
+              "formSent": true
+            }
+          ],
+          "basicDetailsSaved": true,
+          "informationSaved": true,
+          "treatmentSaved": true,
+          "signAndSendSaved": true,
+          "contactSaved": true,
           "completedDate": null
         },
         "headers": {
