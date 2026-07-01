@@ -43,6 +43,13 @@ context('Sign and Send Page', () => {
     cy.get('input[type="radio"][name="offenderAddressSelectOne"]').should('not.exist')
   })
 
+  it('warning when previously selected address is no longer available', () => {
+    cy.visit('/sign-and-send/62626263-0000-0000-1111-600062626263')
+    cy.contains(
+      'Work Location and Address: The previously selected address is no longer available. Please select an alternative.',
+    ).should('exist')
+  })
+
   it('Continue saves and navigates away', () => {
     cy.visit('/sign-and-send/00000000-0000-0000-0000-600000000005')
     cy.get('input[type="radio"][value="RO"]').check()
