@@ -140,6 +140,14 @@ context('Check your answers data checks', () => {
     cy.get('#publish').should('not.exist')
   })
 
+  it('Should Show Hyperlink if SignAndSendSaved not set', () => {
+    cy.visit('/check-your-answers/10000000-0000-0000-0000-600000055555')
+    cy.get('#UserOnBehalfSpan').should('not.exist')
+    cy.get('#ResponsibleOfficerSpan').should('not.exist')
+    cy.get('#cya-link-signedByRO').should('exist').should('be.visible')
+    cy.get('#publish').should('not.exist')
+  })
+
   it('navigates to report completed page if completed date set', () => {
     cy.visit('/check-your-answers/30000000-0000-0000-0000-33333333333')
     cy.url().should('include', '/report-completed/30000000-0000-0000-0000-3333333333')

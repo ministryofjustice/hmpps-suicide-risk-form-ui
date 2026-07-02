@@ -572,12 +572,14 @@
                   Who is Sending the Document?
                 </dt>
                 <dd class="govuk-summary-list__value">
-                  {% if suicideRisk.signAndSendSaved and (suicideRisk.signedByRo == null ) %}
+                  {% if (suicideRisk.signAndSendSaved and (suicideRisk.signedByRo == null )) or (suicideRisk.signAndSendSaved == null or not suicideRisk.signAndSendSaved) %}
                     <a id="cya-link-signedByRO" href="/sign-and-send/{{ suicideRiskId }}?returnTo=check-your-report" class="govuk-link">enter required
                       information<span class="govuk-visually-hidden"> for Who is Sending the Document</span></a>
-                  {% elif suicideRisk.signedByRo === true %}
+                  {% endif %}
+                  {% if suicideRisk.signAndSendSaved and suicideRisk.signedByRo === true %}
                     <span id="ResponsibleOfficerSpan">Responsible officer</span>
-                  {% else %}
+                  {% endif %}
+                  {% if suicideRisk.signAndSendSaved and suicideRisk.signedByRo === false %}
                     <span id="UserOnBehalfSpan">User on behalf of the Responsible Officer</span>
                   {% endif %}
                 </dd>
