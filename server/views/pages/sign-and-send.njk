@@ -52,32 +52,45 @@
 
           <h1 class="govuk-heading-l">Suicide Risk - Sign and Send</h1>
 
-          {{ govukRadios({
-            id: "who-is-sending-the-form",
-            name: "whoIsSendingTheForm",
-            fieldset: {
-              legend: {
-                text: "Please select who is sending this document?",
-                isPageHeading: false,
-                classes: "govuk-fieldset__legend--m"
-              }
-            },
-            errorMessage: {
-              text: errorMessages.sentByResponsibleOfficerOrUser.text
-            } if errorMessages.sentByResponsibleOfficerOrUser,
-            items: [
-              {
-                value: "RO",
-                text: "Responsible Officer",
-                checked: suicideRisk.signedByRo === true
+        {% if not formSigned %}
+            {{ govukRadios({
+              id: "who-is-sending-the-form",
+              name: "whoIsSendingTheForm",
+              fieldset: {
+                legend: {
+                  text: "Please select who is sending this document?",
+                  isPageHeading: false,
+                  classes: "govuk-fieldset__legend--m"
+                }
               },
-              {
-                value: "USER",
-                text: "User on behalf of the Responsible Officer",
-                checked: suicideRisk.signedByRo === false
-              }
-            ]
-          }) }}
+              errorMessage: {
+                text: errorMessages.sentByResponsibleOfficerOrUser.text
+              } if errorMessages.sentByResponsibleOfficerOrUser,
+              items: [
+                {
+                  value: "RO",
+                  text: "Responsible Officer",
+                  checked: suicideRisk.signedByRo === true
+                },
+                {
+                  value: "USER",
+                  text: "User on behalf of the Responsible Officer",
+                  checked: suicideRisk.signedByRo === false
+                }
+              ]
+            }) }}
+        {% endif %}
+
+          {% if formSigned %}
+                <h2 class="govuk-heading-m">Please select who is sending this document?</h2>
+              {% if suicideRisk.signedByRo === true %}
+                <p id="responsibleOfficerTextOutput">Responsible Officer</p>
+              {% endif %}
+              {% if suicideRisk.signedByRo === false %}
+                <p id="userOnBehalfOfRoTextOutput">User on behalf of the Responsible Officer</p>
+              {% endif %}
+                <p id="changeSigningMessage">To change who is signing, please clear the signature.</p>
+        {% endif %}
 
           <h2 class="govuk-heading-m">Officer Name</h2>
           <p id="name">{{ signAndSendDetails.responsibleOfficer.name.forename }}
