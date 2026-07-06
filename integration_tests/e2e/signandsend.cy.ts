@@ -17,11 +17,18 @@ context('Sign and Send Page', () => {
 
   it('Can See and Select who is sending fields', () => {
     cy.visit('/sign-and-send/00000000-0000-0000-0000-600000000046')
-    cy.get('#whoIsSendingTheForm').should('exist')
     cy.get('input[type="radio"][value="RO"]').should('exist')
     cy.get('input[type="radio"][value="USER"]').should('exist')
     cy.get('input[type="radio"][value="RO"]').check()
     cy.get('input[type="radio"][value="RO"]').should('be.checked')
+  })
+
+  it('Cant See Who is sending radio buttons when document is signed', () => {
+    cy.visit('/sign-and-send/00000000-0000-0000-0000-600000000055')
+    cy.get('input[type="radio"][value="RO"]').should('not.exist')
+    cy.get('input[type="radio"][value="USER"]').should('not.exist')
+    cy.get('#changeSigningMessage').should('exist')
+    cy.get('#changeSigningMessage').should('be.visible')
   })
 
   it('Can See and Select new officer email field', () => {

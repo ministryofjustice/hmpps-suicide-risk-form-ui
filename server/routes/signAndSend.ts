@@ -129,6 +129,7 @@ export default function signAndSendRoutes(
     )
 
     const dateOfLetter: string = toUserDate(suicideRisk.dateOfLetter)
+    const formSigned: boolean = suicideRisk.signature != null && suicideRisk.signature.length > 0
 
     res.render('pages/sign-and-send', {
       suicideRisk,
@@ -142,6 +143,7 @@ export default function signAndSendRoutes(
       manualAddressAllowed,
       errorMessages,
       onlyAlternateAddressesAvailable,
+      formSigned,
     })
   })
 
@@ -155,9 +157,11 @@ export default function signAndSendRoutes(
     let suicideRisk: SuicideRisk = null
     let errorMessages: ErrorMessages = {}
     let signAndSendDetails: SignAndSendDetails = null
+    let formSigned: boolean = null
 
     try {
       suicideRisk = await suicideRiskApiClient.getSuicideRiskById(suicideRiskId, res.locals.user.username)
+      formSigned = suicideRisk.signature != null && suicideRisk.signature.length > 0
     } catch (error) {
       errorMessages = handleIntegrationErrors(error.status, error.data?.message, 'Suicide Risk')
       const showEmbeddedError = true
@@ -192,8 +196,15 @@ export default function signAndSendRoutes(
     if (formSentBy !== null) {
       suicideRisk.signedByRo = formSentBy === 'RO'
     } else {
-      errorMessages.sentByResponsibleOfficerOrUser = {
-        text: 'Please select who is sending this document before leaving this screen',
+      suicideRisk.signedByRo = null
+      // only show error if we arent on clear signature
+      if (req.body.action !== 'clear-signature') {
+        // if previously signed do not display warning
+        if (suicideRisk.signature == null) {
+          errorMessages.sentByResponsibleOfficerOrUser = {
+            text: 'Please select who is sending this document before leaving this screen',
+          }
+        }
       }
     }
 
@@ -297,6 +308,7 @@ export default function signAndSendRoutes(
           manualAddressAllowed,
           errorMessages,
           onlyAlternateAddressesAvailable,
+          formSigned,
         })
 
         return
@@ -374,6 +386,7 @@ export default function signAndSendRoutes(
           manualAddressAllowed,
           errorMessages,
           onlyAlternateAddressesAvailable,
+          formSigned,
         })
 
         return
@@ -449,6 +462,7 @@ export default function signAndSendRoutes(
           manualAddressAllowed,
           errorMessages,
           onlyAlternateAddressesAvailable,
+          formSigned,
         })
 
         return
@@ -523,6 +537,7 @@ export default function signAndSendRoutes(
           manualAddressAllowed,
           errorMessages,
           onlyAlternateAddressesAvailable,
+          formSigned,
         })
 
         return
@@ -594,6 +609,7 @@ export default function signAndSendRoutes(
           manualAddressAllowed,
           errorMessages,
           onlyAlternateAddressesAvailable,
+          formSigned,
         })
 
         return
