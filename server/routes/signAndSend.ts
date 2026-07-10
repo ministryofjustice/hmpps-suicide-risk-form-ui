@@ -632,10 +632,7 @@ export default function signAndSendRoutes(
   function createSignatureString(currentUserDetails: UserDetails, formSentBy: string): string {
     let signature: string = ''
     if (currentUserDetails != null) {
-      signature += currentUserDetails.forename
-      if (currentUserDetails.middleName != null) {
-        signature += ` ${currentUserDetails.middleName}`
-      }
+      signature += currentUserDetails.forenames
       signature += ` ${currentUserDetails.surname} ${toFullUserDate(new Date().toISOString())}`
     }
 
