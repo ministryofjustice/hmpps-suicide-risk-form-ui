@@ -489,8 +489,7 @@
         "status": 200,
         "jsonBody": {
           "userDetails": {
-            "forename": "UserSignForename",
-            "middleName": "UserSignMiddle",
+            "forenames": "UserSignForename UserSignMiddle",
             "surname": "UserSignSurname"
           },
           "responsibleOfficer": {
@@ -531,8 +530,7 @@
         "status": 200,
         "jsonBody": {
           "userDetails": {
-            "forename": "UserSignForename",
-            "middleName": "UserSignMiddle",
+            "forenames": "UserSignForename UserSignMiddle",
             "surname": "UserSignSurname"
           },
           "responsibleOfficer": {
@@ -573,8 +571,7 @@
         "status": 200,
         "jsonBody": {
           "userDetails": {
-            "forename": "UserSignForename",
-            "middleName": "UserSignMiddle",
+            "forenames": "UserSignForename UserSignMiddle",
             "surname": "UserSignSurname"
           },
           "responsibleOfficer": {
@@ -615,8 +612,7 @@
         "status": 200,
         "jsonBody": {
           "userDetails": {
-            "forename": "UserSignForename",
-            "middleName": "UserSignMiddle",
+            "forenames": "UserSignForename UserSignMiddle",
             "surname": "UserSignSurname"
           },
           "responsibleOfficer": {
@@ -657,8 +653,7 @@
         "status": 200,
         "jsonBody": {
           "userDetails": {
-            "forename": "UserSignForename",
-            "middleName": "UserSignMiddle",
+            "forenames": "UserSignForename UserSignMiddle",
             "surname": "UserSignSurname"
           },
           "responsibleOfficer": {
@@ -699,8 +694,7 @@
         "status": 200,
         "jsonBody": {
           "userDetails": {
-            "forename": "UserSignForename",
-            "middleName": "UserSignMiddle",
+            "forenames": "UserSignForename UserSignMiddle",
             "surname": "UserSignSurname"
           },
           "responsibleOfficer": {
@@ -741,8 +735,7 @@
         "status": 200,
         "jsonBody": {
           "userDetails": {
-            "forename": "UserSignForename",
-            "middleName": "UserSignMiddle",
+            "forenames": "UserSignForename UserSignMiddle",
             "surname": "UserSignSurname"
           },
           "responsibleOfficer": {
@@ -783,8 +776,7 @@
         "status": 200,
         "jsonBody": {
           "userDetails": {
-            "forename": "UserSignForename",
-            "middleName": "UserSignMiddle",
+            "forenames": "UserSignForename UserSignMiddle",
             "surname": "UserSignSurname"
           },
           "responsibleOfficer": {
@@ -835,8 +827,7 @@
         "status": 200,
         "jsonBody": {
           "userDetails": {
-            "forename": "UserSignForename",
-            "middleName": "UserSignMiddle",
+            "forenames": "UserSignForename UserSignMiddle",
             "surname": "UserSignSurname"
           },
           "responsibleOfficer": {
@@ -887,8 +878,7 @@
         "status": 200,
         "jsonBody": {
           "userDetails": {
-            "forename": "UserSignForename",
-            "middleName": "UserSignMiddle",
+            "forenames": "UserSignForename UserSignMiddle",
             "surname": "UserSignSurname"
           },
           "responsibleOfficer": {
@@ -940,8 +930,7 @@
         "status": 200,
         "jsonBody": {
           "userDetails": {
-            "forename": "UserSignForename",
-            "middleName": "UserSignMiddle",
+            "forenames": "UserSignForename UserSignMiddle",
             "surname": "UserSignSurname"
           },
           "responsibleOfficer": {
@@ -970,8 +959,7 @@
         "status": 200,
         "jsonBody": {
           "userDetails": {
-            "forename": "UserSignForename",
-            "middleName": "UserSignMiddle",
+            "forenames": "UserSignForename UserSignMiddle",
             "surname": "UserSignSurname"
           },
           "responsibleOfficer": {
@@ -1022,8 +1010,7 @@
         "status": 200,
         "jsonBody": {
           "userDetails": {
-            "forename": "UserSignForename",
-            "middleName": "UserSignMiddle",
+            "forenames": "UserSignForename UserSignMiddle",
             "surname": "UserSignSurname"
           },
           "responsibleOfficer": {
@@ -1074,8 +1061,7 @@
         "status": 200,
         "jsonBody": {
           "userDetails": {
-            "forename": "UserSignForename",
-            "middleName": "UserSignMiddle",
+            "forenames": "UserSignForename UserSignMiddle",
             "surname": "UserSignSurname"
           },
           "responsibleOfficer": {
@@ -1126,8 +1112,7 @@
         "status": 200,
         "jsonBody": {
           "userDetails": {
-            "forename": "UserSignForename",
-            "middleName": "UserSignMiddle",
+            "forenames": "UserSignForename UserSignMiddle",
             "surname": "UserSignSurname"
           },
           "responsibleOfficer": {
@@ -1178,8 +1163,7 @@
         "status": 200,
         "jsonBody": {
           "userDetails": {
-            "forename": "UserSignForename",
-            "middleName": "UserSignMiddle",
+            "forenames": "UserSignForename UserSignMiddle",
             "surname": "UserSignSurname"
           },
           "responsibleOfficer": {
@@ -1230,8 +1214,7 @@
         "status": 200,
         "jsonBody": {
           "userDetails": {
-            "forename": "UserSignForename",
-            "middleName": "UserSignMiddle",
+            "forenames": "UserSignForename UserSignMiddle",
             "surname": "UserSignSurname"
           },
           "responsibleOfficer": {
@@ -1282,8 +1265,7 @@
         "status": 200,
         "jsonBody": {
           "userDetails": {
-            "forename": "UserSignForename",
-            "middleName": "UserSignMiddle",
+            "forenames": "UserSignForename UserSignMiddle",
             "surname": "UserSignSurname"
           },
           "responsibleOfficer": {
@@ -1697,8 +1679,7 @@
         "status": 200,
         "jsonBody": {
           "userDetails": {
-            "forename": "UserSignForename",
-            "middleName": "UserSignMiddle",
+            "forenames": "UserSignForename UserSignMiddle",
             "surname": "UserSignSurname"
           },
           "responsibleOfficer": {

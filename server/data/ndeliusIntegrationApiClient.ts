@@ -108,8 +108,7 @@ export interface SignAndSendDetails {
 }
 
 export interface UserDetails {
-  forename: string
-  middleName: string
+  forenames: string
   surname: string
 }
 
