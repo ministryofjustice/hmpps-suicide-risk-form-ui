@@ -71,7 +71,7 @@ export default function setupAuthentication() {
   })
 
   router.get('*allpages', (req, res, next) => {
-    res.locals.currentUrl = `${req.protocol}://${req.get('host')}${req.originalUrl}`
+    res.locals.currentUrl = `${config.ingressUrl}${req.originalUrl}`
     next()
   })
 
