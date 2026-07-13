@@ -11,7 +11,7 @@ jobs:
       actions: read
       security-events: write
     name: Project security veracode pipeline scan
-    uses: ministryofjustice/hmpps-github-actions/.github/workflows/security_veracode_pipeline_scan.yml@1b3b938084ba0e0803b045918aca69b8fb45c668 # v2.16.2
+    uses: ministryofjustice/hmpps-github-actions/.github/workflows/security_veracode_pipeline_scan.yml@3d0db04bde36486d182b5c7d4a3bb8794bdeb2c6 # v2.18.0
     with:
       channel_id: ${{ vars.SECURITY_ALERTS_SLACK_CHANNEL_ID || 'NO_SLACK' }}
     secrets: inherit
