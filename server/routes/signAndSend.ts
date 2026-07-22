@@ -192,11 +192,13 @@ export default function signAndSendRoutes(
       return
     }
 
-    suicideRisk.signedByRo = null
     if (formSentBy !== null) {
       suicideRisk.signedByRo = formSentBy === 'RO'
     } else {
-      suicideRisk.signedByRo = null
+      // only set to null if form has not been signed
+      if (!formSigned) {
+        suicideRisk.signedByRo = null
+      }
       // only show error if we arent on clear signature
       if (req.body.action !== 'clear-signature') {
         // if previously signed do not display warning
