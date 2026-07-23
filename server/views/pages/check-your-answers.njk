@@ -572,7 +572,7 @@
                   Who is Sending the Document?
                 </dt>
                 <dd class="govuk-summary-list__value">
-                  {% if (suicideRisk.signAndSendSaved and (suicideRisk.signedByRo == null )) or (suicideRisk.signAndSendSaved == null or not suicideRisk.signAndSendSaved) %}
+                  {% if suicideRisk.signAndSendSaved and suicideRisk.signedByRo == null%}
                     <a id="cya-link-signedByRO" href="/sign-and-send/{{ suicideRiskId }}?returnTo=check-your-report" class="govuk-link">enter required
                       information<span class="govuk-visually-hidden"> for Who is Sending the Document</span></a>
                   {% endif %}
@@ -648,7 +648,7 @@
                   Telephone Number
                 </dt>
                 <dd class="govuk-summary-list__value">
-                  {% if suicideRisk.telephoneNumber == null %}
+                  {% if suicideRisk.signAndSendSaved and suicideRisk.telephoneNumber == null %}
                   <a id="cya-link-signature" href="/sign-and-send/{{ suicideRiskId }}?returnTo=check-your-report" class="govuk-link">enter required
                     information<span class="govuk-visually-hidden"> for Signature</span></a>
                   {% else %}
@@ -667,7 +667,7 @@
                   Email Address
                 </dt>
                 <dd class="govuk-summary-list__value">
-                  {% if suicideRisk.officerEmailAddress == null %}
+                  {% if suicideRisk.signAndSendSaved and suicideRisk.officerEmailAddress == null %}
                   <a id="cya-link-signature" href="/sign-and-send/{{ suicideRiskId }}?returnTo=check-your-report" class="govuk-link">enter required
                     information<span class="govuk-visually-hidden"> for Signature</span></a>
                   {% else %}
