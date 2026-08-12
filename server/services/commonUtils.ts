@@ -30,6 +30,11 @@ export default class CommonUtils {
       return true
     }
 
+    if (suicideRisk.terminated === true) {
+      res.redirect(`/event-terminated/${suicideRiskId}`)
+      return true
+    }
+
     return false
   }
 }

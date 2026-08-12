@@ -3986,6 +3986,91 @@
         },
         "transformers": ["response-template"]
       }
+    },
+    {
+      "request": {
+        "url": "/suicide-risk-api/suicide-risk/3c7d0f7c-1bcb-4e64-9f7b-66dd5b9b1a41",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "3c7d0f7c-1bcb-4e64-9f7b-66dd5b9b1a41",
+          "crn": "X000001",
+          "basicDetailsSaved": true
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        "transformers": ["response-template"]
+      }
+    },
+    {
+      "request": {
+        "url": "/suicide-risk-api/suicide-risk/8a9d4d9f-6ed2-4d2d-8c9c-1c7f2a2a6a54",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "8a9d4d9f-6ed2-4d2d-8c9c-1c7f2a2a6a54",
+          "crn": "X000001",
+          "basicDetailsSaved": true
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        "transformers": ["response-template"]
+      }
+    },
+    {
+      "request": {
+        "url": "/suicide-risk-api/suicide-risk/7f0b0ed4-3c87-4c5b-90e0-1d7edcb5f5d8",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "7f0b0ed4-3c87-4c5b-90e0-1d7edcb5f5d8",
+          "crn": "X000001",
+          "basicDetailsSaved": true
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        "transformers": ["response-template"]
+      }
+    },
+    {
+      "request": {
+        "url": "/suicide-risk-api/suicide-risk/7f0b0ed4-3c87-4c5b-90e0-1d7edcb5f5d8",
+        "method": "DELETE"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        "transformers": ["response-template"]
+      }
+    },
+    {
+      "request": {
+        "url": "/suicide-risk-api/suicide-risk/2f14f6b7-5c04-4d5b-b2c8-2e7e1b6f0d13",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "id": "2f14f6b7-5c04-4d5b-b2c8-2e7e1b6f0d13",
+          "crn": "X000001",
+          "basicDetailsSaved": true
+        },
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        "transformers": ["response-template"]
+      }
     }
   ]
 }
