@@ -92,10 +92,10 @@ context('Update Work Address page', () => {
 
   const lengthTests = [
     { selector: '#description', label: 'Office Description', max: 50 },
-    { selector: '#buildingName', label: 'Building Name', max: 35 },
+    { selector: '#buildingName', label: 'Building Name', max: 80 },
     { selector: '#houseNumber', label: 'Address Number', max: 35 },
-    { selector: '#streetName', label: 'Street Name', max: 35 },
-    { selector: '#district', label: 'District', max: 35 },
+    { selector: '#streetName', label: 'Street Name', max: 80 },
+    { selector: '#district', label: 'District', max: 80 },
     { selector: '#townCity', label: 'Town or City', max: 35 },
     { selector: '#county', label: 'County', max: 35 },
     { selector: '#postcode', label: 'Postcode', max: 8 },
