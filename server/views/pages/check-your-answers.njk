@@ -152,7 +152,12 @@
                     <a id="cya-link-additional-info" href="/information/{{ suicideRiskId }}?returnTo=check-your-report" class="govuk-link">enter required
                       information<span class="govuk-visually-hidden"> for Additional Information</span></a>
                   {% else %}
-                    {{ suicideRisk.additionalInfo }}
+                    <span id="additional-information">{{ suicideRisk.additionalInfo | truncate(1500) }}</span>
+                    {% if suicideRisk.additionalInfo and suicideRisk.additionalInfo.length > 1500 %}
+                      <br>
+                      <a id="additional-information-link" href="/information/{{ suicideRiskId }}?returnTo=check-your-answers"
+                         class="govuk-link">Click here to view the full text on the Information screen</a>
+                    {% endif %}
                   {% endif %}
                 </dd>
                 <dd class="govuk-summary-list__actions">
@@ -193,7 +198,12 @@
                     <a id="cya-link-treatment" href="/treatment/{{ suicideRiskId }}?returnTo=check-your-report" class="govuk-link">enter required
                       information<span class="govuk-visually-hidden"> for Treatment</span></a>
                   {% else %}
-                    {{ suicideRisk.currentPsychTreatment }}
+                    <span id="current-psychiatric-treatment">{{ suicideRisk.currentPsychTreatment | truncate(1500) }}</span>
+                    {% if suicideRisk.currentPsychTreatment and suicideRisk.currentPsychTreatment.length > 1500 %}
+                      <br>
+                      <a id="current-psychiatric-link" href="/treatment/{{ suicideRiskId }}?returnTo=check-your-answers"
+                         class="govuk-link">Click here to view the full text on the Treatment screen</a>
+                    {% endif %}
                   {% endif %}
                 </dd>
                 <dd class="govuk-summary-list__actions">
