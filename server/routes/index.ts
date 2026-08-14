@@ -14,6 +14,7 @@ import pdfMaintenanceRoutes from './pdfMaintenance'
 import updateWorkAddressRoutes from './updateWorkAddress'
 import confirmDeleteRoutes from './confirm-delete'
 import formDeletedRoutes from './form-deleted'
+import eventTerminatedRoutes from './eventTerminated'
 
 export default function routes({ auditService, hmppsAuthClient, commonUtils }: Services): Router {
   const router = Router()
@@ -49,5 +50,6 @@ export default function routes({ auditService, hmppsAuthClient, commonUtils }: S
   pdfMaintenanceRoutes(router, auditService, hmppsAuthClient)
   confirmDeleteRoutes(router, auditService, hmppsAuthClient)
   formDeletedRoutes(router, auditService)
+  eventTerminatedRoutes(router, auditService, hmppsAuthClient)
   return router
 }

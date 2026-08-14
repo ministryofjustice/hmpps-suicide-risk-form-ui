@@ -123,6 +123,8 @@ export interface SuicideRisk {
   reviewRequiredDate: string
   reviewEvent: string
   suicideRiskContactList: SuicideRiskContact[]
+  terminated: boolean
+  terminatedUnterminatedDate: Date
 }
 
 export interface SuicideRiskContact {
