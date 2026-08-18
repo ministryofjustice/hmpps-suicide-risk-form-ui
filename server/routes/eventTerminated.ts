@@ -46,7 +46,7 @@ export default function eventTerminatedRoutes(
         res.render(`pages/detailed-error`, { errorMessages, showEmbeddedError })
         return
       }
-      res.redirect(`/report-deleted/${id}`)
+      res.redirect(`/form-deleted/${id}`)
     } else {
       res.send(
         `<p>You can now safely close this window</p><script nonce="${res.locals.cspNonce}">window.close()</script>`,
