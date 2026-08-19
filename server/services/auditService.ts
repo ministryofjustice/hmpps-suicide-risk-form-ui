@@ -13,6 +13,7 @@ export enum Page {
   CHECK_YOUR_ANSWERS = 'CHECK_YOUR_ANSWERS',
   REPORT_COMPLETED = 'REPORT_COMPLETED',
   VIEW_PDF = 'VIEW_PDF',
+  EVENT_TERMINATED = 'EVENT_TERMINATED',
 }
 
 export interface PageViewEventDetails {

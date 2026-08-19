@@ -161,10 +161,10 @@ export default function updateWorkAddressRoutes(
 
   const FIELD_LIMITS = {
     officeDescription: 50,
-    buildingName: 35,
+    buildingName: 80,
     buildingNumber: 35,
-    streetName: 35,
-    district: 35,
+    streetName: 80,
+    district: 80,
     townCity: 35,
     county: 35,
     postcode: 8,
