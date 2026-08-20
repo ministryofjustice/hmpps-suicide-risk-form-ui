@@ -109,7 +109,7 @@ export default function signAndSendRoutes(
         await suicideRiskApiClient.updateSuicideRisk(req.params.id, suicideRisk, res.locals.user.username)
 
         errorMessages.missingPreviouslySelectedAddress = {
-          text: 'Work Location and Address: The previously selected address is no longer available. Please select an alternative.',
+          text: 'The previously selected work location and address is no longer available. Select an alternative address.',
         }
       }
     }
@@ -204,7 +204,7 @@ export default function signAndSendRoutes(
         // if previously signed do not display warning
         if (suicideRisk.signature == null) {
           errorMessages.sentByResponsibleOfficerOrUser = {
-            text: 'Please select who is sending this document before leaving this screen',
+            text: 'Select who is sending this document',
           }
         }
       }
@@ -226,13 +226,13 @@ export default function signAndSendRoutes(
     if (officerEmailAddress != null && officerEmailAddress.length > 0) {
       if (!isValidEmail(officerEmailAddress)) {
         errorMessages.email = {
-          text: 'Enter an email address in the correct format for Officer Email Address.',
+          text: 'Enter an officer email address in the correct format',
         }
       }
 
       if (officerEmailAddress.length > 200) {
         errorMessages.email = {
-          text: 'Please enter a value that is less than or equal to 200 characters for Officer Email Address.',
+          text: 'Officer email address must be 200 characters or fewer',
         }
       }
     }
@@ -240,7 +240,7 @@ export default function signAndSendRoutes(
     if (officerTelephoneNumber != null && officerTelephoneNumber.length > 0) {
       if (officerTelephoneNumber.length > 35) {
         errorMessages.telephoneNumber = {
-          text: 'Please enter a value that is less than or equal to 35 characters for Telephone Number.',
+          text: 'Telephone number must be 35 characters or fewer',
         }
       }
     }
@@ -271,7 +271,7 @@ export default function signAndSendRoutes(
             suicideRisk.workAddress = null
             addressNotAvailable = true
             errorMessages.genericErrorMessage = {
-              text: 'Work Location and Address: The previously selected address is no longer available. Please select an alternative.',
+              text: 'The previously selected work location and address is no longer available. Select an alternative address.',
             }
           }
         }
@@ -349,7 +349,7 @@ export default function signAndSendRoutes(
             addressNotAvailable = true
 
             errorMessages.genericErrorMessage = {
-              text: 'Work Location and Address: The previously selected address is no longer available. Please select an alternative.',
+              text: 'The previously selected work location and address is no longer available. Select an alternative address.',
             }
           }
         }
@@ -425,7 +425,7 @@ export default function signAndSendRoutes(
             addressNotAvailable = true
 
             errorMessages.genericErrorMessage = {
-              text: 'Work Location and Address: The previously selected address is no longer available. Please select an alternative.',
+              text: 'The previously selected work location and address is no longer available. Select an alternative address.',
             }
           }
         }
@@ -501,7 +501,7 @@ export default function signAndSendRoutes(
             addressNotAvailable = true
 
             errorMessages.genericErrorMessage = {
-              text: 'Work Location and Address: The previously selected address is no longer available. Please select an alternative.',
+              text: 'The previously selected work location and address is no longer available. Select an alternative address.',
             }
           }
         }
@@ -574,7 +574,7 @@ export default function signAndSendRoutes(
           suicideRisk.workAddress = null
           addressNotAvailable = true
           errorMessages.genericErrorMessage = {
-            text: 'Work Location and Address: The previously selected address is no longer available. Please select an alternative.',
+            text: 'The previously selected work location and address is no longer available. Select an alternative address.',
           }
         }
 

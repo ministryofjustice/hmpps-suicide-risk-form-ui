@@ -95,7 +95,7 @@ context('Recipient Details Page', () => {
     cy.visit(`/recipient-details/${suicideRiskId}?contactType=COLLEAGUE`)
     cy.get('#name').clear()
     clickConfirmButton()
-    cy.contains('Name: This is a required value, please enter a value').should('be.visible')
+    cy.contains("Enter the recipient's name").should('be.visible')
   })
 
   it('validates email is in the list of allowed email addresses and fails if not', () => {
@@ -104,7 +104,7 @@ context('Recipient Details Page', () => {
     cy.get('#email').type('testuser@polte.uk')
     clickConfirmButton()
     cy.contains(
-      'Please enter an email address from the approved recipient list. Please contact IT for further information',
+      'Enter an email address from the approved recipient list, or contact IT for further information',
     ).should('be.visible')
   })
 
@@ -115,7 +115,7 @@ context('Recipient Details Page', () => {
     clickConfirmButton()
 
     cy.contains(
-      'Please enter an email address from the approved recipient list. Please contact IT for further information',
+      'Enter an email address from the approved recipient list, or contact IT for further information',
     ).should('be.visible')
   })
 
@@ -126,7 +126,7 @@ context('Recipient Details Page', () => {
     clickConfirmButton()
 
     cy.contains(
-      'Please enter an email address from the approved recipient list. Please contact IT for further information',
+      'Enter an email address from the approved recipient list, or contact IT for further information',
     ).should('be.visible')
   })
 
@@ -137,7 +137,7 @@ context('Recipient Details Page', () => {
     clickConfirmButton()
 
     cy.contains(
-      'Please enter an email address from the approved recipient list. Please contact IT for further information',
+      'Enter an email address from the approved recipient list, or contact IT for further information',
     ).should('be.visible')
   })
 
@@ -188,7 +188,7 @@ context('Recipient Details Page', () => {
     clickConfirmButton()
 
     cy.contains(
-      'Please enter an email address from the approved recipient list. Please contact IT for further information',
+      'Enter an email address from the approved recipient list, or contact IT for further information',
     ).should('be.visible')
   })
 
@@ -200,7 +200,7 @@ context('Recipient Details Page', () => {
     )
     clickConfirmButton()
 
-    cy.contains('Please enter 250 characters or less for Email').should('be.visible')
+    cy.contains('Email must be 250 characters or fewer').should('be.visible')
   })
 
   it('rejects an email where the allowed domain is not at the end', () => {
@@ -210,7 +210,7 @@ context('Recipient Details Page', () => {
     clickConfirmButton()
 
     cy.contains(
-      'Please enter an email address from the approved recipient list. Please contact IT for further information',
+      'Enter an email address from the approved recipient list, or contact IT for further information',
     ).should('be.visible')
   })
 
@@ -239,44 +239,40 @@ context('Recipient Details Page', () => {
     cy.get('#buildingName').clear()
     cy.get('#houseNumber').clear()
     clickConfirmButton()
-    cy.contains('At least 1 out of [Description, Building Name, Address Number] must be present').should('be.visible')
+    cy.contains('Enter an office description, building name or address number').should('be.visible')
   })
 
   it('validates Street Name required', () => {
     cy.visit(`/recipient-details/${suicideRiskId}?contactType=COLLEAGUE`)
     cy.get('#streetName').clear()
     clickConfirmButton()
-    cy.contains('Street Name : This is a required value, please enter a value').should('be.visible')
+    cy.contains('Enter a street name').should('be.visible')
   })
 
   it('validates Town/City required', () => {
     cy.visit(`/recipient-details/${suicideRiskId}?contactType=COLLEAGUE`)
     cy.get('#townCity').clear()
     clickConfirmButton()
-    cy.contains('Town/City : This is a required value, please enter a value').should('be.visible')
+    cy.contains('Enter a town or city').should('be.visible')
   })
 
   it('validates Postcode required', () => {
     cy.visit(`/recipient-details/${suicideRiskId}?contactType=COLLEAGUE`)
     cy.get('#postcode').clear()
     clickConfirmButton()
-    cy.contains('Postcode : This is a required value, please enter a value').should('be.visible')
+    cy.contains('Enter a postcode').should('be.visible')
   })
 
   it('validates "Are you going to send this form to this recipient manually?" not selected', () => {
     cy.visit(`/recipient-details/${suicideRiskId}?contactType=COLLEAGUE`)
     clickConfirmButton()
-    cy.contains(
-      'Please select an answer to the question Are you going to send this form to this recipient manually?',
-    ).should('be.visible')
+    cy.contains('Select whether you are going to send this form to this recipient manually').should('be.visible')
   })
 
   it('validates "Do you want the system to email the completed form to this recipient?" not selected', () => {
     cy.visit(`/recipient-details/${suicideRiskId}?contactType=COLLEAGUE`)
     clickConfirmButton()
-    cy.contains(
-      'Please select an answer to the question Do you want the system to email the completed form to this recipient?',
-    ).should('be.visible')
+    cy.contains('Select whether you want the system to email the completed form to this recipient').should('be.visible')
   })
 
   it('validates email required when "send form by email" is Yes and no email provided', () => {
@@ -284,9 +280,7 @@ context('Recipient Details Page', () => {
     cy.get('input[name="sendFormViaEmail"][value="true"]').check()
     cy.get('#email').clear()
     clickConfirmButton()
-    cy.contains(
-      'You have indicated that you will be emailing the form to a recipient but have not entered the recipients email address',
-    ).should('be.visible')
+    cy.contains("Enter the recipient's email address").should('be.visible')
   })
 
   function fillValidForm() {
@@ -324,7 +318,7 @@ context('Recipient Details Page', () => {
         .invoke('val', 'X'.repeat(max + 1))
         .trigger('input')
       clickConfirmButton()
-      cy.contains(`Please enter ${max} characters or less for ${label}`).should('be.visible')
+      cy.contains(`${label} must be ${max} characters or fewer`).should('be.visible')
     })
   })
 

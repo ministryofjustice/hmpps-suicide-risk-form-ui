@@ -53,7 +53,7 @@ context('Sign and Send Page', () => {
   it('warning when previously selected address is no longer available', () => {
     cy.visit('/sign-and-send/62626263-0000-0000-1111-600062626263')
     cy.contains(
-      'Work Location and Address: The previously selected address is no longer available. Please select an alternative.',
+      'The previously selected work location and address is no longer available. Select an alternative address.',
     ).should('exist')
   })
 
@@ -110,10 +110,7 @@ context('Sign and Send Page', () => {
     cy.get('.govuk-error-summary__title').should('exist').should('contain.text', 'There is a problem')
     cy.get('#officer-email-address_input-error')
       .should('exist')
-      .should(
-        'contain.text',
-        'Please enter a value that is less than or equal to 200 characters for Officer Email Address.',
-      )
+      .should('contain.text', 'Officer email address must be 200 characters or fewer')
   })
 
   it('enter more than 35 characters in the telephone number field click continue gives an error', () => {
@@ -128,7 +125,7 @@ context('Sign and Send Page', () => {
     cy.get('.govuk-error-summary__title').should('exist').should('contain.text', 'There is a problem')
     cy.get('#telephoneNumber_input-error')
       .should('exist')
-      .should('contain.text', 'Please enter a value that is less than or equal to 35 characters for Telephone Number.')
+      .should('contain.text', 'Telephone number must be 35 characters or fewer')
   })
 
   it('enter more than 35 characters in the telephone number field click Save and close gives an error', () => {
@@ -143,7 +140,7 @@ context('Sign and Send Page', () => {
     cy.get('.govuk-error-summary__title').should('exist').should('contain.text', 'There is a problem')
     cy.get('#telephoneNumber_input-error')
       .should('exist')
-      .should('contain.text', 'Please enter a value that is less than or equal to 35 characters for Telephone Number.')
+      .should('contain.text', 'Telephone number must be 35 characters or fewer')
   })
 
   // sign
@@ -159,7 +156,7 @@ context('Sign and Send Page', () => {
     cy.get('.govuk-error-summary__title').should('exist').should('contain.text', 'There is a problem')
     cy.get('#telephoneNumber_input-error')
       .should('exist')
-      .should('contain.text', 'Please enter a value that is less than or equal to 35 characters for Telephone Number.')
+      .should('contain.text', 'Telephone number must be 35 characters or fewer')
   })
 
   // need clear signature
@@ -175,7 +172,7 @@ context('Sign and Send Page', () => {
     cy.get('.govuk-error-summary__title').should('exist').should('contain.text', 'There is a problem')
     cy.get('#telephoneNumber_input-error')
       .should('exist')
-      .should('contain.text', 'Please enter a value that is less than or equal to 35 characters for Telephone Number.')
+      .should('contain.text', 'Telephone number must be 35 characters or fewer')
   })
 
   it('enter more than 35 characters in the telephone number field and not selecting an alternate address click continue gives a standard error', () => {
@@ -189,7 +186,7 @@ context('Sign and Send Page', () => {
     cy.get('.govuk-error-summary__title').should('exist').should('contain.text', 'There is a problem')
     cy.get('#telephoneNumber_input-error')
       .should('exist')
-      .should('contain.text', 'Please enter a value that is less than or equal to 35 characters for Telephone Number.')
+      .should('contain.text', 'Telephone number must be 35 characters or fewer')
   })
 
   // add address
@@ -204,7 +201,7 @@ context('Sign and Send Page', () => {
     cy.get('.govuk-error-summary__title').should('exist').should('contain.text', 'There is a problem')
     cy.get('#telephoneNumber_input-error')
       .should('exist')
-      .should('contain.text', 'Please enter a value that is less than or equal to 35 characters for Telephone Number.')
+      .should('contain.text', 'Telephone number must be 35 characters or fewer')
   })
 
   it('rejects an email which is only the domain', () => {
@@ -214,6 +211,6 @@ context('Sign and Send Page', () => {
     cy.get('#alternate-address').select('3')
     cy.get('#continue-button').should('exist')
     cy.get('#continue-button').click()
-    cy.contains('Enter an email address in the correct format for Officer Email Address.').should('be.visible')
+    cy.contains('Enter an officer email address in the correct format').should('be.visible')
   })
 })
