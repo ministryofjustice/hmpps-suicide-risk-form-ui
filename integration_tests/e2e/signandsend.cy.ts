@@ -110,7 +110,7 @@ context('Sign and Send Page', () => {
     cy.get('.govuk-error-summary__title').should('exist').should('contain.text', 'There is a problem')
     cy.get('#officer-email-address_input-error')
       .should('exist')
-      .should('contain.text', 'Officer email address must be 200 characters or fewer')
+      .should('contain.text', 'Officer email address must be 200 characters or less')
   })
 
   it('enter more than 35 characters in the telephone number field click continue gives an error', () => {
@@ -125,7 +125,7 @@ context('Sign and Send Page', () => {
     cy.get('.govuk-error-summary__title').should('exist').should('contain.text', 'There is a problem')
     cy.get('#telephoneNumber_input-error')
       .should('exist')
-      .should('contain.text', 'Telephone number must be 35 characters or fewer')
+      .should('contain.text', 'Telephone number must be 35 characters or less')
   })
 
   it('enter more than 35 characters in the telephone number field click Save and close gives an error', () => {
@@ -140,7 +140,7 @@ context('Sign and Send Page', () => {
     cy.get('.govuk-error-summary__title').should('exist').should('contain.text', 'There is a problem')
     cy.get('#telephoneNumber_input-error')
       .should('exist')
-      .should('contain.text', 'Telephone number must be 35 characters or fewer')
+      .should('contain.text', 'Telephone number must be 35 characters or less')
   })
 
   // sign
@@ -156,7 +156,7 @@ context('Sign and Send Page', () => {
     cy.get('.govuk-error-summary__title').should('exist').should('contain.text', 'There is a problem')
     cy.get('#telephoneNumber_input-error')
       .should('exist')
-      .should('contain.text', 'Telephone number must be 35 characters or fewer')
+      .should('contain.text', 'Telephone number must be 35 characters or less')
   })
 
   // need clear signature
@@ -172,7 +172,7 @@ context('Sign and Send Page', () => {
     cy.get('.govuk-error-summary__title').should('exist').should('contain.text', 'There is a problem')
     cy.get('#telephoneNumber_input-error')
       .should('exist')
-      .should('contain.text', 'Telephone number must be 35 characters or fewer')
+      .should('contain.text', 'Telephone number must be 35 characters or less')
   })
 
   it('enter more than 35 characters in the telephone number field and not selecting an alternate address click continue gives a standard error', () => {
@@ -186,7 +186,7 @@ context('Sign and Send Page', () => {
     cy.get('.govuk-error-summary__title').should('exist').should('contain.text', 'There is a problem')
     cy.get('#telephoneNumber_input-error')
       .should('exist')
-      .should('contain.text', 'Telephone number must be 35 characters or fewer')
+      .should('contain.text', 'Telephone number must be 35 characters or less')
   })
 
   // add address
@@ -201,7 +201,7 @@ context('Sign and Send Page', () => {
     cy.get('.govuk-error-summary__title').should('exist').should('contain.text', 'There is a problem')
     cy.get('#telephoneNumber_input-error')
       .should('exist')
-      .should('contain.text', 'Telephone number must be 35 characters or fewer')
+      .should('contain.text', 'Telephone number must be 35 characters or less')
   })
 
   it('rejects an email which is only the domain', () => {

@@ -232,7 +232,7 @@ export default function signAndSendRoutes(
 
       if (officerEmailAddress.length > 200) {
         errorMessages.email = {
-          text: 'Officer email address must be 200 characters or fewer',
+          text: 'Officer email address must be 200 characters or less',
         }
       }
     }
@@ -240,7 +240,7 @@ export default function signAndSendRoutes(
     if (officerTelephoneNumber != null && officerTelephoneNumber.length > 0) {
       if (officerTelephoneNumber.length > 35) {
         errorMessages.telephoneNumber = {
-          text: 'Telephone number must be 35 characters or fewer',
+          text: 'Telephone number must be 35 characters or less',
         }
       }
     }

@@ -105,7 +105,7 @@ context('Update Work Address page', () => {
         .invoke('val', 'X'.repeat(max + 1))
         .trigger('input')
       clickSaveButton()
-      cy.contains(`${label} must be ${max} characters or fewer`).should('be.visible')
+      cy.contains(`${label} must be ${max} characters or less`).should('be.visible')
     })
   })
 })

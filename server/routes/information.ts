@@ -203,7 +203,7 @@ export default function informationRoutes(
     // validate additional info field
     if (suicideRisk?.additionalInfo?.length > 20000) {
       errorMessages.additionalInfo = {
-        text: 'Additional information must be 20000 characters or fewer',
+        text: 'Additional information must be 20000 characters or less',
       }
       const showEmbeddedError = true
       res.render(`pages/information`, {

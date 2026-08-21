@@ -151,7 +151,7 @@ export default function updateWorkAddressRoutes(
       return {
         ...errorMessages,
         [fieldName]: {
-          text: `${label} must be ${maxLength} characters or fewer`,
+          text: `${label} must be ${maxLength} characters or less`,
         },
       }
     }

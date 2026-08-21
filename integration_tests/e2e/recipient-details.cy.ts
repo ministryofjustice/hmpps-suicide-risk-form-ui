@@ -200,7 +200,7 @@ context('Recipient Details Page', () => {
     )
     clickConfirmButton()
 
-    cy.contains('Email must be 250 characters or fewer').should('be.visible')
+    cy.contains('Email must be 250 characters or less').should('be.visible')
   })
 
   it('rejects an email where the allowed domain is not at the end', () => {
@@ -318,7 +318,7 @@ context('Recipient Details Page', () => {
         .invoke('val', 'X'.repeat(max + 1))
         .trigger('input')
       clickConfirmButton()
-      cy.contains(`${label} must be ${max} characters or fewer`).should('be.visible')
+      cy.contains(`${label} must be ${max} characters or less`).should('be.visible')
     })
   })
 
