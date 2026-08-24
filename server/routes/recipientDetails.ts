@@ -210,7 +210,7 @@ export default function recipientsRoutes(
 
     if (!recipient.contactPerson || recipient.contactPerson.trim() === '') {
       errorMessages.name = {
-        text: 'Name: This is a required value, please enter a value',
+        text: "Enter the recipient's name",
       }
     } else {
       errorMessages = validateLength(recipient.contactPerson, 'name', 'Name', errorMessages)
@@ -218,13 +218,13 @@ export default function recipientsRoutes(
 
     if (recipient.sendFormManually === null || recipient.sendFormManually === undefined) {
       errorMessages.sendFormManually = {
-        text: 'Please select an answer to the question Are you going to send this form to this recipient manually?',
+        text: 'Select whether you are going to send this form to this recipient manually',
       }
     }
 
     if (recipient.sendFormViaEmail === null || recipient.sendFormViaEmail === undefined) {
       errorMessages.sendFormViaEmail = {
-        text: 'Please select an answer to the question Do you want the system to email the completed form to this recipient?',
+        text: 'Select whether you want the system to email the completed form to this recipient',
       }
     }
 
@@ -235,14 +235,14 @@ export default function recipientsRoutes(
     if (recipient.emailAddress && recipient.emailAddress.trim() !== '') {
       if (!isAllowedEmail(recipient.emailAddress, allowedRecipientList)) {
         errorMessages.email = {
-          text: 'Please enter an email address from the approved recipient list. Please contact IT for further information',
+          text: 'Enter an email address from the approved recipient list, or contact IT for further information',
         }
       }
     }
 
     if (recipient.sendFormViaEmail === true && (!recipient.emailAddress || recipient.emailAddress.trim() === '')) {
       errorMessages.email = {
-        text: 'You have indicated that you will be emailing the form to a recipient but have not entered the recipients email address. Please enter an email address',
+        text: "Enter the recipient's email address",
       }
     }
     return errorMessages
@@ -282,7 +282,7 @@ export default function recipientsRoutes(
       return {
         ...errorMessages,
         [fieldName]: {
-          text: `Please enter ${maxLength} characters or less for ${label}`,
+          text: `${label} must be ${maxLength} characters or less`,
         },
       }
     }
@@ -298,25 +298,25 @@ export default function recipientsRoutes(
       (!address.buildingNumber || address.buildingNumber.trim() === '')
     ) {
       errorMessages.identifier = {
-        text: 'At least 1 out of [Description, Building Name, Address Number] must be present',
+        text: 'Enter an office description, building name or address number',
       }
     }
 
     if (!address.streetName || address.streetName.trim() === '') {
       errorMessages.streetName = {
-        text: 'Street Name : This is a required value, please enter a value',
+        text: 'Enter a street name',
       }
     }
 
     if (!address.townCity || address.townCity.trim() === '') {
       errorMessages.townCity = {
-        text: 'Town/City : This is a required value, please enter a value',
+        text: 'Enter a town or city',
       }
     }
 
     if (!address.postcode || address.postcode.trim() === '') {
       errorMessages.postcode = {
-        text: 'Postcode : This is a required value, please enter a value',
+        text: 'Enter a postcode',
       }
     }
 

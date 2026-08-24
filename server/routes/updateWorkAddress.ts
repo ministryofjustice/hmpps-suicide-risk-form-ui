@@ -104,25 +104,25 @@ export default function updateWorkAddressRoutes(
       (!address.buildingNumber || address.buildingNumber.trim() === '')
     ) {
       errorMessages.identifier = {
-        text: 'At least 1 out of [Description, Building Name, Address Number] must be present',
+        text: 'Enter an office description, building name or address number',
       }
     }
 
     if (!address.streetName || address.streetName.trim() === '') {
       errorMessages.streetName = {
-        text: 'Street Name : This is a required value, please enter a value',
+        text: 'Enter a street name',
       }
     }
 
     if (!address.townCity || address.townCity.trim() === '') {
       errorMessages.townCity = {
-        text: 'Town/City : This is a required value, please enter a value',
+        text: 'Enter a town or city',
       }
     }
 
     if (!address.postcode || address.postcode.trim() === '') {
       errorMessages.postcode = {
-        text: 'Postcode : This is a required value, please enter a value',
+        text: 'Enter a postcode',
       }
     }
 
@@ -151,7 +151,7 @@ export default function updateWorkAddressRoutes(
       return {
         ...errorMessages,
         [fieldName]: {
-          text: `Please enter ${maxLength} characters or less for ${label}`,
+          text: `${label} must be ${maxLength} characters or less`,
         },
       }
     }
