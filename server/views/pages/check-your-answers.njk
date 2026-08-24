@@ -155,7 +155,7 @@
                     <span id="additional-information">{{ suicideRisk.additionalInfo | truncate(1500) }}</span>
                     {% if suicideRisk.additionalInfo and suicideRisk.additionalInfo.length > 1500 %}
                       <br>
-                      <a id="additional-information-link" href="/information/{{ suicideRiskId }}?returnTo=check-your-answers"
+                      <a id="additional-information-link" href="/information/{{ suicideRiskId }}?returnTo=check-your-report"
                          class="govuk-link">Click here to view the full text on the Information screen</a>
                     {% endif %}
                   {% endif %}
@@ -201,7 +201,7 @@
                     <span id="current-psychiatric-treatment">{{ suicideRisk.currentPsychTreatment | truncate(1500) }}</span>
                     {% if suicideRisk.currentPsychTreatment and suicideRisk.currentPsychTreatment.length > 1500 %}
                       <br>
-                      <a id="current-psychiatric-link" href="/treatment/{{ suicideRiskId }}?returnTo=check-your-answers"
+                      <a id="current-psychiatric-link" href="/treatment/{{ suicideRiskId }}?returnTo=check-your-report"
                          class="govuk-link">Click here to view the full text on the Treatment screen</a>
                     {% endif %}
                   {% endif %}
