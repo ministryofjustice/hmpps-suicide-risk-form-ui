@@ -111,4 +111,16 @@ context('Basic Details page', () => {
     cy.get('#continue-button').click()
     cy.url().should('include', '/check-your-answers/')
   })
+
+  it('should retain the check-your-report query param after clicking Refresh from Delius', () => {
+    cy.intercept('POST', '/basic-details/**').as('refreshRequest')
+    cy.visit('/basic-details/d4e5f6a7-b8c9-4d0e-af1b-2c3d4e5f6a7b?returnTo=check-your-report')
+    cy.get('#page-title').should('contain.text', 'Suicide Risk - Basic Details')
+    cy.get('#name').should('contain.text', 'Mr Billy The Kid')
+    cy.get('#refresh-from-ndelius--button').click()
+    cy.wait('@refreshRequest')
+    cy.url().should('include', 'returnTo=check-your-report')
+    cy.get('#page-title').should('contain.text', 'Suicide Risk - Basic Details')
+    cy.get('#name').should('contain.text', 'Mr Billy The Kid')
+  })
 })

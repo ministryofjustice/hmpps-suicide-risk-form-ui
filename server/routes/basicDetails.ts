@@ -163,14 +163,19 @@ export default function basicDetailsRoutes(
     suicideRisk.basicDetailsSaved = true
 
     await suicideRiskApiClient.updateSuicideRisk(req.params.id, suicideRisk, res.locals.user.username)
+    const urlContainsCya = callingScreen && callingScreen === 'check-your-report'
 
     if (req.body.action === 'saveProgressAndClose') {
       res.send(
         `<p>You can now safely close this window</p><script nonce="${res.locals.cspNonce}">window.close()</script>`,
       )
     } else if (req.body.action === 'refreshFromNdelius') {
-      res.redirect(`/basic-details/${req.params.id}`)
-    } else if (callingScreen && callingScreen === 'check-your-report') {
+      if (urlContainsCya) {
+        res.redirect(`/basic-details/${req.params.id}?returnTo=check-your-report`)
+      } else {
+        res.redirect(`/basic-details/${req.params.id}`)
+      }
+    } else if (urlContainsCya) {
       res.redirect(`/check-your-answers/${req.params.id}`)
     } else {
       res.redirect(`/information/${req.params.id}`)

@@ -628,8 +628,8 @@
                 </dt>
                 <dd class="govuk-summary-list__value">
                   {% if suicideRisk.signAndSendSaved and (suicideRisk.workAddress == null) %}
-                  <a id="cya-link-signature" href="/sign-and-send/{{ suicideRiskId }}?returnTo=check-your-report" class="govuk-link">enter required
-                    information<span class="govuk-visually-hidden"> for Signature</span></a>
+                  <a id="cya-link-work-address" href="/sign-and-send/{{ suicideRiskId }}?returnTo=check-your-report" class="govuk-link">enter required
+                    information<span class="govuk-visually-hidden"> for Work Location</span></a>
                   {% else %}
                     {% if suicideRisk.workAddress.officeDescription != null %} {{ suicideRisk.workAddress.officeDescription }}
                       <br> {% endif %}
@@ -659,8 +659,8 @@
                 </dt>
                 <dd class="govuk-summary-list__value">
                   {% if suicideRisk.signAndSendSaved and suicideRisk.telephoneNumber == null %}
-                  <a id="cya-link-signature" href="/sign-and-send/{{ suicideRiskId }}?returnTo=check-your-report" class="govuk-link">enter required
-                    information<span class="govuk-visually-hidden"> for Signature</span></a>
+                  <a id="cya-link-telephone-number" href="/sign-and-send/{{ suicideRiskId }}?returnTo=check-your-report" class="govuk-link">enter required
+                    information<span class="govuk-visually-hidden"> for Telephone Number</span></a>
                   {% else %}
                   {{ suicideRisk.telephoneNumber }}
                   {% endif %}
@@ -678,8 +678,8 @@
                 </dt>
                 <dd class="govuk-summary-list__value">
                   {% if suicideRisk.signAndSendSaved and suicideRisk.officerEmailAddress == null %}
-                  <a id="cya-link-signature" href="/sign-and-send/{{ suicideRiskId }}?returnTo=check-your-report" class="govuk-link">enter required
-                    information<span class="govuk-visually-hidden"> for Signature</span></a>
+                  <a id="cya-link-email-address" href="/sign-and-send/{{ suicideRiskId }}?returnTo=check-your-report" class="govuk-link">enter required
+                    information<span class="govuk-visually-hidden"> for Email Address</span></a>
                   {% else %}
                   {{ suicideRisk.officerEmailAddress }}
                   {% endif %}
