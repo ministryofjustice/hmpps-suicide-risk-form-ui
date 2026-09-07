@@ -24,7 +24,7 @@ permissions:
 jobs:
   helm_lint:
     name: helm_lint
-    uses: ministryofjustice/hmpps-github-actions/.github/workflows/test_helm_lint.yml@a925dcd65e26752fef34b1869dec510c9c5f0bed # v2.20.1
+    uses: ministryofjustice/hmpps-github-actions/.github/workflows/test_helm_lint.yml@cac1d8a3f24bb0126c763ab7f33529cd2dd0a7f6 # v2.21.2
     secrets: inherit
     with:
       environment: ${{ inputs.environment }}
@@ -32,7 +32,7 @@ jobs:
     name: Deploy to environment
     needs:
       - helm_lint
-    uses: ministryofjustice/hmpps-github-actions/.github/workflows/deploy_env.yml@a925dcd65e26752fef34b1869dec510c9c5f0bed # v2.20.1
+    uses: ministryofjustice/hmpps-github-actions/.github/workflows/deploy_env.yml@cac1d8a3f24bb0126c763ab7f33529cd2dd0a7f6 # v2.21.2
     secrets: inherit
     with:
       environment: ${{ inputs.environment }}
