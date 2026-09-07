@@ -5,7 +5,7 @@ import HmppsAuditClient, { SqsMessage } from './hmppsAuditClient'
 
 describe('hmppsAuditClient', () => {
   const sqsMock = mockClient(SQSClient)
-  let hmppsAuditClient: HmppsAuditClient;
+  let hmppsAuditClient: HmppsAuditClient
 
   const auditClientConfig = {
     queueUrl: 'http://localhost:4566/000000000000/mainQueue',
