@@ -98,8 +98,8 @@
     "esbuild-sass-plugin": "^3.7.0",
     "glob": "^13.0.6",
     "husky": "^9.1.7",
-    "jest": "^30.5.1",
-    "jest-html-reporter": "^4.4.2",
+    "jest": "^30.4.2",
+    "jest-html-reporter": "^4.4.0",
     "jest-junit": "^17.0.0",
     "jsonwebtoken": "^9.0.3",
     "lint-staged": "^17.5.0",
@@ -111,10 +111,5 @@
     "ts-jest": "^29.4.12",
     "typescript": "^5.9.3",
     "wiremock": "^3.13.2"
-  },
-  "overrides": {
-    "@jgoz/esbuild-plugin-typecheck": {
-      "esbuild": "$esbuild"
-    }
   }
 }
