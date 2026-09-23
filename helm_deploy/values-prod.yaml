@@ -20,6 +20,7 @@ generic-service:
       - digital_staff_and_mojo
       - unilink_staff
       - probation # for production staff
+      - mod-platform-live
 
 generic-prometheus-alerts:
   alertSeverity: hmpps-suicide-risk-form-notifications
