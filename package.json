@@ -25,10 +25,11 @@
     "precommit:secrets": "gitleaks git --pre-commit --redact --staged --verbose --config .gitleaks/config.toml --gitleaks-ignore-path .gitleaks/.gitleaksignore",
     "precommit:lint": "lint-staged",
     "precommit:verify": "npm run typecheck && npm test",
-    "setup": "npm ci && hmpps-npm-script-run-allowlist"
+    "setup": "npm ci"
   },
   "engines": {
-    "node": "^24"
+    "node": "^24",
+    "npm": "^12"
   },
   "dependencies": {
     "@aws-sdk/client-sns": "^3.1146.0",
@@ -117,5 +118,14 @@
     "brace-expansion": "5.0.12",
     "js-yaml": "5.4.2",
     "shell-quote": "1.12.0"
+  },
+  "allowScripts": {
+    "@parcel/watcher@2.6.0": true,
+    "cypress@16.1.1": true,
+    "dtrace-provider@0.8.8": true,
+    "esbuild@0.28.2": true,
+    "fsevents@2.3.3": true,
+    "protobufjs@7.6.6": true,
+    "unrs-resolver@1.12.2": true
   }
 }
