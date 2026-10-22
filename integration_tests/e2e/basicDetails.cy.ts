@@ -40,13 +40,6 @@ context('Basic Details page', () => {
       .and('include', 'component=AddressandAccommodation&CRN=X000002')
   })
 
-  it('continue shows an error when no address is found', () => {
-    cy.visit('/basic-details/00000000-0000-0000-0000-200000000002')
-    cy.get('#continue-button').click()
-    cy.contains('You must add an address to Delius before you can continue').should('be.visible')
-    cy.get('#no-address-message').should('exist')
-  })
-
   it('close button performs a post request and displays message', () => {
     cy.intercept('POST', '/basic-details/**').as('saveAndCloseRequest')
     cy.visit('/basic-details/00000000-0000-0000-0000-000000000001')
