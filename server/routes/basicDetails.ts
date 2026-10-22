@@ -10,6 +10,7 @@ import {
   handleIntegrationErrors,
   toSuicideRiskAddress,
 } from '../utils/utils'
+import config from '../config'
 import CommonUtils from '../services/commonUtils'
 import { ErrorMessages } from '../data/uiModels'
 import { calculateAge, toFullUserDate } from '../utils/dateUtils'
@@ -96,8 +97,10 @@ export default function basicDetailsRoutes(
     const defaultAddress: DeliusAddress = findDefaultAddressInAddressList(basicDetails.addresses)
     const titleAndFullName: string = formatTitleAndFullName(basicDetails.title, basicDetails.name)
     const { nomsNumber } = basicDetails
+    const addressDeeplink = `${config.ndeliusDeeplink.url}?component=AddressandAccommodation&CRN=${suicideRisk.crn}`
 
     res.render('pages/basic-details', {
+      addressDeeplink,
       suicideRisk,
       suicideRiskId,
       basicDetails,

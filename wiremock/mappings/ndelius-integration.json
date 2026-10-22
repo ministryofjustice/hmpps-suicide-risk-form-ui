@@ -27,6 +27,18 @@
               "district": "PrevDistrict",
               "county": "Prevcounty",
               "postcode": "PR11 1EV"
+            },
+            {
+              "id": 2,
+              "status": "Main",
+              "buildingName": null,
+              "buildingNumber": "10",
+              "streetName": "Main Street",
+              "townCity": "Maintown",
+              "district": "MainDistrict",
+              "county": "Maincounty",
+              "postcode": "MA11 1IN",
+              "startDate": "2024-01-01"
             }
           ]
         },

@@ -61,7 +61,15 @@
               <br />{% endif %}
           </p>
         {% else %}
-          <p id="no-fixed-abode"> No Fixed Abode </p>
+          <div id="no-address-message">
+            <p class="govuk-body govuk-!-font-weight-bold">No Postal Address found in National Delius</p>
+            <p class="govuk-body">In order to complete a Suicide Risk Form you must add an address to Delius</p>
+            <p class="govuk-body">Please use the below link to add an address</p>
+            <p class="govuk-body">
+              <a href="{{ addressDeeplink }}" target="_blank" rel="noopener noreferrer" class="govuk-link" id="add-address-deeplink">Click this hyperlink to open a new tab to add an address to Delius</a>
+            </p>
+            <p class="govuk-body">Once this is completed, click the Refresh from Delius button</p>
+          </div>
         {% endif %}
 
         <h2 class="govuk-heading-m">Date of Birth</h2>
