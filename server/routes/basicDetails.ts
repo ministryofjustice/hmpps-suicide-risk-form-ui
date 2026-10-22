@@ -10,6 +10,7 @@ import {
   handleIntegrationErrors,
   toSuicideRiskAddress,
 } from '../utils/utils'
+import config from '../config'
 import CommonUtils from '../services/commonUtils'
 import { ErrorMessages } from '../data/uiModels'
 import { calculateAge, toFullUserDate } from '../utils/dateUtils'
@@ -96,8 +97,10 @@ export default function basicDetailsRoutes(
     const defaultAddress: DeliusAddress = findDefaultAddressInAddressList(basicDetails.addresses)
     const titleAndFullName: string = formatTitleAndFullName(basicDetails.title, basicDetails.name)
     const { nomsNumber } = basicDetails
+    const addressDeeplink = `${config.ndeliusDeeplink.url}?component=AddressandAccommodation&CRN=${suicideRisk.crn}`
 
     res.render('pages/basic-details', {
+      addressDeeplink,
       suicideRisk,
       suicideRiskId,
       basicDetails,
@@ -152,6 +155,26 @@ export default function basicDetailsRoutes(
     }
 
     const defaultAddress: DeliusAddress = findDefaultAddressInAddressList(basicDetails.addresses)
+    const isContinue = req.body.action !== 'saveProgressAndClose' && req.body.action !== 'refreshFromNdelius'
+    if (isContinue && !defaultAddress) {
+      const errorMessages: ErrorMessages = {
+        missingAddress: { text: 'You must add an address to Delius before you can continue' },
+      }
+      res.render('pages/basic-details', {
+        errorMessages,
+        suicideRisk,
+        suicideRiskId,
+        basicDetails,
+        age: calculateAge(basicDetails.dateOfBirth),
+        formattedDob: toFullUserDate(basicDetails.dateOfBirth),
+        defaultAddress,
+        titleAndFullName: formatTitleAndFullName(basicDetails.title, basicDetails.name),
+        nomsNumber: basicDetails.nomsNumber,
+        addressDeeplink: `${config.ndeliusDeeplink.url}?component=AddressandAccommodation&CRN=${suicideRisk.crn}`,
+        currentPage,
+      })
+      return
+    }
     const suicideRiskDefaultAddress: SuicideRiskAddress = toSuicideRiskAddress(defaultAddress)
     const titleAndFullName: string = formatTitleAndFullName(basicDetails.title, basicDetails.name)
     const { nomsNumber } = basicDetails
