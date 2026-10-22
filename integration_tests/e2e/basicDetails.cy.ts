@@ -4,11 +4,7 @@ context('Basic Details page', () => {
     cy.get('#page-title').should('contain.text', 'Suicide Risk - Basic Details')
     cy.get('#name').should('contain.text', 'Mr Billy The Kid')
     cy.get('#crn').should('contain.text', 'X000001')
-    cy.get('#no-address-message').should('contain.text', 'No Postal Address found in National Delius')
-    cy.get('#add-address-deeplink')
-      .should('have.attr', 'target', '_blank')
-      .and('have.attr', 'href')
-      .and('include', 'component=AddressandAccommodation&CRN=X000001')
+    cy.get('#address').should('contain.text', 'Main Street')
     cy.get('#date-of-birth').should('contain.text', '17/03/1980')
     cy.get('#calculated-age').should('not.be.empty')
     cy.get('#noms-number').should('contain.text', '1234567')
@@ -35,8 +31,17 @@ context('Basic Details page', () => {
     cy.get('#noms-number').should('contain.text', '1234567')
   })
 
+  it('shows the add address message and deeplink when no address is found', () => {
+    cy.visit('/basic-details/00000000-0000-0000-0000-200000000002')
+    cy.get('#no-address-message').should('contain.text', 'No Postal Address found in National Delius')
+    cy.get('#add-address-deeplink')
+      .should('have.attr', 'target', '_blank')
+      .and('have.attr', 'href')
+      .and('include', 'component=AddressandAccommodation&CRN=X000002')
+  })
+
   it('continue shows an error when no address is found', () => {
-    cy.visit('/basic-details/00000000-0000-0000-0000-000000000001')
+    cy.visit('/basic-details/00000000-0000-0000-0000-200000000002')
     cy.get('#continue-button').click()
     cy.contains('You must add an address to Delius before you can continue').should('be.visible')
     cy.get('#no-address-message').should('exist')
