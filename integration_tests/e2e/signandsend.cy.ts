@@ -41,7 +41,7 @@ context('Sign and Send Page', () => {
     cy.get('input[type="radio"][value="RO"]').check()
     cy.get('#alternate-address-text')
       .should('exist')
-      .and('contain.text', 'Please specify the Work Location and Address that the Person on Probation should contact.')
+      .and('contain.text', 'Please specify the work location and address that the person on probation should contact')
     cy.get('#alternate-address-dropdown').should('exist')
     cy.get('#alternate-address').should('exist')
     cy.get('#workAddress').should('not.exist')
@@ -65,7 +65,7 @@ context('Sign and Send Page', () => {
     cy.url().should('include', '/check-your-answers/00000000-0000-0000-0000-600000000005')
   })
 
-  it('Refresh from delius reloads', () => {
+  it('Refresh from National Delius reloads', () => {
     cy.visit('/sign-and-send/00000000-0000-0000-0000-600000000005')
     cy.get('#refresh-from-ndelius--button').should('exist')
     cy.get('#refresh-from-ndelius--button').click()

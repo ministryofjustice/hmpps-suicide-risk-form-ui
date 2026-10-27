@@ -3,17 +3,17 @@ context('Recipient Details Page', () => {
 
   const addCases = [
     { contactType: 'COLLEAGUE', label: 'Other colleagues' },
-    { contactType: 'PRISON', label: 'Prison Establishment' },
-    { contactType: 'POLICE', label: 'Police (Custody Cells)' },
-    { contactType: 'MEDICAL', label: 'Medical Services' },
-    { contactType: 'OTHER', label: 'Other Agency' },
+    { contactType: 'PRISON', label: 'Prison establishment' },
+    { contactType: 'POLICE', label: 'Police (custody cells)' },
+    { contactType: 'MEDICAL', label: 'Medical services' },
+    { contactType: 'OTHER', label: 'Other agency' },
   ]
 
   addCases.forEach(({ contactType, label }) => {
     it(`renders Recipient Details form correctly for ${label}`, () => {
       cy.visit(`/recipient-details/${suicideRiskId}?contactType=${contactType}`)
 
-      cy.contains(`Recipient Details – ${label}`).should('exist')
+      cy.contains(`Recipient details – ${label}`).should('exist')
 
       cy.get('#name').should('exist')
       cy.get('#description').should('exist')
@@ -35,17 +35,17 @@ context('Recipient Details Page', () => {
 
   const editCases = [
     { recipientId: '00000000-0000-0000-0000-700000000001', label: 'Other colleagues', expectedName: 'John Smith' },
-    { recipientId: '00000000-0000-0000-0000-700000000002', label: 'Prison Establishment', expectedName: 'Jack Smith' },
+    { recipientId: '00000000-0000-0000-0000-700000000002', label: 'Prison establishment', expectedName: 'Jack Smith' },
     {
       recipientId: '00000000-0000-0000-0000-700000000003',
-      label: 'Police (Custody Cells)',
+      label: 'Police (custody cells)',
       expectedName: 'James Smith',
     },
-    { recipientId: '00000000-0000-0000-0000-700000000004', label: 'Medical Services', expectedName: 'Jimmy Smith' },
-    { recipientId: '00000000-0000-0000-0000-700000000005', label: 'Other Agency', expectedName: 'Jason Smith' },
+    { recipientId: '00000000-0000-0000-0000-700000000004', label: 'Medical services', expectedName: 'Jimmy Smith' },
+    { recipientId: '00000000-0000-0000-0000-700000000005', label: 'Other agency', expectedName: 'Jason Smith' },
     {
       recipientId: '00000000-0000-0000-0000-700000000006',
-      label: 'Other Agency (2nd record)',
+      label: 'Other agency (2nd record)',
       expectedName: 'Jason Smith Junior',
     },
   ]
@@ -54,7 +54,7 @@ context('Recipient Details Page', () => {
     it(`renders Recipient Details form correctly for ${label}`, () => {
       cy.visit(`/recipient-details/${suicideRiskId}?recipientId=${recipientId}`)
 
-      cy.contains('Recipient Details –').should('exist')
+      cy.contains('Recipient details –').should('exist')
       cy.get('#name').should('have.value', expectedName)
       cy.get('#description').should('have.value', 'Office')
       cy.get('#buildingName').should('have.value', 'Building')
@@ -72,7 +72,7 @@ context('Recipient Details Page', () => {
 
     cy.visit(`/recipient-details/${suicideRiskId}?recipientId=${recipientId}`)
 
-    cy.contains('Recipient Details –').should('exist')
+    cy.contains('Recipient details –').should('exist')
     cy.get('#name').should('have.value', 'Janet Smith')
     cy.get('#description').should('have.value', 'Regional Office')
     cy.get('#buildingName').should('have.value', 'The Archway')
@@ -300,10 +300,10 @@ context('Recipient Details Page', () => {
 
   const lengthTests = [
     { selector: '#name', label: 'Name', max: 200 },
-    { selector: '#description', label: 'Office Description', max: 50 },
-    { selector: '#buildingName', label: 'Building Name', max: 80 },
-    { selector: '#houseNumber', label: 'Address Number', max: 35 },
-    { selector: '#streetName', label: 'Street Name', max: 80 },
+    { selector: '#description', label: 'Office description', max: 50 },
+    { selector: '#buildingName', label: 'Building name', max: 80 },
+    { selector: '#houseNumber', label: 'Address number', max: 35 },
+    { selector: '#streetName', label: 'Street name', max: 80 },
     { selector: '#district', label: 'District', max: 80 },
     { selector: '#townCity', label: 'Town or City', max: 35 },
     { selector: '#county', label: 'County', max: 35 },

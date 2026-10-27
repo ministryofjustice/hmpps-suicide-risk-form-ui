@@ -32,7 +32,7 @@
 
       <div class="govuk-grid-column-two-thirds">
         {% include "partials/review-required.njk" %}
-        <h1 class="govuk-heading-l">Suicide Risk - Treatment</h1>
+        <h1 class="govuk-heading-l">Treatment</h1>
 
         {{ govukCharacterCount({
           name: "currentPsychTreatment",
@@ -40,12 +40,12 @@
           maxlength: 20000,
           value: suicideRisk.currentPsychTreatment,
           hint: {
-            text: "Any Current Psychiatric Treatment"
+            text: "Any current psychiatric treatment"
           }
         }) }}
 
         {{ govukButton({
-          text: "Search Contacts",
+          text: "Search contacts",
           preventDoubleClick: "true",
           type: "submit",
           name: "action",
@@ -57,16 +57,16 @@
 
         {% if not searchResults %}
           <p id="search-contacts-text">
-            To search for Contacts relating to "Psychiatric Treatment" press here
+            To search for contacts relating to “psychiatric treatment”
           </p>
         {% else %}
-          <h2 id="treatment-heading" class="govuk-heading-m">Contacts relating to Treatment</h2>
-          <h2 id="contacts-found" class="govuk-heading-m">{{ searchResults.results.length }} Contacts found</h2>
+          <h2 id="treatment-heading" class="govuk-heading-m">Contacts relating to treatment</h2>
+          <h2 id="contacts-found" class="govuk-heading-m">{{ searchResults.results.length }} contacts found</h2>
           <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 
           {% if searchResults.results.length == 0 %}
             <p id="no-contacts-found">
-              No contacts relating to Psychiatric Treatment have been found.
+              No contacts relating to psychiatric treatment have been found
             </p>
 
           {% else %}
@@ -86,7 +86,7 @@
                     </p>
 
                     {{ govukDetails({
-                      summaryText: "View Contact notes",
+                      summaryText: "View contact notes",
                       text: result.notes or "No notes found for this contact",
                       attributes: {
                         id: "view-contact-notes--govuk-details-" ~ loop.index
@@ -148,7 +148,7 @@
             }
           }) }}
           {{ govukButton({
-            text: "Save Progress and Close",
+            text: "Save progress and close",
             type: "submit",
             name: "action",
             value: "saveProgressAndClose",

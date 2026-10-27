@@ -1,7 +1,7 @@
 context('Basic Details page', () => {
   it('can see readonly fields', () => {
     cy.visit('/basic-details/00000000-0000-0000-0000-000000000001')
-    cy.get('#page-title').should('contain.text', 'Suicide Risk - Basic Details')
+    cy.get('#page-title').should('contain.text', 'Basic details')
     cy.get('#name').should('contain.text', 'Mr Billy The Kid')
     cy.get('#crn').should('contain.text', 'X000001')
     cy.get('#address').should('contain.text', 'Main Street')
@@ -13,8 +13,8 @@ context('Basic Details page', () => {
   it('can see buttons', () => {
     cy.visit('/basic-details/00000000-0000-0000-0000-000000000001')
     cy.get('#continue-button').should('contain.text', 'Continue')
-    cy.get('#close-button').should('contain.text', 'Save Progress and Close')
-    cy.get('#refresh-from-ndelius--button').should('contain.text', 'Refresh from Delius')
+    cy.get('#close-button').should('contain.text', 'Save progress and close')
+    cy.get('#refresh-from-ndelius--button').should('contain.text', 'Refresh from National Delius')
   })
 
   it('refresh button performs a post request then reloads the screen', () => {
@@ -33,7 +33,7 @@ context('Basic Details page', () => {
 
   it('shows the add address message and deeplink when no address is found', () => {
     cy.visit('/basic-details/00000000-0000-0000-0000-200000000002')
-    cy.get('#no-address-message').should('contain.text', 'No Postal Address found in National Delius')
+    cy.get('#no-address-message').should('contain.text', 'No postal address found in National Delius')
     cy.get('#add-address-deeplink')
       .should('have.attr', 'target', '_blank')
       .and('have.attr', 'href')
@@ -58,7 +58,7 @@ context('Basic Details page', () => {
     cy.get('#continue-button').click()
     cy.wait('@formSubmit')
     cy.url().should('include', '/information/00000000-0000-0000-0000-000000000001')
-    cy.contains('Suicide Risk - Information')
+    cy.contains('Information')
   })
 
   it('displays a working basic details nav menu option', () => {
@@ -66,7 +66,7 @@ context('Basic Details page', () => {
     cy.get('#nav-basic-details').should('exist')
     cy.get('#nav-basic-details').click()
     cy.url().should('include', '/basic-details/00000000-0000-0000-0000-200000000002')
-    cy.contains('Suicide Risk - Basic Details').should('exist')
+    cy.get('#page-title').should('contain.text', 'Basic details')
   })
 
   it('displays a working information nav menu option', () => {
@@ -74,7 +74,7 @@ context('Basic Details page', () => {
     cy.get('#nav-information').should('exist')
     cy.get('#nav-information').click()
     cy.url().should('include', '/information/00000000-0000-0000-0000-200000000002')
-    cy.contains('Suicide Risk - Information').should('exist')
+    cy.contains('Information').should('exist')
   })
 
   it('displays a working treatment nav menu option', () => {
@@ -82,7 +82,7 @@ context('Basic Details page', () => {
     cy.get('#nav-treatment').should('exist')
     cy.get('#nav-treatment').click()
     cy.url().should('include', '/treatment/00000000-0000-0000-0000-200000000002')
-    cy.contains('Suicide Risk - Treatment').should('exist')
+    cy.contains('Treatment').should('exist')
   })
 
   it('displays a working recipients nav menu option', () => {
@@ -90,7 +90,7 @@ context('Basic Details page', () => {
     cy.get('#nav-recipients').should('exist')
     cy.get('#nav-recipients').click()
     cy.url().should('include', '/recipients/00000000-0000-0000-0000-200000000002')
-    cy.contains('Suicide Risk - Recipients').should('exist')
+    cy.contains('Recipients').should('exist')
   })
 
   it('displays a working sign-and-send nav menu option', () => {
@@ -98,7 +98,7 @@ context('Basic Details page', () => {
     cy.get('#nav-sign-and-send').should('exist')
     cy.get('#nav-sign-and-send').click()
     cy.url().should('include', '/sign-and-send/00000000-0000-0000-0000-200000000002')
-    cy.contains('Suicide Risk - Sign and Send').should('exist')
+    cy.contains('Sign and send').should('exist')
   })
 
   it('displays a working check your answers nav menu option', () => {
@@ -106,7 +106,7 @@ context('Basic Details page', () => {
     cy.get('#nav-check-your-answers').should('exist')
     cy.get('#nav-check-your-answers').click()
     cy.url().should('include', '/check-your-answers/00000000-0000-0000-0000-200000000002')
-    cy.contains('Suicide Risk - Check Your Answers').should('exist')
+    cy.contains('Check your answers').should('exist')
   })
 
   it('navigates to report completed page if completed date set', () => {
@@ -121,15 +121,15 @@ context('Basic Details page', () => {
     cy.url().should('include', '/check-your-answers/')
   })
 
-  it('should retain the check-your-report query param after clicking Refresh from Delius', () => {
+  it('should retain the check-your-report query param after clicking Refresh from National Delius', () => {
     cy.intercept('POST', '/basic-details/**').as('refreshRequest')
     cy.visit('/basic-details/d4e5f6a7-b8c9-4d0e-af1b-2c3d4e5f6a7b?returnTo=check-your-report')
-    cy.get('#page-title').should('contain.text', 'Suicide Risk - Basic Details')
+    cy.get('#page-title').should('contain.text', 'Basic details')
     cy.get('#name').should('contain.text', 'Mr Billy The Kid')
     cy.get('#refresh-from-ndelius--button').click()
     cy.wait('@refreshRequest')
     cy.url().should('include', 'returnTo=check-your-report')
-    cy.get('#page-title').should('contain.text', 'Suicide Risk - Basic Details')
+    cy.get('#page-title').should('contain.text', 'Basic details')
     cy.get('#name').should('contain.text', 'Mr Billy The Kid')
   })
 })

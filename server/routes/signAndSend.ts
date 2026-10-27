@@ -639,11 +639,11 @@ export default function signAndSendRoutes(
     }
 
     if (formSentBy === 'RO') {
-      signature += ` (Responsible Officer)`
+      signature += ` (Responsible officer)`
     }
 
     if (formSentBy === 'USER') {
-      signature += ` (User on behalf of the Responsible Officer)`
+      signature += ` (User on behalf of the responsible officer)`
     }
 
     return signature

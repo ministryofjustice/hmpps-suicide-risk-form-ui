@@ -19,19 +19,19 @@
 
         {% include "partials/review-required.njk" %}
 
-        <h1 class="govuk-heading-l">Suicide Risk - Check Your Answers</h1>
+        <h1 class="govuk-heading-l">Check your answers</h1>
 
         <div class="govuk-summary-card">
           <div class="govuk-summary-card__title-wrapper">
             <h2 class="govuk-summary-card__title">
-              Basic Details
+              Basic details
             </h2>
             <ul class="govuk-summary-card__actions">
               <li class="govuk-summary-card__action">
                 {% if suicideRisk.basicDetailsSaved %}
                 <a id="change-basic-details" class="govuk-link"
                    href="/basic-details/{{ suicideRiskId }}?returnTo=check-your-report">Change<span
-                    class="govuk-visually-hidden"> Basic Details</span></a>
+                    class="govuk-visually-hidden"> Basic details</span></a>
                 {% endif %}
               </li>
             </ul>
@@ -41,12 +41,12 @@
               <div class="govuk-summary-list__row">
 
                 <dt class="govuk-summary-list__key">
-                  Title and Full Name
+                  Title and full Name
                 </dt>
                 <dd class="govuk-summary-list__value">
                   {% if suicideRisk.titleAndFullName == null and suicideRisk.basicDetailsSaved %}
                     <a id="cya-link-title-and-name" href="/basic-details/{{ suicideRiskId }}?returnTo=check-your-report" class="govuk-link">enter required
-                      information<span class="govuk-visually-hidden"> for Title and Full name</span></a>
+                      information<span class="govuk-visually-hidden"> for Title and full name</span></a>
                   {% else %}
                     {{ suicideRisk.titleAndFullName }}
                   {% endif %}
@@ -71,12 +71,12 @@
 
               <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                  Postal Address
+                  Postal address
                 </dt>
                 <dd class="govuk-summary-list__value">
                   {% if suicideRisk.postalAddress == null and suicideRisk.basicDetailsSaved %}
                     <a id="cya-link-postal-address" href="/basic-details/{{ suicideRiskId }}?returnTo=check-your-report" class="govuk-link">enter required
-                      information<span class="govuk-visually-hidden"> for Postal Address</span></a>
+                      information<span class="govuk-visually-hidden"> for postal address</span></a>
                   {% else %}
                     {% if suicideRisk.postalAddress.officeDescription != null %} {{ suicideRisk.postalAddress.officeDescription }}
                       <br> {% endif %}
@@ -102,12 +102,12 @@
 
               <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                  Date of Birth
+                  Date of birth
                 </dt>
                 <dd class="govuk-summary-list__value">
                   {% if suicideRisk.dateOfBirth == null and suicideRisk.basicDetailsSaved %}
                     <a id="cya-link-date-of-birth" href="/basic-details/{{ suicideRiskId }}?returnTo=check-your-report" class="govuk-link">enter required
-                      information<span class="govuk-visually-hidden"> for Date of Birth</span></a>
+                      information<span class="govuk-visually-hidden"> for date of birth</span></a>
                   {% else %}
                     {{ dateOfBirth }}
                   {% endif %}
@@ -135,7 +135,7 @@
                 {% if suicideRisk.informationSaved %}
                 <a id="change-information" class="govuk-link"
                    href="/information/{{ suicideRiskId }}?returnTo=check-your-report">Change<span
-                    class="govuk-visually-hidden"> Additional Information</span></a>
+                    class="govuk-visually-hidden"> additional information</span></a>
                 {% endif %}
               </li>
             </ul>
@@ -145,18 +145,18 @@
               <div class="govuk-summary-list__row">
 
                 <dt class="govuk-summary-list__key">
-                  Additional Information
+                  Additional information
                 </dt>
                 <dd class="govuk-summary-list__value">
                   {% if suicideRisk.informationSaved and (not suicideRisk.additionalInfo or suicideRisk.additionalInfo | trim == '') %}
                     <a id="cya-link-additional-info" href="/information/{{ suicideRiskId }}?returnTo=check-your-report" class="govuk-link">enter required
-                      information<span class="govuk-visually-hidden"> for Additional Information</span></a>
+                      information<span class="govuk-visually-hidden"> for additional information</span></a>
                   {% else %}
                     <span id="additional-information">{{ suicideRisk.additionalInfo | truncate(1500) }}</span>
                     {% if suicideRisk.additionalInfo and suicideRisk.additionalInfo.length > 1500 %}
                       <br>
                       <a id="additional-information-link" href="/information/{{ suicideRiskId }}?returnTo=check-your-report"
-                         class="govuk-link">Click here to view the full text on the Information screen</a>
+                         class="govuk-link">Click here to view the full text on the information screen</a>
                     {% endif %}
                   {% endif %}
                 </dd>
@@ -191,18 +191,18 @@
               <div class="govuk-summary-list__row">
 
                 <dt class="govuk-summary-list__key">
-                  Current Psychiatric Treatment
+                  Current psychiatric treatment
                 </dt>
                 <dd class="govuk-summary-list__value">
                   {% if suicideRisk.treatmentSaved and (not suicideRisk.currentPsychTreatment or suicideRisk.currentPsychTreatment | trim == '') %}
                     <a id="cya-link-treatment" href="/treatment/{{ suicideRiskId }}?returnTo=check-your-report" class="govuk-link">enter required
-                      information<span class="govuk-visually-hidden"> for Treatment</span></a>
+                      information<span class="govuk-visually-hidden"> for treatment</span></a>
                   {% else %}
                     <span id="current-psychiatric-treatment">{{ suicideRisk.currentPsychTreatment | truncate(1500) }}</span>
                     {% if suicideRisk.currentPsychTreatment and suicideRisk.currentPsychTreatment.length > 1500 %}
                       <br>
                       <a id="current-psychiatric-link" href="/treatment/{{ suicideRiskId }}?returnTo=check-your-report"
-                         class="govuk-link">Click here to view the full text on the Treatment screen</a>
+                         class="govuk-link">Click here to view the full text on the treatment screen</a>
                     {% endif %}
                   {% endif %}
                 </dd>
@@ -254,7 +254,7 @@
 
                 {% if contactsOtherColleagues.length > 0 %}
                   {% for rec in contactsOtherColleagues %}
-                    <h3>Other Colleague</h3>
+                    <h3>Other colleague</h3>
                     <div class="govuk-summary-list__row">
                       <dt class="govuk-summary-list__key">
                         Name
@@ -291,7 +291,7 @@
                     </div>
                     <div class="govuk-summary-list__row">
                       <dt class="govuk-summary-list__key">
-                        Contact Date
+                        Contact date
                       </dt>
                       <dd class="govuk-summary-list__value">
                         {{ rec.contactDate | toUserDate }}
@@ -301,7 +301,7 @@
                     </div>
                     <div class="govuk-summary-list__row">
                       <dt class="govuk-summary-list__key">
-                        Email Address
+                        Email address
                       </dt>
                       <dd class="govuk-summary-list__value">
                         {{ rec.emailAddress }}
@@ -351,7 +351,7 @@
                     </div>
                     <div class="govuk-summary-list__row">
                       <dt class="govuk-summary-list__key">
-                        Contact Date
+                        Contact date
                       </dt>
                       <dd class="govuk-summary-list__value">
                         {{ rec.contactDate | toUserDate }}
@@ -361,7 +361,7 @@
                     </div>
                     <div class="govuk-summary-list__row">
                       <dt class="govuk-summary-list__key">
-                        Email Address
+                        Email address
                       </dt>
                       <dd class="govuk-summary-list__value">
                         {{ rec.emailAddress }}
@@ -411,7 +411,7 @@
                     </div>
                     <div class="govuk-summary-list__row">
                       <dt class="govuk-summary-list__key">
-                        Contact Date
+                        Contact date
                       </dt>
                       <dd class="govuk-summary-list__value">
                         {{ rec.contactDate | toUserDate }}
@@ -421,7 +421,7 @@
                     </div>
                     <div class="govuk-summary-list__row">
                       <dt class="govuk-summary-list__key">
-                        Email Address
+                        Email address
                       </dt>
                       <dd class="govuk-summary-list__value">
                         {{ rec.emailAddress }}
@@ -471,7 +471,7 @@
                     </div>
                     <div class="govuk-summary-list__row">
                       <dt class="govuk-summary-list__key">
-                        Contact Date
+                        Contact date
                       </dt>
                       <dd class="govuk-summary-list__value">
                         {{ rec.contactDate | toUserDate }}
@@ -481,7 +481,7 @@
                     </div>
                     <div class="govuk-summary-list__row">
                       <dt class="govuk-summary-list__key">
-                        Email Address
+                        Email address
                       </dt>
                       <dd class="govuk-summary-list__value">
                         {{ rec.emailAddress }}
@@ -531,7 +531,7 @@
                     </div>
                     <div class="govuk-summary-list__row">
                       <dt class="govuk-summary-list__key">
-                        Contact Date
+                        Contact date
                       </dt>
                       <dd class="govuk-summary-list__value">
                         {{ rec.contactDate | toUserDate }}
@@ -541,7 +541,7 @@
                     </div>
                     <div class="govuk-summary-list__row">
                       <dt class="govuk-summary-list__key">
-                        Email Address
+                        Email address
                       </dt>
                       <dd class="govuk-summary-list__value">
                         {{ rec.emailAddress }}
@@ -561,7 +561,7 @@
         <div class="govuk-summary-card">
           <div class="govuk-summary-card__title-wrapper">
             <h2 class="govuk-summary-card__title">
-              Sign and Send
+              Sign and send
             </h2>
             <ul class="govuk-summary-card__actions">
               <li class="govuk-summary-card__action">
@@ -579,18 +579,18 @@
 
               <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                  Who is Sending the Document?
+                  Who is sending the document?
                 </dt>
                 <dd class="govuk-summary-list__value">
                   {% if suicideRisk.signAndSendSaved and suicideRisk.signedByRo == null%}
                     <a id="cya-link-signedByRO" href="/sign-and-send/{{ suicideRiskId }}?returnTo=check-your-report" class="govuk-link">enter required
-                      information<span class="govuk-visually-hidden"> for Who is Sending the Document</span></a>
+                      information<span class="govuk-visually-hidden"> for who is sending the document</span></a>
                   {% endif %}
                   {% if suicideRisk.signAndSendSaved and suicideRisk.signedByRo === true %}
                     <span id="ResponsibleOfficerSpan">Responsible officer</span>
                   {% endif %}
                   {% if suicideRisk.signAndSendSaved and suicideRisk.signedByRo === false %}
-                    <span id="UserOnBehalfSpan">User on behalf of the Responsible Officer</span>
+                    <span id="UserOnBehalfSpan">User on behalf of responsible officer</span>
                   {% endif %}
                 </dd>
                 <dd class="govuk-summary-list__actions">
@@ -624,7 +624,7 @@
 
               <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                  Work Location
+                  Work location
                 </dt>
                 <dd class="govuk-summary-list__value">
                   {% if suicideRisk.signAndSendSaved and (suicideRisk.workAddress == null) %}
@@ -655,12 +655,12 @@
 
               <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                  Telephone Number
+                  Telephone number
                 </dt>
                 <dd class="govuk-summary-list__value">
                   {% if suicideRisk.signAndSendSaved and suicideRisk.telephoneNumber == null %}
                   <a id="cya-link-telephone-number" href="/sign-and-send/{{ suicideRiskId }}?returnTo=check-your-report" class="govuk-link">enter required
-                    information<span class="govuk-visually-hidden"> for Telephone Number</span></a>
+                    information<span class="govuk-visually-hidden"> for telephone number</span></a>
                   {% else %}
                   {{ suicideRisk.telephoneNumber }}
                   {% endif %}
@@ -674,12 +674,12 @@
 
               <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                  Email Address
+                  Email address
                 </dt>
                 <dd class="govuk-summary-list__value">
                   {% if suicideRisk.signAndSendSaved and suicideRisk.officerEmailAddress == null %}
                   <a id="cya-link-email-address" href="/sign-and-send/{{ suicideRiskId }}?returnTo=check-your-report" class="govuk-link">enter required
-                    information<span class="govuk-visually-hidden"> for Email Address</span></a>
+                    information<span class="govuk-visually-hidden"> for email address</span></a>
                   {% else %}
                   {{ suicideRisk.officerEmailAddress }}
                   {% endif %}
@@ -706,7 +706,7 @@
               }
             }) }}
             {{ govukButton({
-              text: "View Draft Form",
+              text: "View draft form",
               classes: "govuk-button--secondary",
               preventDoubleClick: "true",
               href: '/pdf/'+suicideRiskId,
@@ -715,14 +715,14 @@
               }
             }) }}
             {{ govukButton({
-              text: "Delete Draft Form",
+              text: "Delete draft form",
               href: '/confirm-delete/'+suicideRiskId,
               classes: "govuk-button--secondary",
               preventDoubleClick: "true"
             }) }}
           {% else %}
             {{ govukButton({
-              text: "View Draft Form",
+              text: "View draft form",
               classes: "govuk-button--secondary",
               preventDoubleClick: "true",
               href: '/pdf/'+suicideRiskId,
@@ -731,7 +731,7 @@
               }
             }) }}
             {{ govukButton({
-              text: "Delete Draft Form",
+              text: "Delete draft form",
               href: '/confirm-delete/'+suicideRiskId,
               classes: "govuk-button--secondary",
               preventDoubleClick: "true"

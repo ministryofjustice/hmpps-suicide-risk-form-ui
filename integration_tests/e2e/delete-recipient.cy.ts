@@ -4,7 +4,7 @@ context('Delete Recipient Page', () => {
 
   it('renders the delete confirmation screen correctly', () => {
     cy.visit(`/delete-recipient/${suicideRiskId}/${recipientId}`)
-    cy.contains('Are you sure you wish to delete this Recipient?').should('exist')
+    cy.contains('Are you sure you wish to delete this recipient?').should('exist')
     cy.get('#confirm-button').should('exist').and('contain.text', 'Confirm')
     cy.get('#cancel-button').should('exist').and('contain.text', 'Cancel')
   })
