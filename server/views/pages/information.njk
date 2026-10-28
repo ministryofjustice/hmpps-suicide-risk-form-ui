@@ -31,7 +31,7 @@
       <div class="govuk-grid-column-two-thirds">
         {% include "partials/review-required.njk" %}
 
-        <h1 id="page-title" class="govuk-heading-l">Suicide Risk - Information</h1>
+        <h1 id="page-title" class="govuk-heading-l">Information</h1>
 
         {{ govukCharacterCount({
           name: "additionalInfo",
@@ -39,34 +39,34 @@
           maxlength: 20000,
           value: suicideRisk.additionalInfo,
           hint: {
-            text: "Additional Information"
+            text: "Additional information"
           }
         }) }}
 
         {% if showRiskAndNeedsDetailsTwisty %}
           {% set detailsContent %}
-            <h2 class="govuk-heading-m">Nature of Risk</h2>
+            <h2 class="govuk-heading-m">Nature of risk</h2>
             {% if riskAssessment.natureOfRisk %}
               <p id="nature-of-risk">{{ riskAssessment.natureOfRisk }}</p>
             {% else %}
               <p>No information available.</p>
             {% endif %}
 
-            <h2 class="govuk-heading-m">Risk Factors</h2>
+            <h2 class="govuk-heading-m">Risk factors</h2>
             {% if riskAssessment.analysisOfRiskFactors %}
               <p id="risk-factors">{{ riskAssessment.analysisOfRiskFactors }}</p>
             {% else %}
               <p>No information available.</p>
             {% endif %}
 
-            <h2 class="govuk-heading-m">Risk Likely to Increase</h2>
+            <h2 class="govuk-heading-m">Risk likely to increase</h2>
             {% if riskAssessment.riskIncreaseFactors %}
               <p id="risk-increase-factors">{{ riskAssessment.riskIncreaseFactors }}</p>
             {% else %}
               <p>No information available.</p>
             {% endif %}
 
-            <h2 class="govuk-heading-m">Risk Likely to Decrease</h2>
+            <h2 class="govuk-heading-m">Risk likely to decrease</h2>
             {% if riskAssessment.riskMitigationFactors %}
               <p id="risk-decrease-factors">{{ riskAssessment.riskMitigationFactors }}</p>
             {% else %}
@@ -75,7 +75,7 @@
           {% endset %}
 
           {{ govukDetails({
-            summaryText: "View Information from Assess Risks and Needs",
+            summaryText: "View information from assess risks and needs",
             html: detailsContent,
             attributes: {
               id: "view-information-arn--govuk-details"
@@ -83,16 +83,16 @@
           }) }}
         {% endif %}
 
-        <h2 class="govuk-heading-m">Suicide/Self Harm Register</h2>
+        <h2 class="govuk-heading-m"> Suicide/self harm register</h2>
 
         {% if registration %}
-          <h2 class="govuk-heading-m">Registration Start Date</h2>
+          <h2 class="govuk-heading-m">Registration start date</h2>
           <p id="registration-start-date">{{ registration.startDate | dayMonthYear }}</p>
 
-          <h2 class="govuk-heading-m">Registration End Date</h2>
+          <h2 class="govuk-heading-m">Registration end date</h2>
           <p id="registration-end-date">{{ registration.endDate | dayMonthYear }}</p>
 
-          <h2 class="govuk-heading-m">Registration Notes</h2>
+          <h2 class="govuk-heading-m">Registration notes</h2>
           <p id="registration-notes">{{ registration.notes }}</p>
         {% else %}
           <p id="no-registrations">No registration details found of this type</p>
@@ -101,7 +101,7 @@
         {% if registrationDeeplink %}
           <p id="registration-deeplink-message">
             <a href="{{ registrationDeeplink }}" target="_blank" id="registrationDeeplink">
-              click here to open full Registration details in a new tab
+              click here to open full registration details in a new tab
             </a>
           </p>
         {% endif %}
@@ -117,7 +117,7 @@
           }) }}
 
           {{ govukButton({
-            text: "Save Progress and Close",
+            text: "Save progress and close",
             type: "submit",
             name: "action",
             value: "saveProgressAndClose",
@@ -128,7 +128,7 @@
           }) }}
 
           {{ govukButton({
-            text: "Refresh from Delius",
+            text: "Refresh from National Delius",
             preventDoubleClick: "true",
             type: "submit",
             name: "action",

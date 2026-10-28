@@ -50,7 +50,7 @@
         {% if not showEmbeddedError %}
           {% include "partials/review-required.njk" %}
 
-          <h1 class="govuk-heading-l">Suicide Risk - Sign and Send</h1>
+          <h1 class="govuk-heading-l">Sign and send</h1>
 
         {% if not formSigned %}
             {{ govukRadios({
@@ -69,12 +69,12 @@
               items: [
                 {
                   value: "RO",
-                  text: "Responsible Officer",
+                  text: "Responsible officer",
                   checked: suicideRisk.signedByRo === true
                 },
                 {
                   value: "USER",
-                  text: "User on behalf of the Responsible Officer",
+                  text: "User on behalf of responsible officer",
                   checked: suicideRisk.signedByRo === false
                 }
               ]
@@ -84,15 +84,15 @@
           {% if formSigned %}
                 <h2 class="govuk-heading-m">Please select who is sending this document?</h2>
               {% if suicideRisk.signedByRo === true %}
-                <p id="responsibleOfficerTextOutput">Responsible Officer</p>
+                <p id="responsibleOfficerTextOutput">Responsible officer</p>
               {% endif %}
               {% if suicideRisk.signedByRo === false %}
-                <p id="userOnBehalfOfRoTextOutput">User on behalf of the Responsible Officer</p>
+                <p id="userOnBehalfOfRoTextOutput">User on behalf of responsible officer</p>
               {% endif %}
                 <p id="changeSigningMessage">To change who is signing, please clear the signature.</p>
         {% endif %}
 
-          <h2 class="govuk-heading-m">Officer Name</h2>
+          <h2 class="govuk-heading-m">Officer name</h2>
           <p id="name">{{ signAndSendDetails.responsibleOfficer.name.forename }}
             <span> </span> {% if signAndSendDetails.responsibleOfficer.name.middleName != null %} {{ signAndSendDetails.responsibleOfficer.name.middleName }}
               <span> </span> {% endif %} {{ signAndSendDetails.responsibleOfficer.name.surname }}</p>
@@ -101,7 +101,7 @@
           {% if signAndSendDetails.responsibleOfficer == null or signAndSendDetails.responsibleOfficer.emailAddress == null %}
             {{ govukInput({
               label: {
-                text: "Officer Email Address",
+                text: "Officer email address",
                 classes: "govuk-label--m",
                 isPageHeading: false
               },
@@ -114,7 +114,7 @@
               } if errorMessages.email.text
             }) }}
           {% else %}
-            <h2 class="govuk-heading-m">Officer Email Address</h2>
+            <h2 class="govuk-heading-m">Officer email address</h2>
             <p id="officerEmailAddress">{{ suicideRisk.officerEmailAddress }}</p>
           {% endif %}
 
@@ -139,7 +139,7 @@
           {% else %}
             <p id="signature">{{ suicideRisk.signature }}</p>
             {{ govukButton({
-              text: "Clear Signature",
+              text: "Clear signature",
               type: "submit",
               name: "action",
               value: "clear-signature",
@@ -150,10 +150,10 @@
             }) }}
           {% endif %}
 
-          <h2 class="govuk-heading-m" id="workAddressHeading">Work Location and Address</h2>
+          <h2 class="govuk-heading-m" id="workAddressHeading">Work location and address </h2>
 
           {% if onlyAlternateAddressesAvailable %}
-            <p id="alternate-address-text"> Please specify the Work Location and Address that the Person on Probation should contact. </p>
+            <p id="alternate-address-text">Please specify the work location and address that the person on probation should contact</p>
             <div id="alternate-address-dropdown">
               {{ alternateAddressHtml | safe }}
             </div>
@@ -180,7 +180,7 @@
 
               {% if suicideRisk.workAddress != null and suicideRisk.workAddress.addressId == null and (signAndSendDetails.responsibleOfficer.addresses == null or signAndSendDetails.responsibleOfficer.addresses.length == 0) %}
                 {{ govukButton({
-                  text: "Update Address",
+                  text: "Update address",
                   type: "submit",
                   name: "action",
                   value: "addAddress",
@@ -199,11 +199,10 @@
             {% endif %}
 
             {% if manualAddressAllowed and suicideRisk.workAddress == null %}
-              <p id="AddAddressMessage">No reply address can be found for this Responsible Officer. Please add an
-                address by selecting the button below.</p>
+              <p id="AddAddressMessage">No reply address can be found for this responsible officer. Please add an address by selecting the button below.</p>
 
               {{ govukButton({
-                text: "Add Address",
+                text: "Add address",
                 type: "submit",
                 name: "action",
                 value: "addAddress",
@@ -256,7 +255,7 @@
           {% if signAndSendDetails.responsibleOfficer.telephoneNumber == null %}
             {{ govukInput({
               label: {
-                text: "Telephone Number",
+                text: "Telephone number",
                 classes: "govuk-label--m",
                 isPageHeading: false
               },
@@ -269,7 +268,7 @@
               } if errorMessages.telephoneNumber.text
             }) }}
           {% else %}
-            <h2 class="govuk-heading-m">Telephone Number</h2>
+            <h2 class="govuk-heading-m">Telephone number</h2>
             <p id="telephoneNumber">{{ suicideRisk.telephoneNumber}}</p>
           {% endif %}
 
@@ -283,7 +282,7 @@
               }
             }) }}
             {{ govukButton({
-              text: "Save Progress and Close",
+              text: "Save progress and close",
               type: "submit",
               name: "action",
               value: "saveProgressAndClose",
@@ -294,7 +293,7 @@
             }) }}
 
             {{ govukButton({
-              text: "Refresh from Delius",
+              text: "Refresh from National Delius",
               preventDoubleClick: "true",
               type: "submit",
               name: "action",

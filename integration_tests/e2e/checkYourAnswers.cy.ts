@@ -129,7 +129,7 @@ context('Check your answers data checks', () => {
   it('Should Show User on Behalf of RO and Publish Button', () => {
     cy.visit('/check-your-answers/10000000-0000-0000-0000-600000000235')
     cy.get('#UserOnBehalfSpan').should('exist').should('be.visible')
-    cy.contains('User on behalf of the Responsible Officer')
+    cy.contains('User on behalf of responsible officer')
   })
 
   it('Should Show Hyperlink if signedByRo Not Set and NO Publish Button', () => {

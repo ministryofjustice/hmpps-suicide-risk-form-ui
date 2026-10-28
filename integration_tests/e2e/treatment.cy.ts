@@ -7,18 +7,15 @@ context('Treatment Page', () => {
   it('can see buttons', () => {
     cy.visit('/treatment/00000000-0000-0000-0000-000000000001')
     cy.get('#continue-button').should('contain.text', 'Continue')
-    cy.get('#close-button').should('contain.text', 'Save Progress and Close')
-    cy.get('#search-contacts--button').should('contain.text', 'Search Contacts')
+    cy.get('#close-button').should('contain.text', 'Save progress and close')
+    cy.get('#search-contacts--button').should('contain.text', 'Search contacts')
   })
 
   it('can see fields and text', () => {
     cy.visit('/treatment/00000000-0000-0000-0000-000000000001')
     cy.get('#current-psych-treatment').should('exist')
-    cy.get('#current-psych-treatment-hint').should('contain.text', 'Any Current Psychiatric Treatment')
-    cy.get('#search-contacts-text').should(
-      'contain.text',
-      'To search for Contacts relating to "Psychiatric Treatment" press here',
-    )
+    cy.get('#current-psych-treatment-hint').should('contain.text', 'Any current psychiatric treatment')
+    cy.get('#search-contacts-text').should('contain.text', 'To search for contacts relating to “psychiatric treatment”')
   })
 
   it('Current psychiatric treatment > 20000 characters triggers validation', () => {
@@ -54,7 +51,7 @@ context('Treatment Page', () => {
     cy.get('#continue-button').click()
     cy.wait('@formSubmit')
     cy.url().should('include', '/recipients/00000000-0000-0000-0000-000000000001')
-    cy.contains('Suicide Risk - Recipients').should('exist')
+    cy.contains('Recipients').should('exist')
   })
 
   it('search contacts button displays content with results', () => {
@@ -66,15 +63,15 @@ context('Treatment Page', () => {
       expect(body.get('action')).to.equal('searchContacts')
     })
     cy.get('#search-contacts-text').should('not.exist')
-    cy.get('#treatment-heading').should('contain.text', 'Contacts relating to Treatment')
-    cy.get('#contacts-found').should('contain.text', '3 Contacts found')
+    cy.get('#treatment-heading').should('contain.text', 'Contacts relating to treatment')
+    cy.get('#contacts-found').should('contain.text', '3 contacts found')
 
     cy.get('#contact-notes-details-1').should('contain.text', 'Date:')
     cy.get('#contact-notes-details-1').should('contain.text', 'Description:')
     cy.get('#contact-notes-details-1').should('contain.text', 'Type:')
     cy.get('#contact-notes-details-1').should('contain.text', 'Outcome:')
 
-    cy.get('#view-contact-notes--govuk-details-1').should('contain.text', 'View Contact notes')
+    cy.get('#view-contact-notes--govuk-details-1').should('contain.text', 'View contact notes')
     cy.contains('Test notes attended complied with psychiatric treatment').should('exist')
 
     cy.get('#show-documents-found--govuk-details-1').should('contain.text', 'Show associated documents')
@@ -98,12 +95,9 @@ context('Treatment Page', () => {
       const body = new URLSearchParams(request.body)
       expect(body.get('action')).to.equal('searchContacts')
     })
-    cy.get('#treatment-heading').should('contain.text', 'Contacts relating to Treatment')
-    cy.get('#contacts-found').should('contain.text', '0 Contacts found')
-    cy.get('#no-contacts-found').should(
-      'contain.text',
-      'No contacts relating to Psychiatric Treatment have been found.',
-    )
+    cy.get('#treatment-heading').should('contain.text', 'Contacts relating to treatment')
+    cy.get('#contacts-found').should('contain.text', '0 contacts found')
+    cy.get('#no-contacts-found').should('contain.text', 'No contacts relating to psychiatric treatment have been found')
 
     cy.get('#contact-notes-details-1').should('not.exist')
     cy.get('#view-contact-notes--govuk-details-1').should('not.exist')
@@ -129,7 +123,7 @@ context('Treatment Page', () => {
     cy.get('#nav-basic-details').should('exist')
     cy.get('#nav-basic-details').click()
     cy.url().should('include', '/basic-details/00000000-0000-0000-0000-300000000003')
-    cy.contains('Suicide Risk - Basic Details').should('exist')
+    cy.contains('Basic details').should('exist')
   })
 
   it('displays a working information nav menu option', () => {
@@ -137,7 +131,7 @@ context('Treatment Page', () => {
     cy.get('#nav-information').should('exist')
     cy.get('#nav-information').click()
     cy.url().should('include', '/information/00000000-0000-0000-0000-300000000003')
-    cy.contains('Suicide Risk - Information').should('exist')
+    cy.contains('Information').should('exist')
   })
 
   it('displays a working treatment nav menu option', () => {
@@ -145,7 +139,7 @@ context('Treatment Page', () => {
     cy.get('#nav-treatment').should('exist')
     cy.get('#nav-treatment').click()
     cy.url().should('include', '/treatment/00000000-0000-0000-0000-300000000003')
-    cy.contains('Suicide Risk - Treatment').should('exist')
+    cy.contains('Treatment').should('exist')
   })
 
   it('displays a disabled recipients nav menu option', () => {
@@ -165,6 +159,6 @@ context('Treatment Page', () => {
     cy.get('#nav-check-your-answers').should('exist')
     cy.get('#nav-check-your-answers').click()
     cy.url().should('include', '/check-your-answers/00000000-0000-0000-0000-300000000003')
-    cy.contains('Suicide Risk - Check Your Answers').should('exist')
+    cy.contains('Check your answers').should('exist')
   })
 })

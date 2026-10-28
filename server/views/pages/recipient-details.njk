@@ -42,17 +42,17 @@
 
         {% set typeMap = {
           "other_colleagues": "Other colleagues",
-          "prison_establishment": "Prison Establishment",
-          "police_custody_cells": "Police (Custody Cells)",
-          "medical_services": "Medical Services",
-          "other_agency": "Other Agency"
+          "prison_establishment": "Prison establishment",
+          "police_custody_cells": "Police (custody cells)",
+          "medical_services": "Medical services",
+          "other_agency": "Other agency"
         } %}
 
         <h1 id="page-title" class="govuk-heading-l">
           {% if recipientId %}
-            Recipient Details – {{ typeMap[recipient.contactTypeDescription] or recipient.contactTypeDescription }}
+            Recipient details – {{ typeMap[recipient.contactTypeDescription] or recipient.contactTypeDescription }}
           {% else %}
-            Recipient Details – {{ typeMap[contactTypeDescription] or contactTypeDescription }}
+            Recipient details – {{ typeMap[contactTypeDescription] or contactTypeDescription }}
           {% endif %}
         </h1>
 
@@ -73,7 +73,7 @@
 
         {{ govukInput({
           label: {
-            text: "Office Description (if applicable)",
+            text: "Office description (if applicable)",
             classes: "govuk-label--m",
             isPageHeading: false
           },
@@ -88,7 +88,7 @@
 
         {{ govukInput({
           label: {
-            text: "Building Name (if applicable)",
+            text: "Building name (if applicable)",
             classes: "govuk-label--m",
             isPageHeading: false
           },
@@ -103,7 +103,7 @@
 
         {{ govukInput({
           label: {
-            text: "Address Number (if applicable)",
+            text: "Address number (if applicable)",
             classes: "govuk-label--m",
             isPageHeading: false
           },
@@ -118,7 +118,7 @@
 
         {{ govukInput({
           label: {
-            text: "Street Name",
+            text: "Street name",
             classes: "govuk-label--m",
             isPageHeading: false
           },

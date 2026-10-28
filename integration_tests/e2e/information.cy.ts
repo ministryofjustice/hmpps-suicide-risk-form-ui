@@ -2,13 +2,13 @@ context('information', () => {
   it('can see buttons', () => {
     cy.visit('/information/00000000-0000-0000-0000-300000000003')
     cy.get('#continue-button').should('contain.text', 'Continue')
-    cy.get('#close-button').should('contain.text', 'Save Progress and Close')
-    cy.get('#refresh-from-ndelius--button').should('contain.text', 'Refresh from Delius')
+    cy.get('#close-button').should('contain.text', 'Save progress and close')
+    cy.get('#refresh-from-ndelius--button').should('contain.text', 'Refresh from National Delius')
   })
 
   it('can see readonly fields', () => {
     cy.visit('/information/00000000-0000-0000-0000-300000000003')
-    cy.get('#page-title').should('contain.text', 'Suicide Risk - Information')
+    cy.get('#page-title').should('contain.text', 'Information')
     cy.get('#nature-of-risk').should('contain.text', 'The nature of the risk is X')
     cy.get('#risk-factors').should('contain.text', 'the risk is imminent and more probably in X situation')
     cy.get('#risk-increase-factors').should('contain.text', 'If offender in situation X the risk can be higher')
@@ -52,7 +52,7 @@ context('information', () => {
     cy.get('#continue-button').click()
     cy.wait('@formSubmit')
     cy.url().should('include', '/treatment/00000000-0000-0000-0000-300000000003')
-    cy.contains('Suicide Risk - Treatment')
+    cy.contains('Treatment')
   })
 
   it('updated additional information input is persisted on post', () => {
@@ -89,7 +89,7 @@ context('information', () => {
     cy.get('#nav-basic-details').should('exist')
     cy.get('#nav-basic-details').click()
     cy.url().should('include', '/basic-details/00000000-0000-0000-0000-300000000003')
-    cy.contains('Suicide Risk - Basic Details').should('exist')
+    cy.contains('Basic details').should('exist')
   })
 
   it('displays a working information nav menu option', () => {
@@ -97,7 +97,7 @@ context('information', () => {
     cy.get('#nav-information').should('exist')
     cy.get('#nav-information').click()
     cy.url().should('include', '/information/00000000-0000-0000-0000-300000000003')
-    cy.contains('Suicide Risk - Information').should('exist')
+    cy.contains('Information').should('exist')
   })
 
   it('displays a working treatment nav menu option', () => {
@@ -105,7 +105,7 @@ context('information', () => {
     cy.get('#nav-treatment').should('exist')
     cy.get('#nav-treatment').click()
     cy.url().should('include', '/treatment/00000000-0000-0000-0000-300000000003')
-    cy.contains('Suicide Risk - Treatment').should('exist')
+    cy.contains('Treatment').should('exist')
   })
 
   it('displays a disabled recipients nav menu option', () => {
@@ -125,7 +125,7 @@ context('information', () => {
     cy.get('#nav-check-your-answers').should('exist')
     cy.get('#nav-check-your-answers').click()
     cy.url().should('include', '/check-your-answers/00000000-0000-0000-0000-300000000003')
-    cy.contains('Suicide Risk - Check Your Answers').should('exist')
+    cy.contains('Check your answers').should('exist')
   })
 })
 
@@ -134,7 +134,7 @@ it('Show twisty when risk assessment information is available', () => {
 
   cy.get('#view-information-arn--govuk-details')
     .should('exist')
-    .and('contain.text', 'View Information from Assess Risks and Needs')
+    .and('contain.text', 'View information from assess risks and needs')
 
   cy.get('#nature-of-risk').should('contain.text', 'The nature of the risk is X')
 })

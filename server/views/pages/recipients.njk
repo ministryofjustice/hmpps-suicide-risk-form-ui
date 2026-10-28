@@ -17,7 +17,7 @@
       </div>
       <div class="govuk-grid-column-two-thirds">
         {% include "partials/review-required.njk" %}
-        <h1 class="govuk-heading-l">Suicide Risk - Recipients</h1>
+        <h1 class="govuk-heading-l">Recipients</h1>
 
         <div class="govuk-summary-card">
           <div class="govuk-summary-card__content">
@@ -111,7 +111,7 @@
             {% endif %}
 
             {{ govukButton({
-              text: "Add Recipient of this type",
+              text: "Add recipient of this type",
               type: "submit",
               href: colleagueUrl,
               attributes: { id: "add-other-colleagues--button" }
@@ -121,7 +121,7 @@
 
         <div class="govuk-summary-card">
           <div class="govuk-summary-card__content">
-            <h2 class="govuk-heading-m">Prison Establishment</h2>
+            <h2 class="govuk-heading-m">Prison establishment</h2>
 
             {% if contactsPrisonEstablishment and contactsPrisonEstablishment.length > 0 %}
               {% for rec in contactsPrisonEstablishment %}
@@ -206,7 +206,7 @@
             {% endif %}
 
             {{ govukButton({
-              text: "Add Recipient of this type",
+              text: "Add recipient of this type",
               type: "submit",
               href: prisonUrl,
               attributes: { id: "add-prison-establishment--button" }
@@ -217,7 +217,7 @@
 
         <div class="govuk-summary-card">
           <div class="govuk-summary-card__content">
-            <h2 class="govuk-heading-m">Police (Custody Cells)</h2>
+            <h2 class="govuk-heading-m">Police (custody cells)</h2>
 
             {% if contactsPoliceCustodyCells and contactsPoliceCustodyCells.length > 0 %}
               {% for rec in contactsPoliceCustodyCells %}
@@ -302,7 +302,7 @@
             {% endif %}
 
             {{ govukButton({
-              text: "Add Recipient of this type",
+              text: "Add recipient of this type",
               type: "submit",
               href: policeUrl,
               attributes: { id: "add-police-custody--button" }
@@ -312,7 +312,7 @@
 
         <div class="govuk-summary-card">
           <div class="govuk-summary-card__content">
-            <h2 class="govuk-heading-m">Medical Services</h2>
+            <h2 class="govuk-heading-m">Medical services</h2>
 
             {% if contactsMedicalServices and contactsMedicalServices.length > 0 %}
               {% for rec in contactsMedicalServices %}
@@ -397,7 +397,7 @@
             {% endif %}
 
             {{ govukButton({
-              text: "Add Recipient of this type",
+              text: "Add recipient of this type",
               type: "submit",
               href: medicalUrl,
               attributes: { id: "add-medical-services--button" }
@@ -407,7 +407,7 @@
 
         <div class="govuk-summary-card">
           <div class="govuk-summary-card__content">
-            <h2 class="govuk-heading-m">Other Agency</h2>
+            <h2 class="govuk-heading-m">Other agency</h2>
 
             {% if contactsOtherAgency and contactsOtherAgency.length > 0 %}
               {% for rec in contactsOtherAgency %}
@@ -492,7 +492,7 @@
             {% endif %}
 
             {{ govukButton({
-              text: "Add Recipient of this type",
+              text: "Add recipient of this type",
               type: "submit",
               href: otherUrl,
               attributes: { id: "add-other-agencies--button" }
@@ -510,7 +510,7 @@
             }
           }) }}
           {{ govukButton({
-            text: "Save Progress and Close",
+            text: "Save progress and close",
             type: "submit",
             name: "action",
             value: "saveProgressAndClose",

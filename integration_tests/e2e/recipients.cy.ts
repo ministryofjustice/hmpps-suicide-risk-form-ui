@@ -7,18 +7,18 @@ context('Recipients Page', () => {
   it('Verify screen content with no pre-existing recipients', () => {
     cy.visit('/recipients/00000000-0000-0000-0000-000000000001')
 
-    cy.contains('Suicide Risk - Recipients').should('exist')
+    cy.contains('Recipients').should('exist')
     cy.contains('Other colleagues').should('exist')
-    cy.contains('Prison Establishment').should('exist')
-    cy.contains('Police (Custody Cells)').should('exist')
-    cy.contains('Medical Services').should('exist')
-    cy.contains('Other Agency').should('exist')
+    cy.contains('Prison establishment').should('exist')
+    cy.contains('Police (custody cells)').should('exist')
+    cy.contains('Medical services').should('exist')
+    cy.contains('Other agency').should('exist')
 
-    cy.get('#add-other-colleagues--button').should('contain.text', 'Add Recipient of this type')
-    cy.get('#add-prison-establishment--button').should('contain.text', 'Add Recipient of this type')
-    cy.get('#add-police-custody--button').should('contain.text', 'Add Recipient of this type')
-    cy.get('#add-medical-services--button').should('contain.text', 'Add Recipient of this type')
-    cy.get('#add-other-agencies--button').should('contain.text', 'Add Recipient of this type')
+    cy.get('#add-other-colleagues--button').should('contain.text', 'Add recipient of this type')
+    cy.get('#add-prison-establishment--button').should('contain.text', 'Add recipient of this type')
+    cy.get('#add-police-custody--button').should('contain.text', 'Add recipient of this type')
+    cy.get('#add-medical-services--button').should('contain.text', 'Add recipient of this type')
+    cy.get('#add-other-agencies--button').should('contain.text', 'Add recipient of this type')
 
     cy.get('p').should('contain.text', 'No Recipients of this type added')
     cy.get('p:contains("No Recipients of this type added")').should('have.length', 5)
@@ -30,10 +30,10 @@ context('Recipients Page', () => {
     cy.contains('No Recipients of this type added').should('not.exist')
 
     cy.contains('Other colleagues').should('exist')
-    cy.contains('Prison Establishment').should('exist')
-    cy.contains('Police (Custody Cells)').should('exist')
-    cy.contains('Medical Services').should('exist')
-    cy.contains('Other Agency').should('exist')
+    cy.contains('Prison establishment').should('exist')
+    cy.contains('Police (custody cells)').should('exist')
+    cy.contains('Medical services').should('exist')
+    cy.contains('Other agency').should('exist')
 
     cy.get('.govuk-summary-list').each($list => {
       cy.wrap($list).within(() => {
@@ -48,7 +48,7 @@ context('Recipients Page', () => {
     cy.contains('Click this link to edit the recipient').should('exist')
     cy.contains('Click this link to delete the recipient').should('exist')
 
-    cy.contains('Other Agency')
+    cy.contains('Other agency')
       .parent()
       .within(() => {
         cy.contains('Jason Smith').should('exist')
@@ -100,7 +100,7 @@ context('Recipients Page', () => {
         const href = $link.attr('href')
         expect(href).to.include(`/delete-recipient/${suicideRiskId}/`)
         cy.visit(href)
-        cy.contains('Are you sure you wish to delete this Recipient?').should('be.visible')
+        cy.contains('Are you sure you wish to delete this recipient?').should('be.visible')
       })
   })
   it('Check all add recipients buttons function correctly', () => {
@@ -121,7 +121,7 @@ context('Recipients Page', () => {
     cy.get('#continue-button').click()
     cy.wait('@recipientsSubmit')
     cy.url().should('include', '/sign-and-send/00000000-0000-0000-0000-000000000001')
-    cy.contains('Suicide Risk - Sign and Send').should('exist')
+    cy.contains('Sign and send').should('exist')
   })
 
   it('save and close button posts correct action', () => {
@@ -141,20 +141,20 @@ context('Recipients Page', () => {
 
     cy.get('#nav-basic-details').click()
     cy.url().should('include', '/basic-details/00000000-0000-0000-0000-300000000003')
-    cy.contains('Suicide Risk - Basic Details').should('exist')
+    cy.contains('Basic details').should('exist')
 
     cy.get('#nav-information').click()
     cy.url().should('include', '/information/00000000-0000-0000-0000-300000000003')
-    cy.contains('Suicide Risk - Information').should('exist')
+    cy.contains('Information').should('exist')
 
     cy.get('#nav-treatment').click()
     cy.url().should('include', '/treatment/00000000-0000-0000-0000-300000000003')
-    cy.contains('Suicide Risk - Treatment').should('exist')
+    cy.contains('Treatment').should('exist')
 
     cy.get('#nav-recipients-disabled').should('exist').and('have.class', 'disabled-nav')
 
     cy.get('#nav-check-your-answers').click()
     cy.url().should('include', '/check-your-answers/00000000-0000-0000-0000-300000000003')
-    cy.contains('Suicide Risk - Check Your Answers').should('exist')
+    cy.contains('Check your answers').should('exist')
   })
 })

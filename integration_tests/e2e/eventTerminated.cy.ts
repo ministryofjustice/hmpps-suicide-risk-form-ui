@@ -4,7 +4,7 @@ context('Event Terminated page', () => {
     cy.url().should('include', '/event-terminated')
     cy.get('.govuk-error-summary').should(
       'contain.text',
-      'This Document is attached to an Event that has been terminated',
+      'This document is attached to an event that has been terminated',
     )
     cy.get('#delete-button').should('exist').should('be.visible').should('contain.text', 'Delete')
     cy.get('#close-button').should('exist').should('be.visible').should('contain.text', 'Close')
@@ -23,7 +23,7 @@ context('Event Terminated page', () => {
     cy.get('#delete-button').should('exist').should('be.visible').click()
     cy.get('#confirm-button').should('exist').should('be.visible').click()
     cy.url().should('include', '/form-deleted')
-    cy.get('.govuk-panel__title').contains('Document Deleted').should('exist')
+    cy.get('.govuk-panel__title').contains('Document deleted').should('exist')
   })
 
   it('should close tab details if close button is clicked', () => {
