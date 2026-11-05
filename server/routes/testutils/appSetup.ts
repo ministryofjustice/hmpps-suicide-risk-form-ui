@@ -40,6 +40,7 @@ function appSetup(services: Services, production: boolean, userSupplier: () => H
     }
     next()
   })
+
   app.use((req, res, next) => {
     req.id = randomUUID()
     next()
@@ -47,6 +48,7 @@ function appSetup(services: Services, production: boolean, userSupplier: () => H
   app.use(express.json())
   app.use(express.urlencoded({ extended: true }))
   app.use(routes(services))
+
   app.use((req, res, next) => next(new NotFound()))
   app.use(errorHandler(production))
 
@@ -56,6 +58,7 @@ function appSetup(services: Services, production: boolean, userSupplier: () => H
 export function appWithAllRoutes({
   production = false,
   services = {
+    // @ts-expect-error: Should always have everything required
     auditService: new AuditService(null) as jest.Mocked<AuditService>,
   },
   userSupplier = () => user,

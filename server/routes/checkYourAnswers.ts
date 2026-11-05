@@ -80,7 +80,7 @@ export default function checkYourAnswersRoutes(
       suicideRisk.crn?.trim().length > 0 &&
       suicideRisk.titleAndFullName?.trim().length > 0 &&
       suicideRisk.postalAddress != null &&
-      suicideRisk.signature?.trim().length > 0 &&
+      (suicideRisk.signature == null || suicideRisk.signature?.trim().length > 0) &&
       suicideRisk.dateOfBirth?.trim().length > 0 &&
       suicideRisk.additionalInfo?.trim().length > 0 &&
       suicideRisk.currentPsychTreatment?.trim().length > 0 &&

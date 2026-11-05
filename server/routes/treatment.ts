@@ -2,18 +2,14 @@ import { Router } from 'express'
 import { AuthenticationClient } from '@ministryofjustice/hmpps-auth-clients'
 import AuditService, { Page } from '../services/auditService'
 
-import SuicideRiskApiClient, { SuicideRisk } from '../data/suicideRiskApiClient'
+import SuicideRiskApiClient from '../data/suicideRiskApiClient'
 import CommonUtils from '../services/commonUtils'
 import config from '../config'
 import ProbationOffenderSearchApiClient, {
   SearchContactResult,
   SearchContactsRequest,
-  SearchContactsResponse,
 } from '../data/probation-offender-search-api'
-import NDeliusIntegrationApiClient, {
-  ContactDocSearchResponse,
-  DocumentDetails,
-} from '../data/ndeliusIntegrationApiClient'
+import NDeliusIntegrationApiClient, { DocumentDetails, IntegrationError } from '../data/ndeliusIntegrationApiClient'
 import { ErrorMessages } from '../data/uiModels'
 import { handleIntegrationErrors } from '../utils/utils'
 
@@ -27,13 +23,13 @@ export default function treatmentRoutes(
 
   router.get('/treatment/:id', async (req, res) => {
     await auditService.logPageView(Page.TREATMENT, { who: res.locals.user.username, correlationId: req.id })
-    let suicideRisk: SuicideRisk = null
+    let suicideRisk
     const suicideRiskId: string = req.params.id
     const suicideRiskApiClient = new SuicideRiskApiClient(authenticationClient)
     try {
       suicideRisk = await suicideRiskApiClient.getSuicideRiskById(suicideRiskId, res.locals.user.username)
     } catch (error) {
-      const errorMessages: ErrorMessages = handleIntegrationErrors(error.status, error.data?.message, 'Suicide Risk')
+      const errorMessages: ErrorMessages = handleIntegrationErrors(error, 'Suicide Risk')
       const showEmbeddedError = true
       res.render(`pages/treatment`, { errorMessages, showEmbeddedError })
       return
@@ -52,14 +48,14 @@ export default function treatmentRoutes(
     const suicideRiskApiClient = new SuicideRiskApiClient(authenticationClient)
     const { currentPsychTreatment } = req.body
     const callingScreen: string = req.query.returnTo as string
-    let suicideRisk: SuicideRisk = null
+    let suicideRisk
     let errorMessages: ErrorMessages = {}
 
     // Get existing suicide risk record information
     try {
       suicideRisk = await suicideRiskApiClient.getSuicideRiskById(suicideRiskId, res.locals.user.username)
     } catch (error) {
-      errorMessages = handleIntegrationErrors(error.status, error.data?.message, 'Suicide Risk')
+      errorMessages = handleIntegrationErrors(error, 'Suicide Risk')
       const showEmbeddedError = true
       res.render(`pages/treatment`, { errorMessages, showEmbeddedError })
       return
@@ -80,9 +76,9 @@ export default function treatmentRoutes(
 
     // When using the 'Search Contacts' button
     if (req.body.action === 'searchContacts') {
-      let contactDeeplink: string = null
-      let documentsResponse: ContactDocSearchResponse = null
-      let searchResults: SearchContactsResponse = null
+      let contactDeeplink
+      let documentsResponse
+      let searchResults
 
       const probationOffenderSearchApiClient = new ProbationOffenderSearchApiClient(authenticationClient)
       const request: SearchContactsRequest = {
@@ -94,14 +90,15 @@ export default function treatmentRoutes(
         searchResults = await probationOffenderSearchApiClient.searchContacts(request, res.locals.user.username)
         contactDeeplink = `${config.ndeliusDeeplink.url}?component=Contact&CRN=${suicideRisk.crn}&componentId=`
       } catch (error) {
-        errorMessages = handleIntegrationErrors(error.status, error.data?.message, 'Probation offender search')
+        errorMessages = handleIntegrationErrors(error, 'Probation offender search')
+        const httpError: IntegrationError = error as unknown as IntegrationError
         // take the user to detailed error page for 400 type errors
-        if (error.status === 400) {
+        if (httpError.responseStatus === 400) {
           res.render(`pages/detailed-error`, { errorMessages })
           return
         }
         // stay on the current page for 500 errors
-        if (error.status === 500) {
+        if (httpError.responseStatus === 500) {
           const showEmbeddedError = true
           res.render(`pages/treatment`, { errorMessages, showEmbeddedError })
           return
@@ -133,14 +130,15 @@ export default function treatmentRoutes(
           res.locals.user.username,
         )
       } catch (error) {
-        errorMessages = handleIntegrationErrors(error.status, error.data?.message, 'NDelius Integration')
+        errorMessages = handleIntegrationErrors(errorMessages, 'NDelius Integration')
+        const httpError: IntegrationError = error as unknown as IntegrationError
         // take the user to detailed error page for 400 type errors
-        if (error.status === 400) {
+        if (httpError.responseStatus === 400) {
           res.render(`pages/detailed-error`, { errorMessages })
           return
         }
         // stay on the current page for 500 errors
-        if (error.status === 500) {
+        if (httpError.responseStatus === 500) {
           const showEmbeddedError = true
           res.render(`pages/information`, { errorMessages, showEmbeddedError })
           return

@@ -37,11 +37,7 @@ export default function eventTerminatedRoutes(
         }
         await suicideRiskApiClient.deleteSuicideRisk(id as string, res.locals.user.username)
       } catch (error) {
-        const errorMessages: ErrorMessages = handleIntegrationErrors(
-          error.responseStatus,
-          error.data?.message,
-          'Suicide Risk',
-        )
+        const errorMessages: ErrorMessages = handleIntegrationErrors(error, 'Suicide Risk')
         const showEmbeddedError = true
         res.render(`pages/detailed-error`, { errorMessages, showEmbeddedError })
         return

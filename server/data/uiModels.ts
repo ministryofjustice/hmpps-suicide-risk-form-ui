@@ -1,7 +1,7 @@
 export interface SelectItem {
-  value: string
-  text: string
-  selected: boolean
+  value: string | null | undefined
+  text: string | null | undefined
+  selected: boolean | null | undefined
 }
 
 export interface RadioButton {

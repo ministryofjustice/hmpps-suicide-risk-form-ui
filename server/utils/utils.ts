@@ -1,6 +1,5 @@
 import { ErrorMessages, SelectItem } from '../data/uiModels'
-import { DeliusAddress, Name } from '../data/ndeliusIntegrationApiClient'
-import { SuicideRiskAddress } from '../data/suicideRiskApiClient'
+import { DeliusAddress, IntegrationError, Name } from '../data/ndeliusIntegrationApiClient'
 
 const properCase = (word: string): string =>
   word.length >= 1 ? word[0].toUpperCase() + word.toLowerCase().slice(1) : word
@@ -26,7 +25,11 @@ export const initialiseName = (fullName?: string): string | null => {
   return `${array[0][0]}. ${array.reverse()[0]}`
 }
 
-export function handleIntegrationErrors(status: number, message: string, integrationService: string): ErrorMessages {
+export function handleIntegrationErrors(error: unknown, integrationService: string): ErrorMessages {
+  const httpError: IntegrationError = error as unknown as IntegrationError
+  const status = httpError.responseStatus
+  const message = httpError.data?.message
+
   const errorMessages: ErrorMessages = {}
   if (status === 400) {
     if (message?.includes('No home area found')) {
@@ -63,7 +66,7 @@ export function handleIntegrationErrors(status: number, message: string, integra
   return errorMessages
 }
 
-export function findDefaultAddressInAddressList(addressList: Array<DeliusAddress>): DeliusAddress {
+export function findDefaultAddressInAddressList(addressList: Array<DeliusAddress>) {
   if (!Array.isArray(addressList) || addressList.length === 0) {
     return null
   }
@@ -71,7 +74,7 @@ export function findDefaultAddressInAddressList(addressList: Array<DeliusAddress
   const parseDate = (date?: string): number => (date ? Date.parse(date) || 0 : 0)
 
   const latestByStatus = (status: string): DeliusAddress =>
-    addressList.filter(a => a.status === status).sort((a, b) => parseDate(b.startDate) - parseDate(a.startDate))[0]
+    addressList.filter(a => a.status === status).sort((a, b) => parseDate(b.startDate!) - parseDate(a.startDate!))[0]
 
   // Return the latest address from start date with the following priority for statuses:
   // Postal → Main → None (Displays No Fixed Abode)
@@ -104,7 +107,7 @@ export function formatTitleAndFullName(title: string, name: Name): string {
   return [title, name.forename, name.middleName, name.surname].filter(Boolean).join(' ')
 }
 
-export function toSuicideRiskAddress(deliusAddress: DeliusAddress): SuicideRiskAddress {
+export function toSuicideRiskAddress(deliusAddress: DeliusAddress | null | undefined) {
   if (!deliusAddress) {
     return null
   }
@@ -122,7 +125,7 @@ export function toSuicideRiskAddress(deliusAddress: DeliusAddress): SuicideRiskA
   }
 }
 
-export function formatAddressForSelectMenuDisplay(deliusAddress: DeliusAddress): string {
+export function formatAddressForSelectMenuDisplay(deliusAddress: DeliusAddress | null | undefined) {
   if (deliusAddress) {
     return [
       deliusAddress.officeDescription,
@@ -144,17 +147,11 @@ export function formatAddressForSelectMenuDisplay(deliusAddress: DeliusAddress):
 
 export function arrangeSelectItemListAlphabetically(selectItemsToSort: SelectItem[]): SelectItem[] {
   if (selectItemsToSort) {
-    return selectItemsToSort.sort((a, b) => a?.text.localeCompare(b?.text, 'en', { numeric: true }))
+    return selectItemsToSort.sort((a, b) => {
+      const textA = a?.text ?? ''
+      const textB = b?.text ?? ''
+      return textA.localeCompare(textB, 'en', { numeric: true })
+    })
   }
   return selectItemsToSort
-}
-
-export function removeDeliusAddressFromDeliusAddressList(
-  deliusAddressList: DeliusAddress[],
-  defaultAddress: DeliusAddress,
-): DeliusAddress[] {
-  if (defaultAddress && deliusAddressList) {
-    return deliusAddressList.filter(obj => obj.id !== defaultAddress.id)
-  }
-  return deliusAddressList
 }

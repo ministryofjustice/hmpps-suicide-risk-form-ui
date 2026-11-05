@@ -7,7 +7,7 @@ import AssessRiskAndNeedsApiClient, { RiskAssessment } from '../data/assessRiskA
 import { ErrorMessages } from '../data/uiModels'
 import { handleIntegrationErrors } from '../utils/utils'
 import config from '../config'
-import NDeliusIntegrationApiClient, { Registration } from '../data/ndeliusIntegrationApiClient'
+import NDeliusIntegrationApiClient, { IntegrationError, Registration } from '../data/ndeliusIntegrationApiClient'
 import CommonUtils from '../services/commonUtils'
 
 export default function informationRoutes(
@@ -23,13 +23,13 @@ export default function informationRoutes(
     const assessRiskAndNeedsApiClient = new AssessRiskAndNeedsApiClient(authenticationClient)
     const suicideRiskApiClient = new SuicideRiskApiClient(authenticationClient)
     const integrationApiClient = new NDeliusIntegrationApiClient(authenticationClient)
-    let errorMessages: ErrorMessages = null
+    let errorMessages: ErrorMessages
     const suicideRiskId = req.params.id
-    let crn = null
-    let suicideRisk: SuicideRisk = null
-    let riskAssessment: RiskAssessment = null
-    let registration: Registration = null
-    let registrationDeeplink = null
+    let crn
+    let suicideRisk: SuicideRisk
+    let riskAssessment: RiskAssessment | null | undefined
+    let registration: Registration | null
+    let registrationDeeplink
 
     try {
       // get existing suicide risk and use crn for calls to other services
@@ -37,7 +37,7 @@ export default function informationRoutes(
       crn = suicideRisk.crn
       registrationDeeplink = `${config.ndeliusDeeplink.url}?component=RegisterSummary&CRN=${crn}`
     } catch (error) {
-      errorMessages = handleIntegrationErrors(error.status, error.data?.message, 'Suicide Risk')
+      errorMessages = handleIntegrationErrors(error, 'Suicide Risk')
       const showEmbeddedError = true
       res.render(`pages/information`, { errorMessages, showEmbeddedError })
       return
@@ -49,17 +49,16 @@ export default function informationRoutes(
       // get risk assessment from assess risk and needs service
       riskAssessment = await assessRiskAndNeedsApiClient.getRisksSummary(crn, res.locals.user.username)
     } catch (error) {
-      if (error.responseStatus === 404 || error.status === 404) {
-        riskAssessment = null
-      } else {
-        errorMessages = handleIntegrationErrors(error.status, error.data?.message, 'Hmpps Assess Risk and Needs')
+      const httpError: IntegrationError = error as unknown as IntegrationError
+      if (httpError.responseStatus !== 404) {
+        errorMessages = handleIntegrationErrors(error, 'Hmpps Assess Risk and Needs')
         // take the user to detailed error page for 400 type errors
-        if (error.status === 400) {
+        if (httpError.responseStatus === 400) {
           res.render(`pages/detailed-error`, { errorMessages })
           return
         }
         // stay on the current page for 500 errors
-        if (error.status === 500) {
+        if (httpError.responseStatus === 500) {
           const showEmbeddedError = true
           res.render(`pages/information`, { errorMessages, showEmbeddedError })
           return
@@ -75,14 +74,15 @@ export default function informationRoutes(
       registration = response.registration ?? null
     } catch (error) {
       // get risk assessment from assess risk and needs service
-      errorMessages = handleIntegrationErrors(error.status, error.data?.message, 'NDelius Integration')
+      errorMessages = handleIntegrationErrors(error, 'NDelius Integration')
+      const httpError: IntegrationError = error as unknown as IntegrationError
       // take the user to detailed error page for 400 type errors
-      if (error.status === 400) {
+      if (httpError.responseStatus === 400) {
         res.render(`pages/detailed-error`, { errorMessages })
         return
       }
       // stay on the current page for 500 errors
-      if (error.status === 500) {
+      if (httpError.responseStatus === 500) {
         const showEmbeddedError = true
         res.render(`pages/information`, { errorMessages, showEmbeddedError })
         return
@@ -112,14 +112,14 @@ export default function informationRoutes(
 
   router.post('/information/:id', async (req, res) => {
     const suicideRiskId: string = req.params.id
-    let crn = null
+    let crn
     const suicideRiskApiClient = new SuicideRiskApiClient(authenticationClient)
     const assessRiskAndNeedsApiClient = new AssessRiskAndNeedsApiClient(authenticationClient)
     const integrationApiClient = new NDeliusIntegrationApiClient(authenticationClient)
-    let suicideRisk: SuicideRisk = null
-    let riskAssessment: RiskAssessment = null
-    let registrationDeeplink = null
-    let registration: Registration = null
+    let suicideRisk: SuicideRisk
+    let riskAssessment: RiskAssessment | null | undefined
+    let registrationDeeplink
+    let registration: Registration | null | undefined
     const { additionalInfo } = req.body
     const callingScreen: string = req.query.returnTo as string
     let errorMessages: ErrorMessages = {}
@@ -130,7 +130,7 @@ export default function informationRoutes(
       crn = suicideRisk.crn
       registrationDeeplink = `${config.ndeliusDeeplink.url}?component=RegisterSummary&CRN=${crn}`
     } catch (error) {
-      errorMessages = handleIntegrationErrors(error.status, error.data?.message, 'Suicide Risk')
+      errorMessages = handleIntegrationErrors(error, 'Suicide Risk')
       const showEmbeddedError = true
       res.render(`pages/information`, { errorMessages, showEmbeddedError })
       return
@@ -140,17 +140,16 @@ export default function informationRoutes(
       // get risk assessment from assess risk and needs service
       riskAssessment = await assessRiskAndNeedsApiClient.getRisksSummary(crn, res.locals.user.username)
     } catch (error) {
-      if (error.responseStatus === 404 || error.status === 404) {
-        riskAssessment = null
-      } else {
-        errorMessages = handleIntegrationErrors(error.status, error.data?.message, 'Hmpps Assess Risk and Needs')
+      const httpError: IntegrationError = error as unknown as IntegrationError
+      if (httpError.responseStatus !== 404) {
+        errorMessages = handleIntegrationErrors(error, 'Hmpps Assess Risk and Needs')
         // take the user to detailed error page for 400 type errors
-        if (error.status === 400) {
+        if (httpError.responseStatus === 400) {
           res.render(`pages/detailed-error`, { errorMessages })
           return
         }
         // stay on the current page for 500 errors
-        if (error.status === 500) {
+        if (httpError.responseStatus === 500) {
           const showEmbeddedError = true
           res.render(`pages/information`, { errorMessages, showEmbeddedError })
           return
@@ -166,14 +165,15 @@ export default function informationRoutes(
       registration = response.registration ?? null
     } catch (error) {
       // get risk assessment from assess risk and needs service
-      errorMessages = handleIntegrationErrors(error.status, error.data?.message, 'NDelius Integration')
+      errorMessages = handleIntegrationErrors(error, 'NDelius Integration')
+      const httpError: IntegrationError = error as unknown as IntegrationError
       // take the user to detailed error page for 400 type errors
-      if (error.status === 400) {
+      if (httpError.responseStatus === 400) {
         res.render(`pages/detailed-error`, { errorMessages })
         return
       }
       // stay on the current page for 500 errors
-      if (error.status === 500) {
+      if (httpError.responseStatus === 500) {
         const showEmbeddedError = true
         res.render(`pages/information`, { errorMessages, showEmbeddedError })
         return
