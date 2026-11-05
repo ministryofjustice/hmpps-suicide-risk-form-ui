@@ -102,7 +102,7 @@ export interface SuicideRisk {
   sheetSentBy: string | null
   telephoneNumber: string
   officerEmailAddress: string
-  signature: string | null| undefined
+  signature: string | null | undefined
   signedByRo: boolean | null
   completedDate: ZonedDateTime
   natureOfRisk: string

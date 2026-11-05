@@ -25,10 +25,7 @@ export default function pdfMaintenanceRoutes(
       res.setHeader('Content-Disposition', `filename="suicide_risk_form_${suicideRisk.crn}_draft.pdf"`)
       res.send(stream)
     } catch (error) {
-      const errorMessages: ErrorMessages = handleIntegrationErrors(
-        error,
-        'NDelius Integration',
-      )
+      const errorMessages: ErrorMessages = handleIntegrationErrors(error, 'NDelius Integration')
 
       res.render(`pages/pdf-generation-failed`, { errorMessages })
     }

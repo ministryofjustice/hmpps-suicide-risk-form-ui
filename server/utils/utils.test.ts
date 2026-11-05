@@ -43,9 +43,8 @@ describe('findDefaultAddressInAddressList', () => {
     expect(findDefaultAddressInAddressList(list)?.id).toBe(2)
   })
   it('returns null when neither exists or list empty', () => {
-
     // @ts-expect-error: allow null to be passed for a test
-    let addressList: Array<DeliusAddress> = null
+    const addressList: Array<DeliusAddress> = null
     expect(findDefaultAddressInAddressList([addr(1, 'Other', '2020-01-01')])).toBeNull()
     expect(findDefaultAddressInAddressList([])).toBeNull()
     expect(findDefaultAddressInAddressList(addressList)).toBeNull()

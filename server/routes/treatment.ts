@@ -9,10 +9,7 @@ import ProbationOffenderSearchApiClient, {
   SearchContactResult,
   SearchContactsRequest,
 } from '../data/probation-offender-search-api'
-import NDeliusIntegrationApiClient, {
-  DocumentDetails,
-  IntegrationError,
-} from '../data/ndeliusIntegrationApiClient'
+import NDeliusIntegrationApiClient, { DocumentDetails, IntegrationError } from '../data/ndeliusIntegrationApiClient'
 import { ErrorMessages } from '../data/uiModels'
 import { handleIntegrationErrors } from '../utils/utils'
 
