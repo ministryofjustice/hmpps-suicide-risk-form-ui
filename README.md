@@ -13,7 +13,7 @@ Dev: https://github.com/ministryofjustice/hmpps-suicide-risk-form-ui
 
 You'll need to install:
 
-* [Node 22.x](https://nodejs.org/download/release/latest-v22.x)*
+* [Node 26.x](https://nodejs.org/download/release/latest-v22.x)*
 * [Docker](https://www.docker.com/)
 
 *If you're already using [nvm](https://github.com/nvm-sh/nvm) or [fnm](https://github.com/Schniz/fnm), run:

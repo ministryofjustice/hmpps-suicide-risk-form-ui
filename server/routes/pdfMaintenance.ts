@@ -26,8 +26,7 @@ export default function pdfMaintenanceRoutes(
       res.send(stream)
     } catch (error) {
       const errorMessages: ErrorMessages = handleIntegrationErrors(
-        error.status,
-        error.data?.message,
+        error,
         'NDelius Integration',
       )
 

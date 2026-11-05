@@ -99,11 +99,11 @@ export interface SuicideRisk {
   crn: string
   titleAndFullName: string
   dateOfLetter: string
-  sheetSentBy: string
+  sheetSentBy: string | null
   telephoneNumber: string
   officerEmailAddress: string
-  signature: string
-  signedByRo: boolean
+  signature: string | null| undefined
+  signedByRo: boolean | null
   completedDate: ZonedDateTime
   natureOfRisk: string
   riskIsGreatestWhen: string
@@ -111,10 +111,10 @@ export interface SuicideRisk {
   riskDecreasesWhen: string
   additionalInfo: string
   currentPsychTreatment: string
-  postalAddress: SuicideRiskAddress
+  postalAddress: SuicideRiskAddress | null
   dateOfBirth: string
   nomsNumber: string
-  workAddress: SuicideRiskAddress
+  workAddress: SuicideRiskAddress | null | undefined
   basicDetailsSaved: boolean
   informationSaved: boolean
   treatmentSaved: boolean
@@ -128,28 +128,28 @@ export interface SuicideRisk {
 }
 
 export interface SuicideRiskContact {
-  id: string
-  suicideRiskId: string
-  contactDate: string
-  contactTypeDescription: string
-  contactPerson: string
+  id: string | null
+  suicideRiskId: string | null
+  contactDate: string | null
+  contactTypeDescription: string | null
+  contactPerson: string | null
   contactLocation: SuicideRiskAddress
-  emailAddress: string
-  formSent: boolean
-  sendFormManually: boolean
-  sendFormViaEmail: boolean
+  emailAddress: string | null
+  formSent: boolean | null
+  sendFormManually: boolean | null
+  sendFormViaEmail: boolean | null
 }
 
 export interface SuicideRiskAddress {
-  id?: string
-  addressId: number
-  status: string
-  officeDescription?: string
-  buildingName: string
-  buildingNumber: string
-  streetName: string
-  townCity: string
-  district: string
-  county: string
-  postcode: string
+  id?: string | null | undefined
+  addressId: number | null | undefined
+  status: string | null
+  officeDescription?: string | null
+  buildingName: string | null
+  buildingNumber: string | null
+  streetName: string | null
+  townCity: string | null
+  district: string | null
+  county: string | null
+  postcode: string | null
 }

@@ -5,6 +5,7 @@ import AuditService, { Page } from '../services/auditService'
 import SuicideRiskApiClient, { SuicideRisk } from '../data/suicideRiskApiClient'
 import { ErrorMessages } from '../data/uiModels'
 import { handleIntegrationErrors } from '../utils/utils'
+import { IntegrationError } from '../data/ndeliusIntegrationApiClient'
 
 export default function confirmDeleteRoutes(
   router: Router,
@@ -37,10 +38,11 @@ export default function confirmDeleteRoutes(
         }
         await suicideRiskApiClient.deleteSuicideRisk(suicideRiskId, res.locals.user.username)
       } catch (error) {
-        const errorMessages: ErrorMessages = handleIntegrationErrors(error.status, error.data?.message, 'Suicide Risk')
+        const errorMessages: ErrorMessages = handleIntegrationErrors(error, 'Suicide Risk')
         const showEmbeddedError = true
+        const httpError: IntegrationError = error as unknown as IntegrationError
         // take the user to detailed error page for 404
-        if (error.responseStatus === 404 || error.status === 404) {
+        if (httpError.responseStatus === 404) {
           res.render(`pages/detailed-error`, { errorMessages })
           return
         }

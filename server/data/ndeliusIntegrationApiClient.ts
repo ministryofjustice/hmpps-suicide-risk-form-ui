@@ -126,17 +126,17 @@ export interface EmailRecipientData {
 }
 
 export interface DeliusAddress {
-  id: number
-  status: string
-  officeDescription?: string
-  buildingName: string
-  buildingNumber: string
-  streetName: string
-  townCity: string
-  district: string
-  county: string
-  postcode: string
-  startDate: string
+  id: number | null | undefined
+  status: string | null
+  officeDescription?: string | null
+  buildingName: string | null
+  buildingNumber: string | null
+  streetName: string | null
+  townCity: string | null
+  district: string | null
+  county: string | null
+  postcode: string | null
+  startDate: string | null
 }
 
 export interface PersonDetails {
@@ -163,4 +163,11 @@ export interface RegistrationResponse {
 export interface ReferenceData {
   code: string
   description: string
+}
+
+export interface IntegrationError {
+  responseStatus?: number
+  data?: {
+    message?: string
+  }
 }

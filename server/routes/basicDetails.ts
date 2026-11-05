@@ -2,8 +2,8 @@ import { Router } from 'express'
 import { AuthenticationClient } from '@ministryofjustice/hmpps-auth-clients'
 import AuditService, { Page } from '../services/auditService'
 
-import SuicideRiskApiClient, { SuicideRisk, SuicideRiskAddress } from '../data/suicideRiskApiClient'
-import NDeliusIntegrationApiClient, { BasicDetails, DeliusAddress } from '../data/ndeliusIntegrationApiClient'
+import SuicideRiskApiClient, { SuicideRisk } from '../data/suicideRiskApiClient'
+import NDeliusIntegrationApiClient, { BasicDetails, IntegrationError } from '../data/ndeliusIntegrationApiClient'
 import {
   findDefaultAddressInAddressList,
   formatTitleAndFullName,
@@ -29,8 +29,8 @@ export default function basicDetailsRoutes(
     const ndeliusIntegrationApiClient = new NDeliusIntegrationApiClient(authenticationClient)
 
     const suicideRiskId: string = req.params.id
-    let suicideRisk: SuicideRisk = null
-    let basicDetails: BasicDetails = null
+    let suicideRisk: SuicideRisk
+    let basicDetails: BasicDetails
 
     try {
       suicideRisk = await suicideRiskApiClient.getSuicideRiskById(suicideRiskId, res.locals.user.username)
@@ -43,20 +43,17 @@ export default function basicDetailsRoutes(
         return
       }
     } catch (error) {
-      const errorMessages: ErrorMessages = handleIntegrationErrors(
-        error?.data?.status,
-        error?.data?.userMessage,
-        'Suicide Risk',
-      )
+      const errorMessages: ErrorMessages = handleIntegrationErrors(error, 'Suicide Risk')
+      const httpError: IntegrationError = error as unknown as IntegrationError
 
       // Navigate to the detailed error page on 400
-      if (error?.data?.status === 400) {
+      if (httpError.responseStatus === 400) {
         res.render(`pages/detailed-error`, { errorMessages })
         return
       }
 
       // Navigate to the detailed error page on 404
-      if (error?.data?.status === 404) {
+      if (httpError.responseStatus === 404) {
         res.render(`pages/detailed-error`, { errorMessages })
         return
       }
@@ -71,19 +68,16 @@ export default function basicDetailsRoutes(
     try {
       basicDetails = await ndeliusIntegrationApiClient.getBasicDetails(suicideRisk.crn, res.locals.user.username)
     } catch (error) {
-      const errorMessages: ErrorMessages = handleIntegrationErrors(
-        error.status,
-        error.data?.message,
-        'NDelius Integration',
-      )
+      const errorMessages: ErrorMessages = handleIntegrationErrors(error, 'NDelius Integration')
+      const httpError: IntegrationError = error as unknown as IntegrationError
       // take the user to detailed error page for 400 type errors
-      if (error.status === 400) {
+      if (httpError.responseStatus === 400) {
         res.render(`pages/detailed-error`, { errorMessages })
         return
       }
 
       // stay on the current page for 500 errors
-      if (error.status === 500) {
+      if (httpError.responseStatus === 500) {
         const showEmbeddedError = true
         res.render(`pages/basic-details`, { errorMessages, showEmbeddedError })
         return
@@ -94,7 +88,7 @@ export default function basicDetailsRoutes(
 
     const age = calculateAge(basicDetails.dateOfBirth)
     const formattedDob = toFullUserDate(basicDetails.dateOfBirth)
-    const defaultAddress: DeliusAddress = findDefaultAddressInAddressList(basicDetails.addresses)
+    const defaultAddress = findDefaultAddressInAddressList(basicDetails.addresses)
     const titleAndFullName: string = formatTitleAndFullName(basicDetails.title, basicDetails.name)
     const { nomsNumber } = basicDetails
     const addressDeeplink = `${config.ndeliusDeeplink.url}?component=AddressandAccommodation&CRN=${suicideRisk.crn}`
@@ -119,13 +113,13 @@ export default function basicDetailsRoutes(
     const callingScreen: string = req.query.returnTo as string
 
     const suicideRiskId: string = req.params.id
-    let suicideRisk: SuicideRisk = null
-    let basicDetails: BasicDetails = null
+    let suicideRisk: SuicideRisk
+    let basicDetails: BasicDetails
 
     try {
       suicideRisk = await suicideRiskApiClient.getSuicideRiskById(suicideRiskId, res.locals.user.username)
     } catch (error) {
-      const errorMessages: ErrorMessages = handleIntegrationErrors(error.status, error.data?.message, 'Suicide Risk')
+      const errorMessages: ErrorMessages = handleIntegrationErrors(error, 'Suicide Risk')
       const showEmbeddedError = true
       res.render(`pages/basic-details`, { errorMessages, showEmbeddedError })
       return
@@ -134,18 +128,15 @@ export default function basicDetailsRoutes(
     try {
       basicDetails = await ndeliusIntegrationApiClient.getBasicDetails(suicideRisk.crn, res.locals.user.username)
     } catch (error) {
-      const errorMessages: ErrorMessages = handleIntegrationErrors(
-        error.status,
-        error.data?.message,
-        'NDelius Integration',
-      )
+      const errorMessages: ErrorMessages = handleIntegrationErrors(error, 'NDelius Integration')
+      const httpError: IntegrationError = error as unknown as IntegrationError
       // take the user to detailed error page for 400 type errors
-      if (error.status === 400) {
+      if (httpError.responseStatus === 400) {
         res.render(`pages/detailed-error`, { errorMessages })
         return
       }
       // stay on the current page for 500 errors
-      if (error.status === 500) {
+      if (httpError.responseStatus === 500) {
         const showEmbeddedError = true
         res.render(`pages/basic-details`, { errorMessages, showEmbeddedError })
         return
@@ -154,8 +145,8 @@ export default function basicDetailsRoutes(
       return
     }
 
-    const defaultAddress: DeliusAddress = findDefaultAddressInAddressList(basicDetails.addresses)
-    const suicideRiskDefaultAddress: SuicideRiskAddress = toSuicideRiskAddress(defaultAddress)
+    const defaultAddress = findDefaultAddressInAddressList(basicDetails.addresses)
+    const suicideRiskDefaultAddress = toSuicideRiskAddress(defaultAddress)
     const titleAndFullName: string = formatTitleAndFullName(basicDetails.title, basicDetails.name)
     const { nomsNumber } = basicDetails
 

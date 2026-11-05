@@ -4,7 +4,6 @@ import AuditService, { Page } from '../services/auditService'
 
 import SuicideRiskApiClient, { SuicideRisk } from '../data/suicideRiskApiClient'
 import CommonUtils from '../services/commonUtils'
-import { ErrorMessages } from '../data/uiModels'
 import { handleIntegrationErrors } from '../utils/utils'
 
 export default function recipientsRoutes(
@@ -66,14 +65,14 @@ export default function recipientsRoutes(
     const suicideRiskId: string = req.params.id
     const suicideRiskApiClient = new SuicideRiskApiClient(authenticationClient)
     const callingScreen: string = req.query.returnTo as string
-    let suicideRisk: SuicideRisk = null
-    let errorMessages: ErrorMessages = {}
+    let suicideRisk: SuicideRisk
+    let errorMessages
 
     // Get existing suicide risk record information
     try {
       suicideRisk = await suicideRiskApiClient.getSuicideRiskById(suicideRiskId, res.locals.user.username)
     } catch (error) {
-      errorMessages = handleIntegrationErrors(error.status, error.data?.message, 'Suicide Risk')
+      errorMessages = handleIntegrationErrors(error, 'Suicide Risk')
       const showEmbeddedError = true
       res.render(`pages/recipients`, { errorMessages, showEmbeddedError })
       return

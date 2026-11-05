@@ -6,7 +6,7 @@ import SuicideRiskApiClient, { SuicideRisk, SuicideRiskAddress, SuicideRiskConta
 import CommonUtils from '../services/commonUtils'
 import { ErrorMessages } from '../data/uiModels'
 import { handleIntegrationErrors } from '../utils/utils'
-import NDeliusIntegrationApiClient, { EmailRecipientData } from '../data/ndeliusIntegrationApiClient'
+import NDeliusIntegrationApiClient, { EmailRecipientData, IntegrationError } from '../data/ndeliusIntegrationApiClient'
 
 export default function recipientsRoutes(
   router: Router,
@@ -20,15 +20,15 @@ export default function recipientsRoutes(
     await auditService.logPageView(Page.RECIPIENT_DETAILS, { who: res.locals.user.username, correlationId: req.id })
     const suicideRiskId: string = req.params.id
     const { recipientId, contactType } = req.query
-    let recipient = null
+    let recipient
 
     const suicideRiskApiClient = new SuicideRiskApiClient(authenticationClient)
-    let suicideRisk: SuicideRisk = null
+    let suicideRisk: SuicideRisk
 
     try {
       suicideRisk = await suicideRiskApiClient.getSuicideRiskById(suicideRiskId, res.locals.user.username)
     } catch (error) {
-      const errorMessages: ErrorMessages = handleIntegrationErrors(error.status, error.data?.message, 'Suicide Risk')
+      const errorMessages: ErrorMessages = handleIntegrationErrors(error, 'Suicide Risk')
       const showEmbeddedError = true
       res.render(`pages/recipient-details`, { errorMessages, showEmbeddedError })
       return
@@ -54,7 +54,7 @@ export default function recipientsRoutes(
           contactTypeDescription,
         })
       } catch (error) {
-        const errorMessages: ErrorMessages = handleIntegrationErrors(error.status, error.data?.message, 'Suicide Risk')
+        const errorMessages: ErrorMessages = handleIntegrationErrors(error, 'Suicide Risk')
         const showEmbeddedError = true
         res.render(`pages/recipient-details`, { errorMessages, showEmbeddedError })
       }
@@ -74,7 +74,7 @@ export default function recipientsRoutes(
     const { recipientId, contactType } = req.query
     const callingScreen: string = req.query.returnTo as string
     const suicideRiskApiClient = new SuicideRiskApiClient(authenticationClient)
-    let suicideRisk: SuicideRisk = null
+    let suicideRisk: SuicideRisk
     let recipient = null
     let allowedEmailList: string[] = []
 
@@ -90,7 +90,7 @@ export default function recipientsRoutes(
     try {
       suicideRisk = await suicideRiskApiClient.getSuicideRiskById(suicideRiskId, res.locals.user.username)
     } catch (error) {
-      const errorMessages: ErrorMessages = handleIntegrationErrors(error.status, error.data?.message, 'Suicide Risk')
+      const errorMessages: ErrorMessages = handleIntegrationErrors(error, 'Suicide Risk')
       const showEmbeddedError = true
       return res.render(`pages/recipient-details`, { errorMessages, showEmbeddedError })
     }
@@ -109,18 +109,15 @@ export default function recipientsRoutes(
         allowedEmailList = emailRecipientData.authorisedEmails.map(({ description }) => description)
       }
     } catch (error) {
-      const errorMessages: ErrorMessages = handleIntegrationErrors(
-        error.status,
-        error.data?.message,
-        'NDelius Integration',
-      )
+      const errorMessages: ErrorMessages = handleIntegrationErrors(error, 'NDelius Integration')
+      const httpError: IntegrationError = error as unknown as IntegrationError
       // take the user to detailed error page for 400 type errors
-      if (error.status === 400) {
+      if (httpError.responseStatus === 400) {
         return res.render(`pages/detailed-error`, { errorMessages })
       }
 
       // stay on the current page for 500 errors
-      if (error.status === 500) {
+      if (httpError.responseStatus === 500) {
         const showEmbeddedError = true
         return res.render(`pages/recipient-details`, { errorMessages, showEmbeddedError })
       }
@@ -135,7 +132,7 @@ export default function recipientsRoutes(
           res.locals.user.username,
         )
       } catch (error) {
-        const errorMessages: ErrorMessages = handleIntegrationErrors(error.status, error.data?.message, 'Suicide Risk')
+        const errorMessages: ErrorMessages = handleIntegrationErrors(error, 'Suicide Risk')
         const showEmbeddedError = true
         return res.render(`pages/recipient-details`, { errorMessages, showEmbeddedError })
       }
@@ -190,7 +187,7 @@ export default function recipientsRoutes(
       }
       return res.redirect(redirectUrl)
     } catch (error) {
-      const integrationErrorMessages = handleIntegrationErrors(error.status, error.data?.message, 'Suicide Risk')
+      const integrationErrorMessages = handleIntegrationErrors(error, 'Suicide Risk')
       const showEmbeddedError = true
       return res.render('pages/recipient-details', {
         errorMessages,
@@ -270,7 +267,7 @@ export default function recipientsRoutes(
   }
 
   function validateLength(
-    fieldValue: string,
+    fieldValue: string | undefined | null,
     fieldName: keyof typeof FIELD_LIMITS,
     label: string,
     errorMessages: ErrorMessages,
@@ -332,7 +329,10 @@ export default function recipientsRoutes(
     return errorMessages
   }
 
-  function createDefaultRecipient(suicideRiskId: string, contactTypeDescription?: string): SuicideRiskContact {
+  function createDefaultRecipient(
+    suicideRiskId: string,
+    contactTypeDescription?: string | null | undefined,
+  ): SuicideRiskContact {
     return {
       id: null,
       suicideRiskId,

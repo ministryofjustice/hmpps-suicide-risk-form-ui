@@ -13,6 +13,7 @@ import {
 } from '../utils/utils'
 import NDeliusIntegrationApiClient, {
   DeliusAddress,
+  IntegrationError,
   PersonDetails,
   ResponsibleOfficerDetails,
   SignAndSendDetails,
@@ -35,11 +36,11 @@ export default function signAndSendRoutes(
     const ndeliusIntegrationApiClient = new NDeliusIntegrationApiClient(authenticationClient)
     const currentUserDisplayName = res.locals.user.displayName
     let errorMessages: ErrorMessages = {}
-    let suicideRisk: SuicideRisk = null
+    let suicideRisk: SuicideRisk
     try {
       suicideRisk = await suicideRiskApiClient.getSuicideRiskById(suicideRiskId, res.locals.user.username)
     } catch (error) {
-      errorMessages = handleIntegrationErrors(error.status, error.data?.message, 'Suicide Risk')
+      errorMessages = handleIntegrationErrors(error, 'Suicide Risk')
       const showEmbeddedError = true
       res.render(`pages/basic-details`, { errorMessages, showEmbeddedError })
       return
@@ -47,22 +48,23 @@ export default function signAndSendRoutes(
 
     if (await commonUtils.redirectRequired(suicideRisk, suicideRiskId, res, authenticationClient)) return
 
-    let signAndSendDetails: SignAndSendDetails = null
+    let signAndSendDetails: SignAndSendDetails
     try {
       signAndSendDetails = await ndeliusIntegrationApiClient.getSignAndSendDetails(
         suicideRisk.crn,
         res.locals.user.username,
       )
     } catch (error) {
-      errorMessages = handleIntegrationErrors(error.status, error.data?.message, 'NDelius Integration')
+      errorMessages = handleIntegrationErrors(error, 'NDelius Integration')
+      const httpError: IntegrationError = error as unknown as IntegrationError
       // take the user to detailed error page for 400 type errors
-      if (error.status === 400) {
+      if (httpError.responseStatus === 400) {
         res.render(`pages/detailed-error`, { errorMessages })
         return
       }
 
       // stay on the current page for 500 errors
-      if (error.status === 500) {
+      if (httpError.responseStatus === 500) {
         const showEmbeddedError = true
         res.render(`pages/sign-and-send`, { errorMessages, showEmbeddedError })
         return
@@ -80,7 +82,7 @@ export default function signAndSendRoutes(
       suicideRisk.officerEmailAddress = signAndSendDetails.responsibleOfficer.emailAddress
     }
 
-    let defaultAddress: DeliusAddress = null
+    let defaultAddress: DeliusAddress | null | undefined
     let onlyAlternateAddressesAvailable: boolean = false
     if (suicideRisk.workAddress == null && signAndSendDetails.responsibleOfficer?.addresses != null) {
       defaultAddress = signAndSendDetails.responsibleOfficer?.addresses?.find(record => record.status === 'Default')
@@ -154,16 +156,16 @@ export default function signAndSendRoutes(
     const formSentBy: string = req.body.whoIsSendingTheForm || null
     const officerEmailAddress: string = req.body.officerEmailAddress || null
     const officerTelephoneNumber: string = req.body.officerTelephoneNumber || null
-    let suicideRisk: SuicideRisk = null
+    let suicideRisk: SuicideRisk
     let errorMessages: ErrorMessages = {}
-    let signAndSendDetails: SignAndSendDetails = null
-    let formSigned: boolean = null
+    let signAndSendDetails: SignAndSendDetails
+    let formSigned: boolean
 
     try {
       suicideRisk = await suicideRiskApiClient.getSuicideRiskById(suicideRiskId, res.locals.user.username)
       formSigned = suicideRisk.signature != null && suicideRisk.signature.length > 0
     } catch (error) {
-      errorMessages = handleIntegrationErrors(error.status, error.data?.message, 'Suicide Risk')
+      errorMessages = handleIntegrationErrors(error, 'Suicide Risk')
       const showEmbeddedError = true
       res.render(`pages/sign-and-send`, { errorMessages, showEmbeddedError })
       return
@@ -175,15 +177,16 @@ export default function signAndSendRoutes(
         res.locals.user.username,
       )
     } catch (error) {
-      errorMessages = handleIntegrationErrors(error.status, error.data?.message, 'NDelius Integration')
+      errorMessages = handleIntegrationErrors(error, 'NDelius Integration')
+      const httpError: IntegrationError = error as unknown as IntegrationError
       // take the user to detailed error page for 400 type errors
-      if (error.status === 400) {
+      if (httpError.responseStatus === 400) {
         res.render(`pages/detailed-error`, { errorMessages })
         return
       }
 
       // stay on the current page for 500 errors
-      if (error.status === 500) {
+      if (httpError.responseStatus === 500) {
         const showEmbeddedError = true
         res.render(`pages/sign-and-send`, { errorMessages, showEmbeddedError })
         return
@@ -265,7 +268,7 @@ export default function signAndSendRoutes(
           signAndSendDetails.responsibleOfficer?.addresses != null
         ) {
           const addressPresent = signAndSendDetails.responsibleOfficer.addresses?.find(
-            record => record.id === suicideRisk.workAddress.addressId,
+            record => record.id === suicideRisk.workAddress?.addressId,
           )
           if (addressPresent == null) {
             suicideRisk.workAddress = null
@@ -284,7 +287,7 @@ export default function signAndSendRoutes(
           manualAddressAllowed = true
         }
 
-        let defaultAddress: DeliusAddress = null
+        let defaultAddress
         let onlyAlternateAddressesAvailable: boolean = false
         if (suicideRisk.workAddress == null && signAndSendDetails.responsibleOfficer?.addresses != null) {
           defaultAddress = signAndSendDetails.responsibleOfficer?.addresses.find(record => record.status === 'Default')
@@ -342,7 +345,7 @@ export default function signAndSendRoutes(
           signAndSendDetails.responsibleOfficer?.addresses != null
         ) {
           const addressPresent = signAndSendDetails.responsibleOfficer?.addresses.find(
-            record => record.id === suicideRisk.workAddress.addressId,
+            record => record.id === suicideRisk.workAddress?.addressId,
           )
           if (addressPresent == null) {
             suicideRisk.workAddress = null
@@ -362,7 +365,7 @@ export default function signAndSendRoutes(
           manualAddressAllowed = true
         }
 
-        let defaultAddress: DeliusAddress = null
+        let defaultAddress
         let onlyAlternateAddressesAvailable: boolean = false
         if (suicideRisk.workAddress == null && signAndSendDetails.responsibleOfficer.addresses != null) {
           defaultAddress = signAndSendDetails.responsibleOfficer?.addresses?.find(record => record.status === 'Default')
@@ -418,7 +421,7 @@ export default function signAndSendRoutes(
           signAndSendDetails.responsibleOfficer?.addresses != null
         ) {
           const addressPresent = signAndSendDetails.responsibleOfficer?.addresses?.find(
-            record => record.id === suicideRisk.workAddress.addressId,
+            record => record.id === suicideRisk.workAddress?.addressId,
           )
           if (addressPresent == null) {
             suicideRisk.workAddress = null
@@ -438,7 +441,7 @@ export default function signAndSendRoutes(
           manualAddressAllowed = true
         }
 
-        let defaultAddress: DeliusAddress = null
+        let defaultAddress
         let onlyAlternateAddressesAvailable: boolean = false
         if (suicideRisk.workAddress == null && signAndSendDetails.responsibleOfficer?.addresses != null) {
           defaultAddress = signAndSendDetails.responsibleOfficer?.addresses?.find(record => record.status === 'Default')
@@ -494,7 +497,7 @@ export default function signAndSendRoutes(
           signAndSendDetails.responsibleOfficer?.addresses != null
         ) {
           const addressPresent = signAndSendDetails.responsibleOfficer?.addresses.find(
-            record => record.id === suicideRisk.workAddress.addressId,
+            record => record.id === suicideRisk.workAddress?.addressId,
           )
           if (addressPresent == null) {
             suicideRisk.workAddress = null
@@ -514,7 +517,7 @@ export default function signAndSendRoutes(
           manualAddressAllowed = true
         }
 
-        let defaultAddress: DeliusAddress = null
+        let defaultAddress
         let onlyAlternateAddressesAvailable: boolean = false
         if (suicideRisk.workAddress == null && signAndSendDetails.responsibleOfficer?.addresses != null) {
           defaultAddress = signAndSendDetails.responsibleOfficer?.addresses.find(record => record.status === 'Default')
@@ -586,7 +589,7 @@ export default function signAndSendRoutes(
           manualAddressAllowed = true
         }
 
-        let defaultAddress: DeliusAddress = null
+        let defaultAddress
         let onlyAlternateAddressesAvailable: boolean = false
         if (suicideRisk.workAddress == null && signAndSendDetails.responsibleOfficer?.addresses != null) {
           defaultAddress = signAndSendDetails.responsibleOfficer?.addresses?.find(record => record.status === 'Default')
@@ -663,8 +666,8 @@ export default function signAndSendRoutes(
 
   function addressListToSelectItemList(
     addresses: DeliusAddress[],
-    breachNoticeSaved: boolean,
-    selectedAddressId: number,
+    suicideRiskSaved: boolean,
+    selectedAddressId: number | null | undefined,
   ): SelectItem[] {
     const returnAddressList: SelectItem[] = [
       {
@@ -678,7 +681,7 @@ export default function signAndSendRoutes(
         addresses.map(address => ({
           text: formatAddressForSelectMenuDisplay(address),
           value: `${address.id}`,
-          selected: breachNoticeSaved && address.id === selectedAddressId,
+          selected: suicideRiskSaved && address.id === selectedAddressId,
         })),
       )
 
@@ -688,7 +691,7 @@ export default function signAndSendRoutes(
     return returnAddressList
   }
 
-  function getSelectedAddress(addressList: DeliusAddress[], addressIdentifier: string): DeliusAddress {
+  function getSelectedAddress(addressList: DeliusAddress[], addressIdentifier: string) {
     if (addressIdentifier && addressIdentifier.length > 0) {
       const addressIdentifierNumber: number = +addressIdentifier
       if (addressList && Object.keys(addressList).length > 0) {

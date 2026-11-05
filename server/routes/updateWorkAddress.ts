@@ -2,7 +2,7 @@ import { Router } from 'express'
 import { AuthenticationClient } from '@ministryofjustice/hmpps-auth-clients'
 import AuditService, { Page } from '../services/auditService'
 
-import SuicideRiskApiClient, { SuicideRisk, SuicideRiskAddress } from '../data/suicideRiskApiClient'
+import SuicideRiskApiClient, { SuicideRiskAddress } from '../data/suicideRiskApiClient'
 import CommonUtils from '../services/commonUtils'
 import { ErrorMessages } from '../data/uiModels'
 import { handleIntegrationErrors } from '../utils/utils'
@@ -20,11 +20,11 @@ export default function updateWorkAddressRoutes(
     const suicideRiskId: string = req.params.id
     const suicideRiskApiClient = new SuicideRiskApiClient(authenticationClient)
 
-    let suicideRisk: SuicideRisk = null
+    let suicideRisk
     try {
       suicideRisk = await suicideRiskApiClient.getSuicideRiskById(suicideRiskId, res.locals.user.username)
     } catch (error) {
-      const errorMessages: ErrorMessages = handleIntegrationErrors(error.status, error.data?.message, 'Suicide Risk')
+      const errorMessages: ErrorMessages = handleIntegrationErrors(error, 'Suicide Risk')
       const showEmbeddedError = true
       res.render(`pages/update-work-address`, { errorMessages, showEmbeddedError })
       return
@@ -43,12 +43,12 @@ export default function updateWorkAddressRoutes(
     const suicideRiskApiClient = new SuicideRiskApiClient(authenticationClient)
 
     const suicideRiskId: string = req.params.id
-    let suicideRisk: SuicideRisk = null
+    let suicideRisk
 
     try {
       suicideRisk = await suicideRiskApiClient.getSuicideRiskById(suicideRiskId, res.locals.user.username)
     } catch (error) {
-      const errorMessages: ErrorMessages = handleIntegrationErrors(error.status, error.data?.message, 'Suicide Risk')
+      const errorMessages: ErrorMessages = handleIntegrationErrors(error, 'Suicide Risk')
       const showEmbeddedError = true
       res.render(`pages/update-work-address`, { errorMessages, showEmbeddedError })
       return
@@ -86,7 +86,7 @@ export default function updateWorkAddressRoutes(
         await suicideRiskApiClient.updateSuicideRisk(req.params.id, suicideRisk, res.locals.user.username)
         res.redirect(`/sign-and-send/${req.params.id}`)
       } catch (error) {
-        const integrationErrorMessages = handleIntegrationErrors(error.status, error.data?.message, 'Breach Notice')
+        const integrationErrorMessages = handleIntegrationErrors(error, 'Breach Notice')
         const showEmbeddedError = true
         // always stay on page and display the error when there are isssues retrieving the breach notice
         res.render(`pages/update-work-address`, { errorMessages, showEmbeddedError, integrationErrorMessages })
@@ -139,7 +139,7 @@ export default function updateWorkAddressRoutes(
   }
 
   function validateLength(
-    fieldValue: string,
+    fieldValue: string | null | undefined,
     fieldName: keyof typeof FIELD_LIMITS,
     label: string,
     errorMessages: ErrorMessages,
