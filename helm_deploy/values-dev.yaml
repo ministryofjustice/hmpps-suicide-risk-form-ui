@@ -24,6 +24,3 @@ generic-service:
       - unilink_staff
       - moj_cloud_platform # for end-to-end testing
       - mod-platform-non-live
-
-generic-prometheus-alerts:
-  alertSeverity: hmpps-suicide-risk-form-notifications
